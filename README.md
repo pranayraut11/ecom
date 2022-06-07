@@ -1,2 +1,2 @@
 # ecom
-Project for e-commers website
+Project for e-commerce website
