@@ -1,14 +1,19 @@
-catalog:
-     image: cat
+version: "3.4"
+services:
+    catalog1:
+     build: ./Services/cart
      ports:
-         - 8081:8080
+         - "8081:8080"
 
-order:
-    image: order
-    ports:
-        - 8082:8080
+    order1:
+      build: ./Services/order
+      ports:
+          - "8082:8080"
 
-cart:
-    image: cart1
-    ports:
-        - 8083:8080
+    cart1:
+      build: ./Services/catalog
+      ports:
+          - "8083:8080"
+
+    mongodb:
+      image: mongo

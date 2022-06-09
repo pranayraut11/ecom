@@ -4,6 +4,6 @@ RUN apt-get update && apt-get -y install openjdk-11-jdk
 
 RUN mkdir /opt/source-code
 
-COPY  ./target/catelog-0.0.1-SNAPSHOT.jar /opt/source-code/
+COPY  ./target/catalog-0.0.1-SNAPSHOT.jar /opt/source-code/
 
-CMD ["java","-jar","/opt/source-code/catelog-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","/opt/source-code/catalog-0.0.1-SNAPSHOT.jar"]

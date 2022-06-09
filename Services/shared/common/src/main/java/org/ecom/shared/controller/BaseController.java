@@ -27,12 +27,12 @@ public abstract class BaseController<T> {
     }
 
     @PostMapping
-    public T create(T entity){
+    public T create(@RequestBody T entity){
         return baseService.create(entity);
     }
 
     @PatchMapping
-    public T update(T entity){
+    public T update(@RequestBody T entity){
         return baseService.update(entity);
     }
 

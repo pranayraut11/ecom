@@ -1,18 +1,27 @@
-package com.ecom.catelog.service.implementation;
+package com.ecom.catalog.service.implementation;
 
-import com.ecom.catelog.entity.Product;
-import com.ecom.catelog.service.specification.Catelog;
+import com.ecom.catalog.entity.Product;
+import com.ecom.catalog.repository.specification.ProductRepository;
+import com.ecom.catalog.service.specification.Catalog;
 import org.ecom.shared.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Service
-public class CatelogImpl extends BaseService<Product> implements Catelog {
+public class CatalogImpl extends BaseService<Product> implements Catalog {
+
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public List<Product> getAll() {
-        return Collections.emptyList();
+        List<Product> productList = new ArrayList<>();
+        productRepository.findAll().forEach(productList::add);
+        return productList;
     }
 
     @Override
@@ -27,7 +36,7 @@ public class CatelogImpl extends BaseService<Product> implements Catelog {
 
     @Override
     public Product create(Product entity) {
-        return null;
+        return productRepository.save(entity);
     }
 
     @Override

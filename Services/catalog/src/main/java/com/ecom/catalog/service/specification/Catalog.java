@@ -1,4 +1,4 @@
-package com.ecom.catelog.service.specification;
+package com.ecom.catalog.service.specification;
 
-public interface Catelog {
+public interface Catalog {
 }
