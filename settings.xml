@@ -30,7 +30,7 @@
         <mirror>
             <id>${CENTRAL-REPO}</id>
             <name>${CENTRAL-REPO}</name>
-            <url>http://${NEXUSIP}:8081/repository/${NEXUS-GRP-REPO}/</url>
+            <url>http://localhost:8081/repository/ecom-group/</url>
             <mirrorOf>*</mirrorOf>
         </mirror>
     </mirrors>
