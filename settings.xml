@@ -6,30 +6,30 @@
     <pluginGroups/>
     <servers>
         <server>
-            <id>${SNAP-REPO}</id>
-            <username>${NEXUS-USER}</username>
-            <password>${NEXUS-PASS}</password>
+            <id>ecom-snapshot</id>
+            <username>admin</username>
+            <password>admin</password>
         </server>
         <server>
-            <id>${RELEASE-REPO}</id>
-            <username>${NEXUS-USER}</username>
-            <password>${NEXUS-PASS}</password>
+            <id>ecom-release</id>
+            <username>admin}</username>
+            <password>admin</password>
         </server>
         <server>
-            <id>${CENTRAL-REPO}</id>
-            <username>${NEXUS-USER}</username>
-            <password>${NEXUS-PASS}</password>
+            <id>ecom-maven-central</id>
+            <username>admin</username>
+            <password>admin</password>
         </server>
         <server>
-            <id>${NEXUS-GRP-REPO}</id>
-            <username>${NEXUS-USER}</username>
-            <password>${NEXUS-PASS}</password>
+            <id>ecom-group</id>
+            <username>admin</username>
+            <password>admin</password>
         </server>
     </servers>
     <mirrors>
         <mirror>
-            <id>${CENTRAL-REPO}</id>
-            <name>${CENTRAL-REPO}</name>
+            <id>ecom-maven-central</id>
+            <name>ecom-maven-central</name>
             <url>http://localhost:8081/repository/ecom-group/</url>
             <mirrorOf>*</mirrorOf>
         </mirror>
