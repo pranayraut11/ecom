@@ -47,7 +47,7 @@
     <repositories>
         <repository>
             <id>${NEXUS-GRP-REPO}</id>
-            <url>http://${NEXUSIP}:8081/repository/${NEXUS-GRP-REPO}/</url>
+            <url>http://localhost:8081/repository/ecom-group/</url>
         </repository>
 
     </repositories>
