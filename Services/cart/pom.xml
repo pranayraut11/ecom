@@ -46,7 +46,7 @@
     </build>
     <repositories>
         <repository>
-            <id>${NEXUS-GRP-REPO}</id>
+            <id>ecom-group</id>
             <url>http://localhost:8081/repository/ecom-group/</url>
         </repository>
 
