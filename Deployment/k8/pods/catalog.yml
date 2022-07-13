@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: catalog-pod
+  labels:
+    app: ecom
+
+spec:
+  containers:
+    - name: catalog
+      image: pranayraut11/catalog-app
+      imagePullPolicy: IfNotPresent

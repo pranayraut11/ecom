@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mongodb-pod
+  labels:
+    name: mongodb-pod
+    app: ecom
+
+spec:
+  containers:
+    - name: mongodb
+      image: mongo
