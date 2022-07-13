@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -26,12 +25,12 @@ public class CatalogImpl extends BaseService<Product> implements Catalog {
 
     @Override
     public Product get(String id) {
-        return null;
+        return productRepository.findById(id).get();
     }
 
     @Override
     public void delete(String id) {
-
+        productRepository.deleteById(id);
     }
 
     @Override
@@ -41,6 +40,6 @@ public class CatalogImpl extends BaseService<Product> implements Catalog {
 
     @Override
     public Product update(Product entity) {
-        return null;
+        return productRepository.save(entity);
     }
 }

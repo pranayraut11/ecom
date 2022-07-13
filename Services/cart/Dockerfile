@@ -1,8 +1,4 @@
-FROM ubuntu
-
-RUN apt-get update && apt-get -y install  openjdk-11-jdk
-
-RUN mkdir /opt/source-code
+FROM pranayraut11/alpine-java11
 
 COPY ./target/cart-0.0.1-SNAPSHOT.jar /opt/source-code/
 
