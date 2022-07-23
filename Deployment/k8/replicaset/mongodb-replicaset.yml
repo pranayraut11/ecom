@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: mongodb-replicaset
+  labels:
+    name: mongodb-replicaset
+    app: ecom
+
+spec:
+  template:
+    metadata:
+      name: mongodb-pod
+      labels:
+        name: mongodb-pod
+        app: ecom
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo
+  replicas: 3        
+  selector:
+    matchLabels:
+      name: mongodb-pod
+      app: ecom

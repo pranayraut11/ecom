@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cart-pod
+  labels: 
+    name: cart-pod
+    app: ecom
+
+spec:
+  containers:
+    - name: cart
+      image: pranayraut11/cart-app     

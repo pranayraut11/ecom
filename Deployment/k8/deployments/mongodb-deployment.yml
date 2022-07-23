@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+  labels:
+    name: mongodb-deployment
+    app: ecom
+
+spec:
+  template:
+    metadata:
+      name: mongodb-pod
+      labels:
+        name: mongodb-pod
+        app: ecom
+    spec: 
+      containers:
+        - name: mongodb-pod
+          image: mongo
+  replicas: 3      
+  selector:
+    matchLabels:
+      name: mongodb-pod
+      app: ecom    
+
