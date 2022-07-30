@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-deployment
+  labels:
+    name: catalog-deployment
+    app: ecom
+
+spec:
+  template:
+    metadata:
+      name: catalog-pod
+      labels:
+        name: catalog-pod
+        app: ecom
+    spec: 
+      containers:
+        - name: catalog
+          image: pranayraut11/catalog-app
+          env:
+           - name: spring.data.mongodb.uri
+             valueFrom:
+                configMapKeyRef:
+                  key: databaseurl
+                  name: mongodb-config
+           - name: spring.data.mongodb.database
+             value: catalog
+  replicas: 3      
+  selector:
+    matchLabels:
+      name: catalog-pod
+      app: ecom    
+

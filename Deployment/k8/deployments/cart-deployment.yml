@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-deployment
+  labels:
+    name: cart-deployment
+    app: ecom
+
+spec:
+  template:
+    metadata:
+      name: cart-pod
+      labels:
+        name: cart-pod
+        app: ecom
+    spec: 
+      containers:
+        - name: cart
+          image: pranayraut11/cart-app
+          
+  replicas: 3      
+  selector:
+    matchLabels:
+      name: cart-pod
+      app: ecom    
+

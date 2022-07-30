@@ -17,6 +17,19 @@ spec:
       containers:
         - name: mongodb-pod
           image: mongo
+          env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: username
+                name: mongodb-secret
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: password
+                name: mongodb-secret
+          - name: MONGO_INITDB_DATABASE
+            value: admin
   replicas: 3      
   selector:
     matchLabels:

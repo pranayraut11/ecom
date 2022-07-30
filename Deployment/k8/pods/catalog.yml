@@ -9,4 +9,4 @@ spec:
   containers:
     - name: catalog
       image: pranayraut11/catalog-app
-      imagePullPolicy: IfNotPresent
+     

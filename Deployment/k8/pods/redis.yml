@@ -8,5 +8,5 @@ metadata:
 
 spec:
   containers:
-    - name: redis-container
+    - name: redis-pod
       image: redis    

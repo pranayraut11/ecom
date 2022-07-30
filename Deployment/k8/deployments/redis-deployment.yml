@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  labels:
+    name: redis-deployment
+    app: ecom
+
+spec:
+  template:
+    metadata:
+      name: redis-pod
+      labels:
+        name: redis-pod
+        app: ecom
+    spec: 
+      containers:
+        - name: redis-pod
+          image: redis
+  replicas: 3      
+  selector:
+    matchLabels:
+      name: redis-pod
+      app: ecom    
+
