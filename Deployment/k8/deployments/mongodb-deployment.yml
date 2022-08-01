@@ -30,7 +30,19 @@ spec:
                 name: mongodb-secret
           - name: MONGO_INITDB_DATABASE
             value: admin
-  replicas: 3      
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongo-data-storage
+              subPath: data
+            - mountPath: /data/configdb
+              name:  mongo-data-storage
+              subPath: config
+
+      volumes:
+        - name: mongo-data-storage
+          persistentVolumeClaim:
+            claimName: mongo-persistentvolumeclaim     
+  replicas: 1     
   selector:
     matchLabels:
       name: mongodb-pod

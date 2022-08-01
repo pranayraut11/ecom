@@ -9,4 +9,4 @@ metadata:
 spec:
   containers:
     - name: mongodb
-      image: mongo
+      image: mongo    
