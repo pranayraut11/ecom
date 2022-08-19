@@ -1,44 +1,28 @@
 package com.ecom.cart.entity;
 
+import lombok.Builder;
+import lombok.Data;
+import org.ecom.shared.entity.BaseEntity;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @RedisHash("Cart")
-public class Cart {
+@Data
+@Builder
+public class Cart extends BaseEntity {
 
-    private String id;
-    private String productName;
-    private String productId;
+    List<Product> products;
+
+    @Indexed
     private String userId;
 
-    public String getId() {
-        return id;
-    }
+    private BigDecimal totalPrice;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    private BigDecimal discount;
 
-    public String getProductName() {
-        return productName;
-    }
+    private BigDecimal total;
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductId() {
-        return productId;
-    }
-
-    public void setProductId(String productId) {
-        this.productId = productId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }

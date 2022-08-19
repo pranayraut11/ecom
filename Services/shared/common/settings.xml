@@ -1,0 +1,40 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <localRepository/>
+    <interactiveMode/>
+    <offline/>
+    <pluginGroups/>
+    <servers>
+        <server>
+            <id>ecom-snapshot</id>
+            <username>admin</username>
+            <password>admin</password>
+        </server>
+        <server>
+            <id>ecom-release</id>
+            <username>admin</username>
+            <password>admin</password>
+        </server>
+        <server>
+            <id>ecom-maven-central</id>
+            <username>admin</username>
+            <password>admin</password>
+        </server>
+        <server>
+            <id>ecom-group</id>
+            <username>admin</username>
+            <password>admin</password>
+        </server>
+    </servers>
+    <mirrors>
+        <mirror>
+            <id>ecom-maven-central</id>
+            <name>ecom-maven-central</name>
+            <url>http://172.20.0.3:8081/repository/ecom-group/</url>
+            <mirrorOf>*</mirrorOf>
+        </mirror>
+    </mirrors>
+    <proxies/>
+    <profiles/>
+    <activeProfiles/>
+</settings>
