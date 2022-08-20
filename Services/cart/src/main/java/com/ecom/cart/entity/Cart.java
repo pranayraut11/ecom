@@ -21,7 +21,7 @@ public class Cart extends BaseEntity {
 
     private BigDecimal totalPrice;
 
-    private BigDecimal discount;
+    private int discount;
 
     private BigDecimal total;
 

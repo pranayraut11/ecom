@@ -4,11 +4,13 @@ import com.ecom.cart.entity.Cart;
 import com.ecom.cart.entity.Product;
 import com.ecom.cart.repository.CartRepository;
 import com.ecom.cart.service.specification.CartService;
+import com.ecom.cart.utility.PriceCalculationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.ecom.shared.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,25 +51,7 @@ public class CartImpl extends BaseService<Cart> implements CartService {
 
     @Override
     public Cart create(Cart entity) {
-        Cart cart = cartRepository.findByUserId(entity.getUserId());
-        if (cart != null) {
-            boolean isProductExist = false;
-            for (Product product : cart.getProducts()) {
-                if (product.getProductId().equals(entity.getProducts().get(0).getProductId())) {
-                    log.info("Product already exist in cart . incrementing quantity");
-                    product.setQuantity((short) (product.getQuantity() + 1));
-                    isProductExist = true;
-                    break;
-                }
-            }
-            if (!isProductExist) {
-                cart.getProducts().add(entity.getProducts().get(0));
-            }
-        } else {
-            cart = entity;
-            cart.setId(UUID.randomUUID().toString());
-        }
-        return cartRepository.save(cart);
+        return cartRepository.save(entity);
     }
 
     @Override
@@ -77,7 +61,9 @@ public class CartImpl extends BaseService<Cart> implements CartService {
 
     @Override
     public Cart getCart() {
-        return cartRepository.findByUserId("pranay");
+        Cart cart = cartRepository.findByUserId("pranay");
+        PriceCalculationUtil.getCartPrice(cart);
+        return cart;
     }
 
     @Override
@@ -100,6 +86,17 @@ public class CartImpl extends BaseService<Cart> implements CartService {
                 cart.getProducts().add(product);
             }
         }
-        return cartRepository.save(cart);
+        return PriceCalculationUtil.getCartPrice(cartRepository.save(cart));
+    }
+
+    @Override
+    public Cart updateProduct(Product product) {
+        Cart cart = cartRepository.findByUserId("pranay");
+        if (Objects.nonNull(cart)) {
+            List<Product> matchedProduct = cart.getProducts().stream().filter(cartProduct -> cartProduct.getProductId().equals(product.getProductId())).collect(Collectors.toList());
+            cart.getProducts().removeAll(matchedProduct);
+            cart.getProducts().add(product);
+        }
+        return PriceCalculationUtil.getCartPrice(cartRepository.save(cart));
     }
 }

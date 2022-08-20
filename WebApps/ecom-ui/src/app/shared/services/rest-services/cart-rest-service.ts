@@ -10,10 +10,8 @@ export class CartRestService{
 
     constructor(private rest: HttpClient){}
 
-    addToCart(cartProduct : CartProduct){
-        this.rest.post("http://localhost:8081/cart/products",cartProduct).subscribe(response=>{
-            console.log(response);
-        });
+    addToCart(cartProduct : CartProduct) : Observable<Cart>{
+       return this.rest.post<Cart>("http://localhost:8081/cart/products",cartProduct);
     }
 
     getCartProducts() : Observable<Cart>{
@@ -23,4 +21,9 @@ export class CartRestService{
     removeFromCart(id: string){
        return this.rest.delete("http://localhost:8081/cart/"+id);
     }
+
+    updateProduct(cartProduct : CartProduct): Observable<Cart>{
+        return this.rest.patch<Cart>("http://localhost:8081/cart/products",cartProduct);
+    }
+ 
 }

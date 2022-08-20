@@ -10,4 +10,6 @@ public interface CartService {
 
     Cart addProductToCart(Product product);
 
+    Cart updateProduct(Product product);
+
 }

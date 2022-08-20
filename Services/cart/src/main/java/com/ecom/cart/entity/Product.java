@@ -3,6 +3,8 @@ package com.ecom.cart.entity;
 import lombok.Data;
 import org.springframework.data.redis.core.index.Indexed;
 
+import java.math.BigDecimal;
+
 @Data
 public class Product {
     @Indexed
@@ -16,9 +18,9 @@ public class Product {
 
     private String image;
 
-    private int price;
+    private BigDecimal price;
 
-    private int discountedPrice;
+    private BigDecimal discountedPrice;
 
     private short discount;
 

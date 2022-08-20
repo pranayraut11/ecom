@@ -17,6 +17,7 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.cartRestService.getCartProducts().subscribe((cart: Cart) => {
       console.log(cart);
+      this.cart = cart;
       this.cartProducts = cart.products;
     });
   }
@@ -25,12 +26,21 @@ export class CartComponent implements OnInit {
     let product: CartProduct;
     product = this.cartProducts.find(product => product.productId === cartProduct.productId);
     product.quantity = product.quantity + 1;
+
+    this.cartRestService.updateProduct(product).subscribe(response => {
+      console.log(response);
+      this.cart = response;
+    });
   }
 
   decreaseQuantity(cartProduct: CartProduct) {
     let product: CartProduct;
     product = this.cartProducts.find(cartProducts => cartProducts.productId === cartProduct.productId);
     product.quantity = product.quantity - 1;
+    this.cartRestService.updateProduct(product).subscribe(response => {
+      console.log(response);
+      this.cart = response;
+    });
   }
 
   removeFromCart(cartProduct: CartProduct) {

@@ -25,4 +25,9 @@ public class CartController extends BaseController<Cart> {
       return   cartService.addProductToCart(product);
     }
 
+    @PatchMapping("products")
+    public Cart updateProductQuantity(@RequestBody Product product){
+       return cartService.updateProduct(product);
+    }
+
 }

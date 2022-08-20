@@ -25,7 +25,9 @@ export class ProductListComponent implements OnInit {
   addToCart(product: Product) {
     let cartProduct = new CartProduct(product.id, product.name, product.images[0].url, product.price.price, product.price.discountedPrice, product.price.discount, 1);
     console.log(product);
-    this.cartRestService.addToCart(cartProduct);
+    this.cartRestService.addToCart(cartProduct).subscribe(response=>{
+      console.log(response);
+  });;
   }
 
 }
