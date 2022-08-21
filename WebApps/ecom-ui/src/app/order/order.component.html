@@ -1,0 +1,26 @@
+<div>
+
+    <div *ngFor="let product of orderProduct" class="container-fluid  ">
+        <div class="row ">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <img src="{{product.image}}"  class="col-md-12" style="width: 100%;">
+            </div>
+            <div class="col-md-5 " style="margin-top: 2%;">
+                <a href="#" class="">{{product.productName}}</a>
+
+                <p class="text-muted small">SIZE: L <br> {{product.description}}</p>
+
+            </div>
+
+            <div class="col-md-1" style="margin-top: 2%;">
+                <div class="price-wrap"> <var class="price">${{product.price}}</var> </div>
+            </div>
+            <div class="col-md-2 " style="margin-top: 2%;">
+
+                {{product.deliveryDate}}
+            </div>
+
+        </div>
+        <hr>
+    </div>
