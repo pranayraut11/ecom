@@ -1,11 +1,28 @@
 package com.ecom.order.controller;
 
-import com.ecom.order.entity.Order;
-import org.ecom.shared.controller.BaseController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ecom.order.dto.OrderDTO;
+import com.ecom.order.entity.OrderProducts;
+import com.ecom.order.service.specification.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("order")
-public class OrderController extends BaseController<Order> {
+@CrossOrigin("*")
+public class OrderController {
+
+    @Autowired
+    private OrderService orderService;
+
+    @PostMapping()
+    public void createOrders(@RequestBody List<OrderProducts> products){
+         orderService.createOrder(products);
+    }
+
+    @GetMapping()
+    public List<OrderDTO> getAllOrders(){
+        return orderService.getOrders();
+    }
 }

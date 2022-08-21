@@ -2,32 +2,37 @@ package com.ecom.cart.controller;
 
 import com.ecom.cart.entity.Cart;
 import com.ecom.cart.entity.Product;
-import com.ecom.cart.service.specification.CartService;
-import org.ecom.shared.controller.BaseController;
+import com.ecom.cart.service.specification.CartProductService;
+import com.ecom.cart.service.specification.CartProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("cart")
+@RequestMapping("cart/product")
 @CrossOrigin("*")
-public class CartController extends BaseController<Cart> {
+public class CartProductController{
 
     @Autowired
-    private CartService cartService;
+    private CartProductService cartService;
 
-    @GetMapping("products")
+    @GetMapping()
     public Cart getCart(){
         return cartService.getCart();
     }
 
-    @PostMapping("products")
+    @PostMapping()
     public Cart addProductToCart(@RequestBody Product product){
       return   cartService.addProductToCart(product);
     }
 
-    @PatchMapping("products")
+    @PatchMapping()
     public Cart updateProductQuantity(@RequestBody Product product){
        return cartService.updateProduct(product);
+    }
+
+    @DeleteMapping()
+    public Cart removeProductFromCart(@PathVariable String productId){
+       return cartService.removeProductFromCart(productId);
     }
 
 }

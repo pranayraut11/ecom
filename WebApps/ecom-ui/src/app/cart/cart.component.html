@@ -27,13 +27,13 @@
                                 <td class="col-md-3">
 
                                     <div class="col-md-3">
-                                        <button type="button" class="btn " (click)="decreaseQuantity(product)">-</button>
+                                        <button type="button" class="btn btn-out" (click)="decreaseQuantity(product)">-</button>
                                     </div>
                                     <div class="col-md-5">
                                         <input type="text" class=" form-control" value="{{product.quantity}}" />
                                     </div>
                                     <div class="col-6">
-                                        <button type="button" (click)="increaseQuantity(product)" class="btn ">+</button>
+                                        <button type="button" (click)="increaseQuantity(product)" class="btn btn-out">+</button>
                                     </div>
 
                                 </td>
@@ -43,9 +43,9 @@
                                             class="text-muted"> ${{product.discountedPrice}} each </small> </div>
                                 </td>
                                 <td class="text-right d-none d-md-block col-md-4">
-                                    <div class="col-md-6"> <button type="button" class="btn btn-warning">Save to
+                                    <div class="col-md-6"> <button type="button" class="btn btn-warning btn-out">Save to
                                             wishlist</button></div>
-                                    <div class="col-md-6"> <button type="button" class="btn btn-danger" (click)="removeFromCart(product)">Remove</button>
+                                    <div class="col-md-6"> <button type="button" class="btn btn-danger btn-out" (click)="removeFromCart(product)">Remove</button>
                                     </div>
                                 </td>
                             </tr>
@@ -82,8 +82,7 @@
                         <dt>Total:</dt>
                         <dd class="text-right text-dark b ml-3"><strong>${{cart.total}}</strong></dd>
                     </dl>
-                    <hr> <a href="#" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> Make Purchase
-                    </a> <a href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue
+                    <hr> <button type="button" class="btn btn-out btn-primary btn-square btn-main"  (click)="placeOrder(cart)"> Place order</button><hr> <a href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue
                         Shopping</a>
                 </div>
             </div>

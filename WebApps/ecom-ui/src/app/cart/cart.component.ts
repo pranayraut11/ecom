@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Cart } from '../shared/models/cart';
 import { CartProduct } from '../shared/models/cart.product.model';
+import { OrderRestService } from '../shared/services/rest-services/order-rest-service';
 import { CartRestService } from '../shared/services/rest-services/cart-rest-service';
 
 @Component({
@@ -10,10 +11,9 @@ import { CartRestService } from '../shared/services/rest-services/cart-rest-serv
 })
 export class CartComponent implements OnInit {
 
-  constructor(private cartRestService: CartRestService) { }
+  constructor(private cartRestService: CartRestService,private orderRestService: OrderRestService) { }
   cart: Cart;
   cartProducts: CartProduct[];
-  @Input() quantity: number;
   ngOnInit(): void {
     this.cartRestService.getCartProducts().subscribe((cart: Cart) => {
       console.log(cart);
@@ -50,5 +50,13 @@ export class CartComponent implements OnInit {
     });
   }
 
+  placeOrder(cart : Cart){
+    console.log("Placing order");
+    
+    this.orderRestService.placeOrder(cart.products).subscribe(response=>{
+      console.log("order placed!")
+      console.log(response);
+    });
+  }
 
 }

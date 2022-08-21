@@ -3,20 +3,19 @@ package com.ecom.cart.service.implementation;
 import com.ecom.cart.entity.Cart;
 import com.ecom.cart.entity.Product;
 import com.ecom.cart.repository.CartRepository;
-import com.ecom.cart.service.specification.CartService;
+import com.ecom.cart.service.specification.CartProductService;
 import com.ecom.cart.utility.PriceCalculationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.ecom.shared.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class CartImpl extends BaseService<Cart> implements CartService {
+public class CartProductImpl extends BaseService<Cart> implements CartProductService {
 
     @Autowired
     private CartRepository cartRepository;
@@ -98,5 +97,20 @@ public class CartImpl extends BaseService<Cart> implements CartService {
             cart.getProducts().add(product);
         }
         return PriceCalculationUtil.getCartPrice(cartRepository.save(cart));
+    }
+
+    @Override
+    public Cart removeProductFromCart(String id) {
+        Cart cart = cartRepository.findByUserId("pranay");
+        if (cart != null) {
+            Product product = cart.getProducts().stream().filter(cartProduct -> cartProduct.getProductId().equals(id)).collect(Collectors.toList()).stream().findFirst().get();
+            cart.getProducts().remove(product);
+            if (cart.getProducts().size() == 0) {
+                cartRepository.delete(cart);
+            } else {
+                cartRepository.save(cart);
+            }
+        }
+        return cart;
     }
 }

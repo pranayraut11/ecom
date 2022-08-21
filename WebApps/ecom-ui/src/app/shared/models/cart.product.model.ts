@@ -1,4 +1,7 @@
 export class CartProduct {
+
+    public orderId: string;
+
     public productId: string;
 
     public name: string
@@ -12,7 +15,8 @@ export class CartProduct {
     public discount: number;
 
     public quantity: number;
-    constructor(productId: string, name: string, image: string, price: number, discountedPrice: number, discount: number, quantity: number) {
+    constructor(orderId: string,productId: string, name: string, image: string, price: number, discountedPrice: number, discount: number, quantity: number) {
+        this.orderId = orderId;
         this.productId = productId;
         this.name = name;
         this.image = image;
