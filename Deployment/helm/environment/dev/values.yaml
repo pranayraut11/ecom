@@ -1,0 +1,9 @@
+mongodb:
+  auth:
+    enabled: true
+    databases:
+      - catalog
+    usernames:
+      - demo
+    passwords:
+      - demo   
