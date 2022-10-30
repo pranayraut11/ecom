@@ -1,3 +1,8 @@
+global:
+  configMapName: dev-configmap
+  activeProfile: dev
+  mongoUrl: mongodb://demo:demo@dev-env-mongodb:27017/?authSource=admin
+
 mongodb:
   auth:
     enabled: true
@@ -6,4 +11,5 @@ mongodb:
     usernames:
       - demo
     passwords:
-      - demo   
+      - demo
+

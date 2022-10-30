@@ -5,4 +5,5 @@ metadata:
   name: {{ .Values.global.configMapName }}
 data:
   SPRING_PROFILES_ACTIVE: {{ .Values.global.activeProfile }}
+  SPRING_DATA_MONGODB_URI: {{ .Values.global.mongoUrl }}
 {{- end -}}  

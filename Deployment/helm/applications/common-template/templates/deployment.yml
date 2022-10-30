@@ -17,17 +17,24 @@ spec:
         app: {{ .Values.deploymentLabel }}
     spec:
       containers:
-      - name: {{ .Values.deploymentLabel }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        ports:
-        - containerPort: {{ .Values.containerPort}}
-          protocol: TCP
+        - name: {{ .Values.deploymentLabel }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.containerPort}}
+              protocol: TCP
           env: 
           {{- if .Values.profile.enabled }}
-          - name: SPRING_PROFILES_ACTIVE
-            valueFrom: 
-              configMapKeyRef:
-                name: {{ .Values.global.configMapName }}
-                key: SPRING_PROFILES_ACTIVE
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom: 
+                configMapKeyRef:
+                  name: {{ .Values.global.configMapName }}
+                  key: SPRING_PROFILES_ACTIVE
+          {{- end -}}
+          {{- if .Values.mongo.enabled }}
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom: 
+                configMapKeyRef:
+                  name: {{ .Values.global.configMapName }}
+                  key: SPRING_DATA_MONGODB_URI
           {{- end -}}
 {{- end -}}          

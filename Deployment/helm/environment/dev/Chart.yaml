@@ -24,6 +24,14 @@ version: 0.1.0
 appVersion: "1.16.0"
 
 dependencies:
+  - name: common-template
+    version: 0.1.0
+    repository: file://../../applications/common-template
+
   - name: mongodb
     version: 13.3.0
     repository: "https://charts.bitnami.com/bitnami"
+
+  - name: catalog
+    version: 0.1.0
+    repository: file://../../applications/catalog
