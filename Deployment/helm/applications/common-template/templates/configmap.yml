@@ -6,4 +6,6 @@ metadata:
 data:
   SPRING_PROFILES_ACTIVE: {{ .Values.global.activeProfile }}
   SPRING_DATA_MONGODB_URI: {{ .Values.global.mongoUrl }}
+  SPRING_REDIS_HOST: {{ .Values.global.redisUrl }}
+  SPRING_REDIS_PASSWORD: {{ .Values.redis.auth.password }}
 {{- end -}}  

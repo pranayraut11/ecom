@@ -21,4 +21,6 @@ profile:
   enabled: true
 mongo:
     enabled: true
+redis: 
+  enabled: false    
 
