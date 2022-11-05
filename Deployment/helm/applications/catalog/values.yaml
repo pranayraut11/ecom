@@ -7,12 +7,12 @@ image:
   repository: pranayraut11/catalog-app
   tag: latest
 
-containerPort: 7001
+containerPort: 8080
 
 service:
   type: NodePort
-  port: 8080
-  targetPort: 7001
+  port: 7001
+  targetPort: 8080
   nodePort: 30001
 
 config:
