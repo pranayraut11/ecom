@@ -1,6 +1,18 @@
 dependencies:
+- name: common-template
+  repository: file://../../applications/common-template
+  version: 0.1.0
 - name: mongodb
   repository: https://charts.bitnami.com/bitnami
   version: 13.3.0
-digest: sha256:6c2d653059af247e758a0fc034419a646809329bd28319c849221aee31f5a9b0
-generated: "2022-10-30T01:27:55.3591524+05:30"
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 17.3.8
+- name: catalog
+  repository: file://../../applications/catalog
+  version: 0.1.0
+- name: cart
+  repository: file://../../applications/cart
+  version: 0.1.0
+digest: sha256:4ee5ab6950cc28fdfe6263bc34f2385342d25c5428d92397e8209dc6fb786078
+generated: "2022-11-05T14:54:27.6658208+05:30"
