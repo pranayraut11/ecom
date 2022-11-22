@@ -1,4 +1,7 @@
 dependencies:
+- name: ecom-ui
+  repository: file://../../applications/ecom-ui
+  version: 0.1.0
 - name: common-template
   repository: file://../../applications/common-template
   version: 0.1.0
@@ -14,5 +17,5 @@ dependencies:
 - name: cart
   repository: file://../../applications/cart
   version: 0.1.0
-digest: sha256:4ee5ab6950cc28fdfe6263bc34f2385342d25c5428d92397e8209dc6fb786078
-generated: "2022-11-05T14:54:27.6658208+05:30"
+digest: sha256:caaa16df86fcce02f254ee58005fa93d31748141f24469d5659417a39c424cb7
+generated: "2022-11-22T18:34:19.2190726+05:30"
