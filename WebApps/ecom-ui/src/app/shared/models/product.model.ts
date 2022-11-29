@@ -8,7 +8,7 @@ export class Product {
     public price: Price;
     public images: Media[];
 
-    constructor(id: string,name: string, description: string, price: Price, discountedPrice: number, discount: number, images: Media[]) {
+    constructor(id: string,name: string, description: string, price: Price,images: Media[]) {
         this.id = id;        
         this.name = name;
         this.description = description;

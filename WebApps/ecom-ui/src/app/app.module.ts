@@ -11,10 +11,12 @@ import { CartComponent } from './cart/cart.component'
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { OrderComponent } from './order/order.component';
+import { CreateProductComponent } from './catalog/create-product/create-product.component';
 
 const appsRoutes: Routes = [
   { path: 'cart', component: CartComponent }, 
   { path: 'myorders', component: OrderComponent },
+  { path: 'product/create', component: CreateProductComponent },
   { path: '', component: CatalogComponent }
 ];
 
@@ -26,7 +28,8 @@ const appsRoutes: Routes = [
     ProductListComponent,
     ProductComponent,
     CartComponent,
-    OrderComponent
+    OrderComponent,
+    CreateProductComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, RouterModule.forRoot(appsRoutes), FormsModule

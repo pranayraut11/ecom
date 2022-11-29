@@ -1,8 +1,9 @@
-package com.ecom.catalog.service.implementation;
+package com.ecom.product.service.implementation;
 
-import com.ecom.catalog.entity.Product;
-import com.ecom.catalog.repository.specification.ProductRepository;
-import com.ecom.catalog.service.specification.Catalog;
+import com.ecom.product.entity.Product;
+import com.ecom.product.repository.specification.ProductRepository;
+import com.ecom.product.service.specification.Catalog;
+
 import org.ecom.shared.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

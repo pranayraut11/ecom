@@ -13,4 +13,8 @@ export class ProductRestService{
       return  this.rest.get<Product[]>("http://localhost:8080/product",{responseType: 'json'});
     }
 
+    createProduct(product : Product): Observable<Product>{
+      return this.rest.post<Product>("http://localhost:8080/product",product);
+    }
+
 }

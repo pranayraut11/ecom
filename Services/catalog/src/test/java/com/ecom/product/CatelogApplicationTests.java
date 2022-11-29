@@ -1,3 +1,4 @@
+package com.ecom.product;
 //package com.ecom.catelog;
 //
 //import org.junit.jupiter.api.Test;
