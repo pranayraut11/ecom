@@ -11,10 +11,9 @@ import { ProductRestService } from 'src/app/shared/services/rest-services/produc
   styleUrls: ['./create-product.component.css']
 })
 export class CreateProductComponent implements OnInit {
- 
 
   constructor(private productRest : ProductRestService ) { }
-  
+
   ngOnInit(): void {
   }
 

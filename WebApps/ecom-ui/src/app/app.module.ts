@@ -11,7 +11,7 @@ import { CartComponent } from './cart/cart.component'
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { OrderComponent } from './order/order.component';
-import { CreateProductComponent } from './catalog/create-product/create-product.component';
+import { CreateProductComponent } from './seller/create-product/create-product.component';
 
 const appsRoutes: Routes = [
   { path: 'cart', component: CartComponent }, 
