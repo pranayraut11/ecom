@@ -10,11 +10,11 @@ export class ProductRestService{
     constructor(private rest : HttpClient ){}
     
     getProductList(): Observable<Product[]>{
-      return  this.rest.get<Product[]>("http://catalog/product",{responseType: 'json'});
+      return  this.rest.get<Product[]>("http://catalog-deployment/product",{responseType: 'json'});
     }
 
     createProduct(product : Product): Observable<Product>{
-      return this.rest.post<Product>("http://catalog/product",product);
+      return this.rest.post<Product>("http://catalog-deployment/product",product);
     }
 
 }
