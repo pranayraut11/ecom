@@ -1,6 +1,6 @@
 global:
   configMapName: dev-configmap
-  activeProfile: dev
+  activeProfile: default
   mongoUrl: mongodb://demo1:demo1@dev-env-mongodb:27017/?authSource=admin&ssl=false
   redisUrl: dev-env-redis-master
 
