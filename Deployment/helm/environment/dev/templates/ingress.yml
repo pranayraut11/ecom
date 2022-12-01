@@ -7,21 +7,13 @@ metadata:
 spec: 
  rules:
   - host: demo.com
-  - http:
+    http:
       paths:
-      - path: /catalog/(.*)
+      - path: /catalog
         pathType: Prefix
         backend:
           service:
             name: catalog 
             port: 
               number: 8080
-      - path: /cart(/|$)(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: cart
-            port:
-              number: 8080
-
   
