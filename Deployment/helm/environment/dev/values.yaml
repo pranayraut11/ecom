@@ -1,7 +1,7 @@
 global:
   configMapName: dev-configmap
   activeProfile: dev
-  mongoUrl: mongodb://demo:demo@dev-env-mongodb:27017/?authSource=admin
+  mongoUrl: mongodb://demo1:demo1@dev-env-mongodb:27017/?authSource=admin
   redisUrl: dev-env-redis-master
 
 mongodb:
@@ -10,9 +10,9 @@ mongodb:
     databases:
       - catalog
     usernames:
-      - demo
+      - demo1
     passwords:
-      - demo
+      - demo1
 
 redis: 
   auth:
