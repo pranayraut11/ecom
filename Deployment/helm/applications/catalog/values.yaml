@@ -1,5 +1,5 @@
-deploymentName : catalog
-deploymentLabel : catalog-deployment
+deploymentName : catalog-deployment
+deploymentLabel : catalog
 
 replicaCount: 1
 
@@ -10,9 +10,10 @@ image:
 containerPort: 8080
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 7001
   targetPort: 8080
+  nodePort: 30001
 
 config:
   enabled: true

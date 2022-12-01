@@ -1,5 +1,5 @@
-deploymentName : cart
-deploymentLabel : cart-deployment
+deploymentName : cart-deployment
+deploymentLabel : cart
 
 replicaCount: 1
 
