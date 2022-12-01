@@ -9,7 +9,7 @@ import com.ecom.product.entity.Product;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("product")
+@RequestMapping("/")
 public class CatalogController extends BaseController<Product> {
 
 }
