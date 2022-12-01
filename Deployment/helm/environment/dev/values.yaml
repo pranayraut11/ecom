@@ -1,7 +1,7 @@
 global:
   configMapName: dev-configmap
   activeProfile: dev
-  mongoUrl: mongodb://demo1:demo1@dev-env-mongodb:27017/product?authSource=admin
+  mongoUrl: mongodb://demo1:demo1@dev-env-mongodb:27017/?authSource=admin&ssl=false
   redisUrl: dev-env-redis-master
 
 mongodb:
