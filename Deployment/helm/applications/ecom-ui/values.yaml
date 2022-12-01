@@ -15,7 +15,7 @@ containerPort: 80
 
 service:
   type: NodePort
-  port: 7005
+  port: 80
   targetPort: 80
   nodePort: 30005
 

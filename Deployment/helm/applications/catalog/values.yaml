@@ -11,7 +11,7 @@ containerPort: 8080
 
 service:
   type: NodePort
-  port: 7001
+  port: 8080
   targetPort: 8080
   nodePort: 30001
 
