@@ -8,14 +8,14 @@ spec:
  rules:
   - http:
       paths:
-      - path: /catalog
+      - path: "/catalog"
         pathType: Prefix
         backend:
           service:
             name: catalog 
             port: 
               number: 8080
-      - path: /ecom
+      - path: "/ecom"
         pathType: Prefix
         backend:
           service:
