@@ -15,7 +15,7 @@ spec:
           service:
             name: catalog 
             port: 
-              number: 8080
+              number: 7001
       - path: /cart/(.*) 
         pathType: Prefix
         backend:
