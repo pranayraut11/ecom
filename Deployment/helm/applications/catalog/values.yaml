@@ -10,10 +10,8 @@ image:
 containerPort: 8080
 
 service:
-  type: NodePort
-  port: 7001
-  targetPort: 8080
-  nodePort: 30001
+  type: ClusterIP
+  port: 8080
 
 config:
   enabled: true
