@@ -3,19 +3,19 @@ kind: Ingress
 metadata:
   name: ingress-catalog
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec: 
   rules:
   - http:
       paths:
-      - path: "/catalog"
+      - path: /catalog(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: catalog 
             port: 
               number: 8080
-      - path: "/ecom"
+      - path: /ecom(/|$)(.*)
         pathType: Prefix
         backend:
           service:
