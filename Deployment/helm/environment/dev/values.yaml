@@ -8,7 +8,7 @@ mongodb:
   auth:
     enabled: true
     databases:
-      - catalog
+      - product
     usernames:
       - demo1
     passwords:
