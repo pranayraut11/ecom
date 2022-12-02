@@ -10,11 +10,11 @@ export class OrderRestService{
     constructor(private rest: HttpClient){}
 
     placeOrder(products: CartProduct[]) : Observable<Order[]>{
-        return this.rest.post<Order[]>("http://localhost:8082/order",products);
+        return this.rest.post<Order[]>("http://localhost/order",products);
     }
 
     getOrders() : Observable<Order[]>{
-        return this.rest.get<Order[]>("http://localhost:8082/order");
+        return this.rest.get<Order[]>("http://localhost/order");
     }
 
 }
