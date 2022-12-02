@@ -15,7 +15,7 @@ spec:
             name: catalog 
             port: 
               number: 8080
-      - path: /ecom
+      - path: /ecom(/|$)(.*)
         pathType: Prefix
         backend:
           service:
