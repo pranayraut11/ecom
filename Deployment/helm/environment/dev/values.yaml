@@ -20,4 +20,4 @@ redis:
     password: redis123
 
 env: 
-  url: http:dev-env    
+  url: dev-env    
