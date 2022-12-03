@@ -13,6 +13,9 @@ mongodb:
       - demo1
     passwords:
       - demo1
+  persistence:
+    enabled: true
+    existingClaim: common-persistentvolumeclaim
 
 redis: 
   auth:
