@@ -18,3 +18,6 @@ redis:
   auth:
     enabled: true     
     password: redis123
+
+env: 
+  url: http:dev-env    

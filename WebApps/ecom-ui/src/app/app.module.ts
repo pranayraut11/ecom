@@ -12,6 +12,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { OrderComponent } from './order/order.component';
 import { CreateProductComponent } from './seller/create-product/create-product.component';
+import { HomeComponent } from './features/layout/customer/pages/home/home.component';
+import { FooterComponent } from './features/layout/customer/components/footer/footer.component';
+import { FilterComponent } from './features/layout/customer/components/filter/filter.component';
 
 const appsRoutes: Routes = [
   { path: 'cart', component: CartComponent }, 
@@ -29,7 +32,10 @@ const appsRoutes: Routes = [
     ProductComponent,
     CartComponent,
     OrderComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    HomeComponent,
+    FooterComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, RouterModule.forRoot(appsRoutes), FormsModule

@@ -6,7 +6,8 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec: 
   rules:
-  - http:
+  - host: {{ .Values.env.url }}
+    http:
       paths:
       - path: /catalog(/|$)(.*)
         pathType: Prefix
@@ -35,5 +36,4 @@ spec:
           service:
             name: ecom-ui 
             port: 
-              number: 80        
-  
+              number: 80
