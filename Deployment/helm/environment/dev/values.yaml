@@ -16,6 +16,8 @@ mongodb:
   persistence:
     enabled: true
     existingClaim: common-persistentvolumeclaim
+  volumePermissions:
+    enabled: true
 
 redis: 
   auth:
