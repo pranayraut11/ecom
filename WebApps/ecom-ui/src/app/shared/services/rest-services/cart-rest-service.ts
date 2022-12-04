@@ -20,7 +20,7 @@ export class CartRestService{
     }
 
     removeFromCart(id: string){
-       return this.rest.delete(environment.baseURL+'cart/product'+id);
+       return this.rest.delete(environment.baseURL+'cart/product/'+id);
     }
 
     updateProduct(cartProduct : CartProduct): Observable<Cart>{
