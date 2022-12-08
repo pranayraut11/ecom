@@ -45,6 +45,8 @@ keycloak:
     user: postgres
     database: userauth
     password: admin
+  ingress: 
+    enabled: true
 
 env: 
   url: dev-env    

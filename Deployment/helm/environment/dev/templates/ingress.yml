@@ -36,11 +36,4 @@ spec:
           service:
             name: ecom-ui 
             port: 
-              number: 80
-      - path: /keycloak(/|$)(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: dev-env-keycloak
-            port: 
-              number: 80        
+              number: 80       
