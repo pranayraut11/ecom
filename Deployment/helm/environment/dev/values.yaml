@@ -24,5 +24,26 @@ redis:
     enabled: true     
     password: redis123
 
+postgresql:
+  auth:
+    enablePostgresUser: true
+    postgresPassword: admin
+    database: userauth
+  persistence:
+    enabled: true
+    existingClaim: common-persistentvolumeclaim
+    
+keycloak:
+  auth:
+    adminUser: admin
+    adminPassword: admin
+  postgresql:
+    enabled: false
+    host: dev-env-postgresql
+    port: 5432
+    user: postgres
+    database: userauth
+    password: admin
+
 env: 
   url: dev-env    
