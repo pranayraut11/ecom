@@ -39,6 +39,7 @@ keycloak:
     adminPassword: admin
   postgresql:
     enabled: false
+  externalDatabase:
     host: dev-env-postgresql
     port: 5432
     user: postgres
