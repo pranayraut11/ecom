@@ -47,6 +47,7 @@ keycloak:
     password: admin
   ingress: 
     enabled: true
+    hostname: keycloak.dev
 
 env: 
   url: dev-env    
