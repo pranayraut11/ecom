@@ -15,11 +15,13 @@ import { CreateProductComponent } from './seller/create-product/create-product.c
 import { HomeComponent } from './features/layout/customer/pages/home/home.component';
 import { FooterComponent } from './features/layout/customer/components/footer/footer.component';
 import { FilterComponent } from './features/layout/customer/components/filter/filter.component';
+import { LoginComponent } from './shared/components/login/login.component';
 
 const appsRoutes: Routes = [
   { path: 'cart', component: CartComponent }, 
   { path: 'myorders', component: OrderComponent },
   { path: 'product/create', component: CreateProductComponent },
+  { path: 'login', component: LoginComponent },
   { path: '', component: CatalogComponent }
 ];
 
@@ -35,7 +37,8 @@ const appsRoutes: Routes = [
     CreateProductComponent,
     HomeComponent,
     FooterComponent,
-    FilterComponent
+    FilterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, RouterModule.forRoot(appsRoutes), FormsModule

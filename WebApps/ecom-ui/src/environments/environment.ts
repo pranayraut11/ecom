@@ -6,7 +6,11 @@ export const environment = {
   production: false,
   development: true,
   environmentName: "DEV",
-  baseURL: "http://dev-env/"
+  baseURL: "http://dev-env/",
+  authServerBaseURL: "http://keycloak.local/",
+  client_id: 'ecom-ui',
+  client_secret: 'Z8eq0SE6ng6LGVXe8uW69DWo3Tdf2nAI' 
+
 };
 
 /*
