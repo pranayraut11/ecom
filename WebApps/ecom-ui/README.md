@@ -41,3 +41,7 @@ npm install bootstrap --save
             "node_modules/bootstrap/dist/js/bootstrap.min.js"
           ]
 ```
+## Install bootstrap jQuery
+```
+npm install bootstrap jquery --save
+```
