@@ -1,28 +1,28 @@
-<a class="navbar-brand" data-toggle="modal" data-target="#myModal">Login</a>
+<a class="navbar-brand" role="button" data-toggle="modal" data-target="#loginModel">Login</a>
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
+<div id="loginModel" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-xs-center">Log in like a Boss</h4>
+                <h4 class="modal-title text-xs-center">Log In</h4>
             </div>
             <div class="modal-body">
 
-                <form role="form" method="POST" action="">
+                <form role="form" method="POST" (ngSubmit)="login(f)" #f="ngForm">
                     <input type="hidden" name="_token" value="">
                     <div class="form-group">
                         <label class="control-label">E-Mail Address</label>
                         <div>
-                            <input type="email" class="form-control input-lg" name="email" value="">
+                            <input type="email" class="form-control input-lg" name="username" value="" ngModel>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Password</label>
                         <div>
-                            <input type="password" class="form-control input-lg" name="password">
+                            <input type="password" class="form-control input-lg" name="password" ngModel>
                         </div>
                     </div>
                     <div class="form-group">
