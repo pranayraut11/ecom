@@ -54,7 +54,6 @@ public class KeycloakAuthService {
         parameters.set("grant_type","password");
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(parameters, headers);
         UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme("http").host(host).path(APIEndPoints.KEYCLOAK_TOKEN_URL).buildAndExpand(realms);
-        System.out.println(uriComponents.toUriString());
         ResponseEntity<TokenDetails> tokenDetails = restTemplate.postForEntity(uriComponents.toUriString(), entity, TokenDetails.class);
         if (tokenDetails.getStatusCode().is2xxSuccessful()) {
             return tokenDetails.getBody();
