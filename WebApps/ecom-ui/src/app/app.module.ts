@@ -16,12 +16,13 @@ import { HomeComponent } from './features/layout/customer/pages/home/home.compon
 import { FooterComponent } from './features/layout/customer/components/footer/footer.component';
 import { FilterComponent } from './features/layout/customer/components/filter/filter.component';
 import { LoginComponent } from './shared/components/login/login.component';
+import { UserRegistrationComponent } from './shared/components/user-registration/user-registration.component';
 
 const appsRoutes: Routes = [
   { path: 'cart', component: CartComponent }, 
   { path: 'myorders', component: OrderComponent },
   { path: 'product/create', component: CreateProductComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'auth/register', component: UserRegistrationComponent },
   { path: '', component: CatalogComponent }
 ];
 
@@ -38,7 +39,8 @@ const appsRoutes: Routes = [
     HomeComponent,
     FooterComponent,
     FilterComponent,
-    LoginComponent
+    LoginComponent,
+    UserRegistrationComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, RouterModule.forRoot(appsRoutes), FormsModule
