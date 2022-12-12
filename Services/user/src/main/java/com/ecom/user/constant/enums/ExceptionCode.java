@@ -5,10 +5,10 @@ import java.util.stream.Stream;
 
 public enum ExceptionCode {
 
-    AUTH_401(Function.AUTHENTICATION,401,"");
+    AUTH_401(Function.AUTHENTICATION,401,"Invalid credentials");
     private Function function;
     private int statusCode;
-    private String messageCode;
+    public String messageCode;
 
     ExceptionCode(Function function, int statusCode, String messageCode) {
         this.function = function;
