@@ -5,6 +5,7 @@ import com.ecom.user.dto.Login;
 import com.ecom.user.dto.TokenDetails;
 import com.ecom.user.rest.KeycloakAuthService;
 import com.ecom.user.service.specification.AuthService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,20 +13,21 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
 
     private KeycloakAuthService keycloakAuthService;
-    private AuthClientDetails authClientDetails;
+
+    private AuthClientDetails userCredentials;
 
     @Value("${user.auth.realms.sub_realms}")
     private String subRealms;
 
-    public AuthServiceImpl(KeycloakAuthService keycloakAuthService,AuthClientDetails authClientDetails) {
+    public AuthServiceImpl(KeycloakAuthService keycloakAuthService,@Qualifier("userClientCredentials") AuthClientDetails userCredentials) {
         this.keycloakAuthService = keycloakAuthService;
-        this.authClientDetails = authClientDetails;
+        this.userCredentials = userCredentials;
     }
 
     @Override
     public TokenDetails login(Login login) {
-        authClientDetails.setUsername(login.getUsername());
-        authClientDetails.setPassword(login.getPassword());
-        return keycloakAuthService.login(authClientDetails,subRealms);
+        userCredentials.setUsername(login.getUsername());
+        userCredentials.setPassword(login.getPassword());
+        return keycloakAuthService.login(userCredentials,subRealms);
     }
 }

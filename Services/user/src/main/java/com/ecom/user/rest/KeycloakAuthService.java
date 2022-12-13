@@ -1,22 +1,19 @@
 package com.ecom.user.rest;
 
 import com.ecom.user.constant.enums.APIEndPoints;
-import com.ecom.user.constant.enums.AuthConstants;
 import com.ecom.user.constant.enums.Function;
 import com.ecom.user.dto.AuthClientDetails;
+import com.ecom.user.dto.KeycloakUser;
 import com.ecom.user.dto.TokenDetails;
+import com.ecom.user.dto.User;
 import com.ecom.user.exception.handler.EcomException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -26,6 +23,7 @@ import java.util.Objects;
 import static com.ecom.user.constant.enums.AuthConstants.*;
 
 @Component
+@Slf4j
 public class KeycloakAuthService {
 
     private RestTemplate restTemplate;
@@ -41,7 +39,7 @@ public class KeycloakAuthService {
         this.mapper = mapper;
     }
 
-    public TokenDetails login(AuthClientDetails authClientDetails,String realms) {
+    public TokenDetails login(AuthClientDetails authClientDetails, String realms) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.setBasicAuth(authClientDetails.getClient_id(),authClientDetails.getClient_secret(), null);
@@ -58,6 +56,22 @@ public class KeycloakAuthService {
             return tokenDetails.getBody();
         } else {
             throw new EcomException(Function.AUTHENTICATION, tokenDetails.getStatusCode());
+        }
+    }
+
+    public void createUser(KeycloakUser user, String realms, String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(token);
+        HttpEntity<User> entity = new HttpEntity<>(user,headers);
+        UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme(HTTP).host(host).path(APIEndPoints.KEYCLOAK_CREATE_USER_URL).buildAndExpand(realms);
+        ResponseEntity<String> tokenDetails = null;
+        tokenDetails = restTemplate.postForEntity(uriComponents.toUriString(), entity, String.class);
+
+        if (Objects.nonNull(tokenDetails) && tokenDetails.getStatusCode().equals(HttpStatus.CREATED)) {
+            log.info("User : {} created successfully ",user);
+        } else {
+            throw new EcomException(Function.USER, tokenDetails.getStatusCode());
         }
     }
 }

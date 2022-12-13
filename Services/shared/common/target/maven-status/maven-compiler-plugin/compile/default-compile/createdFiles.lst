@@ -1,3 +1,5 @@
+org\ecom\shared\dto\ApiError.class
 org\ecom\shared\service\BaseService.class
 org\ecom\shared\controller\BaseController.class
+org\ecom\shared\dto\ApiSubError.class
 org\ecom\shared\entity\BaseEntity.class
