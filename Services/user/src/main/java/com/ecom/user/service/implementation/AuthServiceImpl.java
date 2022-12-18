@@ -30,4 +30,9 @@ public class AuthServiceImpl implements AuthService {
         userCredentials.setPassword(login.getPassword());
         return keycloakAuthService.login(userCredentials,subRealms);
     }
+
+    @Override
+    public void logout(String token) {
+        keycloakAuthService.logout(token,subRealms);
+    }
 }

@@ -1,1 +1,46 @@
-<p>create works!</p>
+<div class="container">
+    <form (ngSubmit)="createProduct(f)" #f="ngForm">
+        
+        <div class="mb-3">
+            <label for="name" class="col-sm-2 col-form-label">Product Name</label>
+
+            <input type="text" name="name" class="form-control" id="name" placeholder="Name" ngModel>
+
+        </div>
+        <div class=" mb-3">
+            <label for="Description" class="col-sm-2 col-form-label">Product Description</label>
+
+            <input type="text" name="description" class="form-control" id="description" placeholder="Description"
+                ngModel>
+
+        </div>
+
+        <div class=" mb-3">
+            <label for="Image" class="col-sm-2 col-form-label">Product Image</label>
+
+            <input type="text" name="images" class="form-control" id="images" placeholder="Image" ngModel>
+
+        </div>
+        <div class="row g-3">
+            <div class=" col-md-6">
+                <label for="maxRetailPrice" class="form-label">Product Max Retail Price</label>
+
+                <input type="text" name="maxRetailPrice" class="form-control" id="maxRetailPrice" placeholder="MRP"
+                    ngModel>
+
+            </div>
+
+            <div class="  col-md-6">
+                <label for="discountedPrice" class="form-label">Product Discounted Price</label>
+
+                <input type="text" name="discountedPrice" class="form-control" id="discountedPrice"
+                    placeholder="Discounted Price" ngModel>
+
+            </div>
+        </div>
+        <div class="col-auto">
+            <br>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>

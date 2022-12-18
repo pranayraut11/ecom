@@ -42,10 +42,11 @@ public class KeycloakAuthService {
     public TokenDetails login(AuthClientDetails authClientDetails, String realms) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        headers.setBasicAuth(authClientDetails.getClient_id(),authClientDetails.getClient_secret(), null);
         MultiValueMap parameters = new LinkedMultiValueMap<String, String>();
         parameters.set(USERNAME,authClientDetails.getUsername());
         parameters.set(PASSWORD,authClientDetails.getPassword());
+        parameters.set(CLIENT_ID,authClientDetails.getClient_id());
+        parameters.set(CLIENT_SECRET,authClientDetails.getClient_secret());
         parameters.set(GRANT_TYPE,PASSWORD);
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(parameters, headers);
         UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme(HTTP).host(host).path(APIEndPoints.KEYCLOAK_TOKEN_URL).buildAndExpand(realms);
@@ -74,4 +75,20 @@ public class KeycloakAuthService {
             throw new EcomException(Function.USER, tokenDetails.getStatusCode());
         }
     }
+
+    public void logout(String token, String realms) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(headers);
+        UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme(HTTP).host(host).path(APIEndPoints.KEYCLOAK_LOGOUT).queryParam(CLIENT_ID, "user-service").queryParam("access_token", token).buildAndExpand(realms);
+        ResponseEntity<String> logoutResponse = null;
+        logoutResponse = restTemplate.postForEntity(uriComponents.toUriString(),entity, String.class);
+
+        if (Objects.nonNull(logoutResponse) && logoutResponse.getStatusCode().is2xxSuccessful()) {
+            log.info("Successfulley logged out from Keycloak");
+        } else {
+            throw new EcomException(Function.AUTHENTICATION, logoutResponse.getStatusCode());
+        }
+    }
+
 }
