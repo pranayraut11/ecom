@@ -35,11 +35,11 @@
             <a class="nav-link active" routerLink="myorders"  aria-current="page" >My orders</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" routerLink="product/create"  aria-current="page" >Create</a>
+            <a class="nav-link active" routerLink="product/create"  aria-current="page" appRoles [hasRole]='["admin,user"]'>Create</a>
           </li>
           
         </ul>
-        <form class="d-flex">
+        <form class="d-flex"  >
             <app-login  ></app-login>
         </form>
       </div>

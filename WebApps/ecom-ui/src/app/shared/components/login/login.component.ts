@@ -20,8 +20,11 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) { }
   public show: boolean = true;
   errorMessage: string;
+  isAuth : boolean = true;
   showErrorMessage: boolean = false;
   ngOnInit(): void {
+    console.log("Has role sss "+this.isAuth);
+    this.isAuth = false;
     console.log("is " + this.isAuthenticated);
     this.userSub = this.authService.user.subscribe(user => {
       console.log("in header" + this.isAuthenticated);

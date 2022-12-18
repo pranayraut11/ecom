@@ -16,6 +16,7 @@ import { FilterComponent } from './features/layout/customer/components/filter/fi
 import { LoginComponent } from './shared/components/login/login.component';
 import { UserRegistrationComponent } from './shared/components/user-registration/user-registration.component';
 import { AuthInterceptorService } from './core/core/auth/Auth-interceptor-service';
+import { RolesDirective } from './core/directives/roles.directive';
 
 const appsRoutes: Routes = [
   { path: 'cart', component: CartListComponent }, 
@@ -38,7 +39,8 @@ const appsRoutes: Routes = [
     FooterComponent,
     FilterComponent,
     LoginComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    RolesDirective
   ],
   imports: [
     BrowserModule, HttpClientModule, RouterModule.forRoot(appsRoutes), FormsModule
