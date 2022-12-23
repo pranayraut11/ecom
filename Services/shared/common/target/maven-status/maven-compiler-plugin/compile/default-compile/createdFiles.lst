@@ -1,5 +1,12 @@
-org\ecom\shared\dto\ApiError.class
+org\ecom\shared\config\rest\RestTemplateHeaderModifierInterceptor.class
+org\ecom\shared\config\security\KeycloakConfiguration.class
+org\ecom\shared\config\security\SecurityConfig.class
+org\ecom\shared\exception\EcomException.class
+org\ecom\shared\exception\EcomExceptionHandler.class
 org\ecom\shared\service\BaseService.class
-org\ecom\shared\controller\BaseController.class
+org\ecom\shared\dto\ApiError.class
+org\ecom\shared\config\rest\RestTemplateConfig.class
+org\ecom\shared\config\common\ImportCommonClasses.class
 org\ecom\shared\dto\ApiSubError.class
+org\ecom\shared\controller\BaseController.class
 org\ecom\shared\entity\BaseEntity.class

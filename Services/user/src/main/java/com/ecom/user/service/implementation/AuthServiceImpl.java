@@ -5,6 +5,7 @@ import com.ecom.user.dto.Login;
 import com.ecom.user.dto.TokenDetails;
 import com.ecom.user.rest.KeycloakAuthService;
 import com.ecom.user.service.specification.AuthService;
+import org.keycloak.common.VerificationException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public TokenDetails login(Login login) {
+    public TokenDetails login(Login login) throws VerificationException {
         userCredentials.setUsername(login.getUsername());
         userCredentials.setPassword(login.getPassword());
         return keycloakAuthService.login(userCredentials,subRealms);

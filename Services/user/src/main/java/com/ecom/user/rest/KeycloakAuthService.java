@@ -6,11 +6,15 @@ import com.ecom.user.dto.AuthClientDetails;
 import com.ecom.user.dto.KeycloakUser;
 import com.ecom.user.dto.TokenDetails;
 import com.ecom.user.dto.User;
-import com.ecom.user.exception.handler.EcomException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.ecom.shared.exception.EcomException;
+import org.keycloak.TokenVerifier;
+import org.keycloak.common.VerificationException;
+import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import static org.springframework.security.config.Elements.HTTP;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -39,7 +43,7 @@ public class KeycloakAuthService {
         this.mapper = mapper;
     }
 
-    public TokenDetails login(AuthClientDetails authClientDetails, String realms) {
+    public TokenDetails login(AuthClientDetails authClientDetails, String realms) throws VerificationException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap parameters = new LinkedMultiValueMap<String, String>();
@@ -54,9 +58,12 @@ public class KeycloakAuthService {
             tokenDetails = restTemplate.postForEntity(uriComponents.toUriString(), entity, TokenDetails.class);
 
         if (Objects.nonNull(tokenDetails) && tokenDetails.getStatusCode().is2xxSuccessful()) {
-            return tokenDetails.getBody();
+            TokenDetails details = tokenDetails.getBody();
+            AccessToken token = TokenVerifier.create(details.getAccess_token(), AccessToken.class).getToken();
+            details.setRoles(token.getRealmAccess().getRoles());
+            return details;
         } else {
-            throw new EcomException(Function.AUTHENTICATION, tokenDetails.getStatusCode());
+            throw new EcomException(tokenDetails.getStatusCode(),"AUTH_ERR001","message",false);
         }
     }
 
@@ -72,7 +79,7 @@ public class KeycloakAuthService {
         if (Objects.nonNull(tokenDetails) && tokenDetails.getStatusCode().equals(HttpStatus.CREATED)) {
             log.info("User : {} created successfully ",user);
         } else {
-            throw new EcomException(Function.USER, tokenDetails.getStatusCode());
+            throw new EcomException(tokenDetails.getStatusCode(),"AUTH_ERR001","message",false);
         }
     }
 
@@ -87,7 +94,7 @@ public class KeycloakAuthService {
         if (Objects.nonNull(logoutResponse) && logoutResponse.getStatusCode().is2xxSuccessful()) {
             log.info("Successfulley logged out from Keycloak");
         } else {
-            throw new EcomException(Function.AUTHENTICATION, logoutResponse.getStatusCode());
+            throw new EcomException(logoutResponse.getStatusCode(),"AUTH_ERR001","message",false);
         }
     }
 

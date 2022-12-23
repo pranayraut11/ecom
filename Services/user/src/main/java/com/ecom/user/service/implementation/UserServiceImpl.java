@@ -7,6 +7,7 @@ import com.ecom.user.repository.UserRepository;
 import com.ecom.user.rest.KeycloakAuthService;
 import com.ecom.user.service.specification.UserService;
 import org.ecom.shared.service.BaseService;
+import org.keycloak.common.VerificationException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public void create(UserMongo user) {
+    public void create(UserMongo user) throws VerificationException {
         adminCredentials.setUsername(masterUserCredentials.getUsername());
         adminCredentials.setPassword(masterUserCredentials.getPassword());
         TokenDetails tokenDetails = keycloakAuthService.login(adminCredentials,masterRealms);

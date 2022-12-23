@@ -1,7 +1,5 @@
-package com.ecom.user.exception.handler;
+package org.ecom.shared.exception;
 
-import com.ecom.user.constant.enums.ExceptionCode;
-import com.ecom.user.constant.enums.Function;
 import org.ecom.shared.dto.ApiError;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,12 +11,12 @@ public class EcomExceptionHandler {
 
     @ExceptionHandler(value = EcomException.class)
     public ResponseEntity<ApiError> handleException(EcomException exception) {
-        return ResponseEntity.status(exception.getStatusCode()).body(new ApiError(exception.getStatusCode(),ExceptionCode.getMessageCode(exception.getFunction(), exception.getStatusCode().value()).messageCode));
+        return ResponseEntity.status(exception.getStatusCode()).body(new ApiError(exception.getStatusCode(),exception.getErrorCode(),exception.isConvert()?"Converted message":exception.getMessage()));
     }
 
     @ExceptionHandler(value = HttpClientErrorException.class)
     public ResponseEntity<ApiError> handleHttpClientErrorException(HttpClientErrorException httpClientErrorException) {
-        return ResponseEntity.status(httpClientErrorException.getStatusCode()).body(new ApiError(httpClientErrorException.getStatusCode(),ExceptionCode.getMessageCode(Function.AUTHENTICATION, httpClientErrorException.getStatusCode().value()).messageCode));
+        return ResponseEntity.status(httpClientErrorException.getStatusCode()).body(new ApiError(httpClientErrorException.getStatusCode(),httpClientErrorException.getLocalizedMessage()));
     }
 
 }

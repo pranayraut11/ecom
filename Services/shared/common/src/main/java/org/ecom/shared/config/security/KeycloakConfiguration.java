@@ -1,4 +1,4 @@
-package com.ecom.user.config;
+package org.ecom.shared.config.security;
 
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +9,6 @@ public class KeycloakConfiguration {
 
     @Bean
     public KeycloakSpringBootConfigResolver KeycloakConfigResolver() {
-        return new KeycloakSpringBootConfigResolver();
+        return new KeycloakSpringBootConfigResolver ();
     }
 }

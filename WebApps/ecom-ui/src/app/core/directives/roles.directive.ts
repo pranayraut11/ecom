@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, Input, OnChanges, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../core/auth/Auth-Service';
 
@@ -9,21 +9,31 @@ export class RolesDirective implements OnInit {
 
   @Input() hasRole: string;
   @HostBinding('style.display') display: string = 'none';
-
   private userSub: Subscription;
+
   constructor(private el: ElementRef, private authService: AuthService) { }
 
   ngOnInit() {
     this.userSub = this.authService.user.subscribe(response => {
       console.log("In has role directive");
-      var roles = this.hasRole.toString().split(",");
-      var matched = roles.find(ft => ft == "admin")
-      if (matched) {
-        this.display = 'block';
+      if (this.hasRole) {
+        var authRoles = this.hasRole.toString().split(",");
+        if (response) {
+          var matchedRole = response.roles.find(userRole => authRoles.find(authRole => authRole === userRole));
+          if (matchedRole) {
+            this.display = 'block';
+          }
+        }
       }
     });
-    console.log("Has role " + this.hasRole);
-    this.hasRole;
+  }
+  // @HostListener('click', ['$event']) onClick($event) {
+  //   console.info('clicked: ' + $event);
+  //   this.display = 'none';
+  // }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 
 }

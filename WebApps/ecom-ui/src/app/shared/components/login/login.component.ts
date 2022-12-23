@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { from, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/core/auth/Auth-Service';
 import { AUTH_TOKEN } from '../../constants/AuthConst';
@@ -17,14 +18,13 @@ declare var $: any;
 export class LoginComponent implements OnInit {
   isAuthenticated: boolean = false;
   private userSub: Subscription;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private router: Router) { }
   public show: boolean = true;
   errorMessage: string;
-  isAuth : boolean = true;
   showErrorMessage: boolean = false;
+  hasRole: string;
   ngOnInit(): void {
-    console.log("Has role sss "+this.isAuth);
-    this.isAuth = false;
+    
     console.log("is " + this.isAuthenticated);
     this.userSub = this.authService.user.subscribe(user => {
       console.log("in header" + this.isAuthenticated);
@@ -68,9 +68,12 @@ export class LoginComponent implements OnInit {
       },
       error: (error) => {
         localStorage.removeItem(AUTH_TOKEN)
+        this.isAuthenticated = false;
       }
     }
     );
+    this.router.navigate(["/"]);
+    window.location.href="/home"
   }
   ngOnDestroy() {
     this.userSub.unsubscribe();

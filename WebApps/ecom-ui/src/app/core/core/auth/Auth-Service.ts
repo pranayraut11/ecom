@@ -24,7 +24,7 @@ export class AuthService {
             return throwError(() => errorMessage);
         }), tap(resData => {
             const tokenExpirationDate = new Date(new Date().getTime() + resData.expires_in * 1000);
-            const user = new User(resData.access_token, resData.refresh_token, tokenExpirationDate);
+            const user = new User(resData.access_token, resData.refresh_token, tokenExpirationDate,resData.roles);
             localStorage.setItem(AUTH_TOKEN, JSON.stringify(resData));
             this.user.next(user);
         }));
@@ -36,6 +36,8 @@ export class AuthService {
            let errorMessage = "Unknown error";
            localStorage.removeItem(AUTH_TOKEN);
            return throwError(() => errorMessage);
+        }),tap(resData => {
+            this.user.unsubscribe();
         }));
     }
 
@@ -45,12 +47,13 @@ export class AuthService {
             const tokenDetailsJons: {
                 'access_token': string,
                 'refresh_token': string,
-                'expires_in': number
+                'expires_in': number,
+                'roles': string[]
             } = JSON.parse(tokenDetails);
             if (tokenDetails) {
                 const tokenExpirationDate = new Date(new Date().getTime() + tokenDetailsJons.expires_in * 1000);
                 if (!this.isTokenExpired(tokenExpirationDate)) {
-                    const user = new User(tokenDetailsJons.access_token, tokenDetailsJons.refresh_token, tokenExpirationDate);
+                    const user = new User(tokenDetailsJons.access_token, tokenDetailsJons.refresh_token, tokenExpirationDate,tokenDetailsJons.roles);
                     this.user.next(user);
                 }
             }

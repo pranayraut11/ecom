@@ -2,6 +2,9 @@ package com.ecom.user.dto;
 
 import lombok.Data;
 
+import java.util.List;
+import java.util.Set;
+
 @Data
 public class TokenDetails {
 
@@ -14,4 +17,6 @@ public class TokenDetails {
     private String session_state;
 
     private String scope;
+
+    private Set<String> roles;
 }

@@ -3,6 +3,7 @@ package com.ecom.product.entity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.ecom.shared.entity.BaseEntity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,10 +14,7 @@ import java.util.List;
 @Data
 @Getter
 @Setter
-public class Product {
-
-    @Id
-    private String id;
+public class Product extends BaseEntity {
 
     private String name;
     
@@ -24,6 +22,6 @@ public class Product {
     
     private Price price;  
 
-    private List<Media> images;
+    private List<String> images;
 
 }

@@ -26,16 +26,13 @@
             <a class="nav-link active" routerLink="/" aria-current="page" >Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link active" routerLink="cart"  aria-current="page" appRoles [hasRole]='["user"]' >Cart</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" routerLink="cart"  aria-current="page" >Cart</a>
+            <a class="nav-link active" routerLink="myorders"  aria-current="page" appRoles [hasRole]='["user"]' >My orders</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" routerLink="myorders"  aria-current="page" >My orders</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" routerLink="product/create"  aria-current="page" appRoles [hasRole]='["admin,user"]'>Create</a>
+            <a class="nav-link active" routerLink="product/create"  aria-current="page" appRoles [hasRole]='["admin,seller"]'>Create</a>
           </li>
           
         </ul>

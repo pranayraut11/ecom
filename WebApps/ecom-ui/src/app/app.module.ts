@@ -6,7 +6,6 @@ import { HeaderComponent } from './header/header.component';
 import { CatalogListComponent } from './features/catalog/pages/list/list.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CartListComponent } from './features/cart/pages/list/list.component';
-import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CreateOrderComponent } from './features/order/pages/create/create.component';
 import { CreateProductComponent } from './features/catalog/pages/create/create.component';
@@ -17,14 +16,8 @@ import { LoginComponent } from './shared/components/login/login.component';
 import { UserRegistrationComponent } from './shared/components/user-registration/user-registration.component';
 import { AuthInterceptorService } from './core/core/auth/Auth-interceptor-service';
 import { RolesDirective } from './core/directives/roles.directive';
+import { AppRoutingModule } from './app-routing.module';
 
-const appsRoutes: Routes = [
-  { path: 'cart', component: CartListComponent }, 
-  { path: 'myorders', component: CreateOrderComponent },
-  { path: 'product/create', component: CreateProductComponent },
-  { path: 'auth/register', component: UserRegistrationComponent },
-  { path: '', component: CatalogListComponent }
-];
 
 @NgModule({
   declarations: [
@@ -43,7 +36,7 @@ const appsRoutes: Routes = [
     RolesDirective
   ],
   imports: [
-    BrowserModule, HttpClientModule, RouterModule.forRoot(appsRoutes), FormsModule
+    BrowserModule, HttpClientModule, FormsModule, AppRoutingModule
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorService,multi:true}],
   bootstrap: [AppComponent]

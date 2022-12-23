@@ -6,5 +6,5 @@ import lombok.Data;
 public class Media {
 
 	private String id;
-	private String url;
+
 }

@@ -4,6 +4,7 @@ import com.ecom.user.dto.User;
 import com.ecom.user.entity.UserMongo;
 import com.ecom.user.service.specification.UserService;
 import org.ecom.shared.controller.BaseController;
+import org.keycloak.common.VerificationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class UserController extends BaseController<User> {
     }
 
     @PostMapping("/addUser")
-    public void addUser(@RequestBody UserMongo user){
+    public void addUser(@RequestBody UserMongo user) throws VerificationException {
         userService.create(user);
     }
 }

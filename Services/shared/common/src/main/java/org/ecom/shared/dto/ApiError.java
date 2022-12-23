@@ -10,6 +10,8 @@ import java.util.List;
 @Data
 public class ApiError {
     private HttpStatus status;
+
+    private String errorCode;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime timestamp;
     private String message;
@@ -30,6 +32,12 @@ public class ApiError {
         this.status = status;
         this.message = "Unexpected error";
         this.debugMessage = ex.getLocalizedMessage();
+    }
+
+    public ApiError(HttpStatus status, String errorCode, String message) {
+        this.status = status;
+        this.errorCode = errorCode;
+        this.message = message;
     }
 
     public ApiError(HttpStatus status, String message) {
