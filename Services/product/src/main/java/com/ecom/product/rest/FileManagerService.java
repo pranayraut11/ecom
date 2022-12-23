@@ -43,26 +43,37 @@ public class FileManagerService {
     private String host;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private WebClient webClient;
 
     public List<String> uploadFiles(@NotEmpty List<MultipartFile> files, @NotEmpty String productId) throws IOException {
-        String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization");
         UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme(HTTP).host(host).port("9090").path(APIEndPoints.FILE_MANAGER_FILE_UPLOAD_URL).build();
 
         Consumer<HttpHeaders> headers = httpHeaders -> {
             httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
-            httpHeaders.set(HttpHeaders.AUTHORIZATION, token + "asd");
         };
         List<String> webClient2 = null;
         try {
-            webClient2 = WebClient.create().post().uri(uriComponents.toUri()).headers(headers).
+            webClient2 = webClient.post().uri(uriComponents.toUri()).headers(headers).
                     body(BodyInserters.fromMultipartData(fromFile(files, productId))).retrieve().
                     bodyToMono(List.class).block();
+            deleteFiles(files);
         } catch (WebClientResponseException we) {
-            throw new EcomException(we.getStatusCode(),"AUTH_0004",we.getMessage(), false);
+            deleteFiles(files);
+            throw new EcomException(we.getStatusCode(), "AUTH_0004", we.getMessage(), false);
         }
 
         return webClient2;
+    }
+
+
+    void deleteFiles(List<MultipartFile> files) {
+        for (MultipartFile file : files) {
+            File convFile = new File(file.getOriginalFilename());
+            if(convFile.exists()){
+                convFile.delete();
+            }
+        }
+
     }
 
     public MultiValueMap<String, HttpEntity<?>> fromFile(List<MultipartFile> file, String productId) throws IOException {
@@ -76,7 +87,6 @@ public class FileManagerService {
     }
 
     public static FileSystemResource convert(MultipartFile file) throws IOException {
-        Path temp = Files.createTempFile(null, null);
         File convFile = new File(file.getOriginalFilename());
         try {
             convFile.createNewFile();

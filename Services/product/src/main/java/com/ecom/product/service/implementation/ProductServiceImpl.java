@@ -11,6 +11,7 @@ import org.ecom.shared.exception.EcomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void create(ProductDTO dto) {
+    public void create(@Valid ProductDTO dto) {
         Product product = productRepository.save(productMapper.productDTOToProduct(dto));
         try {
             List<String> images = fileManagerService.uploadFiles(dto.getImages(), product.getId());
