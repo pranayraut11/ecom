@@ -1,14 +1,15 @@
 package com.ecom.product.dto;
 
 import com.ecom.product.entity.Price;
-import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -27,9 +28,9 @@ public class ProductDTO {
     private String description;
 
     @NotNull
+    @Valid
     private Price price;
 
-    @NotNull
     private List<MultipartFile> images;
 
 }

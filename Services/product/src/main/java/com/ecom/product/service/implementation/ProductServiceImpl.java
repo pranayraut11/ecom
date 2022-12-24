@@ -1,6 +1,5 @@
 package com.ecom.product.service.implementation;
 
-import com.ecom.product.constant.ExceptionCode;
 import com.ecom.product.dto.ProductDTO;
 import com.ecom.product.entity.Product;
 import com.ecom.product.mappers.specification.ProductMapper;

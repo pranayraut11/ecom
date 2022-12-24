@@ -3,7 +3,7 @@ package com.ecom.product.constant;
 
 public enum ExceptionCode {
 
-    AUTH_401("AUTH_ERR001");
+    AUTH_401_01("AUTH_ERR001");
 
     private String errorCode;
 
@@ -11,5 +11,7 @@ public enum ExceptionCode {
         this.errorCode = errorCode;
     }
 
-
+    public String getErrorCode() {
+        return errorCode;
+    }
 }

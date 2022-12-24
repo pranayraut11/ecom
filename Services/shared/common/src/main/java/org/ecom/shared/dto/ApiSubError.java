@@ -1,5 +1,16 @@
 package org.ecom.shared.dto;
 
-abstract class ApiSubError {
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public
+class ApiSubError {
+
+    private String path;
+
+    private String error;
 
 }
