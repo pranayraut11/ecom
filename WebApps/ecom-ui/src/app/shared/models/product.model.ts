@@ -6,9 +6,9 @@ export class Product {
     public name: string;
     public description: string;
     public price: Price;
-    public images: Media[];
+    public images: string[];
 
-    constructor(id: string,name: string, description: string, price: Price,images: Media[]) {
+    constructor(id: string,name: string, description: string, price: Price,images: string[]) {
         this.id = id;        
         this.name = name;
         this.description = description;

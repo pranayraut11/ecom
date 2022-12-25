@@ -9,6 +9,7 @@ import com.ecom.product.service.specification.ProductService;
 import org.ecom.shared.exception.EcomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -46,10 +47,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void create(@Valid ProductDTO dto) {
+    public void create(@Valid ProductDTO dto, List<MultipartFile> files) {
         Product product = productRepository.save(productMapper.productDTOToProduct(dto));
         try {
-            List<String> images = fileManagerService.uploadFiles(dto.getImages(), product.getId());
+            List<String> images = fileManagerService.uploadFiles(files, product.getId());
             product.setImages(images);
             productRepository.save(product);
         } catch (EcomException e) {

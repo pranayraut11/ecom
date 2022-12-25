@@ -10,8 +10,8 @@ import org.mapstruct.factory.Mappers;
 public interface ProductMapper {
     ProductMapper INSTANCE = Mappers.getMapper( ProductMapper.class );
 
-    @Mapping(target = "images", ignore = true)
+
     ProductDTO productToProductDTO(Product product);
-    @Mapping(target = "images", ignore = true)
+
     Product productDTOToProduct(ProductDTO productDTO);
 }

@@ -16,11 +16,11 @@ export class AuthRestService {
   
 
   login(login: Login) {
-    return this.rest.post<Token>(environment.baseURL + USER_LOGIN, login);
+    return this.rest.post<Token>(environment.authServerBaseURL + USER_LOGIN, login);
       
   }
 
   logout(){
-    return this.rest.get(environment.baseURL + USER_LOGOUT);
+    return this.rest.get(environment.authServerBaseURL + USER_LOGOUT);
   }
 }

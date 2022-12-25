@@ -31,6 +31,6 @@ public class ProductDTO {
     @Valid
     private Price price;
 
-    private List<MultipartFile> images;
+    private List<String> images;
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './core/core/auth/Auth-Service';
+import { SpinnerService } from './core/services/spinner-service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,7 @@ import { AuthService } from './core/core/auth/Auth-Service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private authService : AuthService){
+  constructor(private authService : AuthService,public spinnerService: SpinnerService){
 
   }
   title = 'ecom-ui';

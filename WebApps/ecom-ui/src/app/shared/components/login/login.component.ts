@@ -16,15 +16,16 @@ declare var $: any;
 })
 
 export class LoginComponent implements OnInit {
+
   isAuthenticated: boolean = false;
   private userSub: Subscription;
-  constructor(private authService: AuthService,private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
   public show: boolean = true;
   errorMessage: string;
   showErrorMessage: boolean = false;
   hasRole: string;
   ngOnInit(): void {
-    
+
     console.log("is " + this.isAuthenticated);
     this.userSub = this.authService.user.subscribe(user => {
       console.log("in header" + this.isAuthenticated);
@@ -45,35 +46,42 @@ export class LoginComponent implements OnInit {
         console.log(localStorage.getItem(AUTH_TOKEN));
         $('#loginModel').modal('hide');
         this.show = false;
+
+        this.router.navigate(["/"]);
       },
       complete: () => {
+
         console.log("Req complete");
       }
       ,
       error: (error) => {
         console.log(error);
         this.errorMessage = error;
+
         this.showErrorMessage = true;
       }
     });
+
   }
 
   logout() {
+
     console.log("logout")
     this.authService.logout().subscribe({
       next: (response) => {
         console.log(response);
-        localStorage.removeItem(AUTH_TOKEN)
         this.isAuthenticated = false;
+
       },
       error: (error) => {
-        localStorage.removeItem(AUTH_TOKEN)
+
         this.isAuthenticated = false;
       }
     }
     );
+    localStorage.removeItem(AUTH_TOKEN);
     this.router.navigate(["/"]);
-    window.location.href="/home"
+    window.location.href = "/home"
   }
   ngOnDestroy() {
     this.userSub.unsubscribe();

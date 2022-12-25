@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   development: true,
   environmentName: "DEV",
-  baseURL: "http://localhost:8080/",
-  authServerBaseURL: "http://keycloak.local/",
+  baseURL: "http://localhost:7676/",
+  authServerBaseURL: "http://localhost:8080/",
   client_id: 'ecom-ui',
   client_secret: 'Z8eq0SE6ng6LGVXe8uW69DWo3Tdf2nAI' 
 
