@@ -5,8 +5,6 @@
 env: 
   url: localhost 
 
-replicaCount: 1
-
 mongodb:
   auth:
     enabled: true
