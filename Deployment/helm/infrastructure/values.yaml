@@ -43,7 +43,7 @@ keycloak:
   postgresql:
     enabled: false
   externalDatabase:
-    host: dev-env-postgresql
+    host: dev-infra-postgresql
     port: 5432
     user: postgres
     database: userauth
