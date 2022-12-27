@@ -16,7 +16,7 @@ mongodb:
       - demo1
   persistence:
     enabled: true
-    existingClaim: common-persistentvolumeclaim
+    existingClaim: common-dev-persistentvolumeclaim
   volumePermissions:
     enabled: true
 
@@ -32,7 +32,7 @@ postgresql:
     database: userauth
   persistence:
     enabled: true
-    existingClaim: common-persistentvolumeclaim
+    existingClaim: common-dev-persistentvolumeclaim
     
 keycloak:
   auth:
