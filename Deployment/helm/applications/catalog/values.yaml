@@ -24,3 +24,13 @@ mongo:
 redis: 
   enabled: false
 
+keycloak:
+  resource: product-service
+  credentials:
+    secret: QXwxSfa1SYZ4pJUngrGzK66UBhDaYVNp
+
+app:
+  service:
+    filemanager:
+      host: filemanager  
+
