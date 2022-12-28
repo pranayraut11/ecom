@@ -22,8 +22,8 @@ mongodb:
   ingress:
     enabled: true
     hosts:
-      - name: mongodb.local
-        path: /  
+    - name: mongodb.local
+      path: /  
 
 redis: 
   auth:
