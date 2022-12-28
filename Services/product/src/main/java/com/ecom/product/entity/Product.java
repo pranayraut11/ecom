@@ -24,4 +24,6 @@ public class Product extends BaseEntity {
 
     private List<String> images;
 
+
+
 }

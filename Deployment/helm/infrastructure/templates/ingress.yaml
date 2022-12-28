@@ -13,7 +13,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: dev-env-mongodb 
+            name: dev-infra-mongodb
             port: 
               number: 27017
   - host: redis
@@ -23,7 +23,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: dev-env-redis-master 
+            name: dev-infra-redis-master
             port: 
               number: 6379  
   - host: postgresql
@@ -33,6 +33,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: dev-env-postgresql 
+            name: dev-infra-postgresql 
             port: 
               number: 5432  

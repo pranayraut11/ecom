@@ -1,10 +1,11 @@
-package org.ecom.shared.config.security;
+    package org.ecom.shared.config.security;
 
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
@@ -22,8 +23,9 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http.authorizeRequests().antMatchers("/auth/login","/files/**").permitAll()
-                .anyRequest()
+        http.authorizeRequests().antMatchers(HttpMethod.POST,"/auth/login","users/addUser").
+                permitAll().antMatchers(HttpMethod.GET,"/files/**","/product").permitAll().
+                anyRequest()
                 .authenticated();
         http.csrf().disable();
         http.cors();
