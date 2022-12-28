@@ -1,5 +1,5 @@
 deploymentName : product-deployment
-deploymentLabel : product
+deploymentLabel : product-service
 
 replicaCount: 1
 

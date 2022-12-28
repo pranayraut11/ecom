@@ -1,5 +1,5 @@
 deploymentName : cart-deployment
-deploymentLabel : cart
+deploymentLabel : cart-service
 
 replicaCount: 1
 
@@ -23,3 +23,9 @@ mongo:
   enabled: false
 redis: 
   enabled: true
+
+keycloak:
+  resource: cart-service
+  credentials:
+    secret: 9QdxFnJZWnEzgFaptuR8ytT0wY0I2FMN
+
