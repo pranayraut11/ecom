@@ -55,3 +55,11 @@ dependencies:
   - name: cart
     version: 0.1.0
     repository: file://../../applications/cart
+
+  - name: user-service
+    version: 0.1.0
+    repository: file://../../applications/user-service
+
+  - name: file-manager
+    version: 0.1.0
+    repository: file://../../applications/filemanager-service
