@@ -1,10 +1,10 @@
-deploymentName : catalog-deployment
-deploymentLabel : catalog
+deploymentName : product-deployment
+deploymentLabel : product
 
 replicaCount: 1
 
 image:
-  repository: pranayraut11/catalog-app
+  repository: pranayraut11/product-app
   tag: latest
 
 containerPort: 8080
@@ -22,5 +22,5 @@ profile:
 mongo:
     enabled: true
 redis: 
-  enabled: false    
+  enabled: false
 
