@@ -2,19 +2,19 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-infra
-  
+
 spec: 
   rules:
-  - host: mongodb
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: dev-infra-mongodb
-            port: 
-              number: 27017
+  # - host: mongodb
+  #   http:
+  #     paths:
+  #     - path: /
+  #       pathType: Prefix
+  #       backend:
+  #         service:
+  #           name: dev-infra-mongodb
+  #           port: 
+  #             number: 27017
   - host: redis
     http:
       paths:            
