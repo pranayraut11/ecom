@@ -6,24 +6,30 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec: 
   rules:
-  - host: {{ .Values.env.url }}
+  - host: mongodb
     http:
       paths:
-      - path: /mongo(/|$)(.*)
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: dev-env-mongodb 
             port: 
               number: 27017
-      - path: /redis(/|$)(.*)
+  - host: redis
+    http:
+      paths:            
+      - path: /
         pathType: Prefix
         backend:
           service:
             name: dev-env-redis-master 
             port: 
               number: 6379  
-      - path: /postgresql(/|$)(.*)
+  - host: postgresql
+    http:
+      paths:             
+      - path: /
         pathType: Prefix
         backend:
           service:
