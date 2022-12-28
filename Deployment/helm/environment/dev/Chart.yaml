@@ -60,6 +60,6 @@ dependencies:
     version: 0.1.0
     repository: file://../../applications/user-service
 
-  - name: file-manager
+  - name: filemanager-service
     version: 0.1.0
     repository: file://../../applications/filemanager-service
