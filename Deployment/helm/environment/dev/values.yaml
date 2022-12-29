@@ -51,7 +51,3 @@ keycloak:
 
 env: 
   url: dev-env    
-
-db:
-  mongo:
-    url: mongodb://demo1:demo1@dev-env-mongodb:27017/product

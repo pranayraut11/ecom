@@ -27,4 +27,23 @@ spec:
             - name: {{ .name }}
               value: {{ .value }}
           {{- end }}
-{{- end -}}
+          {{- if .Values.mongo.enabled }}
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom: 
+                configMapKeyRef:
+                  name: {{ .Values.global.configMapName }}
+                  key: SPRING_DATA_MONGODB_URI
+          {{- end -}}
+          {{- if .Values.redis.enabled }}
+            - name: SPRING_REDIS_HOST
+              valueFrom: 
+                configMapKeyRef:
+                  name: {{ .Values.global.configMapName }}
+                  key: SPRING_REDIS_HOST
+            - name: SPRING_REDIS_PASSWORD
+              valueFrom: 
+                configMapKeyRef:
+                  name: {{ .Values.global.configMapName }}
+                  key: SPRING_REDIS_PASSWORD
+          {{- end -}}
+{{- end -}}          

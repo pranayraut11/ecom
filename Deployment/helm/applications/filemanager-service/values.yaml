@@ -20,6 +20,13 @@ service:
   nodePort: 30004
 
 
+config:
+  enabled: true
+mongo:
+    enabled: true
+redis: 
+  enabled: false
+
 keycloak:
   resource: file-manager-service
   credentials:
@@ -27,8 +34,6 @@ keycloak:
 
 app:
   envVars:
-    - name: SPRING_DATA_MONGODB_URI
-      value: {{ .Values.global.mongoUrl }}
     - name: KEYCLOAK_RESOURCE
       value: file-manager-service
     - name: KEYCLOAK_CREDENTIALS_SECRET

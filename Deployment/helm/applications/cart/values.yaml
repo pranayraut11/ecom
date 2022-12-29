@@ -17,8 +17,6 @@ service:
 
 config:
   enabled: true
-profile:
-  enabled: true
 mongo:
   enabled: false
 redis: 
@@ -31,10 +29,6 @@ keycloak:
 
 app:
   envVars:
-    - name: SPRING_REDIS_HOST
-      value: {{ .Values.db.mongo.url }}
-    - name: SPRING_REDIS_PASSWORD
-      value: redis123
     - name: KEYCLOAK_RESOURCE
       value: cart-service
     - name: KEYCLOAK_CREDENTIALS_SECRET

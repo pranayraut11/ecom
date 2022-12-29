@@ -35,8 +35,6 @@ keycloak:
 
 app:
   envVars:
-    - name: SPRING_DATA-MONGODB_URI
-      value: {{ .Values.global.mongoUrl }}
     - name: KEYCLOAK_RESOURCE
       value: user-service
     - name: KEYCLOAK_CREDENTIALS_SECRET
