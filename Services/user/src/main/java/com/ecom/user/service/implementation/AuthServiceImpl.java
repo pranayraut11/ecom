@@ -17,7 +17,7 @@ public class AuthServiceImpl implements AuthService {
 
     private AuthClientDetails userCredentials;
 
-    @Value("${user.auth.realms.sub_realms}")
+    @Value("${user.auth.realms.subRealms}")
     private String subRealms;
 
     public AuthServiceImpl(KeycloakAuthService keycloakAuthService,@Qualifier("userClientCredentials") AuthClientDetails userCredentials) {

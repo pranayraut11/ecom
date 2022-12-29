@@ -26,7 +26,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
     private UserRepository userRepository;
 
-    @Value("${user.auth.realms.sub_realms}")
+    @Value("${user.auth.realms.subRealms}")
     private String subRealms;
 
     @Value("${user.auth.realms.master}")

@@ -32,7 +32,7 @@ keycloak:
 app:
   envVars:
     - name: SPRING_REDIS_HOST
-      value: {{ .Values.global.redisUrl }}
+      value: {{ .Values.db.mongo.url }}
     - name: SPRING_REDIS_PASSWORD
       value: redis123
     - name: KEYCLOAK_RESOURCE

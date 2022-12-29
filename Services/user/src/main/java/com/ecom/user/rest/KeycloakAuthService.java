@@ -1,7 +1,6 @@
 package com.ecom.user.rest;
 
 import com.ecom.user.constant.enums.APIEndPoints;
-import com.ecom.user.constant.enums.Function;
 import com.ecom.user.dto.AuthClientDetails;
 import com.ecom.user.dto.KeycloakUser;
 import com.ecom.user.dto.TokenDetails;
@@ -14,7 +13,6 @@ import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import static org.springframework.security.config.Elements.HTTP;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -25,6 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.Objects;
 
 import static com.ecom.user.constant.enums.AuthConstants.*;
+import static org.springframework.security.config.Elements.HTTP;
 
 @Component
 @Slf4j
@@ -49,8 +48,8 @@ public class KeycloakAuthService {
         MultiValueMap parameters = new LinkedMultiValueMap<String, String>();
         parameters.set(USERNAME,authClientDetails.getUsername());
         parameters.set(PASSWORD,authClientDetails.getPassword());
-        parameters.set(CLIENT_ID,authClientDetails.getClient_id());
-        parameters.set(CLIENT_SECRET,authClientDetails.getClient_secret());
+        parameters.set(CLIENT_ID,authClientDetails.getClientId());
+        parameters.set(CLIENT_SECRET,authClientDetails.getClientSecret());
         parameters.set(GRANT_TYPE,PASSWORD);
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(parameters, headers);
         UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme(HTTP).host(host).path(APIEndPoints.KEYCLOAK_TOKEN_URL).buildAndExpand(realms);
