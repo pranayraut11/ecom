@@ -38,7 +38,7 @@ app:
     - name: KEYCLOAK_RESOURCE
       value: user-service
     - name: KEYCLOAK_CREDENTIALS_SECRET
-      value: 8HxDQ2U0kCXrZVji9GHoaYep8GZxqrD6
+      value: iHVESBt7TjRd6mTWutuqdo3saVmvv8Vy
     - name: USER_AUTH_REALMS_SUBREALMS
       value: ecom
     - name: USER_AUTH_SERVER_HOST
