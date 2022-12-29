@@ -23,7 +23,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http.authorizeRequests().antMatchers(HttpMethod.POST,"/auth/login","users/addUser").
+        http.authorizeRequests().antMatchers(HttpMethod.POST,"/auth/login","/users/addUser").
                 permitAll().antMatchers(HttpMethod.GET,"/files/**","/product").permitAll().
                 anyRequest()
                 .authenticated();
