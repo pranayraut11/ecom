@@ -20,10 +20,10 @@ mongodb:
   volumePermissions:
     enabled: true
   ingress:
-    enabled: true
+    enabled:
     hosts:
-    - name: mongodb.local
-      path: /  
+      - name: mongodb.local
+        path: /  
 
 redis: 
   auth:

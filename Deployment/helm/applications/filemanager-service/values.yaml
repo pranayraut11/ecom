@@ -19,16 +19,17 @@ service:
   targetPort: 8080
   nodePort: 30004
 
-config:
-  enabled: true
-profile:
-  enabled: true
-mongo:
-    enabled: true
-redis: 
-  enabled: false
 
 keycloak:
-  resource: file-manager
+  resource: file-manager-service
   credentials:
     secret: nx0Ft5LNZMCasxAuR6KEAMJuLdDYytqV
+
+app:
+  envVars:
+    - name: SPRING_DATA_MONGODB_URI
+      value: {{ .Values.global.mongoUrl }}
+    - name: KEYCLOAK_RESOURCE
+      value: file-manager-service
+    - name: KEYCLOAK_CREDENTIALS_SECRET
+      value: nx0Ft5LNZMCasxAuR6KEAMJuLdDYytqV

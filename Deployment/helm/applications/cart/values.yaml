@@ -29,3 +29,13 @@ keycloak:
   credentials:
     secret: 9QdxFnJZWnEzgFaptuR8ytT0wY0I2FMN
 
+app:
+  envVars:
+    - name: SPRING_REDIS_HOST
+      value: {{ .Values.global.redisUrl }}
+    - name: SPRING_REDIS_PASSWORD
+      value: redis123
+    - name: KEYCLOAK_RESOURCE
+      value: cart-service
+    - name: KEYCLOAK_CREDENTIALS_SECRET
+      value: 9QdxFnJZWnEzgFaptuR8ytT0wY0I2FMN

@@ -32,3 +32,18 @@ keycloak:
   resource: user-service
   credentials:
     secret: 8HxDQ2U0kCXrZVji9GHoaYep8GZxqrD6
+
+app:
+  envVars:
+    - name: SPRING_DATA-MONGODB_URI
+      value: {{ .Values.global.mongoUrl }}
+    - name: KEYCLOAK_RESOURCE
+      value: user-service
+    - name: KEYCLOAK_CREDENTIALS_SECRET
+      value: 8HxDQ2U0kCXrZVji9GHoaYep8GZxqrD6
+    - name: USER_AUTH_REALMS_SUBREALMS
+      value: ecom
+    - name: USER_AUTH_SERVER_HOST
+      value: "{{ .Values.env.url}}-keycloak"
+    - name: USER_AUTH_REALMS_MASTER_ADMIN_CLIENTSECRET
+      value: WPvYvhNQuLRX6DAkhn7TVzvsQXTgfCNu

@@ -11,7 +11,7 @@ export class ProductRestService {
 
   getProductList(): Observable<Product[]> {
 
-    return this.rest.get<Product[]>(environment.baseURL + 'product', { responseType: 'json' });
+    return this.rest.get<Product[]>(environment.baseURL + 'product/product', { responseType: 'json' });
   }
 
   createProduct(product: Product,images:File): Observable<Product> {

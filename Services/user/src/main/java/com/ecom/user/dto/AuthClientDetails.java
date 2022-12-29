@@ -10,9 +10,9 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class AuthClientDetails {
 
-    private String client_id;
-    private String client_secret;
-    private String grant_type;
+    private String clientId;
+    private String clientSecret;
+    private String grantType;
     private String username;
     private String password;
 }
