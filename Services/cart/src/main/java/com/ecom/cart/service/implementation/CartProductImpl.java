@@ -5,8 +5,8 @@ import com.ecom.cart.entity.Product;
 import com.ecom.cart.repository.CartRepository;
 import com.ecom.cart.service.specification.CartProductService;
 import com.ecom.cart.utility.PriceCalculationUtil;
+import com.ecom.shared.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
-import org.ecom.shared.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,8 +1,8 @@
 package com.ecom.cart.entity;
 
+import com.ecom.shared.entity.BaseEntity;
 import lombok.Builder;
 import lombok.Data;
-import org.ecom.shared.entity.BaseEntity;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
