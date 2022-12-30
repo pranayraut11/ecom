@@ -1,4 +1,4 @@
-package org.ecom.shared.config.i18;
+package com.ecom.shared.config.i18;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.i18n.LocaleContextHolder;

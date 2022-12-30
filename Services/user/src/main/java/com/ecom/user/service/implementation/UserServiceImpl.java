@@ -1,12 +1,12 @@
 package com.ecom.user.service.implementation;
 
+import com.ecom.shared.service.BaseService;
 import com.ecom.user.dto.*;
 import com.ecom.user.dto.User;
 import com.ecom.user.entity.UserMongo;
 import com.ecom.user.repository.UserRepository;
 import com.ecom.user.rest.KeycloakAuthService;
 import com.ecom.user.service.specification.UserService;
-import org.ecom.shared.service.BaseService;
 import org.keycloak.common.VerificationException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package org.ecom.shared.config.i18;
+package com.ecom.shared.config.i18;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package org.ecom.shared.config.rest;
+package com.ecom.shared.config.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

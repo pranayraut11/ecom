@@ -1,18 +1,16 @@
-package org.ecom.shared.exception;
+package com.ecom.shared.exception;
 
+import com.ecom.shared.config.i18.Translator;
+import com.ecom.shared.dto.ApiError;
+import com.ecom.shared.dto.ApiSubError;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.ecom.shared.config.i18.Translator;
-import org.ecom.shared.dto.ApiError;
-import org.ecom.shared.dto.ApiSubError;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
 
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 

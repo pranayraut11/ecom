@@ -1,14 +1,12 @@
-package org.ecom.shared.validation;
+package com.ecom.shared.validation;
 
-import org.ecom.shared.exception.BadRequest;
+import com.ecom.shared.exception.BadRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Set;
 
 @Component

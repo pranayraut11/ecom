@@ -1,6 +1,6 @@
-package org.ecom.shared.controller;
+package com.ecom.shared.controller;
 
-import org.ecom.shared.service.BaseService;
+import com.ecom.shared.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

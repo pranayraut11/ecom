@@ -1,5 +1,6 @@
 package com.ecom.user.rest;
 
+import com.ecom.shared.exception.EcomException;
 import com.ecom.user.constant.enums.APIEndPoints;
 import com.ecom.user.dto.AuthClientDetails;
 import com.ecom.user.dto.KeycloakUser;
@@ -7,7 +8,6 @@ import com.ecom.user.dto.TokenDetails;
 import com.ecom.user.dto.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.ecom.shared.exception.EcomException;
 import org.keycloak.TokenVerifier;
 import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;
@@ -59,7 +59,9 @@ public class KeycloakAuthService {
         if (Objects.nonNull(tokenDetails) && tokenDetails.getStatusCode().is2xxSuccessful()) {
             TokenDetails details = tokenDetails.getBody();
             AccessToken token = TokenVerifier.create(details.getAccess_token(), AccessToken.class).getToken();
-            details.setRoles(token.getRealmAccess().getRoles());
+            if(Objects.nonNull(token.getRealmAccess())) {
+                details.setRoles(token.getRealmAccess().getRoles());
+            }
             return details;
         } else {
             throw new EcomException(tokenDetails.getStatusCode(),"AUTH_ERR001","message",false);

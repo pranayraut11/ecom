@@ -1,4 +1,4 @@
-package org.ecom.shared.exception;
+package com.ecom.shared.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

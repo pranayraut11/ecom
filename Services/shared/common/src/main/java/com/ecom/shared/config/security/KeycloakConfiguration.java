@@ -1,4 +1,4 @@
-package org.ecom.shared.config.security;
+package com.ecom.shared.config.security;
 
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.springframework.context.annotation.Bean;

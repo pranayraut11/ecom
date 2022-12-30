@@ -1,4 +1,4 @@
-package org.ecom.shared.validation;
+package com.ecom.shared.validation;
 
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;

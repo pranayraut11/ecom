@@ -1,4 +1,4 @@
-package org.ecom.shared.exception;
+package com.ecom.shared.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

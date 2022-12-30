@@ -1,4 +1,4 @@
-package org.ecom.shared.dto;
+package com.ecom.shared.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
