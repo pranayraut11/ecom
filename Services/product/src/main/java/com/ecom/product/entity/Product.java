@@ -1,9 +1,9 @@
 package com.ecom.product.entity;
 
+import com.ecom.shared.entity.BaseEntity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.ecom.shared.entity.BaseEntity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

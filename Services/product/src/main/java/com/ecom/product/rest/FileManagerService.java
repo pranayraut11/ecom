@@ -1,8 +1,8 @@
 package com.ecom.product.rest;
 
 import com.ecom.product.constant.APIEndPoints;
+import com.ecom.shared.exception.EcomException;
 import lombok.extern.slf4j.Slf4j;
-import org.ecom.shared.exception.EcomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
