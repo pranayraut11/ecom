@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Product } from "src/app/shared/models/product.model";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { PRODUCT_CREATE } from "../../constants/ApiEndpoints";
 
 @Injectable({ "providedIn": "root" })
 export class ProductRestService {
@@ -26,7 +27,7 @@ export class ProductRestService {
     console.log("name"+images.name);
     formData.append('files',images,images.name);
 
-    return this.rest.post<Product>(environment.baseURL + 'product', formData,{headers});
+    return this.rest.post<Product>(environment.baseURL + PRODUCT_CREATE, formData,{headers});
   }
 
 }

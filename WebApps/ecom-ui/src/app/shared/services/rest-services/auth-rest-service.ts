@@ -21,6 +21,6 @@ export class AuthRestService {
   }
 
   logout(){
-    return this.rest.get(environment.authServerBaseURL + USER_LOGOUT);
+    return this.rest.get(environment.baseURL + USER_LOGOUT);
   }
 }

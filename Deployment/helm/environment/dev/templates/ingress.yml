@@ -9,14 +9,14 @@ spec:
   - host: {{ .Values.env.url }}
     http:
       paths:
-      - path: /product(/|$)(.*)
+      - path: /product-service(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: product-service 
             port: 
               number: 8080
-      - path: /cart(/|$)(.*)
+      - path: /cart-service(/|$)(.*)
         pathType: Prefix
         backend:
           service:
@@ -27,7 +27,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: order 
+            name: order-service
             port: 
               number: 8080                
       - path: /ecom(/|$)(.*)
