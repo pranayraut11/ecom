@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Product } from "src/app/shared/models/product.model";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { PRODUCT_CREATE } from "../../constants/ApiEndpoints";
+import { PRODUCT_CREATE, PRODUCT_LIST } from "../../constants/ApiEndpoints";
 
 @Injectable({ "providedIn": "root" })
 export class ProductRestService {
@@ -12,7 +12,7 @@ export class ProductRestService {
 
   getProductList(): Observable<Product[]> {
 
-    return this.rest.get<Product[]>(environment.baseURL + 'product/product', { responseType: 'json' });
+    return this.rest.get<Product[]>(environment.baseURL + PRODUCT_LIST, { responseType: 'json' });
   }
 
   createProduct(product: Product,images:File): Observable<Product> {
