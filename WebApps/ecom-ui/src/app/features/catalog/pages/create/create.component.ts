@@ -31,7 +31,8 @@ export class CreateProductComponent implements OnInit {
   createProduct(form: NgForm) {
   
     console.log(form);
-    const value = form.value;
+    const value = form.value.userData;
+    console.log(value);
     const price = new Price(value.maxRetailPrice, value.discountedPrice, 0);
     const product = new Product(null, value.name, value.description, price, null);
     console.log(product);
