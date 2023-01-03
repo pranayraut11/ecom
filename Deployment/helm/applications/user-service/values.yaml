@@ -45,5 +45,3 @@ app:
       value: dev-env-keycloak
     - name: USER_AUTH_REALMS_MASTER_ADMIN_CLIENTSECRET
       value: CfbjDzt1uNToTP4rWGx7rBqJXKr3Go4W
-    - name: SERVER_PORT
-      value: '8080'
