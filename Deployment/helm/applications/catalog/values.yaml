@@ -32,6 +32,4 @@ app:
       value: QXwxSfa1SYZ4pJUngrGzK66UBhDaYVNp   
     - name: APP_SERVICE_FILEMANAGER_HOST
       value: filemanager-service
-    - name: SERVER_PORT
-      value: '8080'  
 
