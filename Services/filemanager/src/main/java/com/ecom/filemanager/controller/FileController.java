@@ -36,4 +36,9 @@ public class FileController {
         response.setContentType(MediaType.IMAGE_JPEG_VALUE);
         StreamUtils.copy(file, response.getOutputStream());
     }
+
+    @DeleteMapping()
+    public void deleteFiles(@RequestBody List<String> ids,@RequestParam(required = false) String folderName) throws IOException {
+        fileService.deleteFiles(ids, folderName);
+    }
 }

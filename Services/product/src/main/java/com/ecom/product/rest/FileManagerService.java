@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -18,6 +16,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import reactor.core.publisher.Mono;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.File;
@@ -38,15 +37,20 @@ public class FileManagerService {
     @Autowired
     private WebClient webClient;
 
+    UriComponentsBuilder getUriComponent(String context){
+      return   UriComponentsBuilder.newInstance().scheme(HTTP).host(host).port("8080").path(APIEndPoints.FILE_MANAGER_FILE_BASE_URL);
+    }
+
+
     public List<String> uploadFiles(@NotEmpty List<MultipartFile> files, @NotEmpty String productId) throws IOException {
-        UriComponents uriComponents = UriComponentsBuilder.newInstance().scheme(HTTP).host(host).port("9090").path(APIEndPoints.FILE_MANAGER_FILE_UPLOAD_URL).build();
+        UriComponents uriComponents = getUriComponent(APIEndPoints.FILE_MANAGER_FILE_BASE_URL).build();
 
         Consumer<HttpHeaders> headers = httpHeaders -> {
             httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
         };
-        List<String> webClient2 = null;
+        List<String> response = null;
         try {
-            webClient2 = webClient.post().uri(uriComponents.toUri()).headers(headers).
+            response = webClient.post().uri(uriComponents.toUri()).headers(headers).
                     body(BodyInserters.fromMultipartData(fromFile(files, productId))).retrieve().
                     bodyToMono(List.class).block();
             deleteFiles(files);
@@ -55,7 +59,27 @@ public class FileManagerService {
             throw new EcomException(we.getStatusCode(), "AUTH_0004", we.getMessage(), false);
         }
 
-        return webClient2;
+        return response;
+    }
+
+    public void deleteFiles(@NotEmpty List<String> imageIds,String productId) throws IOException {
+        UriComponents uriComponents = getUriComponent(APIEndPoints.FILE_MANAGER_FILE_BASE_URL).queryParam("folderName",productId).build();
+
+        Consumer<HttpHeaders> headers = httpHeaders -> {
+            httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        };
+        Mono<ResponseEntity<Void>> response = null;
+        try {
+            response = webClient.method(HttpMethod.DELETE).uri(uriComponents.toUri()).headers(headers).
+                    body(Mono.just(imageIds),List.class).retrieve().
+                    toEntity(Void.class);
+            if(response.block().getStatusCode().is2xxSuccessful()){
+                log.info("Files deleted successfully for folder  {}  and files {} ",productId,imageIds);
+            }
+        } catch (WebClientResponseException we) {
+            throw new EcomException(we.getStatusCode(), "AUTH_0004", we.getMessage(), false);
+        }
+
     }
 
 

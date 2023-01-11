@@ -34,7 +34,7 @@ export class CreateProductComponent implements OnInit {
     const value = form.value.userData;
     console.log(value);
     const price = new Price(value.maxRetailPrice, value.discountedPrice, 0);
-    const product = new Product(null, value.name, value.description, price, null);
+    const product = new Product(null, value.name, value.description, price, null,null);
     console.log(product);
     this.productRest.createProduct(product, this.ff).subscribe(res => console.log(res)) ;
     

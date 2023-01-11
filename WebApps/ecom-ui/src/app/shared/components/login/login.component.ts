@@ -32,6 +32,13 @@ export class LoginComponent implements OnInit {
       this.isAuthenticated = !!user;
       console.log(!user);
       console.log(!!user);
+      if(user.roles.includes("seller")){
+        console.log("User is seller")
+        this.router.navigate(["/seller/list"]);
+      }else{
+        console.log("User is not seller")
+        this.router.navigate(["/user/list"]);
+      }
     });
   }
 
@@ -42,12 +49,17 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(login).subscribe({
       next: (response) => {
-
+        
         console.log(localStorage.getItem(AUTH_TOKEN));
         $('#loginModel').modal('hide');
         this.show = false;
-
-        this.router.navigate(["/"]);
+        if(response.roles.includes("seller")){
+          console.log("User is seller")
+          this.router.navigate(["/seller/list"]);
+        }else{
+          console.log("User is not seller")
+          this.router.navigate(["/user/list"]);
+        }
       },
       complete: () => {
 

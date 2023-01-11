@@ -13,4 +13,6 @@ public interface FileService {
 
     public InputStream getFile(String path,String fileName) throws FileNotFoundException;
 
+    public void deleteFiles(List<String> ids,String folderName) throws IOException;
+
 }

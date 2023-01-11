@@ -42,8 +42,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void delete(String id) {
-        productRepository.deleteById(id);
+    public void delete(List<String> ids,String productId) throws IOException {
+        fileManagerService.deleteFiles(ids,productId);
+        productRepository.deleteAllById(ids);
     }
 
     @Override
