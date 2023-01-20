@@ -11,25 +11,27 @@ import { CartProduct } from 'src/app/shared/models/cart.product.model';
 })
 export class CatalogListComponent implements OnInit {
 
- 
+
   products: Product[];
+ 
   constructor(private productRestService: ProductRestService, private cartRestService: CartRestService) { }
 
   ngOnInit(): void {
-    this.productRestService.getProductList().subscribe((product: Product[]) => {
-      console.log(product)
-      this.products = product;
-    });
+    this.productRestService.getProductList().subscribe((product: any[]) => {
+      console.log(product);
+    this.products = product;
+    console.log(this.products);
+  });
 
-  }
+}
 
-  addToCart(product: Product) {
-    let cartProduct = new CartProduct("",product.id, product.name, product.images[0], product.price.price, product.price.discountedPrice, product.price.discount, 1);
-    console.log(product);
-    this.cartRestService.addToCart(cartProduct).subscribe(response=>{
-      console.log(response);
+addToCart(product: Product) {
+  let cartProduct = new CartProduct("", product.id, product.name, product.images[0], product.price.price, product.price.discountedPrice, product.price.discount, 1);
+  console.log(product);
+  this.cartRestService.addToCart(cartProduct).subscribe(response => {
+    console.log(response);
   });;
-  }
+}
 
 
 }

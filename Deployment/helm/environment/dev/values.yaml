@@ -54,6 +54,7 @@ keycloak:
     enabled: true
     hostname: keycloak.local
 
+
 user-service:
   enabled: true
   service: 

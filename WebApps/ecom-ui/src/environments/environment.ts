@@ -7,6 +7,7 @@ export const environment = {
   development: true,
   environmentName: "DEV",
   baseURL: "http://dev-env/",
+  productURL: "http://localhost:9090/",
   authServerBaseURL: "http://localhost:8080/",
   client_id: 'ecom-ui',
   client_secret: 'Z8eq0SE6ng6LGVXe8uW69DWo3Tdf2nAI' 

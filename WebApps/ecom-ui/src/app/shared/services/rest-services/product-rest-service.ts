@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Product } from "src/app/shared/models/product.model";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { PRODUCT_CREATE, PRODUCT_LIST } from "../../constants/ApiEndpoints";
+import { PRODUCT_SERVICE } from "../../constants/ApiEndpoints";
 
 @Injectable({ "providedIn": "root" })
 export class ProductRestService {
@@ -12,7 +12,7 @@ export class ProductRestService {
 
   getProductList(): Observable<Product[]> {
 
-    return this.rest.get<Product[]>(environment.baseURL + PRODUCT_LIST, { responseType: 'json' });
+    return this.rest.get<Product[]>(environment.productURL + PRODUCT_SERVICE, { responseType: 'json' });
   }
 
   createProduct(product: Product,images:File): Observable<Product> {
@@ -27,7 +27,12 @@ export class ProductRestService {
     console.log("name"+images.name);
     formData.append('files',images,images.name);
 
-    return this.rest.post<Product>(environment.baseURL + PRODUCT_CREATE, formData,{headers});
+    return this.rest.post<Product>(environment.productURL + PRODUCT_SERVICE, formData,{headers});
+  }
+
+
+  deleteProduct(productIds : string[]):Observable<any>{
+   return this.rest.delete(environment.productURL + PRODUCT_SERVICE,{body:productIds});
   }
 
 }

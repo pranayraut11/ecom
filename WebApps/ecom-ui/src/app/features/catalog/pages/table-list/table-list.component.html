@@ -1,0 +1,41 @@
+<!-- Main body -->
+<div class="container">
+    <!-- Table -->
+    <div class="table-responsive">
+        <table class="table table-fit mt-5 table-hover ">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-1" >#</th>
+                    <th scope="col" class="col-2">Id</th>
+                    <th scope="col"class="col-7">Name</th>
+                    <th scope="col"class="col-1">Price</th>
+                    <th scope="col"class="col-1">Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngFor ="let product of products let i= index">
+                <tr class="d-flex" >
+                    <th scope="row" class="col-1"> {{i+1}} </th>
+                    <td class="col-2"> {{product.id}}</td>
+                    <td class="col-7">{{product.name}} </td>
+                    <td class="col-1">{{product.price.price}}</td>
+                    <td class="col-1">
+                        <div class="d-flex flex-row  mb-12">
+                            <div class="col-4">
+                               
+                                <i class="bi bi-eye"  role="button"></i>
+                            </div>
+                           
+                            <div class="col-4">
+                               
+                                <i class="bi bi-pencil-square" role="button"></i>
+                            </div>
+                            <div class="col-1">
+                                <i class="bi bi-trash3" (click)="deleteProduct(product.id)" role="button"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>

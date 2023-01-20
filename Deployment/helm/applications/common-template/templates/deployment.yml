@@ -25,7 +25,10 @@ spec:
           env: 
           {{- range .Values.app.envVars }}
             - name: {{ .name }}
-              value: {{ .value }}
+              valueFrom: 
+                configMapKeyRef:
+                  name: {{ .Values.global.configMapName }}
+                  key: {{ .name }}
           {{- end }}
           {{- if .Values.mongo.enabled }}
             - name: SPRING_DATA_MONGODB_URI

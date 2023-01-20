@@ -15,7 +15,7 @@ export class AuthInterceptorService implements HttpInterceptor {
        
         this.spinnerService.show();
         let url = req.url;
-        if (url.includes("/auth/login")) {
+        // if (url.includes("/auth/login") || url.includes("/product")) {
             return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     this.spinnerService.hide();
@@ -23,7 +23,7 @@ export class AuthInterceptorService implements HttpInterceptor {
             }, (error) => {
                 this.spinnerService.hide();
             }));
-        }
+        //}
         let tokenDetailsJson = localStorage.getItem("token");
         if (tokenDetailsJson) {
             const tokenDetails: {
