@@ -1,1 +1,11 @@
-{{- template "common.configmap" . -}}
+{{- define "common.configmap" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.global.configMapName }}
+data:
+  SPRING_PROFILES_ACTIVE: {{ .Values.global.activeProfile }}
+  SPRING_DATA_MONGODB_URI: {{ .Values.global.mongoUrl }}
+  SPRING_REDIS_HOST: {{ .Values.global.redisUrl }}
+  SPRING_REDIS_PASSWORD: {{ .Values.redis.auth.password }}
+{{- end -}}  

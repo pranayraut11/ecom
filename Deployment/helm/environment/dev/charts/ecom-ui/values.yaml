@@ -1,0 +1,21 @@
+# Default values for ecom-ui.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+deploymentName: ecom-ui
+deploymentLabel: ecom-ui-deployment
+replicaCount: 1
+
+image:
+  repository: pranayraut11/ecom-ui
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+
+containerPort: 80
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30005
+
