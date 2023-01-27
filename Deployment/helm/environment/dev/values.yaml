@@ -54,6 +54,17 @@ keycloak:
     enabled: true
     hostname: keycloak.local
 
+minio:
+  auth:
+    rootUser: admin123
+    rootPassword: admin123
+  ingress:
+    enabled: true
+    hostname: minio.local
+  persistence:
+    enabled: true
+    existingClaim: common-persistentvolumeclaim  
+    
 
 user-service:
   enabled: true
@@ -105,7 +116,7 @@ cart-service:
         value: "redis123"
 
 filemanager-service:
-  enabled: false
+  enabled: true
   service:
     envVars:
       - name: AUTH_SERVER_URL
@@ -116,3 +127,5 @@ filemanager-service:
         value: x0CsU4fyQBwM79bvoAXgjulB405nAwQx
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
+      - name: MINIO_URL
+        value:  dev-env-minio
