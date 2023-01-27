@@ -4,6 +4,11 @@ global:
   mongoUrl: mongodb://demo1:demo1@dev-env-mongodb:27017/product
   redisUrl: dev-env-redis-master
 
+
+env: 
+  url: dev-env
+
+
 mongodb:
   auth:
     enabled: true
@@ -49,16 +54,65 @@ keycloak:
     enabled: true
     hostname: keycloak.local
 
-env: 
-  url: dev-env
 
-app:
+user-service:
+  enabled: true
+  service: 
+    envVars:
+      - name: AUTH_SERVER_URL
+        value: http://dev-env-keycloak
+      - name: KEYCLOAK_RESOURCE
+        value: user-service
+      - name: KEYCLOAK_CREDENTIALS_SECRET
+        value: iHVESBt7TjRd6mTWutuqdo3saVmvv8Vy
+      - name: USER_AUTH_REALMS_SUBREALMS
+        value: ecom
+      - name: USER_AUTH_SERVER_HOST
+        value: "dev-env-keycloak"
+      - name: USER_AUTH_REALMS_MASTER_ADMIN_CLIENTSECRET
+        value: CfbjDzt1uNToTP4rWGx7rBqJXKr3Go4W
+      - name: SPRING_DATA_MONGODB_URI
+        value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
+
+product-service:
+  enabled: true
   service:
-    product-service:
-      envVars:
-        - name: KEYCLOAK_RESOURCE
-          value: product-service
-        - name: KEYCLOAK_CREDENTIALS_SECRET
-          value: QXwxSfa1SYZ4pJUngrGzK66UBhDaYVNp   
-        - name: APP_SERVICE_FILEMANAGER_HOST
-          value: filemanager-service
+    envVars:
+      - name: AUTH_SERVER_URL
+        value: http://dev-env-keycloak
+      - name: KEYCLOAK_RESOURCE
+        value: product-service
+      - name: KEYCLOAK_CREDENTIALS_SECRET
+        value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8   
+      - name: APP_SERVICE_FILEMANAGER_HOST
+        value: filemanager-service
+      - name: SPRING_DATA_MONGODB_URI
+        value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
+
+cart-service:
+  enabled: false
+  service:
+    envVars:
+      - name: AUTH_SERVER_URL
+        value: http://dev-env-keycloak
+      - name: KEYCLOAK_RESOURCE
+        value: cart-service
+      - name: KEYCLOAK_CREDENTIALS_SECRET
+        value: 9QdxFnJZWnEzgFaptuR8ytT0wY0I2FMN   
+      - name: SPRING_REDIS_HOST
+        value: "dev-env-redis-master"
+      - name: SPRING_REDIS_PASSWORD
+        value: "redis123"
+
+filemanager-service:
+  enabled: false
+  service:
+    envVars:
+      - name: AUTH_SERVER_URL
+        value: http://dev-env-keycloak
+      - name: KEYCLOAK_RESOURCE
+        value: filemanager-service
+      - name: KEYCLOAK_CREDENTIALS_SECRET
+        value: x0CsU4fyQBwM79bvoAXgjulB405nAwQx
+      - name: SPRING_DATA_MONGODB_URI
+        value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"

@@ -1,0 +1,3 @@
+{{- if .Values.enabled }}
+{{- template "common.deployment" . -}}
+{{- end }}

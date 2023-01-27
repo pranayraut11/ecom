@@ -1,0 +1,20 @@
+# Default values for user-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName : filemanager-service-deployment
+deploymentLabel : filemanager-service
+
+replicaCount: 1
+
+image:
+  repository: pranayraut11/filemanager-app
+  tag: latest
+
+containerPort: 8080
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+

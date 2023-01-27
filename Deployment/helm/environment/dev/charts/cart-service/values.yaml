@@ -1,0 +1,16 @@
+deploymentName : cart-deployment
+deploymentLabel : cart-service
+
+replicaCount: 1
+
+image:
+  repository: pranayraut11/cart-app
+  tag: latest
+
+containerPort: 8080
+
+service:
+  type: NodePort
+  port: 8080
+  targetPort: 8080
+  nodePort: 30002

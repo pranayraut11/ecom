@@ -1,0 +1,21 @@
+# Default values for user-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName : user-service-deployment
+deploymentLabel : user-service
+
+replicaCount: 1
+
+image:
+  repository: pranayraut11/user-app
+  tag: latest
+
+containerPort: 8080
+
+service:
+  type: NodePort
+  port: 8080
+  targetPort: 8080
+  nodePort: 30003
+

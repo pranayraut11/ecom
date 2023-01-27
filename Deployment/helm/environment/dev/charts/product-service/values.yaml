@@ -1,0 +1,16 @@
+deploymentName : product-deployment
+deploymentLabel : product-service
+
+replicaCount: 1
+
+image:
+  repository: pranayraut11/product-app
+  tag: latest
+
+containerPort: 8080
+
+service:
+  type: NodePort
+  port: 8080
+  targetPort: 8080
+  nodePort: 30001
