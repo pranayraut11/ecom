@@ -33,9 +33,13 @@ public final class FileUtility {
     public static void deleteDirectory(List<Path> paths) {
         paths.stream().forEach(path-> {
             try {
-                log.info("Deleting all files from folder {} ...", path.getFileName());
-                Files.walk(path).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
-                log.info("Deleted all files from folder {} ", path.getFileName());
+                if(Files.exists(path)) {
+                    log.info("Deleting all files from folder {} ...", path.getFileName());
+                    Files.walk(path).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
+                    log.info("Deleted all files from folder {} ", path.getFileName());
+                }else{
+                    log.info("No file found in the folder {}", path.getFileName());
+                }
             } catch (IOException e) {
                 log.error("Error occurred while deleting files from folder {} ", path.getFileName());
                 throw new EcomException(e);

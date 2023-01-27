@@ -2,8 +2,7 @@ package com.ecom.user.service.implementation;
 
 import com.ecom.shared.service.BaseService;
 import com.ecom.user.dto.*;
-import com.ecom.user.dto.User;
-import com.ecom.user.entity.UserMongo;
+import com.ecom.user.entity.UserDetails;
 import com.ecom.user.repository.UserRepository;
 import com.ecom.user.rest.KeycloakAuthService;
 import com.ecom.user.service.specification.UserService;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl extends BaseService<User> implements UserService {
+public class UserServiceImpl implements UserService {
 
 
     private KeycloakAuthService keycloakAuthService;
@@ -40,33 +39,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
-        return null;
-    }
-
-    @Override
-    public User get(String id) {
-        return null;
-    }
-
-    @Override
-    public void delete(String id) {
-
-    }
-
-    @Override
-    public User create(User user) {
-
-        return null;
-    }
-
-    @Override
-    public User update(User entity) {
-        return null;
-    }
-
-    @Override
-    public void create(UserMongo user) throws VerificationException {
+    public void create(UserDetails user) throws VerificationException {
         adminCredentials.setUsername(masterUserCredentials.getUsername());
         adminCredentials.setPassword(masterUserCredentials.getPassword());
         TokenDetails tokenDetails = keycloakAuthService.login(adminCredentials,masterRealms);

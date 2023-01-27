@@ -3,7 +3,7 @@
         <div *ngFor="let product of products" class="col-3">
             <div class="block">
                 <div class="middle">
-                    <img src="http://localhost:8080/files/{{product.id}}/{{product.images[0]}}" alt="pic" />
+                    <img src="http://dev-env/filemanager/files/{{product.id}}/{{product.images[0]}}" alt="pic" />
                 </div>
     
                 <div class="bottom">
@@ -12,7 +12,7 @@
                     <div class="style">Color: Red / Style: M9621C</div>
                     <div class="price">${{product.price.discountedPrice}} <span
                             class="old-price">${{product.price.price}}</span></div>
-                    <a href="#" class="btn btn-primary btn-lg btn-block buy-now" (click)="addToCart(product)">
+                    <a class="btn btn-primary btn-lg btn-block buy-now" (click)="addToCart(product)">
                         Add to cart <span class="glyphicon glyphicon-triangle-right"></span>
                     </a>
                 </div>

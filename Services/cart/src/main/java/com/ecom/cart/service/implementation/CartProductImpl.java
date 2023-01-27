@@ -5,6 +5,7 @@ import com.ecom.cart.entity.Product;
 import com.ecom.cart.repository.CartRepository;
 import com.ecom.cart.service.specification.CartProductService;
 import com.ecom.cart.utility.PriceCalculationUtil;
+import com.ecom.shared.dto.UserDetails;
 import com.ecom.shared.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class CartProductImpl extends BaseService<Cart> implements CartProductSer
     @Override
     public void delete(String id) {
 
-        Cart cart = cartRepository.findByUserId("pranay");
+        Cart cart = cartRepository.findByUserId(UserDetails.getUserId());
         if (cart != null) {
             Product product = cart.getProducts().stream().filter(cartProduct -> cartProduct.getProductId().equals(id)).collect(Collectors.toList()).stream().findFirst().get();
             cart.getProducts().remove(product);
@@ -60,16 +61,16 @@ public class CartProductImpl extends BaseService<Cart> implements CartProductSer
 
     @Override
     public Cart getCart() {
-        Cart cart = cartRepository.findByUserId("pranay");
+        Cart cart = cartRepository.findByUserId(UserDetails.getUserId());
         PriceCalculationUtil.getCartPrice(cart);
         return cart;
     }
 
     @Override
     public Cart addProductToCart(Product product) {
-        Cart cart = cartRepository.findByUserId("pranay");
+        Cart cart = cartRepository.findByUserId(UserDetails.getUserId());
         if (Objects.isNull(cart)) {
-            cart = Cart.builder().products(Arrays.asList(product)).userId("pranay").build();
+            cart = Cart.builder().products(Arrays.asList(product)).userId(UserDetails.getUserId()).build();
             cart.setId(UUID.randomUUID().toString());
         } else if (cart.getProducts() != null) {
             boolean isProductExist = false;
@@ -90,7 +91,7 @@ public class CartProductImpl extends BaseService<Cart> implements CartProductSer
 
     @Override
     public Cart updateProduct(Product product) {
-        Cart cart = cartRepository.findByUserId("pranay");
+        Cart cart = cartRepository.findByUserId(UserDetails.getUserId());
         if (Objects.nonNull(cart)) {
             List<Product> matchedProduct = cart.getProducts().stream().filter(cartProduct -> cartProduct.getProductId().equals(product.getProductId())).collect(Collectors.toList());
             cart.getProducts().removeAll(matchedProduct);
@@ -101,7 +102,7 @@ public class CartProductImpl extends BaseService<Cart> implements CartProductSer
 
     @Override
     public Cart removeProductFromCart(String id) {
-        Cart cart = cartRepository.findByUserId("pranay");
+        Cart cart = cartRepository.findByUserId(UserDetails.getUserId());
         if (cart != null) {
             Product product = cart.getProducts().stream().filter(cartProduct -> cartProduct.getProductId().equals(id)).collect(Collectors.toList()).stream().findFirst().get();
             cart.getProducts().remove(product);

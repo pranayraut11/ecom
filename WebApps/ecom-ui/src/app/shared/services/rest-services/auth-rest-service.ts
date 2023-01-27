@@ -4,8 +4,6 @@ import { Login } from '../../models/Login.model';
 import { environment } from 'src/environments/environment';
 import { USER_LOGIN, USER_LOGOUT } from '../../constants/ApiEndpoints';
 import { Token } from '../../models/Token';
-import { BehaviorSubject, catchError, Subject, tap, throwError } from 'rxjs';
-import { User } from '../../models/User.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +14,13 @@ export class AuthRestService {
   
 
   login(login: Login) {
-    return this.rest.post<Token>(environment.baseURL + USER_LOGIN, login);
+    const headers = new HttpHeaders()
+     .set("X-CustomHeader", "none");
+    return this.rest.post<Token>(environment.baseURL + USER_LOGIN, login,{headers});
       
   }
 
-  logout(){
+  logout() {
     return this.rest.get(environment.baseURL + USER_LOGOUT);
   }
 }

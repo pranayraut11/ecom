@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -37,6 +38,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                     .authenticated();
 
         }
+        http.addFilterAfter(new HttpRequestFilter(), BasicAuthenticationFilter.class);
         http.csrf().disable();
         http.cors();
     }
