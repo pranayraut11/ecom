@@ -10,6 +10,9 @@ import java.time.LocalDate;
 @Builder
 public class OrderDTO {
 
+    private String orderId;
+
+    private String productId;
     private String productName ;
     private String image;
     private BigDecimal price;

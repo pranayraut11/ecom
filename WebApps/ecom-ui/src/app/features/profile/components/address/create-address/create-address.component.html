@@ -1,0 +1,52 @@
+<form class="row g-3" (ngSubmit)="saveAddress(f)" #f="ngForm">
+    <div ngModelGroup="addressData" #addressData="ngModelGroup">
+        <div class="mb-3" class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" ngModel>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="lastName" ngModel>
+                </div>
+            </div>
+            <br>
+        </div>
+        <div class="mb-3" class="form-group">
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Address line 1</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="addressLine1"
+                    ngModel>
+            </div>
+            <br>
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Address line 2</label>
+                <input type="text" class="form-control" id="inputAddress2" name="addressLine2"
+                    placeholder="Apartment, studio, or floor" ngModel>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="inputCity" class="form-label">City</label>
+                    <input type="text" class="form-control" id="inputCity" name="city" ngModel>
+                </div>
+                <div class="col-md-4">
+                    <label for="inputState" class="form-label">State</label>
+                    <select id="inputState" class="form-select" name="state" ngModel>
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="inputZip" class="form-label">Zip</label>
+                    <input type="text" class="form-control" id="inputZip" name="zipcode" ngModel>
+                </div>
+            </div>
+            <br>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</form>

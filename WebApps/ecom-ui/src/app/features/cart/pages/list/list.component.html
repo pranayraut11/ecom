@@ -1,91 +1,96 @@
-<div >
+<div class="container">
     <div class="row">
-        <aside class="col-lg-9">
-            <div class="card">
-                <div class="table-responsive">
-                    <table class="table table-borderless table-shopping-cart">
-                        <thead class="text-muted">
-                            <tr class="small text-uppercase">
-                                <th scope="col">Product</th>
-                                <th scope="col" width="120">Quantity</th>
-                                <th scope="col" width="120">Price</th>
-                                <th scope="col" class="text-right d-none d-md-block" width="200"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let product of cartProducts">
-                                <td class="col-md-4">
-                                    <figure class="itemside align-items-center">
-                                        <div class="aside"><img src="{{product.image}}" class="img-sm">
-                                        </div>
-                                        <figcaption class="info"> <a href="#" class="title text-dark"
-                                                data-abc="true">{{product.name}}</a>
-                                            <p class="text-muted small">SIZE: L <br> {{product.description}}</p>
-                                        </figcaption>
-                                    </figure>
-                                </td>
-                                <td class="col-md-3">
+    <!-- Table -->
+    <div class="table-responsive">
+        <table class="table table-fit mt-5 table-hover ">
+            <thead>
+                <tr class="d-flex">
+                    <th scope="col" class="col-1">#</th>
+                    <th scope="col" class="col-1 text-center">Image</th>
+                    <th scope="col" class="col-4 text-center">Name</th>
+                    <th scope="col" class="col-2 ">Quantity</th>
+                    <th scope="col" class="col-1">Price</th>
+                    <th scope="col" class="col-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let product of cartProducts let i= index">
+                <tr class="d-flex">
+                    <td scope="row" class="col-1"> {{i+1}} </td>
+                    <td class="col-1">
+                        <img class="img-fluid"
+                            src="http://dev-env/filemanager/files/{{product.productId}}/{{product.image}}" alt="pic" />
+                    </td>
+                    <td class="col-4">{{product.name}} </td>
 
-                                    <div class="col-md-3">
-                                        <button type="button" class="btn btn-out" (click)="decreaseQuantity(product)">-</button>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <input type="text" class=" form-control" value="{{product.quantity}}" />
-                                    </div>
-                                    <div class="col-6">
-                                        <button type="button" (click)="increaseQuantity(product)" class="btn btn-out">+</button>
-                                    </div>
-
-                                </td>
-
-                                <td class="col-md-1">
-                                    <div class="price-wrap"> <var class="price">${{product.price}}</var> <small
-                                            class="text-muted"> ${{product.discountedPrice}} each </small> </div>
-                                </td>
-                                <td class="text-right d-none d-md-block col-md-4">
-                                    <div class="col-md-6"> <button type="button" class="btn btn-warning btn-out">Save to
-                                            wishlist</button></div>
-                                    <div class="col-md-6"> <button type="button" class="btn btn-danger btn-out" (click)="removeFromCart(product)">Remove</button>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </aside>
-        <aside class="col-lg-3">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <form>
-                        <div class="form-group"> <label>Have coupon?</label>
-                            <div class="input-group"> <input type="text" class="form-control coupon" name=""
-                                    placeholder="Coupon code"> <span class="input-group-append"> <button
-                                        class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
+                    <td class="col-2">
+                        <div class="row">
+                            <div class="col-2">
+                                <button type="button" class="btn btn-out" (click)="decreaseQuantity(product)">-</button>
+                            </div>
+                            <div class="col-3">
+                                <input type="text" class=" form-control" value="{{product.quantity}}" />
+                            </div>
+                            <div class="col-2">
+                                <button type="button" (click)="increaseQuantity(product)" class="btn btn-out">+</button>
+                            </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <dl class="dlist-align">
-                        <dt>Total price:</dt>
-                        <dd class="text-right ml-3">${{cart.totalPrice}}</dd>
-                    </dl>
-                    <dl class="dlist-align">
-                        <dt>Discount:</dt>
-                        <dd class="text-right text-danger ml-3">- ${{cart.discount}}</dd>
-                    </dl>
-                    <dl class="dlist-align">
-                        <dt>Total:</dt>
-                        <dd class="text-right text-dark b ml-3"><strong>${{cart.total}}</strong></dd>
-                    </dl>
-                    <hr> <button type="button" class="btn btn-out btn-primary btn-square btn-main"  (click)="placeOrder(cart)"> Place order</button><hr> <a class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue
-                        Shopping</a>
-                </div>
-            </div>
-        </aside>
+                    </td>
+                    <td class="col-1">
+                        ${{product.price}}<small class="text-muted">
+                            ${{product.discountedPrice}} each </small>
+                    </td>
+                    <td class="col-3">
+
+                        <div class="row">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-warning btn-out">Save to
+                                    wishlist</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-danger btn-out"
+                                    (click)="removeFromCart(product)">Remove</button>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
+
+</div>
+    <aside class="col-lg-3">
+        <div class="card mb-3">
+            <div class="card-body">
+                <form>
+                    <div class="form-group"> <label>Have coupon?</label>
+                        <div class="input-group"> <input type="text" class="form-control coupon" name=""
+                                placeholder="Coupon code"> <span class="input-group-append"> <button
+                                    class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <dl class="dlist-align">
+                    <dt>Total price:</dt>
+                    <dd class="text-right ml-3">${{cart.totalPrice}}</dd>
+                </dl>
+                <dl class="dlist-align">
+                    <dt>Discount:</dt>
+                    <dd class="text-right text-danger ml-3">- ${{cart.discount}}</dd>
+                </dl>
+                <dl class="dlist-align">
+                    <dt>Total:</dt>
+                    <dd class="text-right text-dark b ml-3"><strong>${{cart.total}}</strong></dd>
+                </dl>
+                <hr> <button type="button" class="btn btn-out btn-primary btn-square btn-main"
+                    (click)="placeOrder(cart)"> Place order</button>
+                <hr> <a class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue
+                    Shopping</a>
+            </div>
+        </div>
+    </aside>
 </div>

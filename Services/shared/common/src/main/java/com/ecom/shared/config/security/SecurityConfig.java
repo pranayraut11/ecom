@@ -30,13 +30,11 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         super.configure(http);
         if(isSecurityDisabled){
             http.authorizeRequests().anyRequest().permitAll();
-
         }else {
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/auth/login", "/users/addUser").
                     permitAll().antMatchers(HttpMethod.GET, "/files/**", "/product").permitAll().
                     anyRequest()
                     .authenticated();
-
         }
         http.addFilterAfter(new HttpRequestFilter(), BasicAuthenticationFilter.class);
         http.csrf().disable();

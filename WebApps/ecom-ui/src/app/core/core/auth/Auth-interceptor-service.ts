@@ -14,6 +14,13 @@ export class AuthInterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
 
         this.spinnerService.show();
+        return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
+            if (event instanceof HttpResponse) {
+                this.spinnerService.hide();
+            }
+        }, (error) => {
+            this.spinnerService.hide();
+        }));
         let header = req.headers.get("X-CustomHeader");
         console.log("Header in auth" + header);
         if (header == null) {

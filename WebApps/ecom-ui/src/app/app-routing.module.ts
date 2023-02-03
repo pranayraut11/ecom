@@ -9,10 +9,16 @@ import { CatalogListComponent } from './features/catalog/pages/list/list.compone
 import { SellerHomeComponent } from './features/layout/seller/pages/home/home.component';
 import { HomeComponent } from './features/layout/customer/pages/home/home.component';
 import { TableListComponent } from './features/catalog/pages/table-list/table-list.component';
+import { OrderListComponent } from './features/order/pages/list/list.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { CreateAddressComponent } from './features/profile/components/address/create-address/create-address.component';
+import { UpdateProfileComponent } from './features/profile/components/update-profile/update-profile.component';
+import { ListAddressComponent } from './features/profile/components/address/list-address/list-address.component';
+import { AddressComponent } from './features/profile/components/address/address.component';
 
 const appsRoutes: Routes = [
   // { path: 'cart', component: CartListComponent }, 
-  // { path: 'myorders', component: CreateOrderComponent },
+  //{ path: 'myorders', component: OrderListComponent },
   { path: 'create', redirectTo: 'seller/create', pathMatch: 'full' },
   { path: 'auth/register', component: UserRegistrationComponent },
   { path: '', redirectTo: 'user/list', pathMatch: 'full' },
@@ -27,6 +33,35 @@ const appsRoutes: Routes = [
       {
         path: 'cart',
         component: CartListComponent,
+
+      },
+      {
+        path: 'myorders',
+        component: OrderListComponent,
+
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent, children:[
+          {
+            path:'address',component:AddressComponent ,children:[
+              {
+                path:'list',component:ListAddressComponent 
+              },
+              {
+                path:'create',component:CreateAddressComponent
+              }
+            ]
+          },
+          
+          {
+            path:'my-profile',component:UpdateProfileComponent
+          },
+          
+          {
+            path:'myorders',component:OrderListComponent
+          }
+        ]
 
       }
     ]

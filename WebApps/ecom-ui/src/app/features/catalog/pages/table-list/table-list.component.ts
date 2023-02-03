@@ -16,16 +16,7 @@ export class TableListComponent implements OnInit {
   ngOnInit(): void {
     this.productRestService.getProductList().subscribe((product: Product[]) => {
       console.log(product);
-      product.map((pr) => {
-        console.log(pr);
-        if (pr.images) {
-          pr.imageUrl = pr.id + "/" + pr.images[0];
-
-        } else {
-          pr.imageUrl = "asd";
-        }
-      }
-      );
+     
       this.products = product;
       console.log(this.products);
     });

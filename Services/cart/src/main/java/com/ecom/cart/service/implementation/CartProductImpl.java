@@ -61,16 +61,16 @@ public class CartProductImpl extends BaseService<Cart> implements CartProductSer
 
     @Override
     public Cart getCart() {
-        Cart cart = cartRepository.findByUserId(UserDetails.getUserId());
+        Cart cart = cartRepository.findByUserId("pranay1@gmail.com");
         PriceCalculationUtil.getCartPrice(cart);
         return cart;
     }
 
     @Override
     public Cart addProductToCart(Product product) {
-        Cart cart = cartRepository.findByUserId(UserDetails.getUserId());
+        Cart cart = cartRepository.findByUserId("pranay1@gmail.com");
         if (Objects.isNull(cart)) {
-            cart = Cart.builder().products(Arrays.asList(product)).userId(UserDetails.getUserId()).build();
+            cart = Cart.builder().products(Arrays.asList(product)).userId("pranay1@gmail.com").build();
             cart.setId(UUID.randomUUID().toString());
         } else if (cart.getProducts() != null) {
             boolean isProductExist = false;

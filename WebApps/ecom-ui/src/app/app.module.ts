@@ -19,6 +19,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { SellerHomeComponent } from './features/layout/seller/pages/home/home.component';
 import { TableListComponent } from './features/catalog/pages/table-list/table-list.component';
+import { OrderListComponent } from './features/order/pages/list/list.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { ProfileMenuComponent } from './features/profile/components/profile-menu/profile-menu.component';
+import { CreateAddressComponent } from './features/profile/components/address/create-address/create-address.component';
+import { UpdateProfileComponent } from './features/profile/components/update-profile/update-profile.component';
+import { ListAddressComponent } from './features/profile/components/address/list-address/list-address.component';
+import { AddressComponent } from './features/profile/components/address/address.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +43,14 @@ import { TableListComponent } from './features/catalog/pages/table-list/table-li
     RolesDirective,
     LoadingSpinnerComponent,
     SellerHomeComponent,
-    TableListComponent
+    TableListComponent,
+    OrderListComponent,
+    ProfileComponent,
+    ProfileMenuComponent,
+    CreateAddressComponent,
+    UpdateProfileComponent,
+    ListAddressComponent,
+    AddressComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule
