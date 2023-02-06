@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.Set;
 
 
 @Document("User")
@@ -16,7 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class UserDetails extends User {
 
+    private String userId;
 
-    private List<Address> addresses;
+    private Set<Address> addresses;
 
 }

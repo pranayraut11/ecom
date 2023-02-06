@@ -1,4 +1,3 @@
-import { Media } from "./media.module";
 import { Price } from "./price.model";
 
 export class Product {

@@ -1,4 +1,4 @@
-export class User {
+export class UserTokenDetails {
     constructor(
         public token: string,
         public refreshToken : string,

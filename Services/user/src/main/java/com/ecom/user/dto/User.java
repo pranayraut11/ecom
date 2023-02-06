@@ -20,10 +20,6 @@ public abstract class User {
 
     private String email;
 
-
-
     private boolean enabled;
-
-   // private List<Address> addresses;
 
 }
