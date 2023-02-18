@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Cart } from '../../../../shared/models/cart';
 import { CartProduct } from '../../../../shared/models/cart.product.model';
@@ -12,18 +12,24 @@ import { CreateOrder } from 'src/app/shared/models/CreateOrder.model';
   styleUrls: ['./list.component.css']
 })
 export class CartListComponent implements OnInit {
-
+  @Output() reload = new EventEmitter<string>();
   constructor(private cartRestService: CartRestService, private orderRestService: OrderRestService) { }
   cart: Cart;
   cartProducts: CartProduct[];
+  initialized = false;
   ngOnInit(): void {
+    //this.reload.emit('proc');
     this.cartRestService.getCartProducts().subscribe((cart: Cart) => {
-      console.log(cart);
+      
       if (cart) {
         this.cart = cart;
         this.cartProducts = cart.products;
+        console.log(this.cart);
+        console.log(this.cartProducts);
       }
+    this.initialized = true;
     });
+    
   }
 
   increaseQuantity(cartProduct: CartProduct) {

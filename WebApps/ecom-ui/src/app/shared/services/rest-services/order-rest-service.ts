@@ -11,11 +11,11 @@ import { CreateOrder } from "../../models/CreateOrder.model";
 export class OrderRestService{
     constructor(private rest: HttpClient){}
     placeOrder(order: CreateOrder) : Observable<Order[]>{
-        return this.rest.post<Order[]>(environment.orderURL+'order',order);
+        return this.rest.post<Order[]>(environment.baseURL+'order',order);
     }
 
     getOrders() : Observable<Order[]>{
-        return this.rest.get<Order[]>(environment.orderURL+'order');
+        return this.rest.get<Order[]>(environment.baseURL+'order');
     }
 
 }

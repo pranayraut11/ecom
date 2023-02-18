@@ -75,19 +75,4 @@ public class UserServiceImpl implements UserService {
         log.info("User {} Created successfully!",user.getEmail());
     }
 
-    @Override
-    public void createOrUpdateAddress(@NotNull Address address) {
-        String userId = com.ecom.shared.dto.UserDetails.getUserId();
-        log.info("Saving address for user {} ... ",userId);
-        UserDetails userDetails = userRepository.findByUserId(userId).orElseThrow(() -> new EcomException(HttpStatus.NOT_FOUND, "404"));
-        if (StringUtils.isBlank(address.getId())) {
-            address.setId(UUID.randomUUID().toString());
-        }
-        if (CollectionUtils.isEmpty(userDetails.getAddresses())) {
-            userDetails.setAddresses(Collections.singleton(address));
-        }else{
-            userDetails.getAddresses().add(address);
-        }
-        log.info("Address saved/updated successfully for user {} ... ",userId);
-    }
 }

@@ -6,10 +6,10 @@ export const environment = {
   production: false,
   development: true,
   environmentName: "DEV",
-  baseURL: "http://dev-env/",
+  baseURL: "http://localhost:3000/",
+  //baseURL: "http://dev-env/",
   localURL: "http://localhost:8080/",
-  orderURL: "http://localhost:8082/",
-  authServerBaseURL: "http://localhost:8080/",
+  isSecured: false,
   client_id: 'ecom-ui',
   client_secret: 'Z8eq0SE6ng6LGVXe8uW69DWo3Tdf2nAI' 
 

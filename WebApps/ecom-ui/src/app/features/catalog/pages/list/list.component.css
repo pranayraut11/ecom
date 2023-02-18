@@ -1,5 +1,5 @@
 .block {
-    margin: 20px;
+    margin-top: 20px;
     border-radius: 4px;
     width: 100%;
     min-height: 430px;
@@ -59,3 +59,8 @@
     text-decoration: line-through;
   }
   
+  .buttons .btn {
+    height: 50px;
+    width: 275px;
+    border-radius: 0px !important
+}

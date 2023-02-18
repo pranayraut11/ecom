@@ -9,6 +9,4 @@ import org.springframework.stereotype.Service;
 public interface UserService{
 
     public void create(UserDetails user) throws VerificationException;
-
-    public void createOrUpdateAddress(Address address);
 }

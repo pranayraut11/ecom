@@ -1,7 +1,5 @@
 package com.ecom.user.controller;
 
-import com.ecom.shared.controller.BaseController;
-import com.ecom.user.dto.User;
 import com.ecom.user.entity.UserDetails;
 import com.ecom.user.model.Address;
 import com.ecom.user.service.specification.UserService;
@@ -26,8 +24,4 @@ public class UserController  {
         userService.create(user);
     }
 
-    @PostMapping("address")
-    public void createAddress(@RequestBody Address address){
-
-    }
 }

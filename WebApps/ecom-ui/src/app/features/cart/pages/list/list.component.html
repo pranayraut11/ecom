@@ -1,4 +1,4 @@
-<div class="container">
+
     <div class="row">
     <!-- Table -->
     <div class="table-responsive">
@@ -72,7 +72,7 @@
                 </form>
             </div>
         </div>
-        <div class="card">
+        <div class="card" *ngIf="initialized">
             <div class="card-body">
                 <dl class="dlist-align">
                     <dt>Total price:</dt>
@@ -86,11 +86,10 @@
                     <dt>Total:</dt>
                     <dd class="text-right text-dark b ml-3"><strong>${{cart.total}}</strong></dd>
                 </dl>
-                <hr> <button type="button" class="btn btn-out btn-primary btn-square btn-main"
-                    (click)="placeOrder(cart)"> Place order</button>
+                <!-- <hr> <button type="button" class="btn btn-out btn-primary btn-square btn-main"
+                    (click)="placeOrder(cart)"> Proceed To Buy</button>
                 <hr> <a class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue
-                    Shopping</a>
+                    Shopping</a> -->
             </div>
         </div>
     </aside>
-</div>

@@ -16,11 +16,11 @@ export class AuthRestService {
   login(login: Login) {
     const headers = new HttpHeaders()
      .set("X-CustomHeader", "none");
-    return this.rest.post<Token>(environment.baseURL + USER_LOGIN, login,{headers});
+    return this.rest.post<Token>(environment.localURL + 'auth/'+USER_LOGIN, login,{headers});
       
   }
 
   logout() {
-    return this.rest.get(environment.baseURL + USER_LOGOUT);
+    return this.rest.get(environment.localURL + USER_LOGOUT);
   }
 }

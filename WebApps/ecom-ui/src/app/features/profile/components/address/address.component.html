@@ -1,10 +1,25 @@
-<div class="d-grid gap-3">
-    <div class="row">
-        <div class="col-4">
-            <button routerLink="create" class="btn btn-primary">Add Address</button>
+<div class="card">
+
+    <div class="card-header">
+
+        <div class="row">
+            <div class="col-10">
+                Address:
+            </div>
+            <div class="col-2">
+                <button (click)="addAddress()" routerLink="create" class="btn btn-primary">{{btnText}}</button>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <router-outlet></router-outlet>
+    <div class="card-body">
+
+
+        <div class="d-grid gap-3">
+
+            <div class="row">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
     </div>
 </div>

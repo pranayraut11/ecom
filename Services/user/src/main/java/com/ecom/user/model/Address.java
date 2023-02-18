@@ -1,5 +1,6 @@
 package com.ecom.user.model;
 
+import com.ecom.user.constant.enums.AddressType;
 import lombok.Data;
 
 import java.util.Objects;
@@ -8,12 +9,17 @@ import java.util.Objects;
 public class Address {
 
     private String id;
+    private String firstName;
+    private String lastName;
+    private String mobile;
     private String addressLine1;
     private String addressLine2;
     private String pincode;
     private String city;
     private String state;
     private String landmark;
+    private AddressType addressType;
+    private boolean defaultAddress;
 
     @Override
     public boolean equals(Object o) {

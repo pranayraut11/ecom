@@ -1,35 +1,39 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="#">Ecom</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-      aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="/" aria-current="page">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="cart" aria-current="page" appRoles [hasRole]='["user"]'>Cart</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" routerLink="create" aria-current="page" appRoles
-            [hasRole]='["admin,seller"]'>Create</a>
-        </li>
 
-      </ul>
-      <div class="row">
-        <div class="col-6">
-          <form class="d-flex">
-            <app-login></app-login>
-          </form>
-        </div>
-        <div  class="col-6">
-          <a class="nav-link active" routerLink="profile" appRoles [hasRole]='["admin,seller,user"]'>Profile
-          </a>
-        </div>
-      </div>
+
+    <div class="col-2">
+      <a class="navbar-brand" href="#">Ecom</a>
+    </div>
+    
+    <div class="col-2" appRoles [hasRole]='["admin,seller"]'>
+      <a class="nav-link active" routerLink="create" aria-current="page">Create</a>
+    </div>
+
+
+    <div class="col-7 lp-2">
+      <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+    </div>
+    <div class="col-2 d-flex justify-content-center">
+      <button class="btn btn-dark" style="border-radius:0;" type="submit">Search</button>
+    </div>
+
+
+
+
+    <div class="col-1">
+      <form class="d-flex">
+        <app-login></app-login>
+      </form>
+    </div>
+    <div class="col-2">
+      <a class="nav-link active" routerLink="profile" appRoles [hasRole]='["admin,seller,user"]'>Profile
+      </a>
+    </div>
+    <div class="col-2" appRoles [hasRole]='["user"]'>
+      <a class="nav-link active" routerLink="cart/products" aria-current="page">Cart</a>
     </div>
   </div>
-</nav>
+
+
+</div>

@@ -1,0 +1,317 @@
+{
+  "menus": [
+    {
+      "category": "Fashion",
+      "subCategories": [
+        {
+          "name": "Men's Top wear",
+          "url": "http:cars",
+          "subCategories": [
+            {
+              "name": "Men's TShirt",
+              "url": "http:cars"
+            }
+          ]
+        },
+        {
+          "name": "Men's Bottom wear",
+          "url": "http:cars",
+          "subCategories": [
+            {
+              "name": "Men's Shorts",
+              "url": "http:cars"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Bike",
+      "subCategories": [
+        {
+          "name": "CBZ",
+          "url": "http:bike"
+        },
+        {
+          "name": "Luna",
+          "url": "http:bike"
+        }
+      ]
+    },
+    {
+      "category": "Bike",
+      "subCategories": [
+        {
+          "name": "CBZ",
+          "url": "http:bike"
+        },
+        {
+          "name": "Luna",
+          "url": "http:bike"
+        }
+      ]
+    }
+  ],
+  "product": [
+    {
+      "id": "63beaf6607939a1f7264d511",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "id": "63beaf6607939a1f7264d511",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "id": "63beaf6607939a1f7264d511",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "id": "63beaf6607939a1f7264d511",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "id": "63beaf6607939a1f7264d511",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "id": "63beaf6607939a1f7264d511",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "id": "63beaf6607939a1f7264d511",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "id": "63beaf6607939a1f7264d511",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "id": "63beaf6607939a1f7264d511",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "id": "63beaf6607939a1f7264d511",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    }
+  ],
+  "users": [
+    {
+      "id": 1234,
+      "name": "Andrew Owen",
+      "age": 26,
+      "eyeColor": "blue"
+    },
+    {
+      "id": 1235,
+      "name": "Susan Que",
+      "age": 45,
+      "eyeColor": "hazel"
+    },
+    {
+      "id": 1236,
+      "name": "John Doe",
+      "age": 53,
+      "eyeColor": "brown"
+    }
+  ],
+  "admins": [
+    {
+      "id": 1232,
+      "name": "John Owen",
+      "age": 53,
+      "eyeColor": "brown"
+    }
+  ],
+  "cart": {
+    "totalPrice": 345,
+    "discount": "0",
+    "total": 6788,
+    "products": [
+      {
+        "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+        "description": "First product desc",
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      }
+    ],
+    "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+    "description": "First product desc",
+    "price": "567",
+    "discountedPrice": "756",
+    "quantity": null
+  },
+  "address": [
+    {
+      "id": "9e4b29c5-cfc6-47f8-913b-83795f5b082b",
+      "firstName": "Pranay",
+      "lastName": "Raut",
+      "addressLine1": "VMV ROAD NAVSARI STOP",
+      "addressLine2": "123",
+      "city": "AMRAVATI",
+      "state": "Maharastra",
+      "pincode": 411067,
+      "defaultAddress": false,
+      "type": "Home"
+    },
+    {
+      "id": "ebac5bd3-9cc5-4c3a-acd8-9cfcb9714ed1",
+      "firstName": "Pranay",
+      "lastName": "Raut",
+      "addressLine1": "VMV ROAD NAVSARI STOP",
+      "addressLine2": "12344",
+      "city": "AMRAVATI",
+      "state": "Maharastra",
+      "pincode": 411067,
+      "defaultAddress": true,
+      "type": "Office"
+    },
+    {
+      "id": "b190049d-a732-4ff2-8a4e-4e853713adfc",
+      "firstName": "Pranay",
+      "lastName": "Raut",
+      "addressLine1": "VMV ROAD NAVSARI STOP",
+      "addressLine2": "Add",
+      "city": "AMRAVATI",
+      "state": "Maharastra",
+      "pincode": 411067,
+      "defaultAddress": false,
+      "type": "Home"
+    },
+    {
+      "id": "3bc22eb4-d2c4-40f4-8190-f6ba66b01832",
+      "firstName": "Pranay",
+      "lastName": "Raut",
+      "addressLine1": "VMV ROAD NAVSARI STOP",
+      "addressLine2": "ret",
+      "city": "AMRAVATI",
+      "state": "Maharastra",
+      "pincode": 411067,
+      "defaultAddress": false,
+      "type": "Office",
+      "mobile": "7507849345",
+      "landmark": "Sarkar chowk"
+    },
+    {
+      "id": "254123c8-39e8-4b49-ba6b-ddcea47ae74b",
+      "firstName": "Pranay",
+      "lastName": "Raut",
+      "addressLine1": "VMV ROAD NAVSARI STOP",
+      "addressLine2": "rty",
+      "city": "AMRAVATI",
+      "state": "Maharastra",
+      "pincode": 411067,
+      "defaultAddress": false,
+      "type": "Home"
+    },
+    {
+      "id": "CIpSI_N",
+      "addressLine1": "VMV ROAD NAVSARI STOP",
+      "addressLine2": "12344",
+      "city": "AMRAVATI",
+      "state": "Maharastra",
+      "mobile": "7507849345",
+      "type": "Office"
+    }
+  ]
+}

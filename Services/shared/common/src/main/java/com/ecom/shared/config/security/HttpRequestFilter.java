@@ -6,13 +6,11 @@ import org.keycloak.common.VerificationException;
 import org.keycloak.util.TokenUtil;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
-import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@Slf4j
 public class HttpRequestFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -26,7 +24,6 @@ public class HttpRequestFilter implements Filter {
                throw new RuntimeException(e);
            }
        }
-       log.info("In custom filter");
        filterChain.doFilter(servletRequest,servletResponse);
     }
 }
