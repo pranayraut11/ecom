@@ -1,10 +1,14 @@
-package com.ecom.orchestrator.dto;
+package com.ecom.order.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class InventoryRequest {
+@Builder
+public class InventoryDTO {
+
     private String productId;
     private String userId;
     private int quantity;
+
 }

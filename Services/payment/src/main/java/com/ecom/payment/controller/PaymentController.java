@@ -1,6 +1,7 @@
 package com.ecom.payment.controller;
 
 import com.ecom.payment.dto.CreatePaymentRequest;
+import com.ecom.payment.dto.PaymentResponse;
 import com.ecom.payment.service.specification.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public class PaymentController {
     private PaymentService paymentService;
 
     @PostMapping("pay")
-    public void pay(@RequestBody CreatePaymentRequest paymentRequest) {
-        paymentService.pay(paymentRequest);
+    public PaymentResponse pay(@RequestBody CreatePaymentRequest paymentRequest) {
+        return paymentService.pay(paymentRequest);
     }
 }

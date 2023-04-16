@@ -7,6 +7,6 @@ import reactor.core.publisher.Mono;
 
 public interface OrchestratorService {
 
-    Mono<OrderResponse> createTransaction(OrderRequest orderRequest);
+    void createTransaction(OrderRequest orderRequest);
 
 }

@@ -1,4 +1,11 @@
 package com.ecom.orchestrator.dto;
 
-public class OrderRequest implements OrchestratorRequest {
+import lombok.Data;
+
+@Data
+public class OrderRequest {
+
+    private String orderId;
+    private String userId;
+    private int quantity;
 }

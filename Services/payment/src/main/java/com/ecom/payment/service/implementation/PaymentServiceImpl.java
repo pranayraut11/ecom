@@ -1,6 +1,8 @@
 package com.ecom.payment.service.implementation;
 
+import com.ecom.payment.constants.enums.PaymentStatus;
 import com.ecom.payment.dto.CreatePaymentRequest;
+import com.ecom.payment.dto.PaymentResponse;
 import com.ecom.payment.entity.TransactionEntity;
 import com.ecom.payment.mappers.specification.PaymentMapper;
 import com.ecom.payment.repository.PaymentRepository;
@@ -21,9 +23,14 @@ public class PaymentServiceImpl  extends BaseService<TransactionEntity> implemen
     private PaymentMapper paymentMapper;
 
     @Override
-    public void pay(CreatePaymentRequest createPaymentRequest) {
+    public PaymentResponse pay(CreatePaymentRequest createPaymentRequest) {
         TransactionEntity entity = paymentMapper.paymentDTOToPayment(createPaymentRequest);
         paymentRepository.save(entity);
+        PaymentResponse paymentResponse = new PaymentResponse();
+        paymentResponse.setTransactionId(entity.getId());
+        paymentResponse.setOrderId(entity.getOrderId());
+        paymentResponse.setStatus(PaymentStatus.PAYMENT_APPROVED);
+        return paymentResponse;
     }
 
     @Override

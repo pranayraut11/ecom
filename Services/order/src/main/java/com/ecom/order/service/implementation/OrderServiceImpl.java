@@ -2,17 +2,21 @@ package com.ecom.order.service.implementation;
 
 import com.ecom.order.dto.Cart;
 import com.ecom.order.dto.CreateOrderDTO;
+import com.ecom.order.dto.InventoryDTO;
 import com.ecom.order.dto.OrderDTO;
 import com.ecom.order.entity.Order;
 import com.ecom.order.model.Product;
 import com.ecom.order.repository.OrderRepository;
 import com.ecom.order.rest.CartRestService;
+import com.ecom.order.rest.InventoryRestService;
 import com.ecom.order.rest.ProductRestService;
 import com.ecom.order.service.specification.OrderService;
 import com.ecom.shared.dto.UserDetails;
+import com.ecom.shared.exception.EcomException;
 import com.ecom.shared.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -33,6 +37,9 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
 
     @Autowired
     private ProductRestService productRestService;
+
+    @Autowired
+    private InventoryRestService inventoryRestService;
 
     @Override
     public List<Order> getAll() {
@@ -63,16 +70,17 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
 
     @Override
     public void createOrder(CreateOrderDTO createOrderDTO) {
-        log.info("Creating order for {} and for cart {}  ",UserDetails.getUserId(),createOrderDTO.getId());
+
+        log.info("Creating order for {} and for cart {}  ", UserDetails.getUserId(), createOrderDTO.getId());
         String orderID = UUID.randomUUID().toString();
         List<Product> products;
         // Get user details from user service
 
         // Get seller details from user service
         if (createOrderDTO.isBuyNow()) {
-            log.info("Getting product details for cart {} ",createOrderDTO.getId());
-            products =  productRestService.getProducts(List.of(createOrderDTO.getId()));
-            log.info("Product details retrieved successfully for cart {} ",createOrderDTO.getId());
+            log.info("Getting product details for cart {} ", createOrderDTO.getId());
+            products = productRestService.getProducts(List.of(createOrderDTO.getId()));
+            log.info("Product details retrieved successfully for cart {} ", createOrderDTO.getId());
         } else {
             // Get cart details from cart service
 
@@ -84,16 +92,21 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
             // Get Product details from product service
 
             //List<Product> products =  productRestService.getProducts(productIds);
-
-            // Build order object
-            Order order = Order.builder().orderId(orderID).userId("pranay1@gmail.com").products(products).build();
-            // Save order object
-            log.info("Saving order for cart {} ...",createOrderDTO.getId());
-            orderRepository.save(order);
-            log.info("Successfully saved order for cart {} ",createOrderDTO.getId());
-            log.info("Deleting cart {} ...",createOrderDTO.getId());
-            cartRestService.deleteCart(cart.getId());
-            log.info("Cart deleted successfully {}",createOrderDTO.getId());
+            List<InventoryDTO> productsWithSeller = products.stream().map(product -> InventoryDTO.builder().productId(product.getProductId()).userId(product.getSeller().getSellerId()).build()).collect(Collectors.toList());
+            List<String> unavailableProducts = inventoryRestService.checkStockAvailability(productsWithSeller);
+            if (unavailableProducts.isEmpty()) {
+                // Build order object
+                Order order = Order.builder().orderId(orderID).userId("pranay1@gmail.com").products(products).build();
+                // Save order object
+                log.info("Saving order for cart {} ...", createOrderDTO.getId());
+                orderRepository.save(order);
+                log.info("Successfully saved order for cart {} ", createOrderDTO.getId());
+                log.info("Deleting cart {} ...", createOrderDTO.getId());
+                cartRestService.deleteCart(cart.getId());
+                log.info("Cart deleted successfully {}", createOrderDTO.getId());
+            }else{
+                throw new EcomException(HttpStatus.NOT_FOUND,"");
+            }
 
         }
 
