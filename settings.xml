@@ -12,7 +12,7 @@
         </server>
         <server>
             <id>ecom-release</id>
-            <username>admin}</username>
+            <username>admin</username>
             <password>admin</password>
         </server>
         <server>
@@ -25,14 +25,14 @@
             <username>admin</username>
             <password>admin</password>
         </server>
+		<server>
+			<id>registry.hub.docker.com</id>
+			<username>username</username>
+			<password>password</password>
+		</server>
     </servers>
     <mirrors>
-        <mirror>
-            <id>ecom-maven-central</id>
-            <name>ecom-maven-central</name>
-            <url>http://localhost:8081/repository/ecom-group/</url>
-            <mirrorOf>*</mirrorOf>
-        </mirror>
+        
     </mirrors>
     <proxies/>
     <profiles/>

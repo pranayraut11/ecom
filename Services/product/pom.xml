@@ -16,6 +16,7 @@
     <description>Project for product</description>
     <properties>
         <java.version>11</java.version>
+		<spring-boot.build-image.imageName>pranayraut11/product-app</spring-boot.build-image.imageName>
     </properties>
     <dependencies>
 
@@ -45,6 +46,16 @@
                     </excludes>
                 </configuration>
             </plugin>
+			<plugin>
+			  <groupId>com.google.cloud.tools</groupId>
+			  <artifactId>jib-maven-plugin</artifactId>
+			  <version>3.2.1</version>
+			  <configuration>
+				<to>
+				  <image>${spring-boot.build-image.imageName}</image>
+				</to>
+			  </configuration>
+			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
