@@ -7,16 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Table;
-import java.util.List;
+import java.util.Set;
 
 
 @Document("User")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserMongo extends User {
+public class UserDetails extends User {
 
-    private List<Address> addresses;
+    private String userId;
+
+    private Set<Address> addresses;
 
 }

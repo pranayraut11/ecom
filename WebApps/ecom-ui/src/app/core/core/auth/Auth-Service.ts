@@ -3,7 +3,7 @@ import { BehaviorSubject, catchError, tap, throwError } from "rxjs";
 import { AUTH_TOKEN } from "src/app/shared/constants/AuthConst";
 import { Login } from "src/app/shared/models/Login.model";
 import { Token } from "src/app/shared/models/Token";
-import { User } from "src/app/shared/models/User.model";
+import { UserTokenDetails } from "src/app/shared/models/UserTokenDetails.model";
 import { AuthRestService } from "src/app/shared/services/rest-services/auth-rest-service";
 
 
@@ -15,7 +15,7 @@ export class AuthService {
     constructor(private authRest: AuthRestService) {
 
     }
-    user = new BehaviorSubject<User>(null);
+    user = new BehaviorSubject<UserTokenDetails>(null);
     tokenDetails: Token;
     login(login: Login) {
         return this.authRest.login(login).pipe(catchError(errorRes => {
@@ -24,7 +24,7 @@ export class AuthService {
             return throwError(() => errorMessage);
         }), tap(resData => {
             const tokenExpirationDate = new Date(new Date().getTime() + resData.expires_in * 1000);
-            const user = new User(resData.access_token, resData.refresh_token, tokenExpirationDate,resData.roles);
+            const user = new UserTokenDetails(resData.access_token, resData.refresh_token, tokenExpirationDate,resData.roles);
             localStorage.setItem(AUTH_TOKEN, JSON.stringify(resData));
             this.user.next(user);
         }));
@@ -53,7 +53,7 @@ export class AuthService {
             if (tokenDetails) {
                 const tokenExpirationDate = new Date(new Date().getTime() + tokenDetailsJons.expires_in * 1000);
                 if (!this.isTokenExpired(tokenExpirationDate)) {
-                    const user = new User(tokenDetailsJons.access_token, tokenDetailsJons.refresh_token, tokenExpirationDate,tokenDetailsJons.roles);
+                    const user = new UserTokenDetails(tokenDetailsJons.access_token, tokenDetailsJons.refresh_token, tokenExpirationDate,tokenDetailsJons.roles);
                     this.user.next(user);
                 }
             }

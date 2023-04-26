@@ -6,6 +6,7 @@ com\ecom\shared\config\i18\Translator.class
 com\ecom\shared\config\rest\WebClientConfig.class
 com\ecom\shared\service\BaseService.class
 com\ecom\shared\config\common\ImportCommonClasses.class
+com\ecom\shared\config\security\HttpRequestFilter.class
 com\ecom\shared\config\i18\I18Config.class
 com\ecom\shared\dto\ApiSubError.class
 com\ecom\shared\exception\BadRequest.class
@@ -13,4 +14,5 @@ com\ecom\shared\validation\DtoValidator.class
 com\ecom\shared\validation\FileValidation.class
 com\ecom\shared\dto\ApiError.class
 com\ecom\shared\controller\BaseController.class
+com\ecom\shared\dto\UserDetails.class
 com\ecom\shared\config\security\KeycloakConfiguration.class

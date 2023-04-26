@@ -6,4 +6,5 @@ import lombok.Data;
 public class Seller {
 
     private String sellerName;
+    private String sellerId;
 }

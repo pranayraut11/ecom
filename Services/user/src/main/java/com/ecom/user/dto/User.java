@@ -1,5 +1,6 @@
 package com.ecom.user.dto;
 
+import com.ecom.shared.entity.BaseEntity;
 import com.ecom.user.model.Credential;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public abstract class User {
+public abstract class User extends BaseEntity {
 
     private String firstName;
     private String lastName;
@@ -20,10 +21,6 @@ public abstract class User {
 
     private String email;
 
-
-
     private boolean enabled;
-
-   // private List<Address> addresses;
 
 }

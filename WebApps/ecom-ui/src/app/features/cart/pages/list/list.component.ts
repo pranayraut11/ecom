@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Cart } from '../../../../shared/models/cart';
 import { CartProduct } from '../../../../shared/models/cart.product.model';
 import { OrderRestService } from '../../../../shared/services/rest-services/order-rest-service';
 import { CartRestService } from '../../../../shared/services/rest-services/cart-rest-service';
+import { CreateOrder } from 'src/app/shared/models/CreateOrder.model';
 
 @Component({
   selector: 'cart-list',
@@ -11,16 +12,24 @@ import { CartRestService } from '../../../../shared/services/rest-services/cart-
   styleUrls: ['./list.component.css']
 })
 export class CartListComponent implements OnInit {
-
-  constructor(private cartRestService: CartRestService,private orderRestService: OrderRestService) { }
+  @Output() reload = new EventEmitter<string>();
+  constructor(private cartRestService: CartRestService, private orderRestService: OrderRestService) { }
   cart: Cart;
   cartProducts: CartProduct[];
+  initialized = false;
   ngOnInit(): void {
+    //this.reload.emit('proc');
     this.cartRestService.getCartProducts().subscribe((cart: Cart) => {
-      console.log(cart);
-      this.cart = cart;
-      this.cartProducts = cart.products;
+      
+      if (cart) {
+        this.cart = cart;
+        this.cartProducts = cart.products;
+        console.log(this.cart);
+        console.log(this.cartProducts);
+      }
+    this.initialized = true;
     });
+    
   }
 
   increaseQuantity(cartProduct: CartProduct) {
@@ -51,12 +60,14 @@ export class CartListComponent implements OnInit {
     });
   }
 
-  placeOrder(cart : Cart){
+  placeOrder(cart: Cart) {
     console.log("Placing order");
-    
-    this.orderRestService.placeOrder(cart.products).subscribe(response=>{
+    let order = new CreateOrder(false, cart.id);
+    this.orderRestService.placeOrder(order).subscribe(response => {
+      this.cartProducts = null;
       console.log("order placed!")
       console.log(response);
+     
     });
   }
 

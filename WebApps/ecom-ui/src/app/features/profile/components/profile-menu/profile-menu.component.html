@@ -1,0 +1,27 @@
+
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col col sidebar">
+
+        <div class="list-group">
+
+
+            <a routerLink="my-profile" class="list-group-item">
+                <i class="fa fa-search"></i> Profile
+            </a>
+            <a routerLink="myorders" class="list-group-item">
+                <i class="fa fa-folder-open-o"></i> Orders <span class="badge">14</span>
+            </a>
+            <a routerLink="address/list" appRoles [hasRole]='["user"]' class="list-group-item">
+                <i class="fa fa-bar-chart-o"></i> Addresses <span class="badge">14</span>
+            </a>
+           
+        </div>
+    </div>
+   
+</div>

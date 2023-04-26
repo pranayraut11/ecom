@@ -1,0 +1,46 @@
+<div class="card">
+
+    <div class="card-header">
+        Orders
+    </div>
+    <div class="card-body">
+
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-fit table-hover ">
+                <thead>
+                    <tr class="d-flex">
+                        <th scope="col" class="col-1">#</th>
+                        <th scope="col" class="col-2 text-center">Image</th>
+                        <th scope="col" class="col-5 text-center">Name</th>
+                        <th scope="col" class="col-1">Price</th>
+                        <th scope="col" class="col-2">Delivery Date</th>
+                        <th scope="col" class="col-1">Actions</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let product of productList let i= index">
+                    <tr class="d-flex">
+                        <td scope="row" class="col-1"> {{i+1}} </td>
+                        <td class="col-2">
+                            <img class="img-fluid"
+                                src="http://dev-env/filemanager/files/{{product.productId}}/{{product.image}}"
+                                alt="pic" />
+                        </td>
+                        <td class="col-5">{{product.productName}} </td>
+                        <td class="col-1">{{product.price}}</td>
+                        <td class="col-2">{{product.deliveryDate}} </td>
+                        <td class="col-1">
+                            <div class="d-flex flex-row  mb-12">
+                                <div class="col-4">
+
+                                    <i class="bi bi-eye" role="button"></i>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

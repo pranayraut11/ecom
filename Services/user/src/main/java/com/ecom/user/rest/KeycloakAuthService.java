@@ -8,11 +8,16 @@ import com.ecom.user.dto.TokenDetails;
 import com.ecom.user.dto.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.TokenVerifier;
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;
+import org.keycloak.representations.IDToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -20,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.security.Principal;
 import java.util.Objects;
 
 import static com.ecom.user.constant.enums.AuthConstants.*;
@@ -60,6 +66,8 @@ public class KeycloakAuthService {
             TokenDetails details = tokenDetails.getBody();
             AccessToken token = TokenVerifier.create(details.getAccess_token(), AccessToken.class).getToken();
             if(Objects.nonNull(token.getRealmAccess())) {
+
+                log.info("UserId {}",token.getSubject());
                 details.setRoles(token.getRealmAccess().getRoles());
             }
             return details;

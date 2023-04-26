@@ -1,0 +1,31 @@
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-sm-4 col-md-3 sidebar">
+      
+        <div class="list-group">
+            <a  class="list-group-item" routerLink="savedcards">
+                <i class="fa fa-comment-o"></i>Saved Cards
+            </a>
+            <a  class="list-group-item" routerLink="upi">
+                <i class="fa fa-comment-o"></i>UPI
+            </a>
+            <a routerLink="cards" class="list-group-item">
+                <i class="fa fa-search"></i> Credit card/Debit card
+            </a>
+            <a routerLink="net-banking" class="list-group-item">
+                <i class="fa fa-folder-open-o"></i> Internet banking <span class="badge">14</span>
+            </a>
+            <a routerLink="wallets" class="list-group-item">
+                <i class="fa fa-bar-chart-o"></i> Wallets <span class="badge">14</span>
+            </a>
+            <a routerLink="cash-on-delivery" class="list-group-item">
+                <i class="fa fa-user"></i> Cash on Delivery
+            </a>
+        </div>
+    </div>
+    <div class="col-9"><router-outlet></router-outlet></div>
+</div>

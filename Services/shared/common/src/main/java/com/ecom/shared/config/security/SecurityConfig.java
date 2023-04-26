@@ -1,4 +1,4 @@
-    package com.ecom.shared.config.security;
+package com.ecom.shared.config.security;
 
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -29,14 +30,13 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         super.configure(http);
         if(isSecurityDisabled){
             http.authorizeRequests().anyRequest().permitAll();
-
         }else {
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/auth/login", "/users/addUser").
                     permitAll().antMatchers(HttpMethod.GET, "/files/**", "/product").permitAll().
                     anyRequest()
                     .authenticated();
-
         }
+        http.addFilterAfter(new HttpRequestFilter(), BasicAuthenticationFilter.class);
         http.csrf().disable();
         http.cors();
     }

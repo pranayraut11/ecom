@@ -2,6 +2,7 @@ package com.ecom.filemanager.controller;
 
 import com.ecom.filemanager.dto.FileUploadDTO;
 import com.ecom.filemanager.service.specification.FileService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.util.StreamUtils;
@@ -14,9 +15,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("files")
+@Slf4j
 public class FileController {
 
 
@@ -33,12 +36,16 @@ public class FileController {
     @GetMapping(value = "/{path}/{fileId}", produces = MediaType.IMAGE_JPEG_VALUE)
     public void getFile(@PathVariable String fileId, @PathVariable String path, HttpServletResponse response) throws IOException {
         InputStream file = fileService.getFile(path, fileId);
-        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-        StreamUtils.copy(file, response.getOutputStream());
+        if(Objects.nonNull(file)) {
+            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+            StreamUtils.copy(file, response.getOutputStream());
+        }else{
+            log.info("File {} not found on file server on path {} ",fileId,path);
+        }
     }
 
     @DeleteMapping()
-    public void deleteFiles(@RequestBody List<String> ids,@RequestParam(required = false) String folderName) throws IOException {
+    public void deleteFiles(@RequestBody List<String> ids,@RequestParam String folderName) throws IOException {
         fileService.deleteFiles(ids, folderName);
     }
 }
