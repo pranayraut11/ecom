@@ -1,0 +1,16 @@
+deploymentName : orchestrator-deployment
+deploymentLabel : orchestrator-service
+
+replicaCount: 1
+
+image:
+  repository: pranayraut11/orchestrator-app
+  tag: latest
+
+containerPort: 8080
+
+service:
+  type: NodePort
+  port: 8080
+  targetPort: 8080
+  nodePort: 30002

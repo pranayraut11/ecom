@@ -129,3 +129,29 @@ filemanager-service:
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
       - name: MINIO_URL
         value:  dev-env-minio
+
+inventory-service:
+  enabled: true
+  service:
+    envVars:
+      - name: AUTH_SERVER_URL
+        value: http://dev-env-keycloak
+      - name: KEYCLOAK_RESOURCE
+        value: inventory-service
+      - name: KEYCLOAK_CREDENTIALS_SECRET
+        value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8   
+      - name: SPRING_DATA_MONGODB_URI
+        value: "mongodb://demo1:demo1@dev-env-mongodb:27017/inventory"
+
+orchestrator-service:
+  enabled: true
+  service:
+    envVars:
+      - name: AUTH_SERVER_URL
+        value: http://dev-env-keycloak
+      - name: KEYCLOAK_RESOURCE
+        value: orchestrator-service
+      - name: KEYCLOAK_CREDENTIALS_SECRET
+        value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8   
+      - name: SPRING_DATA_MONGODB_URI
+        value: "mongodb://demo1:demo1@dev-env-mongodb:27017/orchestrator"        

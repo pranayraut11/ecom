@@ -73,4 +73,13 @@ dependencies:
     version: 0.1.0
     condition: order-service.enabled
     repository: file://charts/order-service  
-  
+
+  - name: inventory-service
+    version: 0.1.0
+    condition: inventory-service.enabled
+    repository: file://charts/inventory-service 
+
+  - name: orchestrator-service
+    version: 0.1.0
+    condition: orchestrator-service.enabled
+    repository: file://charts/orchestrator-service   
