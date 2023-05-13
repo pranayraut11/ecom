@@ -178,7 +178,7 @@
                 <version>3.2.1</version>
                 <configuration>
                     <to>
-                        <image>${docker.username}/${artifactId}-app</image>
+                        <image>${docker.username}/${project.artifactId}-app</image>
                     </to>
                 </configuration>
             </plugin>
