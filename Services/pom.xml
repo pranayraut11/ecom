@@ -19,7 +19,6 @@
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.username>pranayraut11</docker.username>
-        <docker.registry.path>docker.io</docker.registry.path>
     </properties>
     <dependencies>
         <dependency>
@@ -136,9 +135,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    <image>
-                        <name>docker.io/pranayraut11/${project.artifactId}:v1</name>
-                    </image>
+
                 </configuration>
             </plugin>
             <plugin>
@@ -179,7 +176,7 @@
                 <version>3.2.1</version>
                 <configuration>
                     <to>
-                        <image>${docker.registry.path}/${docker.username}/${project.artifactId}-app</image>
+                        <image>${docker.username}/${project.artifactId}-app</image>
                     </to>
                 </configuration>
             </plugin>
