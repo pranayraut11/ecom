@@ -1,6 +1,6 @@
 package com.ecom.user.service.implementation;
 
-import com.ecom.shared.exception.EcomException;
+import com.ecom.shared.common.exception.EcomException;
 import com.ecom.user.entity.UserDetails;
 import com.ecom.user.model.Address;
 import com.ecom.user.repository.UserRepository;
@@ -42,7 +42,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     private UserDetails getUser(){
-        String userId = com.ecom.shared.dto.UserDetails.getUserId();
+        String userId = com.ecom.shared.common.dto.UserDetails.getUserId();
         log.info("Saving address for user {} ... ",userId);
         return userRepository.findByUserId(userId).orElseThrow(() -> new EcomException(HttpStatus.NOT_FOUND, "404"));
     }

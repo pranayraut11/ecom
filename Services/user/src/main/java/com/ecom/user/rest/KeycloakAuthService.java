@@ -1,6 +1,6 @@
 package com.ecom.user.rest;
 
-import com.ecom.shared.exception.EcomException;
+import com.ecom.shared.common.exception.EcomException;
 import com.ecom.user.constant.enums.APIEndPoints;
 import com.ecom.user.dto.AuthClientDetails;
 import com.ecom.user.dto.KeycloakUser;
@@ -8,16 +8,11 @@ import com.ecom.user.dto.TokenDetails;
 import com.ecom.user.dto.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.keycloak.KeycloakPrincipal;
-import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.TokenVerifier;
-import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;
-import org.keycloak.representations.IDToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -25,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.security.Principal;
 import java.util.Objects;
 
 import static com.ecom.user.constant.enums.AuthConstants.*;

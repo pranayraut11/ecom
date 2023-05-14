@@ -1,6 +1,6 @@
 package com.ecom.filemanager.config;
 
-import com.ecom.shared.common.config.ImportCommonClasses;
+import com.ecom.shared.common.config.common.ImportCommonClasses;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

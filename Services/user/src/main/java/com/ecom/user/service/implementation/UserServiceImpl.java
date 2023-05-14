@@ -1,25 +1,21 @@
 package com.ecom.user.service.implementation;
 
-import com.ecom.shared.exception.EcomException;
-import com.ecom.shared.service.BaseService;
-import com.ecom.user.dto.*;
+import com.ecom.user.dto.AuthClientDetails;
+import com.ecom.user.dto.KeycloakUser;
+import com.ecom.user.dto.Login;
+import com.ecom.user.dto.TokenDetails;
 import com.ecom.user.entity.UserDetails;
-import com.ecom.user.model.Address;
 import com.ecom.user.repository.UserRepository;
 import com.ecom.user.rest.KeycloakAuthService;
 import com.ecom.user.service.specification.UserService;
 import com.ecom.user.utils.UserUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.keycloak.common.VerificationException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.validation.constraints.NotNull;
-import java.util.*;
 
 @Service
 @Slf4j
@@ -68,8 +64,8 @@ public class UserServiceImpl implements UserService {
         userClientCredentials.setUsername(user.getUsername());
         userClientCredentials.setPassword(UserUtils.getPassword(user.getCredentials()));
         TokenDetails newlyCreatedUserToken = keycloakAuthService.login(userClientCredentials, subRealms);
-        com.ecom.shared.dto.UserDetails.setUserInfo(newlyCreatedUserToken.getAccess_token());
-        user.setUserId(com.ecom.shared.dto.UserDetails.getUserId());
+        com.ecom.shared.common.dto.UserDetails.setUserInfo(newlyCreatedUserToken.getAccess_token());
+        user.setUserId(com.ecom.shared.common.dto.UserDetails.getUserId());
         user.setCredentials(null);
         userRepository.save(user);
         log.info("User {} Created successfully!",user.getEmail());

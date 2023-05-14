@@ -2,7 +2,7 @@ package com.ecom.order.entity;
 
 import com.ecom.order.model.Address;
 import com.ecom.order.model.Product;
-import com.ecom.shared.entity.BaseEntity;
+import com.ecom.shared.common.entity.BaseEntity;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;

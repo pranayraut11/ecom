@@ -1,6 +1,6 @@
 package com.ecom.user.dto;
 
-import com.ecom.shared.entity.BaseEntity;
+import com.ecom.shared.common.entity.BaseEntity;
 import com.ecom.user.model.Credential;
 import lombok.Data;
 import lombok.NoArgsConstructor;

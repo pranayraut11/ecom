@@ -1,7 +1,7 @@
 package com.ecom.order.rest;
 
 import com.ecom.order.dto.InventoryDTO;
-import com.ecom.shared.exception.EcomException;
+import com.ecom.shared.common.exception.EcomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.config.Elements;

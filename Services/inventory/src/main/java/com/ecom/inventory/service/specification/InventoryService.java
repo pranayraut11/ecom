@@ -2,7 +2,7 @@ package com.ecom.inventory.service.specification;
 
 import com.ecom.inventory.dto.InventoryDTO;
 import com.ecom.inventory.enums.InventoryStatus;
-import com.ecom.shared.exception.EcomException;
+import com.ecom.shared.common.exception.EcomException;
 
 import java.util.List;
 

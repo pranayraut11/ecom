@@ -2,7 +2,7 @@ package com.ecom.order.rest;
 
 import com.ecom.order.constants.APIEndPoints;
 import com.ecom.order.model.Product;
-import com.ecom.shared.exception.EcomException;
+import com.ecom.shared.common.exception.EcomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

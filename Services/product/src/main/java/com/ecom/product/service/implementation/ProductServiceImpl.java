@@ -6,7 +6,7 @@ import com.ecom.product.mappers.specification.ProductMapper;
 import com.ecom.product.repository.specification.ProductRepository;
 import com.ecom.product.rest.FileManagerService;
 import com.ecom.product.service.specification.ProductService;
-import com.ecom.shared.exception.EcomException;
+import com.ecom.shared.common.exception.EcomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

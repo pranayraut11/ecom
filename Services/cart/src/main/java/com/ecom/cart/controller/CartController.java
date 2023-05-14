@@ -1,8 +1,6 @@
 package com.ecom.cart.controller;
 
 
-import com.ecom.cart.entity.Cart;
-import com.ecom.cart.service.specification.CartProductService;
 import com.ecom.cart.service.specification.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;

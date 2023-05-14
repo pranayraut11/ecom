@@ -7,7 +7,7 @@ import com.ecom.payment.entity.TransactionEntity;
 import com.ecom.payment.mappers.specification.PaymentMapper;
 import com.ecom.payment.repository.PaymentRepository;
 import com.ecom.payment.service.specification.PaymentService;
-import com.ecom.shared.service.BaseService;
+import com.ecom.shared.common.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
