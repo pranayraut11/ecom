@@ -1,6 +1,6 @@
 package com.ecom.user.config;
 
-import com.ecom.shared.config.common.ImportCommonClasses;
+import com.ecom.shared.common.config.ImportCommonClasses;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
