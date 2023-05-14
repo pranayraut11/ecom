@@ -1,8 +1,8 @@
-package com.ecom.shared.exception;
+package com.ecom.shared.common.exception;
 
-import com.ecom.shared.config.i18.Translator;
-import com.ecom.shared.dto.ApiError;
-import com.ecom.shared.dto.ApiSubError;
+import com.ecom.shared.common.config.i18.Translator;
+import com.ecom.shared.common.dto.ApiError;
+import com.ecom.shared.common.dto.ApiSubError;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

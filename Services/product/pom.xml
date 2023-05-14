@@ -24,7 +24,7 @@
         </dependency>
         <!-- #################### In House ########################-->
         <dependency>
-            <groupId>com.ecom</groupId>
+            <groupId>com.ecom.shared</groupId>
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

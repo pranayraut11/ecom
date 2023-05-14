@@ -1,6 +1,6 @@
-package com.ecom.shared.config.security;
+package com.ecom.shared.common.config.security;
 
-import com.ecom.shared.dto.UserDetails;
+import com.ecom.shared.common.dto.UserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.common.VerificationException;
 import org.keycloak.util.TokenUtil;

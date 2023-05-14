@@ -1,4 +1,4 @@
-package com.ecom.shared.config.rest;
+package com.ecom.shared.common.config.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.util.TokenUtil;

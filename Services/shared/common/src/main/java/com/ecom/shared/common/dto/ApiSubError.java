@@ -1,4 +1,4 @@
-package com.ecom.shared.dto;
+package com.ecom.shared.common.dto;
 
 
 import lombok.AllArgsConstructor;

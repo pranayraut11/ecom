@@ -1,4 +1,4 @@
-package com.ecom.shared.entity;
+package com.ecom.shared.common.entity;
 
 
 import lombok.Data;

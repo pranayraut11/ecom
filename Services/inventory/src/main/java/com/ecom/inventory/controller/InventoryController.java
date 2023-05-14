@@ -4,7 +4,7 @@ import com.ecom.inventory.dto.InventoryDTO;
 import com.ecom.inventory.dto.InventoryResponse;
 import com.ecom.inventory.entity.ProductInventory;
 import com.ecom.inventory.service.specification.InventoryService;
-import com.ecom.shared.controller.BaseController;
+import com.ecom.shared.common.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.ecom.shared.service;
+package com.ecom.shared.common.service;
 
 import java.util.List;
 

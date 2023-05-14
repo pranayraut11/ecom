@@ -1,6 +1,6 @@
-package com.ecom.shared.validation;
+package com.ecom.shared.common.validation;
 
-import com.ecom.shared.exception.BadRequest;
+import com.ecom.shared.common.exception.BadRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
