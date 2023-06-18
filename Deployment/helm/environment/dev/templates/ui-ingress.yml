@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ui-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: dev-env
+      http:
+        paths:
+          - path: /ecom(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: ecom-ui-deployment
+                port:
+                  number: 80
