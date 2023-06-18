@@ -5,7 +5,7 @@ global:
   redisUrl: dev-env-redis-master
 
 
-env: 
+env:
   url: dev-env
 
 
@@ -24,9 +24,9 @@ mongodb:
   volumePermissions:
     enabled: true
 
-redis: 
+redis:
   auth:
-    enabled: true     
+    enabled: true
     password: redis123
 
 postgresql:
@@ -37,7 +37,7 @@ postgresql:
   persistence:
     enabled: true
     existingClaim: common-persistentvolumeclaim
-    
+
 keycloak:
   auth:
     adminUser: admin
@@ -50,7 +50,7 @@ keycloak:
     user: postgres
     database: userauth
     password: admin
-  ingress: 
+  ingress:
     enabled: true
     hostname: keycloak.local
 
@@ -63,12 +63,14 @@ minio:
     hostname: minio.local
   persistence:
     enabled: true
-    existingClaim: common-persistentvolumeclaim  
-    
+    existingClaim: common-persistentvolumeclaim
+
+ecom-ui:
+  enabled: true
 
 user-service:
   enabled: true
-  service: 
+  service:
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
@@ -94,7 +96,7 @@ product-service:
       - name: KEYCLOAK_RESOURCE
         value: product-service
       - name: KEYCLOAK_CREDENTIALS_SECRET
-        value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8   
+        value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
       - name: APP_SERVICE_FILEMANAGER_HOST
         value: filemanager-service
       - name: SPRING_DATA_MONGODB_URI
@@ -109,7 +111,7 @@ cart-service:
       - name: KEYCLOAK_RESOURCE
         value: cart-service
       - name: KEYCLOAK_CREDENTIALS_SECRET
-        value: 9QdxFnJZWnEzgFaptuR8ytT0wY0I2FMN   
+        value: 9QdxFnJZWnEzgFaptuR8ytT0wY0I2FMN
       - name: SPRING_REDIS_HOST
         value: "dev-env-redis-master"
       - name: SPRING_REDIS_PASSWORD
@@ -139,7 +141,7 @@ inventory-service:
       - name: KEYCLOAK_RESOURCE
         value: inventory-service
       - name: KEYCLOAK_CREDENTIALS_SECRET
-        value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8   
+        value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/inventory"
 
@@ -152,6 +154,6 @@ orchestrator-service:
       - name: KEYCLOAK_RESOURCE
         value: orchestrator-service
       - name: KEYCLOAK_CREDENTIALS_SECRET
-        value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8   
+        value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
       - name: SPRING_DATA_MONGODB_URI
-        value: "mongodb://demo1:demo1@dev-env-mongodb:27017/orchestrator"        
+        value: "mongodb://demo1:demo1@dev-env-mongodb:27017/orchestrator"

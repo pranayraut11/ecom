@@ -28,11 +28,10 @@ spec:
               memory: 50Mi
             limits:
               cpu: 100m
-              memory: 100Mi   
-          env: 
+              memory: 100Mi
+          env:
           {{- range .Values.service.envVars }}
             - name: {{ .name }}
               value: {{ .value }}
           {{- end }}
-          
-{{- end -}}          
+{{- end -}}
