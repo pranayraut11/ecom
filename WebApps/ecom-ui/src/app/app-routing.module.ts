@@ -29,7 +29,7 @@ const appsRoutes: Routes = [
   // { path: 'cart', component: CartListComponent }, 
   //{ path: 'myorders', component: OrderListComponent },
   { path: 'create', redirectTo: 'seller/create', pathMatch: 'full' },
-  { path: 'auth/register', component: UserRegistrationComponent },
+ // { path: 'auth/register', component: UserRegistrationComponent },
   { path: '', redirectTo: 'user/list', pathMatch: 'full' },
   { path: 'home', redirectTo: 'user/list', pathMatch: 'prefix' },
   {
@@ -37,6 +37,11 @@ const appsRoutes: Routes = [
       {
         path: 'list',
         component: CatalogListComponent,
+
+      },
+      {
+        path: 'register',
+        component: UserRegistrationComponent,
 
       },
       {
