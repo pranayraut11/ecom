@@ -45,3 +45,11 @@ npm install bootstrap --save
 ```
 npm install bootstrap jquery --save
 ```
+### Build docker image of UI application
+```
+docker build -t pranayraut11/ecom-ui .
+```
+### Push docker image to docker hub repo
+```
+docker push pranayraut11/ecom-ui
+```
