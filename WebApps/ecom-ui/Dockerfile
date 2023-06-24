@@ -12,12 +12,12 @@ COPY ./ /app/
 
 ARG configuration=development
 # Build final deployable angular project and set base ref - ecom
-RUN npm run build -- --output-path=./dist/ --configuration $configuration --base-href /ecom/
+RUN npm run build -- --output-path=./dist/out --configuration $configuration --base-href /
 
 # Stage 2 
 # Pull Nginx image
 FROM nginx:alpine
 #Copy dist folder to htlm folder
-COPY --from=build-stage /app/dist/ /usr/share/nginx/html 
+COPY --from=build-stage /app/dist/out /usr/share/nginx/html 
 #Copy default nginx configuration
 COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf

@@ -35,21 +35,14 @@ spec:
           service:
             name: order-service
             port: 
-              number: 8080                
-      - path: /ecom(/|$)(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: ecom-ui 
-            port: 
-              number: 80  
+              number: 8080
       - path: /filemanager(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: filemanager-service
             port: 
-              number: 8080  
+              number: 8080
       - path: /user-service(/|$)(.*)
         pathType: Prefix
         backend:

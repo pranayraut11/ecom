@@ -3,14 +3,14 @@ kind: Ingress
 metadata:
   name: ui-app
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
-    - host: dev-env
+    - host: dev-env-ui
       http:
         paths:
-          - path: /ecom(/|$)(.*)
+          - path: /
             pathType: Prefix
             backend:
               service:

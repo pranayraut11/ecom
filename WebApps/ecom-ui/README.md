@@ -45,6 +45,13 @@ npm install bootstrap --save
 ```
 npm install bootstrap jquery --save
 ```
+### Before building UI docker image delete all related images
+```
+pranayraut11/ecom-ui   latest           2c25e8f217af   18 minutes ago   51.1MB
+<none>                 <none>           bb3d85155f83   18 minutes ago   635MB
+node                   lts-alpine3.18   f85482183a4f   2 days ago       175MB
+nginx                  alpine           4937520ae206   9 days ago       41.4MB
+```
 ### Build docker image of UI application
 ```
 docker build -t pranayraut11/ecom-ui .
