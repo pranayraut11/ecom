@@ -3,10 +3,13 @@ global:
   activeProfile: dev
   mongoUrl: mongodb://demo1:demo1@dev-env-mongodb:27017/product
   redisUrl: dev-env-redis-master
+  securityEnabled: "true"
 
 
 env:
   url: dev-env
+  
+ 
 
 
 mongodb:
@@ -89,6 +92,7 @@ user-service:
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
 
+
 product-service:
   enabled: true
   service:
@@ -119,6 +123,7 @@ cart-service:
       - name: SPRING_REDIS_PASSWORD
         value: "redis123"
 
+
 filemanager-service:
   enabled: true
   service:
@@ -134,6 +139,7 @@ filemanager-service:
       - name: MINIO_URL
         value:  dev-env-minio
 
+
 inventory-service:
   enabled: true
   service:
@@ -147,6 +153,7 @@ inventory-service:
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/inventory"
 
+
 orchestrator-service:
   enabled: true
   service:
@@ -159,3 +166,4 @@ orchestrator-service:
         value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/orchestrator"
+
