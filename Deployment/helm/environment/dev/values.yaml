@@ -7,6 +7,9 @@ global:
 
 env:
   url: dev-env
+  
+security:
+  enabled: &enabledSecurity true  
 
 
 mongodb:
@@ -28,7 +31,9 @@ redis:
   auth:
     enabled: true
     password: redis123
-
+  replica:
+    replicaCount: 1
+    
 postgresql:
   auth:
     enablePostgresUser: true
@@ -71,40 +76,48 @@ ecom-ui:
 user-service:
   enabled: true
   service:
+    security:
+        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
       - name: KEYCLOAK_RESOURCE
         value: user-service
       - name: KEYCLOAK_CREDENTIALS_SECRET
-        value: iHVESBt7TjRd6mTWutuqdo3saVmvv8Vy
+        value: s7Isa5HJrCyOhOQcbronywW5LAMjuPNR
       - name: USER_AUTH_REALMS_SUBREALMS
         value: ecom
       - name: USER_AUTH_SERVER_HOST
         value: "dev-env-keycloak"
       - name: USER_AUTH_REALMS_MASTER_ADMIN_CLIENTSECRET
-        value: CfbjDzt1uNToTP4rWGx7rBqJXKr3Go4W
+        value: xaduD2SkxE0rlIKZiw7ksJX6iu1mpQP7
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
 
 product-service:
   enabled: true
   service:
+    security:
+        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
       - name: KEYCLOAK_RESOURCE
         value: product-service
       - name: KEYCLOAK_CREDENTIALS_SECRET
-        value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
+        value: w09k8DLjY9h3AA1oIdAqxdNT9z7fS2PB
       - name: APP_SERVICE_FILEMANAGER_HOST
         value: filemanager-service
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
+      - name: SECURITY_ENABLED
+        value: *enabledSecurity
 
 cart-service:
   enabled: false
   service:
+    security:
+        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
@@ -116,25 +129,33 @@ cart-service:
         value: "dev-env-redis-master"
       - name: SPRING_REDIS_PASSWORD
         value: "redis123"
+      - name: SECURITY_ENABLED
+        value: *enabledSecurity  
 
 filemanager-service:
   enabled: true
   service:
+    security:
+        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
       - name: KEYCLOAK_RESOURCE
         value: filemanager-service
       - name: KEYCLOAK_CREDENTIALS_SECRET
-        value: x0CsU4fyQBwM79bvoAXgjulB405nAwQx
+        value: 4Lnwqy6Itu6Sr1Cyac3LwTwrqtL4WvCu
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
       - name: MINIO_URL
         value:  dev-env-minio
+      - name: SECURITY_ENABLED
+        value: *enabledSecurity
 
 inventory-service:
   enabled: true
   service:
+    security:
+        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
@@ -144,10 +165,14 @@ inventory-service:
         value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/inventory"
+      - name: SECURITY_ENABLED
+        value: *enabledSecurity  
 
 orchestrator-service:
   enabled: true
   service:
+    security:
+        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
@@ -157,3 +182,5 @@ orchestrator-service:
         value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/orchestrator"
+      - name: SECURITY_ENABLED
+        value: *enabledSecurity  

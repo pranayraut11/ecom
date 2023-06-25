@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Login } from '../../models/Login.model';
 import { environment } from 'src/environments/environment';
-import { USER_LOGIN, USER_LOGOUT } from '../../constants/ApiEndpoints';
+import { USER_LOGIN, USER_LOGOUT, USER_SERVICE } from '../../constants/ApiEndpoints';
 import { Token } from '../../models/Token';
 
 @Injectable({
@@ -16,11 +16,11 @@ export class AuthRestService {
   login(login: Login) {
     const headers = new HttpHeaders()
      .set("X-CustomHeader", "none");
-    return this.rest.post<Token>(environment.localURL + 'auth/'+USER_LOGIN, login,{headers});
+    return this.rest.post<Token>(environment.baseURL + USER_SERVICE+'/'+'auth/'+USER_LOGIN, login,{headers});
       
   }
 
   logout() {
-    return this.rest.get(environment.localURL + USER_LOGOUT);
+    return this.rest.get(environment.baseURL + USER_SERVICE+'/'+'auth/'+USER_LOGOUT);
   }
 }

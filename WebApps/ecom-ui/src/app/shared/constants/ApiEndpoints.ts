@@ -16,13 +16,17 @@
 // Local dev api end points for json server data
 
 //User service
+
+export const USER_SERVICE = 'user-service';
 export const USER_LOGIN = 'login';
 export const USER_LOGOUT = 'logout';
 export const USER_CREATE = 'users';
-export const ADDRESS_CREATE = 'address';
+export const ADDRESS = 'address';
 
 //Product service
-export const PRODUCT = 'product';
+export const PRODUCT_SERVICE = 'product-service';
+export const PRODUCT = '/product';
 //Cart 
-
-export const CART_PRODUCT = 'cart'
+export const CART_SERVICE = 'cart-service'
+//Order service
+export const ORDER_SERVICE = 'order-service'
