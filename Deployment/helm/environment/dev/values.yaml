@@ -7,9 +7,6 @@ global:
 
 env:
   url: dev-env
-  
-security:
-  enabled: &enabledSecurity true  
 
 
 mongodb:
@@ -76,8 +73,6 @@ ecom-ui:
 user-service:
   enabled: true
   service:
-    security:
-        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
@@ -97,8 +92,6 @@ user-service:
 product-service:
   enabled: true
   service:
-    security:
-        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
@@ -110,14 +103,10 @@ product-service:
         value: filemanager-service
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
-      - name: SECURITY_ENABLED
-        value: *enabledSecurity
 
 cart-service:
   enabled: false
   service:
-    security:
-        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
@@ -129,14 +118,10 @@ cart-service:
         value: "dev-env-redis-master"
       - name: SPRING_REDIS_PASSWORD
         value: "redis123"
-      - name: SECURITY_ENABLED
-        value: *enabledSecurity  
 
 filemanager-service:
   enabled: true
   service:
-    security:
-        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
@@ -148,14 +133,10 @@ filemanager-service:
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
       - name: MINIO_URL
         value:  dev-env-minio
-      - name: SECURITY_ENABLED
-        value: *enabledSecurity
 
 inventory-service:
   enabled: true
   service:
-    security:
-        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
@@ -165,14 +146,10 @@ inventory-service:
         value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/inventory"
-      - name: SECURITY_ENABLED
-        value: *enabledSecurity  
 
 orchestrator-service:
   enabled: true
   service:
-    security:
-        enabled: *enabledSecurity
     envVars:
       - name: AUTH_SERVER_URL
         value: http://dev-env-keycloak
@@ -182,5 +159,3 @@ orchestrator-service:
         value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/orchestrator"
-      - name: SECURITY_ENABLED
-        value: *enabledSecurity  
