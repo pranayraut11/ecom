@@ -1,0 +1,11 @@
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/service/specification/InventoryService.java
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/repository/InventoryRepository.java
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/InventoryApplication.java
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/dto/InventoryResponse.java
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/service/implementation/InventoryServiceImpl.java
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/controller/InventoryController.java
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/constants/Operation.java
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/config/ImportConfig.java
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/dto/InventoryDTO.java
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/entity/ProductInventory.java
+/home/pranay/project/ecom/Services/inventory/src/main/java/com/ecom/inventory/enums/InventoryStatus.java
