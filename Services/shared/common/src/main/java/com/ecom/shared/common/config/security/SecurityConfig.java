@@ -1,5 +1,6 @@
 package com.ecom.shared.common.config.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.Objects;
 
 @Configuration
 @KeycloakConfiguration
+@Slf4j
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     @Value("${security.enabled}")
@@ -33,11 +35,13 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
             isSecurityEnabled = Boolean.TRUE;
         }
         if(Boolean.TRUE.equals(isSecurityEnabled)){
+            log.info("API security enabled");
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/auth/login", "/users/addUser").
                     permitAll().antMatchers(HttpMethod.GET, "/files/**", "/product").permitAll().
                     anyRequest()
                     .authenticated();
         }else {
+            log.info("API security disabled");
             http.authorizeRequests().anyRequest().permitAll();
         }
         http.addFilterAfter(new HttpRequestFilter(), BasicAuthenticationFilter.class);
@@ -46,7 +50,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(keycloakAuthenticationProvider());
     }
 
