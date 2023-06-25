@@ -31,7 +31,7 @@ public class WebClientConfig {
             if(StringUtils.hasLength(token)) {
                 clientRequestCpoy  = ClientRequest.from(clientRequest)
                         .headers(headers -> {
-                            headers.set(HttpHeaders.AUTHORIZATION, token.replaceFirst(TokenUtil.TOKEN_TYPE_BEARER, "").trim());
+                            headers.set(HttpHeaders.AUTHORIZATION, token.trim());
                         })
                         .build();
             }
