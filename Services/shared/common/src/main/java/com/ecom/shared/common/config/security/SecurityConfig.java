@@ -17,24 +17,28 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 @Configuration
 @KeycloakConfiguration
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
-    @Value("${security.disabled}")
-    boolean isSecurityDisabled;
+    @Value("${security.enabled}")
+    private Boolean isSecurityEnabled;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        if(isSecurityDisabled){
-            http.authorizeRequests().anyRequest().permitAll();
-        }else {
+        if(Objects.isNull(isSecurityEnabled)){
+            isSecurityEnabled = Boolean.TRUE;
+        }
+        if(Boolean.TRUE.equals(isSecurityEnabled)){
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/auth/login", "/users/addUser").
                     permitAll().antMatchers(HttpMethod.GET, "/files/**", "/product").permitAll().
                     anyRequest()
                     .authenticated();
+        }else {
+            http.authorizeRequests().anyRequest().permitAll();
         }
         http.addFilterAfter(new HttpRequestFilter(), BasicAuthenticationFilter.class);
         http.csrf().disable();
