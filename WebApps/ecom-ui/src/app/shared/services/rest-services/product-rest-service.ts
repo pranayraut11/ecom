@@ -13,13 +13,13 @@ export class ProductRestService {
   getProductList(): Observable<Product[]> {
      const headers = new HttpHeaders()
      .set("X-CustomHeader", "none");
-    return this.rest.get<Product[]>(environment.baseURL + PRODUCT_SERVICE,{headers});
+    return this.rest.get<Product[]>(environment.baseURL + PRODUCT_SERVICE+PRODUCT,{headers});
   }
 
   getProduct(id:string): Observable<Product> {
     const headers = new HttpHeaders()
     .set("X-CustomHeader", "none");
-   return this.rest.get<Product>(environment.baseURL + PRODUCT_SERVICE+'/'+id,{headers});
+   return this.rest.get<Product>(environment.baseURL + PRODUCT_SERVICE+PRODUCT+'/'+id,{headers});
  }
 
   createProduct(product: Product,images:File): Observable<Product> {
