@@ -1,7 +1,6 @@
 package com.ecom.shared.common.config.security;
 
 import com.ecom.shared.common.dto.UserDetails;
-import com.ecom.shared.common.exception.EcomException;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.common.VerificationException;
 import org.keycloak.util.TokenUtil;
@@ -20,11 +19,10 @@ public class HttpRequestFilter implements Filter {
        String authToken = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
        if(StringUtils.hasLength(authToken)){
            try {
-               UserDetails.setUserInfo(authToken.trim());
+               UserDetails.setUserInfo(authToken.replaceFirst(TokenUtil.TOKEN_TYPE_BEARER,"").trim());
            } catch (VerificationException e) {
-               throw new EcomException(e);
+               throw new RuntimeException(e);
            }
-
        }
        filterChain.doFilter(servletRequest,servletResponse);
     }
