@@ -138,6 +138,10 @@ filemanager-service:
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
       - name: MINIO_URL
         value:  dev-env-minio
+      - name: MINIO_ACCESS_NAME
+        value:  miniouser
+      - name: MINIO_ACCESS_SECRET
+        value:  miniopassword
 
 
 inventory-service:
