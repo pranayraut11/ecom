@@ -133,7 +133,7 @@ filemanager-service:
       - name: KEYCLOAK_RESOURCE
         value: filemanager-service
       - name: KEYCLOAK_CREDENTIALS_SECRET
-        value: 4Lnwqy6Itu6Sr1Cyac3LwTwrqtL4WvCu
+        value: 6BT3R8jXvDpAdyu96WDSEqrRNzP1i9dV
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
       - name: MINIO_URL
