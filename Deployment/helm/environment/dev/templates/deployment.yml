@@ -36,4 +36,10 @@ spec:
             - name: {{ .name }}
               value: {{ .value }}
           {{- end }}
+          startupProbe:
+            httpGet:
+              path: /started
+              port: 8080
+            failureThreshold: 30
+            periodSeconds: 10
 {{- end -}}
