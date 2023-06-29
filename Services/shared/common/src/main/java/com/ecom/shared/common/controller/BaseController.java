@@ -37,9 +37,4 @@ public abstract class BaseController<T> {
         return baseService.update(entity);
     }
 
-    @GetMapping("started")
-    public ResponseEntity<Void> health(){
-        return ResponseEntity.ok().build();
-    }
-
 }
