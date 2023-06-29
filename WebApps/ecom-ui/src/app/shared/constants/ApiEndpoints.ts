@@ -9,8 +9,7 @@
 // export const PRODUCT_SERVICE = 'product-service';
 // export const PRODUCT = PRODUCT_SERVICE+'/product';
 
-//Cart 
-// export const CART_SERVICE = 'cart';
+
 // export const CART_PRODUCT = CART_SERVICE+'/product'
 
 // Local dev api end points for json server data
@@ -28,5 +27,6 @@ export const PRODUCT_SERVICE = 'product-service';
 export const PRODUCT = '/product';
 //Cart 
 export const CART_SERVICE = 'cart-service'
+export const CART = '/cart';
 //Order service
 export const ORDER_SERVICE = 'order-service'
