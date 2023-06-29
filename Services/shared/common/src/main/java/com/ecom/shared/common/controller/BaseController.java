@@ -2,6 +2,7 @@ package com.ecom.shared.common.controller;
 
 import com.ecom.shared.common.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,11 @@ public abstract class BaseController<T> {
     @PatchMapping
     public T update(@RequestBody T entity){
         return baseService.update(entity);
+    }
+
+    @GetMapping("started")
+    public ResponseEntity<Void> health(){
+        return ResponseEntity.ok().build();
     }
 
 }
