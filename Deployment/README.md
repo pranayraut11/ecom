@@ -50,4 +50,22 @@ product-deployment-5c6f5dbbbf-jqlc5               1/1     Running   0          2
 user-service-deployment-7db7bd9496-v5xw5          1/1     Running   0          2m33s
 ```
 
-### Before accessing application on browser we will need to do some security and file configration setup.
+### Before accessing application on browser we will need to do configration .
+* ### Add path to hosts file .
+  Open hosts file
+  * Windows - Windows/System32/drivers/etc
+  * Linux - /etc/hosts
+  
+  Add following paths to hosts file and save.
+  ```
+  127.0.0.1 dev-env
+  127.0.0.1 keycloak.local
+  127.0.0.1 minio.local
+  127.0.0.1 dev-env-ui
+  ```
+
+* ### Keycloak OAuth server configuration
+    Go to web browser and access [http://keycloak](http://keycloak.local/)
+    
+
+* ### Minio File server configuration
