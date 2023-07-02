@@ -66,6 +66,12 @@ user-service-deployment-7db7bd9496-v5xw5          1/1     Running   0          2
 
 * ### Keycloak OAuth server configuration
     Go to web browser and access [http://keycloak](http://keycloak.local/)
-    
+  
+    Click on "Administration Console" and enter username and password
+    ```
+    Username : admin
+    Password : admin
+    ```
+
 
 * ### Minio File server configuration
