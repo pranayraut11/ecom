@@ -6,7 +6,6 @@ import com.ecom.user.dto.AuthClientDetails;
 import com.ecom.user.dto.KeycloakUser;
 import com.ecom.user.dto.TokenDetails;
 import com.ecom.user.dto.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.TokenVerifier;
 import org.keycloak.common.VerificationException;
@@ -29,23 +28,22 @@ import static org.springframework.security.config.Elements.HTTP;
 @Slf4j
 public class KeycloakAuthService {
 
+    private static final String AUTH_ERR_001 = "AUTH_ERR001";
     private RestTemplate restTemplate;
-    private ObjectMapper mapper;
 
-    @Value("${user.auth.server.host}")
+    @Value("${auth.server.host}")
     private String host;
 
 
 
-    KeycloakAuthService(RestTemplate restTemplate, ObjectMapper mapper) {
+    KeycloakAuthService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.mapper = mapper;
     }
 
     public TokenDetails login(AuthClientDetails authClientDetails, String realms) throws VerificationException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        MultiValueMap parameters = new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String,String> parameters = new LinkedMultiValueMap<>();
         parameters.set(USERNAME,authClientDetails.getUsername());
         parameters.set(PASSWORD,authClientDetails.getPassword());
         parameters.set(CLIENT_ID,authClientDetails.getClientId());
@@ -56,17 +54,19 @@ public class KeycloakAuthService {
         ResponseEntity<TokenDetails> tokenDetails = null;
             tokenDetails = restTemplate.postForEntity(uriComponents.toUriString(), entity, TokenDetails.class);
 
-        if (Objects.nonNull(tokenDetails) && tokenDetails.getStatusCode().is2xxSuccessful()) {
+        if (tokenDetails.getStatusCode().is2xxSuccessful()) {
             TokenDetails details = tokenDetails.getBody();
-            AccessToken token = TokenVerifier.create(details.getAccess_token(), AccessToken.class).getToken();
-            if(Objects.nonNull(token.getRealmAccess())) {
+            if( Objects.nonNull(details)) {
+                AccessToken token = TokenVerifier.create(details.getAccess_token(), AccessToken.class).getToken();
+                if (Objects.nonNull(token.getRealmAccess())) {
 
-                log.info("UserId {}",token.getSubject());
-                details.setRoles(token.getRealmAccess().getRoles());
+                    log.info("UserId {}", token.getSubject());
+                    details.setRoles(token.getRealmAccess().getRoles());
+                }
             }
             return details;
         } else {
-            throw new EcomException(tokenDetails.getStatusCode(),"AUTH_ERR001","message",false);
+            throw new EcomException(tokenDetails.getStatusCode(), AUTH_ERR_001,"message",false);
         }
     }
 
@@ -79,10 +79,10 @@ public class KeycloakAuthService {
         ResponseEntity<String> tokenDetails = null;
         tokenDetails = restTemplate.postForEntity(uriComponents.toUriString(), entity, String.class);
 
-        if (Objects.nonNull(tokenDetails) && tokenDetails.getStatusCode().equals(HttpStatus.CREATED)) {
+        if (tokenDetails.getStatusCode().equals(HttpStatus.CREATED)) {
             log.info("User : {} created successfully ",user);
         } else {
-            throw new EcomException(tokenDetails.getStatusCode(),"AUTH_ERR001","message",false);
+            throw new EcomException(tokenDetails.getStatusCode(),AUTH_ERR_001,"message",false);
         }
     }
 
@@ -94,10 +94,10 @@ public class KeycloakAuthService {
         ResponseEntity<String> logoutResponse = null;
         logoutResponse = restTemplate.postForEntity(uriComponents.toUriString(),entity, String.class);
 
-        if (Objects.nonNull(logoutResponse) && logoutResponse.getStatusCode().is2xxSuccessful()) {
+        if ( logoutResponse.getStatusCode().is2xxSuccessful()) {
             log.info("Successfulley logged out from Keycloak");
         } else {
-            throw new EcomException(logoutResponse.getStatusCode(),"AUTH_ERR001","message",false);
+            throw new EcomException(logoutResponse.getStatusCode(),AUTH_ERR_001,"message",false);
         }
     }
 

@@ -24,35 +24,27 @@ public class UserServiceImpl implements UserService {
 
     private KeycloakAuthService keycloakAuthService;
 
-    private AuthClientDetails adminCredentials;
-
-    private Login masterUserCredentials;
+    private AuthClientDetails adminClientCredentials;
 
     private UserRepository userRepository;
 
     private AuthClientDetails userClientCredentials;
 
-    @Value("${user.auth.realms.subRealms}")
-    private String subRealms;
+    @Value("${auth.realm}")
+    private String realm;
 
-    @Value("${user.auth.realms.master}")
-    private String masterRealms;
-
-    UserServiceImpl(KeycloakAuthService keycloakAuthService, @Qualifier("adminClientCredentials") AuthClientDetails adminCredentials,
-                    Login masterUserCredentials, UserRepository userRepository, AuthClientDetails userClientCredentials) {
+    UserServiceImpl(KeycloakAuthService keycloakAuthService, @Qualifier("adminClientCredentials") AuthClientDetails adminClientCredentials,
+                    UserRepository userRepository, AuthClientDetails userClientCredentials) {
         this.keycloakAuthService = keycloakAuthService;
-        this.masterUserCredentials = masterUserCredentials;
         this.userRepository = userRepository;
-        this.adminCredentials = adminCredentials;
+        this.adminClientCredentials = adminClientCredentials;
         this.userClientCredentials = userClientCredentials;
     }
 
     @Override
     public void create(@NotNull UserDetails user) throws VerificationException {
         log.info("Creating user {} ... ",user.getEmail());
-        adminCredentials.setUsername(masterUserCredentials.getUsername());
-        adminCredentials.setPassword(masterUserCredentials.getPassword());
-        TokenDetails tokenDetails = keycloakAuthService.login(adminCredentials, masterRealms);
+        TokenDetails tokenDetails = keycloakAuthService.login(adminClientCredentials, realm);
         KeycloakUser keycloakUser = new KeycloakUser();
         keycloakUser.setUsername(user.getEmail());
         keycloakUser.setFirstName(user.getFirstName());
@@ -60,10 +52,10 @@ public class UserServiceImpl implements UserService {
         keycloakUser.setCredentials(user.getCredentials());
         keycloakUser.setEnabled(user.isEnabled());
         keycloakUser.setEmail(user.getEmail());
-        keycloakAuthService.createUser(keycloakUser, subRealms, tokenDetails.getAccess_token());
+        keycloakAuthService.createUser(keycloakUser, realm, tokenDetails.getAccess_token());
         userClientCredentials.setUsername(user.getUsername());
         userClientCredentials.setPassword(UserUtils.getPassword(user.getCredentials()));
-        TokenDetails newlyCreatedUserToken = keycloakAuthService.login(userClientCredentials, subRealms);
+        TokenDetails newlyCreatedUserToken = keycloakAuthService.login(userClientCredentials, realm);
         com.ecom.shared.common.dto.UserDetails.setUserInfo(newlyCreatedUserToken.getAccess_token());
         user.setUserId(com.ecom.shared.common.dto.UserDetails.getUserId());
         user.setCredentials(null);

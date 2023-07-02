@@ -17,8 +17,8 @@ public class AuthServiceImpl implements AuthService {
 
     private AuthClientDetails userCredentials;
 
-    @Value("${user.auth.realms.subRealms}")
-    private String subRealms;
+    @Value("${auth.realm}")
+    private String realm;
 
     public AuthServiceImpl(KeycloakAuthService keycloakAuthService,@Qualifier("userClientCredentials") AuthClientDetails userCredentials) {
         this.keycloakAuthService = keycloakAuthService;
@@ -29,11 +29,11 @@ public class AuthServiceImpl implements AuthService {
     public TokenDetails login(Login login) throws VerificationException {
         userCredentials.setUsername(login.getUsername());
         userCredentials.setPassword(login.getPassword());
-        return keycloakAuthService.login(userCredentials,subRealms);
+        return keycloakAuthService.login(userCredentials,realm);
     }
 
     @Override
     public void logout(String token) {
-        keycloakAuthService.logout(token,subRealms);
+        keycloakAuthService.logout(token,realm);
     }
 }
