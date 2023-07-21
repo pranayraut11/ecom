@@ -37,7 +37,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         if(Boolean.TRUE.equals(isSecurityEnabled)){
             log.info("API security enabled");
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/auth/login", "/users/addUser").
-                    permitAll().antMatchers(HttpMethod.GET, "/files/**", "/product","/app/started").permitAll().
+                    permitAll().antMatchers(HttpMethod.GET, "/files/**", "/product","/**/app/started").permitAll().
                     anyRequest()
                     .authenticated();
         }else {
