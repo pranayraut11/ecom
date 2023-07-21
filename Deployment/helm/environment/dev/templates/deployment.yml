@@ -36,10 +36,13 @@ spec:
             - name: {{ .name }}
               value: {{ .value }}
           {{- end }}
+        {{- if eq .Values.startupProbe.enabled true }}
           startupProbe:
             httpGet:
               path: /app/started
               port: 8080
             failureThreshold: 30
             periodSeconds: 10
+            timeoutSeconds: 50
+        {{ end }}
 {{- end -}}

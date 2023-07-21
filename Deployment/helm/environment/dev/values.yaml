@@ -71,10 +71,14 @@ minio:
     existingClaim: common-persistentvolumeclaim
 
 ecom-ui:
+  startupProbe:
+    enabled: false
   enabled: true
 
 user-service:
   enabled: true
+  startupProbe:
+    enabled: true
   service:
     envVars:
       - name: AUTH_SERVER_URL
@@ -95,6 +99,8 @@ user-service:
 
 product-service:
   enabled: true
+  startupProbe:
+    enabled: true
   service:
     envVars:
       - name: AUTH_SERVER_URL
@@ -109,7 +115,9 @@ product-service:
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
 
 cart-service:
-  enabled: true
+  enabled: false
+  startupProbe:
+    enabled: true
   service:
     envVars:
       - name: AUTH_SERVER_URL
@@ -126,6 +134,8 @@ cart-service:
 
 filemanager-service:
   enabled: true
+  startupProbe:
+    enabled: true
   service:
     envVars:
       - name: AUTH_SERVER_URL
@@ -146,6 +156,8 @@ filemanager-service:
 
 inventory-service:
   enabled: true
+  startupProbe:
+    enabled: true
   service:
     envVars:
       - name: AUTH_SERVER_URL
@@ -160,6 +172,8 @@ inventory-service:
 
 orchestrator-service:
   enabled: true
+  startupProbe:
+    enabled: true
   service:
     envVars:
       - name: AUTH_SERVER_URL
