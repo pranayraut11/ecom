@@ -72,6 +72,23 @@ user-service-deployment-7db7bd9496-v5xw5          1/1     Running   0          2
     Username : admin
     Password : admin
     ```
-
+    Username and password can be changed in helm chart(values.yml)
+  
+    Create new Realm - Ecom and import attached file to import all client and it's credentials and user's.
 
 * ### Minio File server configuration
+  Go to web browser and access [http://minio](http://minio.local/)
+  Login to application
+  ```
+   Username : admin123
+   Password : admin123
+  ```
+  Username and password can be changed in helm chart(values.yml)
+  
+ ### Create user
+  Goto Identity -> Users -> Create User ->
+  
+  Enter username - miniouser and password - miniouser
+  
+  And select "consoleAdmin" policy.
+  
