@@ -36,6 +36,9 @@ import { NetBankingComponent } from './features/payment/methods/net-banking/net-
 import { SavedCardsComponent } from './features/payment/methods/saved-cards/saved-cards.component';
 import { MenubarComponent } from './shared/components/menubar/menubar.component';
 import { SearchComponent } from './shared/components/search/search.component';
+import { SellerHeaderComponent } from './features/layout/seller/component/seller-header/seller-header.component';
+import { SellerMenuComponent } from './features/layout/seller/component/seller-menu/seller-menu.component';
+import { BackCreateButtonComponent } from './shared/components/back-create-button/back-create-button.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,10 +73,13 @@ import { SearchComponent } from './shared/components/search/search.component';
     NetBankingComponent,
     SavedCardsComponent,
     MenubarComponent,
-    SearchComponent
+    SearchComponent,
+    SellerHeaderComponent,
+    SellerMenuComponent,
+    BackCreateButtonComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule
+    BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule,
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorService,multi:true}],
   bootstrap: [AppComponent]

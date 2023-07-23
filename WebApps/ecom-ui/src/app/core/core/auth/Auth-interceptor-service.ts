@@ -13,6 +13,8 @@ export class AuthInterceptorService implements HttpInterceptor {
     }
     intercept(req: HttpRequest<any>, next: HttpHandler) {
 
+        let isSecured = false;
+        if(isSecured){
         this.spinnerService.show();
         // return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
         //     if (event instanceof HttpResponse) {
@@ -52,5 +54,14 @@ export class AuthInterceptorService implements HttpInterceptor {
                 this.spinnerService.hide();
             }));
         }
+    }else{
+        return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
+            if (event instanceof HttpResponse) {
+               
+            }
+        }, (error) => {
+           
+        }));
+    }
     }
 }

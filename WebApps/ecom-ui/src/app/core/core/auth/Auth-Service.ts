@@ -26,8 +26,15 @@ export class AuthService {
             const tokenExpirationDate = new Date(new Date().getTime() + resData.expires_in * 1000);
             const user = new UserTokenDetails(resData.access_token, resData.refresh_token, tokenExpirationDate,resData.roles);
             localStorage.setItem(AUTH_TOKEN, JSON.stringify(resData));
-            this.user.next(user);
+            this.user.next(this.getUser());
         }));
+    }
+
+    getUser(){
+        let roles = ["seller"];
+        const tokenExpirationDate = new Date(new Date().getTime() + new Date().getTime() * 1000);
+        const user = new UserTokenDetails("resData.access_token", "resData.refresh_token", tokenExpirationDate,roles);
+        return user;
     }
 
     logout() {

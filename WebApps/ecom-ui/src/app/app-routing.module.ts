@@ -24,14 +24,16 @@ import { WalletsComponent } from './features/payment/methods/wallets/wallets.com
 import { CardsComponent } from './features/payment/methods/cards/cards.component';
 import { CashOnDeliveryComponent } from './features/payment/methods/cash-on-delivery/cash-on-delivery.component';
 import { DetailsComponent } from './features/catalog/pages/details/details.component';
+import { SellerMenuComponent } from './features/layout/seller/component/seller-menu/seller-menu.component';
 
 const appsRoutes: Routes = [
   // { path: 'cart', component: CartListComponent }, 
   //{ path: 'myorders', component: OrderListComponent },
   { path: 'create', redirectTo: 'seller/create', pathMatch: 'full' },
- // { path: 'auth/register', component: UserRegistrationComponent },
+  // { path: 'auth/register', component: UserRegistrationComponent },
   { path: '', redirectTo: 'user/list', pathMatch: 'full' },
   { path: 'home', redirectTo: 'user/list', pathMatch: 'prefix' },
+  { path: 'seller', redirectTo: 'seller/dashboard', pathMatch: 'prefix' },
   {
     path: 'user', component: HomeComponent, children: [
       {
@@ -45,8 +47,8 @@ const appsRoutes: Routes = [
 
       },
       {
-        path:'details/:id',
-        component:DetailsComponent
+        path: 'details/:id',
+        component: DetailsComponent
       },
       {
         path: 'cart',
@@ -80,12 +82,12 @@ const appsRoutes: Routes = [
                 component: WalletsComponent
               },
               {
-                path:'cards',
-                component:CardsComponent
+                path: 'cards',
+                component: CardsComponent
               },
               {
-                path:'cash-on-delivery',
-                component:CashOnDeliveryComponent
+                path: 'cash-on-delivery',
+                component: CashOnDeliveryComponent
               }
             ]
           }
@@ -125,18 +127,23 @@ const appsRoutes: Routes = [
   },
   {
     path: 'seller', component: SellerHomeComponent, children: [
-      {
-        path: 'list',
-        component: TableListComponent,
 
-      },
       {
         path: 'create',
         component: CreateProductComponent,
 
+      },
+      {
+        path: 'dashboard',
+        component: SellerMenuComponent
+      },
+      {
+        path: 'product',
+        component: TableListComponent,
       }
     ]
-  }
+  },
+
 ];
 
 

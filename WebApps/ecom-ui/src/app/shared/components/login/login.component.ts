@@ -32,13 +32,13 @@ export class LoginComponent implements OnInit {
       this.isAuthenticated = !!user;
       console.log(!user);
       console.log(!!user);
-      // if(user.roles.includes("seller")){
-      //   console.log("User is seller")
-      //   this.router.navigate(["/seller/list"]);
-      // }else{
-      //   console.log("User is not seller")
-      //   this.router.navigate(["/user/list"]);
-      // }
+       if(user.roles.includes("seller")){
+         console.log("User is seller")
+         this.router.navigate(["/seller"]);
+       }else{
+         console.log("User is not seller")
+         this.router.navigate(["/user/list"]);
+       }
     });
   }
 

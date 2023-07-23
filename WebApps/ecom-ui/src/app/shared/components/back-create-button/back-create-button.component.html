@@ -1,0 +1,9 @@
+<div class="row container">
+    <div class="col-1 btn btn-secondary" appRoles [hasRole]='["admin,seller"]'>
+        <a class="nav-link active" (click)='goBack()' aria-current="page">Back</a>
+    </div>
+<div class="col-10"></div>
+    <div class="col-1 btn btn-warning" appRoles [hasRole]='["admin,seller"]'>
+        <a class="nav-link active" (click)='create("seller/create")' aria-current="page">Create</a>
+    </div>
+</div>
