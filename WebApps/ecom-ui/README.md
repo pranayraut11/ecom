@@ -60,3 +60,12 @@ docker build -t pranayraut11/ecom-ui .
 ```
 docker push pranayraut11/ecom-ui
 ```
+### Install JSON Server
+```
+npm install -g json-server
+```
+Create a db.json file with data and router file route.json
+### Run json server with db and router file
+```
+json-server --watch src/db.json --routes src/route.json
+```
