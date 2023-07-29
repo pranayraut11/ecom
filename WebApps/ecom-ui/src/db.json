@@ -192,6 +192,30 @@
         "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg"
       ],
       "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "orderId": "",
+      "productId": "1",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "image": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1687842433_3385347.jpg?format=webp&w=1080&dpr=1.5",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "cart-serviceId": "cart",
+      "id": "xzSqpdV"
+    },
+    {
+      "orderId": "",
+      "productId": "1",
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "image": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1687842433_3385347.jpg?format=webp&w=1080&dpr=1.5",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "cart-serviceId": "cart",
+      "id": "q0xdYbT"
     }
   ],
   "orders": [
@@ -248,25 +272,28 @@
       "eyeColor": "brown"
     }
   ],
-  "cart": {
-    "totalPrice": 345,
-    "discount": "0",
-    "total": 6788,
-    "products": [
-      {
-        "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
-        "description": "First product desc",
-        "price": "567",
-        "discountedPrice": "756",
-        "discount": "0"
-      }
-    ],
-    "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
-    "description": "First product desc",
-    "price": "567",
-    "discountedPrice": "756",
-    "quantity": null
-  },
+  "cart": [
+    {
+      "id": "1",
+      "totalPrice": 345,
+      "discount": "0",
+      "total": 6788,
+      "products": [
+        {
+          "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+          "description": "First product desc",
+          "price": "567",
+          "discountedPrice": "756",
+          "discount": "0"
+        }
+      ],
+      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "description": "First product desc",
+      "price": "567",
+      "discountedPrice": "756",
+      "quantity": null
+    }
+  ],
   "address": [
     {
       "id": "9e4b29c5-cfc6-47f8-913b-83795f5b082b",
@@ -345,5 +372,21 @@
       "id": "1",
       "username": "pranay",
       "password": "123"
-    } ]
+    },
+    {
+      "username": "asd",
+      "password": "das",
+      "id": "LUAOJdw"
+    },
+    {
+      "username": "ads",
+      "password": "das",
+      "id": "A-H_Ysn"
+    },
+    {
+      "username": "asd",
+      "password": "dsa",
+      "id": "0cpHOLT"
+    }
+  ]
 }

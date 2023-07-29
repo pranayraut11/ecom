@@ -13,19 +13,19 @@ export class CartRestService{
     constructor(private rest: HttpClient){}
 
     addToCart(cartProduct : CartProduct) : Observable<Cart>{
-       return this.rest.post<Cart>(environment.baseURL+CART_SERVICE+CART+PRODUCT,cartProduct);
+       return this.rest.post<Cart>(environment.baseURL+CART_SERVICE+CART,cartProduct);
     }
 
     getCartProducts() : Observable<Cart>{
-        return this.rest.get<Cart>(environment.baseURL+CART_SERVICE+CART+PRODUCT,{responseType:'json'});
+        return this.rest.get<Cart>(environment.baseURL+CART_SERVICE+CART+'/1',{responseType:'json'});
     }
 
     removeFromCart(id: string){
-       return this.rest.delete(environment.baseURL+CART_SERVICE+CART+PRODUCT+'/'+id);
+       return this.rest.delete(environment.baseURL+CART_SERVICE+CART+'/'+id);
     }
 
     updateProduct(cartProduct : CartProduct): Observable<Cart>{
-        return this.rest.patch<Cart>(environment.baseURL+CART_SERVICE+CART+PRODUCT,cartProduct);
+        return this.rest.patch<Cart>(environment.baseURL+CART_SERVICE+CART,cartProduct);
     }
  
 }

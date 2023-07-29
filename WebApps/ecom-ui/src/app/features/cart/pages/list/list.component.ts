@@ -18,10 +18,12 @@ export class CartListComponent implements OnInit {
   cartProducts: CartProduct[];
   initialized = false;
   ngOnInit(): void {
+    console.log("In cart service");
     //this.reload.emit('proc');
     this.cartRestService.getCartProducts().subscribe((cart: Cart) => {
       
       if (cart) {
+        console.log("In cart condition");
         this.cart = cart;
         this.cartProducts = cart.products;
         console.log(this.cart);
