@@ -1,6 +1,15 @@
 package com.ecom.cart.service.specification;
 
-public interface CartService {
+import com.ecom.cart.entity.Cart;
+import com.ecom.cart.entity.Product;
 
-    void delete(String id);
+public interface CartService  {
+
+    Cart getCart();
+
+    Cart addProductToCart(Product product);
+
+    Cart updateProduct(Product product);
+
+    Cart removeProductFromCart(String productId);
 }
