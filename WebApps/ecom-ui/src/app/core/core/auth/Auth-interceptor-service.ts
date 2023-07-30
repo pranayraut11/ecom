@@ -13,7 +13,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     }
     intercept(req: HttpRequest<any>, next: HttpHandler) {
 
-        let isSecured = false;
+        let isSecured = true;
         if(isSecured){
         this.spinnerService.show();
         // return next.handle(req).pipe(tap((event: HttpEvent<any>) => {

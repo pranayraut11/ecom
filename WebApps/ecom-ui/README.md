@@ -64,8 +64,11 @@ docker push pranayraut11/ecom-ui
 ```
 npm install -g json-server
 ```
-Create a db.json file with data and router file route.json
-### Run json server with db and router file
+### Install module to run json auth file
 ```
-json-server --watch src/db.json --routes src/route.json
+npm install json-server --save-dev
+```
+### Run json server with db , router and auth file(All files are already in the src folder)
+```
+json-server --watch src/jsonDb.json --routes src/jsonRoute.json --middlewares src/jsonAuth.js
 ```
