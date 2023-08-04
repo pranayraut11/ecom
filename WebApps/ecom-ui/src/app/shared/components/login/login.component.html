@@ -1,12 +1,14 @@
-<a class="nav navbar-brand  nav-item navbar-right " *ngIf="!isAuthenticated" role="button" data-bs-toggle="modal"
-    data-bs-target="#loginModel">Login</a>
-
-<a  *ngIf="isAuthenticated" role="button" (click)="logout()">Logout</a>
-
+<div class="col-1">
+    <a class="nav navbar-brand  nav-item navbar-right " *ngIf="!isAuthenticated" role="button" data-bs-toggle="modal"
+        data-bs-target="#loginModel">Login</a>
+</div>
+<div class="col-1">
+    <a *ngIf="isAuthenticated" role="button" (click)="logout()">Logout</a>
+</div>
 <!-- Modal -->
 <div id="loginModel" class="modal" role="dialog" #loginModel>
     <div class="modal-dialog">
-        
+
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -16,7 +18,7 @@
                 <div class="alert alert-danger" *ngIf="showErrorMessage">
                     {{errorMessage}}
                 </div>
-                <form role="form" method="POST" (ngSubmit)="login(f)" #f="ngForm" >
+                <form role="form" method="POST" (ngSubmit)="login(f)" #f="ngForm">
                     <input type="hidden" name="_token" value="">
                     <div class="form-group">
                         <label class="control-label">E-Mail Address</label>

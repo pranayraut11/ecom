@@ -1,8 +1,0 @@
-{
-    "/product-service/product": "/product",
-    "/product-service/product/:id": "/product/:id",
-    "/cart-service/cart": "/cart",
-    "/cart-service/cart/:id": "/cart/:id",
-    "/user-service/auth/login": "/login",
-    "/user-service/address" : "/address"
-  }

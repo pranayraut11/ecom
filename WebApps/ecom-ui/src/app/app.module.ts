@@ -39,6 +39,8 @@ import { SearchComponent } from './shared/components/search/search.component';
 import { SellerHeaderComponent } from './features/layout/seller/component/seller-header/seller-header.component';
 import { SellerMenuComponent } from './features/layout/seller/component/seller-menu/seller-menu.component';
 import { BackCreateButtonComponent } from './shared/components/back-create-button/back-create-button.component';
+import { AppCatalogRoutingModule } from './features/catalog/app-catalog-routing.module';
+import { ProductBasicInfoComponent } from './features/catalog/pages/create/components/product-basic-info/product-basic-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,10 +78,11 @@ import { BackCreateButtonComponent } from './shared/components/back-create-butto
     SearchComponent,
     SellerHeaderComponent,
     SellerMenuComponent,
-    BackCreateButtonComponent
+    BackCreateButtonComponent,
+    ProductBasicInfoComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule,
+    BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule, AppCatalogRoutingModule,
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorService,multi:true}],
   bootstrap: [AppComponent]

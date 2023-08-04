@@ -124,26 +124,7 @@ const appsRoutes: Routes = [
 
       }
     ]
-  },
-  {
-    path: 'seller', component: SellerHomeComponent, children: [
-
-      {
-        path: 'create',
-        component: CreateProductComponent,
-
-      },
-      {
-        path: 'dashboard',
-        component: SellerMenuComponent
-      },
-      {
-        path: 'product',
-        component: TableListComponent,
-      }
-    ]
-  },
-
+  }
 ];
 
 

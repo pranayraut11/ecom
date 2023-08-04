@@ -1,49 +1,8 @@
-<div class="container">
-
-    <form (ngSubmit)="createProduct(f)" #f="ngForm" class="was-validated">
-        <div ngModelGroup="userData" #userData="ngModelGroup">
-            <div class="mb-3" class="form-group">
-                <label for="name" for="validationCustom01" class="col-sm-2 col-form-label required ">Product
-                    Name</label>
-
-                <input type="text" name="name" class="form-control" id="name" placeholder="Name" ngModel required>
-                <div class="invalid-feedback">Please fill out this field.</div>
-                <label for="Description" class="col-sm-2 col-form-label required">Product Description</label>
-
-                <input type="text" name="description" class="form-control" id="description" placeholder="Description"
-                    ngModel required>
-                <div class="invalid-feedback">Please fill out this field.</div>
-            </div>
-
-            <div class=" mb-3" class="form-group">
-                <label for="Image" class="col-sm-2 col-form-label required">Product Image</label>
-
-                <input type="file" name="images" class="form-control" [(ngModel)]="currentInput"
-                    (change)="onFileSelect($event.target.files)" id="images" placeholder="Image" ngModel required>
-
-                <div class="invalid-feedback">Please select file to upload.</div>
-            </div>
-            <div class="row">
-                <div class=" col" class="form-group">
-                    <label for="maxRetailPrice" class="form-label required">Product Max Retail Price</label>
-
-                    <input type="text" name="maxRetailPrice" class="form-control" id="maxRetailPrice" placeholder="MRP"
-                        ngModel required>
-                    <div class="invalid-feedback">Please fill out this field.</div>
-                </div>
-
-                <div class=" col" class="form-group">
-                    <label for="discountedPrice" class="form-label">Product Discounted Price</label>
-
-                    <input type="text" name="discountedPrice" class="form-control" id="discountedPrice"
-                        placeholder="Discounted Price" ngModel>
-
-                </div>
-            </div>
-            <div class="col-auto">
-                <br>
-                <button type="submit" class="btn btn-primary" [disabled]="!userData.valid">Save</button>
-            </div>
-        </div>
-    </form>
+<router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+<div class=" container">
+    <div class="row pt-4">
+        <button type="submit" class="col-3 btn btn-primary" [disabled]=isNextButtonDisabled>Clear</button>
+        <div class="col-6"></div>
+        <button type="submit" class="col-3 btn btn-primary" [disabled]=isNextButtonDisabled>Next</button>
+    </div>
 </div>

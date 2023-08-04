@@ -15,7 +15,6 @@ export class RolesDirective implements OnInit {
 
   ngOnInit() {
     this.userSub = this.authService.user.subscribe(response => {
-      console.log("In has role directive");
       if (this.hasRole) {
         var authRoles = this.hasRole.toString().split(",");
         if (response) {
@@ -27,11 +26,7 @@ export class RolesDirective implements OnInit {
       }
     });
   }
-  // @HostListener('click', ['$event']) onClick($event) {
-  //   console.info('clicked: ' + $event);
-  //   this.display = 'none';
-  // }
-
+ 
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }

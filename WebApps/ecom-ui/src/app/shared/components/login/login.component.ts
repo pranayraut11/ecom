@@ -28,17 +28,16 @@ export class LoginComponent implements OnInit {
 
     console.log("is " + this.isAuthenticated);
     this.userSub = this.authService.user.subscribe(user => {
-      console.log("in header" + this.isAuthenticated);
       this.isAuthenticated = !!user;
-      console.log(!user);
-      console.log(!!user);
-       if(user.roles.includes("seller")){
-         console.log("User is seller")
-         this.router.navigate(["/seller"]);
-       }else{
-         console.log("User is not seller")
-         this.router.navigate(["/user/list"]);
-       }
+      if (user) {
+        if (user.roles.includes("seller")) {
+          console.log("User is seller")
+          this.router.navigate(["/seller"]);
+        } else {
+          console.log("User is not seller")
+          this.router.navigate(["/user/list"]);
+        }
+      }
     });
   }
 
@@ -49,14 +48,14 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(login).subscribe({
       next: (response) => {
-        
+
         console.log(localStorage.getItem(AUTH_TOKEN));
         $('#loginModel').modal('hide');
         this.show = false;
-        if(response.roles.includes("seller")){
+        if (response.roles.includes("seller")) {
           console.log("User is seller")
-          this.router.navigate(["/seller/list"]);
-        }else{
+          this.router.navigate(["/seller"]);
+        } else {
           console.log("User is not seller")
           this.router.navigate(["/user/list"]);
         }
@@ -94,6 +93,7 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem(AUTH_TOKEN);
     this.router.navigate(["/"]);
     window.location.href = "/home"
+    this.userSub.unsubscribe();
   }
   ngOnDestroy() {
     this.userSub.unsubscribe();
