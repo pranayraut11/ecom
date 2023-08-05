@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Product } from "src/app/shared/models/product.model";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { PRODUCT, PRODUCT_SERVICE } from "../../constants/ApiEndpoints";
+import { PRODUCT, PRODUCT_SERVICE, SEARCH } from "../../constants/ApiEndpoints";
 
 @Injectable({ "providedIn": "root" })
 export class ProductRestService {
@@ -35,6 +35,12 @@ export class ProductRestService {
 
   deleteProduct(productIds : string[]):Observable<any>{
    return this.rest.delete(environment.baseURL + PRODUCT_SERVICE+PRODUCT,{body:productIds});
+  }
+
+  searchProduct(text: string): Observable<Product[]>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("q",text);
+    return this.rest.get<Product[]>(environment.baseURL+PRODUCT_SERVICE+PRODUCT,{params:queryParams});
   }
 
 }

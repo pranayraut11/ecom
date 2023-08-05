@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,20 +8,22 @@ import { Router } from '@angular/router';
 })
 export class BackCreateButtonComponent implements OnInit {
 
-  constructor(private route : Router) { }
+  @Input() pathFromParent: string;
+
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
   }
 
-  goBack(){
+  goBack() {
     var currentPath = this.route.url;
     console.log(currentPath);
     var startIndex = currentPath.lastIndexOf('/');
-    var navigateToPath = currentPath.substring(0,startIndex);
+    var navigateToPath = currentPath.substring(0, startIndex);
     this.route.navigate([navigateToPath]);
   }
 
-  create(path: string){
-    this.route.navigate([path]);
+  create() {
+    this.route.navigate([this.pathFromParent]);
   }
 }

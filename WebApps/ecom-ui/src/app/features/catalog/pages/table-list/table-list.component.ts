@@ -9,6 +9,7 @@ import { ProductRestService } from 'src/app/shared/services/rest-services/produc
 })
 export class TableListComponent implements OnInit {
 
+  createPath:string = '/seller/create/select';
   products: Product[];
  
   constructor(private productRestService: ProductRestService) { }

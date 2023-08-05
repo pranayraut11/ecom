@@ -1,1 +1,113 @@
-<p>product-detailed-info works!</p>
+<form [formGroup]="formData">
+
+
+
+    <div class="row">
+       
+        <div class="mb-3" class="form-group">
+            <input class="form-control" list="datalistOptions" id="exampleDataList" formControlName="productSearch"
+                placeholder="Type to search product..." [(ngModel)]="currentProduct"
+                (change)="onProductChanged(currentProduct)">
+
+            <datalist id="datalistOptions">
+                <option *ngFor="let product of productList" id="product.id">{{product.name}}</option>
+            </datalist>
+        </div>
+    </div>
+
+
+    <div class="container mt-5 mb-5" *ngIf="isProductSelected">
+        <div class="card">
+            <div class="row g-0">
+                <div class="col-md-6 border-end">
+                    <div class="d-flex flex-column justify-content-center">
+                        <div class="main_image"> <img
+                                src="http://dev-env/filemanager-service/files/{{product.id}}/{{product.images[0]}}"
+                                id="main_product_image" width="350"> </div>
+                        <div class="thumbnail_images">
+                            <ul id="thumbnail">
+                                <li><img (click)="changeImage(this)"
+                                        src="http://dev-env/filemanager-service/files/{{product.id}}/{{product.images[0]}}"
+                                        width="70"></li>
+                                <li><img (click)="changeImage(this)"
+                                        src="http://dev-env/filemanager-service/files/{{product.id}}/{{product.images[0]}}"
+                                        width="70"></li>
+                                <li><img (click)="changeImage(this)"
+                                        src="http://dev-env/filemanager-service/files/{{product.id}}/{{product.images[0]}}"
+                                        width="70"></li>
+                                <li><img (click)="changeImage(this)"
+                                        src="http://dev-env/filemanager-service/files/{{product.id}}/{{product.images[0]}}"
+                                        width="70"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 right-side">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3>{{product.name}}</h3> <span class="heart"><i class='bx bx-heart'></i></span>
+                        </div>
+                        <div class="mt-2 pr-3 content">
+                            <p>{{product.description}}</p>
+                        </div>
+
+                        <div class="ratings d-flex flex-row align-items-center">
+                            <div class="d-flex flex-row"> <i class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i
+                                    class='bx bxs-star'></i> <i class='bx bxs-star'></i> <i class='bx bx-star'></i>
+                            </div>
+
+                        </div>
+                        <div class="mt-5"> <span class="fw-bold">Color</span>
+                            <div class="colors">
+                                <ul id="marker">
+                                    <li id="marker-1"></li>
+                                    <li id="marker-2"></li>
+                                    <li id="marker-3"></li>
+                                    <li id="marker-4"></li>
+                                    <li id="marker-5"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col">
+                            <div class="row p-2">
+                                <div class="col-5">
+                                    Product Max Retail Price
+                                </div>
+                                <div class="col-5">
+                                    <input type="text" formControlName="maxRetailPrice" class="form-control"
+                                        id="maxRetailPrice" placeholder="MRP" required>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+
+                            </div>
+
+                            <div class="row p-2">
+                                <div class="col-5">
+                                    <label for="discountedPrice" class="form-label">Product Discounted
+                                        Price</label>
+
+                                </div>
+
+                                <div class="col-5">
+                                    <input type="text" formControlName="discountedPrice" class="form-control"
+                                        id="discountedPrice" placeholder="Discounted Price">
+                                </div>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-5">
+                                    <label for="quantity" class="form-label">Quantity</label>
+                                </div>
+                                <div class="col-5">
+                                    <input type="text" formControlName="quantity" class="form-control" id="quantity"
+                                        placeholder="Enter Quantity">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

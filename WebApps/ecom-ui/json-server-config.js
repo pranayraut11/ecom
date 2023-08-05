@@ -27,6 +27,7 @@ server.use((req, res, next) => {
 server.use(jsonServer.rewriter({
   '/product-service/product': '/product',
   '/product-service/product/:id': '/product/:id',
+  '/product-service/product?q=:q': '/product?q=:q',
   '/cart-service/cart': '/cart',
   '/cart-service/cart/:id': '/cart/:id',
   '/user-service/auth/login': '/login',

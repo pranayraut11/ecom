@@ -14,7 +14,6 @@ export class ProductBasicInfoComponent implements OnInit {
   ff: File;
   formData: FormGroup;
   submitted = false;
-  @Output() updateValidationStatus = new EventEmitter<string>(); 
   constructor(private productRest: ProductRestService, private userData: FormBuilder) {
     this.formData = this.userData.group({
       name: new FormControl(),
