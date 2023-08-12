@@ -1,7 +1,27 @@
 # EcomUi
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.1.
-
+## Prerequisite
+  * Nodejs
+    ```
+    sudo apt update
+    sudo apt install nodejs
+    ```
+  * npm
+    ```
+    sudo apt install npm
+    ```
+  * angular-cli
+    ```
+    sudo npm install -g @angular/cli
+    ```
+    If your node version is not compatible with npm version then upgrade your node version
+    ```
+    sudo npm cache clean -f
+    sudo npm install -g n
+    sudo n latest
+    
+    ```
+    Restart terminal
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
