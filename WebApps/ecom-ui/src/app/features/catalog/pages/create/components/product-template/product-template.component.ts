@@ -3,6 +3,7 @@ import { Price } from 'src/app/shared/models/price.model';
 import { Product } from 'src/app/shared/models/product.model';
 import { ProductRestService } from 'src/app/shared/services/rest-services/product-rest-service';
 import { Form, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-template',
@@ -19,7 +20,7 @@ export class ProductTemplateComponent implements OnInit {
   selectedProduct: Product;
   isProductSelected = false;
 
-  constructor(private formGroupbuilder: FormBuilder, private catalogRestService: ProductRestService, private productService: ProductRestService) {
+  constructor(private formGroupbuilder: FormBuilder, private catalogRestService: ProductRestService, private productService: ProductRestService,private router: Router) {
     this.formData = this.formGroupbuilder.group({
       productSearch: new FormControl(),
       maxRetailPrice: new FormControl(),
@@ -32,7 +33,9 @@ export class ProductTemplateComponent implements OnInit {
     this.updateProductListOnTextChange();
   }
 
-
+  gotoCreateProduct(){
+    this.router.navigate(['seller/create/create-new']);
+  }
   updateProductListOnTextChange() {
     this.formData.get('productSearch').valueChanges.subscribe(response => {
       this.productList = null;
