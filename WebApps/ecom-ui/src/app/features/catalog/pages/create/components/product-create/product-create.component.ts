@@ -1,15 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Form, FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
 import { Price } from 'src/app/shared/models/price.model';
 import { Product } from 'src/app/shared/models/product.model';
 import { ProductRestService } from 'src/app/shared/services/rest-services/product-rest-service';
-import { Form, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-product-basic-info',
-  templateUrl: './product-basic-info.component.html',
-  styleUrls: ['./product-basic-info.component.css']
+  selector: 'app-product-create',
+  templateUrl: './product-create.component.html',
+  styleUrls: ['./product-create.component.css']
 })
-export class ProductBasicInfoComponent implements OnInit {
+export class ProductCreateComponent implements OnInit {
+
+
+
+  
 
   ff: File;
   formData: FormGroup;
@@ -44,5 +48,6 @@ export class ProductBasicInfoComponent implements OnInit {
 
 
   }
- 
+
+
 }

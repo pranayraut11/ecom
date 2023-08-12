@@ -40,8 +40,8 @@ import { SellerHeaderComponent } from './features/layout/seller/component/seller
 import { SellerMenuComponent } from './features/layout/seller/component/seller-menu/seller-menu.component';
 import { BackCreateButtonComponent } from './shared/components/back-create-button/back-create-button.component';
 import { AppCatalogRoutingModule } from './features/catalog/app-catalog-routing.module';
-import { ProductBasicInfoComponent } from './features/catalog/pages/create/components/product-basic-info/product-basic-info.component';
-import { ProductDetailedInfoComponent } from './features/catalog/pages/create/components/product-detailed-info/product-detailed-info.component';
+import { ProductTemplateComponent } from './features/catalog/pages/create/components/product-template/product-template.component';
+import { ProductCreateComponent } from './features/catalog/pages/create/components/product-create/product-create.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,8 +80,8 @@ import { ProductDetailedInfoComponent } from './features/catalog/pages/create/co
     SellerHeaderComponent,
     SellerMenuComponent,
     BackCreateButtonComponent,
-    ProductBasicInfoComponent,
-    ProductDetailedInfoComponent
+    ProductTemplateComponent,
+    ProductCreateComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule, AppCatalogRoutingModule,

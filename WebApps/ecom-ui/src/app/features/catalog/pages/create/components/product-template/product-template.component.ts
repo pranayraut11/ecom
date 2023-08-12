@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Price } from 'src/app/shared/models/price.model';
 import { Product } from 'src/app/shared/models/product.model';
 import { ProductRestService } from 'src/app/shared/services/rest-services/product-rest-service';
+import { Form, FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-product-detailed-info',
-  templateUrl: './product-detailed-info.component.html',
-  styleUrls: ['./product-detailed-info.component.css']
+  selector: 'app-product-template',
+  templateUrl: './product-template.component.html',
+  styleUrls: ['./product-template.component.css']
 })
-export class ProductDetailedInfoComponent implements OnInit {
+export class ProductTemplateComponent implements OnInit {
 
   formData: FormGroup;
   productList: any;
@@ -20,7 +21,10 @@ export class ProductDetailedInfoComponent implements OnInit {
 
   constructor(private formGroupbuilder: FormBuilder, private catalogRestService: ProductRestService, private productService: ProductRestService) {
     this.formData = this.formGroupbuilder.group({
-      productSearch: new FormControl()
+      productSearch: new FormControl(),
+      maxRetailPrice: new FormControl(),
+      discountedPrice: new FormControl(),
+      quantity: new FormControl()
     });
   }
 
@@ -71,4 +75,5 @@ export class ProductDetailedInfoComponent implements OnInit {
 
   }
 
+ 
 }

@@ -5,7 +5,7 @@ import { Media } from 'src/app/shared/models/media.module';
 import { Price } from 'src/app/shared/models/price.model';
 import { Product } from 'src/app/shared/models/product.model';
 import { ProductRestService } from 'src/app/shared/services/rest-services/product-rest-service';
-import { ProductBasicInfoComponent } from './components/product-basic-info/product-basic-info.component';
+import { ProductTemplateComponent } from './components/product-template/product-template.component';
 
 @Component({
   selector: 'app-catalog-create',
@@ -29,9 +29,9 @@ export class CreateProductComponent implements OnInit {
     this.images = $files[0];
   }
   
-  onOutletLoaded(component: ProductBasicInfoComponent) {
+  onOutletLoaded(component: ProductTemplateComponent) {
     console.log(component)
-    if (component instanceof ProductBasicInfoComponent) {
+    if (component instanceof ProductTemplateComponent) {
       component.formData.valueChanges.subscribe(res => {
         // Variable res holds the current value of the form
         const controls = component.formData.controls;
@@ -48,18 +48,6 @@ export class CreateProductComponent implements OnInit {
   }
   getData(isFormValidFromChid:string){
     console.log("incoming "+isFormValidFromChid)
-  }
-  createProduct(form: NgForm) {
-
-    console.log(form);
-    const value = form.value.userData;
-    console.log(value);
-    const price = new Price(value.maxRetailPrice, value.discountedPrice, 0);
-    const product = new Product(null, value.name, value.description, price, null, null);
-    console.log(product);
-    this.productRest.createProduct(product, this.images).subscribe(res => console.log(res));
-
-
   }
 
 }

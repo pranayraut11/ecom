@@ -5,8 +5,8 @@ import { SellerHomeComponent } from '../layout/seller/pages/home/home.component'
 import { CreateProductComponent } from './pages/create/create.component';
 import { SellerMenuComponent } from '../layout/seller/component/seller-menu/seller-menu.component';
 import { TableListComponent } from './pages/table-list/table-list.component';
-import { ProductBasicInfoComponent } from './pages/create/components/product-basic-info/product-basic-info.component';
-import { ProductDetailedInfoComponent } from './pages/create/components/product-detailed-info/product-detailed-info.component';
+import { ProductTemplateComponent } from './pages/create/components/product-template/product-template.component';
+import { ProductCreateComponent } from './pages/create/components/product-create/product-create.component';
 
 const appsRoutes: Routes = [
   {
@@ -16,11 +16,11 @@ const appsRoutes: Routes = [
         component: CreateProductComponent, children: [
           {
             path: 'select',
-            component: ProductDetailedInfoComponent
+            component: ProductTemplateComponent
           },
           {
             path: 'create-new',
-            component: ProductBasicInfoComponent
+            component:   ProductCreateComponent
           }
         ]
 

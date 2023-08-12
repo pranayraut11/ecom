@@ -5,8 +5,8 @@ import { DetailsComponent } from './pages/details/details.component';
 import { CreateComponent } from './pages/create/create.component';
 import { TableListComponent } from './pages/table-list/table-list.component';
 import { BasicInfoComponent } from './create/components/basic-info/basic-info.component';
-import { ProductBasicInfoComponent } from './pages/create/components/product-basic-info/product-basic-info.component';
-import { ProductDetailedInfoComponent } from './pages/create/components/product-detailed-info/product-detailed-info.component';
+import { ProductBasicInfoComponent } from './pages/create/components/product-template/product-template.component';
+import { ProductDetailedInfoComponent } from './pages/create/components/product-create/product-create.component';
 
 
 
