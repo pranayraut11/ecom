@@ -1,14 +1,12 @@
 package com.ecom.shared.common.config.security;
 
 import com.ecom.shared.common.dto.UserDetails;
-import lombok.extern.slf4j.Slf4j;
-import org.keycloak.common.VerificationException;
-import org.keycloak.util.TokenUtil;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public class HttpRequestFilter implements Filter {
@@ -19,8 +17,8 @@ public class HttpRequestFilter implements Filter {
        String authToken = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
        if(StringUtils.hasLength(authToken)){
            try {
-               UserDetails.setUserInfo(authToken.replaceFirst(TokenUtil.TOKEN_TYPE_BEARER,"").trim());
-           } catch (VerificationException e) {
+               UserDetails.setUserInfo(authToken.replaceFirst(OAuth2AccessToken.TokenType.BEARER.getValue(),"").trim());
+           } catch (Exception e) {
                throw new RuntimeException(e);
            }
        }

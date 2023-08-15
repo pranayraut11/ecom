@@ -2,6 +2,8 @@ package com.ecom.product.rest;
 
 import com.ecom.product.constant.APIEndPoints;
 import com.ecom.shared.common.exception.EcomException;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +20,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,6 +31,7 @@ import static org.springframework.security.config.Elements.HTTP;
 
 @Component
 @Slf4j
+@Log4j2
 public class FileManagerService {
 
     @Value("${app.service.filemanager.host}")
@@ -56,7 +59,7 @@ public class FileManagerService {
             deleteFiles(files);
         } catch (WebClientResponseException we) {
             deleteFiles(files);
-            throw new EcomException(we.getStatusCode(), "AUTH_0004", we.getMessage(), false);
+            throw new EcomException(HttpStatus.BAD_REQUEST , "AUTH_0004", we.getMessage(), false);
         }
 
         return response;
@@ -77,7 +80,7 @@ public class FileManagerService {
                 log.info("Files deleted successfully for folder  {}  and files {} ",productId,imageIds);
             }
         } catch (WebClientResponseException we) {
-            throw new EcomException(we.getStatusCode(), "AUTH_0004", we.getMessage(), false);
+            throw new EcomException(HttpStatus.BAD_REQUEST, "AUTH_0004", we.getMessage(), false);
         }
 
     }

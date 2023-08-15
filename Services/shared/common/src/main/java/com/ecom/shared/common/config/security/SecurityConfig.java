@@ -1,71 +1,61 @@
 package com.ecom.shared.common.config.security;
 
 import lombok.extern.slf4j.Slf4j;
-import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
-import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @Configuration
-@KeycloakConfiguration
 @Slf4j
-public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
+@EnableWebSecurity
+public class SecurityConfig  {
 
     @Value("${security.enabled}")
     private Boolean isSecurityEnabled;
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         if(Objects.isNull(isSecurityEnabled)){
             isSecurityEnabled = Boolean.TRUE;
         }
         if(Boolean.TRUE.equals(isSecurityEnabled)){
             log.info("API security enabled");
-            http.authorizeRequests().antMatchers(HttpMethod.POST, "/auth/login", "/users/addUser").
-                    permitAll().antMatchers(HttpMethod.GET, "/files/**", "/product","/**/app/started").permitAll().
+            http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->authorizationManagerRequestMatcherRegistry
+                    .requestMatchers(HttpMethod.POST, "/auth/login", "/users/addUser").
+                    permitAll().requestMatchers(HttpMethod.GET, "/files/**", "/product","/app/started").permitAll().
                     anyRequest()
-                    .authenticated();
+                    .authenticated());
         }else {
             log.info("API security disabled");
-            http.authorizeRequests().anyRequest().permitAll();
+            http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->authorizationManagerRequestMatcherRegistry.anyRequest().permitAll());
         }
         http.addFilterAfter(new HttpRequestFilter(), BasicAuthenticationFilter.class);
-        http.csrf().disable();
-        http.cors();
+        http.csrf(AbstractHttpConfigurer::disable);
+        http.cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()));
+      return   http.build();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(keycloakAuthenticationProvider());
-    }
-
-    @Bean
-    @Override
-    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-        return new NullAuthenticatedSessionStrategy();
-    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
