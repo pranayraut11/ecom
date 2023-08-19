@@ -59,7 +59,7 @@ public class FileManagerService {
             deleteFiles(files);
         } catch (WebClientResponseException we) {
             deleteFiles(files);
-            throw new EcomException(HttpStatus.BAD_REQUEST , "AUTH_0004", we.getMessage(), false);
+            throw new EcomException(HttpStatus.BAD_REQUEST , "AUTH_0004", we.getMessage());
         }
 
         return response;
@@ -80,7 +80,7 @@ public class FileManagerService {
                 log.info("Files deleted successfully for folder  {}  and files {} ",productId,imageIds);
             }
         } catch (WebClientResponseException we) {
-            throw new EcomException(HttpStatus.BAD_REQUEST, "AUTH_0004", we.getMessage(), false);
+            throw new EcomException(HttpStatus.BAD_REQUEST, "AUTH_0004", we.getMessage());
         }
 
     }

@@ -1,5 +1,6 @@
 package com.ecom.product.service.specification;
 
+import com.ecom.product.dto.PriceDTO;
 import com.ecom.product.dto.ProductDTO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,4 +18,6 @@ public interface ProductService {
     void create(ProductDTO productDTO, List<MultipartFile> files);
 
     void update(ProductDTO entity);
+
+    void addSellerToProduct(PriceDTO priceDTO);
 }

@@ -1,6 +1,7 @@
 package com.ecom.product.controller;
 
 import com.ecom.product.constant.ExceptionCode;
+import com.ecom.product.dto.PriceDTO;
 import com.ecom.product.dto.ProductDTO;
 import com.ecom.product.service.specification.ProductService;
 import com.ecom.shared.common.validation.DtoValidator;
@@ -34,22 +35,30 @@ public class ProductController {
 
     @Operation(summary = "Create product")
     @PostMapping()
-    public void create(@RequestParam("files")MultipartFile[] files,@RequestParam("product")String product) throws JsonProcessingException {
-        FileValidation.isEmpty(List.of(files),ExceptionCode.AUTH_401_01.getErrorCode());
-        ProductDTO productDTO = objectMapper.readValue(product,ProductDTO.class) ;
+    public void create(@RequestParam("files") MultipartFile[] files, @RequestParam("product") String product) throws JsonProcessingException {
+        log.info("Creating new product .. ");
+        FileValidation.isEmpty(List.of(files), ExceptionCode.AUTH_401_01.getErrorCode());
+        ProductDTO productDTO = objectMapper.readValue(product, ProductDTO.class);
         validator.validate(productDTO);
-        productService.create(productDTO,List.of(files));
+        productService.create(productDTO, List.of(files));
+        log.info("New product created successfully ");
     }
 
     @Operation(summary = "Get all products")
     @GetMapping()
-    public List<ProductDTO> getAll(){
-       return productService.getAll();
+    public List<ProductDTO> getAll() {
+        return productService.getAll();
     }
 
     @Operation(summary = "Delete product and its images")
     @DeleteMapping()
-    public void deleteProduct(@RequestBody List<String> ids,String productId) throws IOException {
-        productService.delete(ids,productId);
+    public void deleteProduct(@RequestBody List<String> ids, String productId) throws IOException {
+        productService.delete(ids, productId);
+    }
+
+    @Operation(summary = "Add seller to product")
+    @PostMapping("seller")
+    public void createProductForSeller(@RequestBody PriceDTO priceDTO) throws JsonProcessingException {
+        productService.addSellerToProduct(priceDTO);
     }
 }

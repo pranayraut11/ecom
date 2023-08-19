@@ -1,0 +1,14 @@
+{
+  "name": "Onida TV",
+  "description": "Onida TV Description",
+  "price": {
+    "price": 9000,
+    "discountedPrice": 8000,
+    "discount": 10,
+    "isInStock": true,
+    "seller": {
+      "name": "TV seller",
+      "rating": 1.6
+    }
+  }
+}

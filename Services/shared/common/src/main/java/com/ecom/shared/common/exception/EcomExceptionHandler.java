@@ -22,7 +22,7 @@ public class EcomExceptionHandler {
 
     @ExceptionHandler(value = EcomException.class)
     public ResponseEntity<ApiError> handleException(EcomException exception) {
-        return ResponseEntity.status(exception.getStatusCode()).body(new ApiError(exception.getStatusCode(), exception.getErrorCode(), exception.isConvert() ? "Converted message" : exception.getMessage()));
+        return ResponseEntity.status(exception.getStatusCode()).body(new ApiError(exception.getStatusCode(), exception.getErrorCode(), exception.getMessage()));
     }
 
     @ExceptionHandler(value = HttpClientErrorException.class)
@@ -45,6 +45,11 @@ public class EcomExceptionHandler {
     public ResponseEntity<ApiError> handleConstraintViolationException(BadRequest exception) {
         List<ApiSubError> subErrors = exception.getErrors().entrySet().stream().map((k) -> new ApiSubError(k.getKey(), k.getValue())).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, exception.getMessage(),subErrors));
+    }
+
+    @ExceptionHandler(value = EntityNotFoundException.class)
+    public ResponseEntity<ApiError> handleEntityNotFoundException(EntityNotFoundException exception){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiError(HttpStatus.NOT_FOUND, exception.getErrorCode(), exception.getMessage()));
     }
 
 }

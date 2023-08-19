@@ -8,16 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.testcontainers.containers.MongoDBContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-
-import java.time.Duration;
 
 @SpringBootTest
 @Testcontainers
-public class PersonControllerTest {
-   private static String id;
-
+public class ProductRepoTest {
 
    @ServiceConnection
    static MongoDBContainer mongodb = new MongoDBContainer("mongo:6.0");
@@ -28,7 +23,6 @@ public class PersonControllerTest {
    @Autowired
    private ProductRepository productRepository;
 
-   // ... test methods
    @Test
    void test(){
       Product product = new Product();
