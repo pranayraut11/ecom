@@ -19,6 +19,7 @@
         <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <docker.username>pranayraut11</docker.username>
+		<java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>

@@ -13,7 +13,7 @@
     <name>filemanager</name>
     <description>Project for managing files on server</description>
     <properties>
-        <java.version>11</java.version>
+
     </properties>
     <dependencies>
 

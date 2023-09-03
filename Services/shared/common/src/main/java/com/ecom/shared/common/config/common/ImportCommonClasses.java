@@ -8,8 +8,15 @@ import com.ecom.shared.common.config.security.SecurityConfig;
 import com.ecom.shared.common.controller.AppController;
 import com.ecom.shared.common.exception.EcomExceptionHandler;
 import com.ecom.shared.common.validation.DtoValidator;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Objects;
 
 @Import(value = {DtoValidator.class, SecurityConfig.class, Translator.class, EcomExceptionHandler.class, WebClientConfig.class, I18Config.class, AppController.class})
 @PropertySource("classpath:common.properties")

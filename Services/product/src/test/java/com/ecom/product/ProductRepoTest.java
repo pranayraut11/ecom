@@ -1,25 +1,20 @@
 package com.ecom.product;
 
 import com.ecom.product.entity.Product;
+import com.ecom.product.integration.ContainersConfig;
 import com.ecom.product.repository.specification.ProductRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Import;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest
-@Testcontainers
+@Import(ContainersConfig.class)
 public class ProductRepoTest {
-
-   @ServiceConnection
-   static MongoDBContainer mongodb = new MongoDBContainer("mongo:6.0");
-
-   static {
-      mongodb.start();
-   }
    @Autowired
    private ProductRepository productRepository;
 

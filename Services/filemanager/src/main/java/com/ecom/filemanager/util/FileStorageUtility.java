@@ -3,7 +3,7 @@ package com.ecom.filemanager.util;
 import com.ecom.shared.common.exception.EcomException;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
-public final class FileUtility {
+public final class FileStorageUtility {
 
     public static void deleteFile(@NotEmpty List<Path> paths) {
         paths.stream().forEach(path -> {
@@ -31,7 +31,7 @@ public final class FileUtility {
     }
 
     public static void deleteDirectory(List<Path> paths) {
-        paths.stream().forEach(path-> {
+        paths.forEach(path-> {
             try {
                 if(Files.exists(path)) {
                     log.info("Deleting all files from folder {} ...", path.getFileName());

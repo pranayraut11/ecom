@@ -1,31 +1,31 @@
 package com.ecom.filemanager.service.implementation;
 
 import com.ecom.filemanager.dto.FileUploadDTO;
+import com.ecom.filemanager.exception.ConnectionFailedException;
 import com.ecom.filemanager.service.specification.FileService;
-import com.ecom.filemanager.util.FileUtility;
 import io.minio.*;
-import io.minio.errors.*;
+import io.minio.errors.MinioException;
 import io.minio.messages.DeleteError;
 import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.PostConstruct;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,11 +72,14 @@ public class FileServiceImpl implements FileService {
     }
 
     private boolean isBucketExist(String bucketName) {
+        log.info("Trying to connect to file storage server...");
         boolean isBucketExist = false;
         try {
             isBucketExist = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
+            log.info("Connection established successfully to file storage server.");
         } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
-            log.error("Error occurred {}", e.getLocalizedMessage());
+            log.error(e.getLocalizedMessage());
+            throw new ConnectionFailedException(e.getLocalizedMessage());
         }
         return isBucketExist;
     }

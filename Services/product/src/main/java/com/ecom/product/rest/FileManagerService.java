@@ -2,8 +2,6 @@ package com.ecom.product.rest;
 
 import com.ecom.product.constant.APIEndPoints;
 import com.ecom.shared.common.exception.EcomException;
-import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,17 +29,20 @@ import static org.springframework.security.config.Elements.HTTP;
 
 @Component
 @Slf4j
-@Log4j2
 public class FileManagerService {
 
     @Value("${app.service.filemanager.host}")
     private String host;
 
+    @Value("${app.service.filemanager.port}")
+    private String port;
+
+
     @Autowired
     private WebClient webClient;
 
     UriComponentsBuilder getUriComponent(String context){
-      return   UriComponentsBuilder.newInstance().scheme(HTTP).host(host).port("8080").path(APIEndPoints.FILE_MANAGER_FILE_BASE_URL);
+      return   UriComponentsBuilder.newInstance().scheme(HTTP).host(host).port(port).path(APIEndPoints.FILE_MANAGER_FILE_BASE_URL);
     }
 
 

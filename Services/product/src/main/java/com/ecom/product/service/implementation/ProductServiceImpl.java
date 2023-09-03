@@ -27,18 +27,20 @@ import java.util.List;
 @Slf4j
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
     private ProductMapper productMapper;
 
-    @Autowired
     private PriceMapper priceMapper;
 
-    @Autowired
     private FileManagerService fileManagerService;
 
+    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper, PriceMapper priceMapper, FileManagerService fileManagerService) {
+        this.productRepository = productRepository;
+        this.productMapper = productMapper;
+        this.priceMapper = priceMapper;
+        this.fileManagerService = fileManagerService;
+    }
 
     @Override
     public List<ProductDTO> getAll() {
