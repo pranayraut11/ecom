@@ -7,20 +7,24 @@ import java.nio.file.Files;
 
 public class CustomMultipartFile implements MultipartFile {
 
-    private byte[] input;
+    private final byte[] input;
+    private File file = null;
+    private final String originalFileName;
 
-    public CustomMultipartFile(File file) throws IOException {
+    public CustomMultipartFile(File file,String originalFileName) throws IOException {
+        this.originalFileName = originalFileName;
+        this.file = file;
         input = Files.readAllBytes(file.toPath());
     }
 
     @Override
     public String getName() {
-        return null;
+        return this.file.getName();
     }
 
     @Override
     public String getOriginalFilename() {
-        return null;
+        return this.originalFileName;
     }
 
     @Override

@@ -22,10 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,19 +49,21 @@ public class FileServiceImpl implements FileService {
 
         List<String> fileUrls = new ArrayList<>();
         for (MultipartFile multipartFile : fileUploadDTO.getFiles()) {
-            log.info("Uploading file {} in folder {} ...", multipartFile.getOriginalFilename(), fileUploadDTO.getPath());
-            String fileNameWithExt = UUID.randomUUID() + multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().indexOf("."), multipartFile.getOriginalFilename().length());
+            String fileName = multipartFile.getOriginalFilename();
+            log.debug("Uploading file {} in folder {} ...", fileName, fileUploadDTO.getPath());
+            String fileNameWithExt = UUID.randomUUID() + Objects.requireNonNull(fileName).substring(fileName.indexOf("."), fileName.length());
             String newFileName = fileUploadDTO.getPath() + File.separator + fileNameWithExt;
-            log.info("Old file name {} new file name {} ...", multipartFile.getOriginalFilename(), newFileName);
+            log.debug("Old file name {} new file name {} ...",fileName, newFileName);
             try {
-                log.info("Uploading file on MINIO server ..");
+                log.debug("Uploading file on MINIO server .. in bucket {}",bucketName);
                 minioClient.putObject(PutObjectArgs.builder().bucket(bucketName).
                         object(newFileName).stream(multipartFile.getInputStream(), multipartFile.getSize(), -1).build());
-                log.info("Files uploaded successfully on MINIO server");
+                log.debug("Files uploaded successfully on MINIO server in bucket {}",bucketName);
             } catch (Exception e) {
-                log.error("Error occurred while uploading files {}", e.getMessage());
+                log.error("Error occurred while uploading file :  {}  {}",fileName, e.getMessage());
                 throw new RuntimeException(e);
             }
+            log.debug("File {} in folder {} uploaded successfully.", fileName, fileUploadDTO.getPath());
             fileUrls.add(fileNameWithExt);
         }
         log.info("Files uploaded successfully!");
@@ -77,6 +76,7 @@ public class FileServiceImpl implements FileService {
         try {
             isBucketExist = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
             log.info("Connection established successfully to file storage server.");
+            log.info("Bucket : {} found on server",bucketName);
         } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
             log.error(e.getLocalizedMessage());
             throw new ConnectionFailedException(e.getLocalizedMessage());
@@ -85,10 +85,12 @@ public class FileServiceImpl implements FileService {
     }
 
     private void createBucket(String bucketName) {
+        log.debug("Bucket not found on server . Creating one with name : {}",bucketName);
         try {
             minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
+            log.debug("Bucket created successfully with name : {}",bucketName);
         } catch (MinioException | InvalidKeyException | IOException | NoSuchAlgorithmException e) {
-            log.error("Error occurred {}", e.getLocalizedMessage());
+            log.error("Error occurred while creating bucket on server : {}", e.getLocalizedMessage());
         }
     }
 

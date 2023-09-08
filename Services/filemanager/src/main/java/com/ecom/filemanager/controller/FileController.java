@@ -29,8 +29,7 @@ public class FileController {
     @PostMapping()
     public List<String> uploadFiles(MultipartFile[] files, String path) throws IOException {
         FileUploadDTO fileUploadDTO = new FileUploadDTO(List.of(files), path);
-        List<String> filesUrl = fileService.uploadFiles(fileUploadDTO);
-        return filesUrl;
+        return fileService.uploadFiles(fileUploadDTO);
     }
 
     @GetMapping(value = "/{path}/{fileId}", produces = MediaType.IMAGE_JPEG_VALUE)

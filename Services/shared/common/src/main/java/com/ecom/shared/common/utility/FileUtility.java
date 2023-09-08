@@ -20,7 +20,7 @@ public class FileUtility {
     }
 
     public static MultipartFile getMultipartFile(@NotEmpty String fileName) throws IOException {
-        return new CustomMultipartFile(getFile(fileName));
+        return new CustomMultipartFile(getFile(fileName),fileName);
     }
 
     public static String getJson(@NotEmpty String fileName) {
