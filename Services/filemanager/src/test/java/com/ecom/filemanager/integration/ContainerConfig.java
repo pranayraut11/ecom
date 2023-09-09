@@ -6,6 +6,7 @@ import org.springframework.boot.testcontainers.service.connection.ServiceConnect
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 
 import java.time.Duration;
@@ -13,6 +14,14 @@ import java.time.Duration;
 @TestConfiguration(proxyBeanMethods = false)
 @Slf4j
 public class ContainerConfig {
+
+
+    @Bean
+    @ServiceConnection
+    public MongoDBContainer mongoDBContainer() {
+        return new MongoDBContainer("mongo:6.0");
+    }
+
 
     @Bean
     public GenericContainer minioContainer(DynamicPropertyRegistry dynamicPropertyRegistry){

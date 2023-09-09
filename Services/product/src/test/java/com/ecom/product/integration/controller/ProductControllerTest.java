@@ -12,6 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 @SpringBootTest
 @Slf4j
 @Import(ContainersConfig.class)
@@ -22,9 +28,12 @@ public class ProductControllerTest {
 
 
     @Test
-    void createProduct() throws JsonProcessingException {
-        MultipartFile[] multipartFiles = new MultipartFile[0];
-        String productJson = FileUtility.getJson("Products.json");
-        productController.create(multipartFiles ,productJson);
+    void createProduct() throws IOException {
+        File txtfile =   new File("src/test/resources/" + "images/tv.txt");
+        if(txtfile.createNewFile()) {
+            MultipartFile file = FileUtility.getMultipartFile("images/tv.txt");
+            String productJson = FileUtility.getJson("Products.json");
+            productController.create(List.of(file).toArray(new MultipartFile[0]), productJson);
+        }
     }
 }

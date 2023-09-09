@@ -10,9 +10,10 @@ public class CustomMultipartFile implements MultipartFile {
     private final byte[] input;
     private File file = null;
     private final String originalFileName;
+    private String pathName;
 
-    public CustomMultipartFile(File file,String originalFileName) throws IOException {
-        this.originalFileName = originalFileName;
+    public CustomMultipartFile(File file) throws IOException {
+        this.originalFileName = file.getAbsolutePath();
         this.file = file;
         input = Files.readAllBytes(file.toPath());
     }
