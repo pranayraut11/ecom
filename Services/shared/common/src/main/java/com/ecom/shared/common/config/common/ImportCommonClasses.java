@@ -1,6 +1,7 @@
 package com.ecom.shared.common.config.common;
 
 
+import com.ecom.shared.common.config.database.MongoConfiguration;
 import com.ecom.shared.common.config.i18.I18Config;
 import com.ecom.shared.common.config.i18.Translator;
 import com.ecom.shared.common.config.rest.WebClientConfig;
@@ -18,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Objects;
 
-@Import(value = {DtoValidator.class, SecurityConfig.class, Translator.class, EcomExceptionHandler.class, WebClientConfig.class, I18Config.class, AppController.class})
+@Import(value = {DtoValidator.class, SecurityConfig.class, Translator.class, EcomExceptionHandler.class, WebClientConfig.class, I18Config.class, AppController.class, MongoConfiguration.class})
 @PropertySource("classpath:common.properties")
 public class ImportCommonClasses {
 }

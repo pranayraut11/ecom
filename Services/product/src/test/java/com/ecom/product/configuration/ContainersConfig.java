@@ -1,7 +1,6 @@
-package com.ecom.product.integration;
+package com.ecom.product.configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
@@ -10,13 +9,9 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
-import org.testcontainers.containers.output.ToStringConsumer;
-import org.testcontainers.containers.output.WaitingConsumer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 
 import java.time.Duration;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 @TestConfiguration(proxyBeanMethods = false)
 @Slf4j
@@ -29,8 +24,11 @@ public class ContainersConfig {
 
     @Bean
     @ServiceConnection
-    public MongoDBContainer mongoDBContainer() {
-        return new MongoDBContainer("mongo:6.0");
+    public MongoDBContainer mongoDBContainer(DynamicPropertyRegistry dynamicPropertyRegistry) {
+        MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0").withLogConsumer(new Slf4jLogConsumer(log));
+
+        dynamicPropertyRegistry.add("spring.data.mongodb.uri",mongoDBContainer::getConnectionString);
+        return mongoDBContainer;
     }
 
     @Bean
