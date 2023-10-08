@@ -95,6 +95,8 @@ user-service:
         value: xaduD2SkxE0rlIKZiw7ksJX6iu1mpQP7
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
+      - name: LOGGING_FILE_NAME
+        value: ./logs/userservice.log
 
 
 product-service:
@@ -113,6 +115,8 @@ product-service:
         value: filemanager-service
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/product"
+      - name: LOGGING_FILE_NAME
+        value: ./logs/productservice.log  
 
 cart-service:
   enabled: false
@@ -130,6 +134,8 @@ cart-service:
         value: "dev-env-redis-master"
       - name: SPRING_REDIS_PASSWORD
         value: "redis123"
+      - name: LOGGING_FILE_NAME
+        value: ./logs/cartservice.log  
 
 
 filemanager-service:
@@ -152,6 +158,8 @@ filemanager-service:
         value:  miniouser
       - name: MINIO_ACCESS_SECRET
         value:  miniopassword
+      - name: LOGGING_FILE_NAME
+        value: ./logs/filemanagerservice.log  
 
 
 inventory-service:
@@ -168,6 +176,8 @@ inventory-service:
         value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/inventory"
+      - name: LOGGING_FILE_NAME
+        value: ./logs/inventoryservice.log  
 
 
 orchestrator-service:
@@ -184,4 +194,6 @@ orchestrator-service:
         value: 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
       - name: SPRING_DATA_MONGODB_URI
         value: "mongodb://demo1:demo1@dev-env-mongodb:27017/orchestrator"
+      - name: LOGGING_FILE_NAME
+        value: ./logs/orchestratorservice.log  
 

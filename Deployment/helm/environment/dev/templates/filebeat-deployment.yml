@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filebeat-deployment
+  labels:
+    name: filebeat-deployment
+    app: ecom
+
+spec:
+  template:
+    metadata:
+      name: filebeat-pod
+      labels:
+        name: filebeat-pod
+        app: ecom
+    spec:
+      containers:   
+        - name: filebeat-pod
+          image: docker.elastic.co/beats/filebeat:7.16.2
+          args: [
+            "-c", "/etc/filebeat/filebeat.yml",
+            "-e"
+          ]
+          volumeMounts:
+          - mountPath: /etc/filebeat/
+            name: filebeat
+          - mountPath: /logs/
+            name: data 
+            
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: common-persistentvolumeclaim  
+        - name: filebeat
+          configMap:
+            name: elk-filebeat-cfgmap
+            items:
+              - key: filebeat.yml
+                path: filebeat.yml
+
+  replicas: 1
+  selector:
+    matchLabels:
+      name: filebeat-pod
+      app: ecom

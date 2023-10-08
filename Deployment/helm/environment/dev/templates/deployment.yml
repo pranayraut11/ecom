@@ -45,4 +45,12 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 50
         {{ end }}
+          volumeMounts:
+            - mountPath: /logs/
+              name: data    
+              
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: common-persistentvolumeclaim        
 {{- end -}}
