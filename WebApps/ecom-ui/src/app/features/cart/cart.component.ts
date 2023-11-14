@@ -31,6 +31,8 @@ export class CartComponent implements OnInit {
     } else if (this.btnText == "Use this Address") {
       this.btnText = "Place order";
       this.route.navigate(["user/cart/payment/savedcards"])
+    } else if(this.btnText == "Place order"){
+      this.route.navigate(["user/order-successfull"])
     }
   }
 }

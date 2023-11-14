@@ -24,7 +24,7 @@ import { WalletsComponent } from './features/payment/methods/wallets/wallets.com
 import { CardsComponent } from './features/payment/methods/cards/cards.component';
 import { CashOnDeliveryComponent } from './features/payment/methods/cash-on-delivery/cash-on-delivery.component';
 import { DetailsComponent } from './features/catalog/pages/details/details.component';
-import { SellerMenuComponent } from './features/layout/seller/component/seller-menu/seller-menu.component';
+import { OrderSuccessComponent } from './features/order/order-success/order-success.component';
 
 const appsRoutes: Routes = [
   // { path: 'cart', component: CartListComponent }, 
@@ -97,6 +97,11 @@ const appsRoutes: Routes = [
       {
         path: 'myorders',
         component: OrderListComponent,
+
+      },
+      {
+        path: 'order-successfull',
+        component: OrderSuccessComponent,
 
       },
       {
