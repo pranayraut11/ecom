@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { RolesDirective } from "src/app/core/directives/roles.directive";
 import { AuthRestService } from "src/app/shared/services/rest-services/auth-rest-service";
 
@@ -7,7 +6,8 @@ import { AuthRestService } from "src/app/shared/services/rest-services/auth-rest
 @Component({
     selector: "app-header",
     templateUrl: "./header.component.html",
-    viewProviders: [RolesDirective]})
+    viewProviders: [RolesDirective],
+    styleUrls: ['./header.component.css']})
 export class HeaderComponent implements OnInit {
     
    

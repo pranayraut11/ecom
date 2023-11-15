@@ -1,35 +1,50 @@
 <div class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-
-
     <div class="col-1">
       <a class="navbar-brand" href="#">Ecom</a>
     </div>
 
-    <div class="col-6 lp-2">
+    <div class="input-group">
       <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+      <div class="input-group-append">
+        <button class="btn btn-secondary" style="border-radius:0;" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
     </div>
-    <div class="col-2 d-flex justify-content-center">
-      <button class="btn btn-dark" style="border-radius:0;" type="submit">Search</button>
+    <div class="col-auto d-flex justify-content-center">
+      <div class="dropdown">
+        <a class="nav-link active" appRoles [hasRole]='["user"]' id="dropdownMenuButton2" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          <i class="bi bi-person" style="font-size: 130%;"></i> Pranay
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a routerLink="profile/my-profile" class="dropdown-item" href="#">
+              <i class="bi bi-person-fill"></i> My Profile</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="#">
+              <i class="bi bi-bell"></i>
+              Notifications</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="#">
+              <form>
+                <app-login></app-login>
+              </form>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-
     <div class="col-1 d-flex justify-content-center">
-      <a class="nav-link active" routerLink="profile" appRoles [hasRole]='["user"]'>Profile
+      <a class="nav-link active" routerLink="cart/products" aria-current="page" appRoles [hasRole]='["user"]'>
+        <i class="bi bi-cart" style="font-size: x-large;"></i>
       </a>
     </div>
-    <div class="col-1 d-flex justify-content-center">
-      <a class="nav-link active" routerLink="cart/products" aria-current="page" appRoles [hasRole]='["user"]'>Cart</a>
-    </div>
-    <a href="#" class="position-relative">
-        <i class="bi bi-bell fa-4x" style="font-size:130%"></i>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">50+</span>
-    </a>
-    <div class="col-1">
-      <form class="d-flex justify-content-center">
-        <app-login></app-login>
-      </form>
-    </div>
   </div>
-
-
 </div>
