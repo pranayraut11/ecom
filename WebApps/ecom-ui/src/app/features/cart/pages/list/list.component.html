@@ -1,95 +1,89 @@
+<div *ngFor="let product of cartProducts let i= index">
+    <div class="block">
+        <div class="row p-2">
 
-    <div class="row">
-    <!-- Table -->
-    <div class="table-responsive">
-        <table class="table table-fit mt-5 table-hover ">
-            <thead>
-                <tr class="d-flex">
-                    <th scope="col" class="col-1">#</th>
-                    <th scope="col" class="col-1 text-center">Image</th>
-                    <th scope="col" class="col-4 text-center">Name</th>
-                    <th scope="col" class="col-2 ">Quantity</th>
-                    <th scope="col" class="col-1">Price</th>
-                    <th scope="col" class="col-3">Actions</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let product of cartProducts let i= index">
-                <tr class="d-flex">
-                    <td scope="row" class="col-1"> {{i+1}} </td>
-                    <td class="col-1">
-                        <img class="img-fluid"
-                            src="http://dev-env/filemanager/files/{{product.productId}}/{{product.image}}" alt="pic" />
-                    </td>
-                    <td class="col-4">{{product.name}} </td>
-
-                    <td class="col-2">
-                        <div class="row">
-                            <div class="col-2">
-                                <button type="button" class="btn btn-out" (click)="decreaseQuantity(product)">-</button>
-                            </div>
-                            <div class="col-3">
-                                <input type="text" class=" form-control" value="{{product.quantity}}" />
-                            </div>
-                            <div class="col-2">
-                                <button type="button" (click)="increaseQuantity(product)" class="btn btn-out">+</button>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="col-1">
-                        ${{product.price}}<small class="text-muted">
-                            ${{product.discountedPrice}} each </small>
-                    </td>
-                    <td class="col-3">
-
-                        <div class="row">
-                            <div class="col-6">
-                                <button type="button" class="btn btn-warning btn-out">Save to
-                                    wishlist</button>
-                            </div>
-                            <div class="col-6">
-                                <button type="button" class="btn btn-danger btn-out"
-                                    (click)="removeFromCart(product)">Remove</button>
-                            </div>
-                        </div>
-
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-    </div>
-
-</div>
-    <aside class="col-lg-3">
-        <div class="card mb-3">
-            <div class="card-body">
-                <form>
-                    <div class="form-group"> <label>Have coupon?</label>
-                        <div class="input-group"> <input type="text" class="form-control coupon" name=""
-                                placeholder="Coupon code"> <span class="input-group-append"> <button
-                                    class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
+            <div class="col-2">
+                <div class="row">
+                    <img class="img-fluid" style="height: fit-content;width: 125px;" src="{{product.image}}"
+                        alt="pic" />
+                </div>
+                <div class="row py-2">
+                    <div class="btn-group">
+                        <span class="bi bi-dash-circle "  (click)="decreaseQuantity(product)"></span>
+                        <div class="px-2">
+                            <input type="text" class="form-control" Style="width: 50px;"value="{{product.quantity}}" />
+                        </div>                  
+                        <span class="bi bi-plus-circle"  (click)="increaseQuantity(product)"></span>
                     </div>
-                </form>
+                </div>
+            </div>
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-12">
+                        {{product.name}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        Seller : xyz
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-2 fw-light text-decoration-line-through">${{product.price}}</div>
+                    <div class="col-2">${{product.discountedPrice}}</div>
+                </div>          
+                <div class="row p-4"></div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <a type="button" class="link text-uppercase fw-normal lh-1">Save to
+                            wishlist</a>
+                    </div>
+                    <div class="col-2">
+                        <a type="button" class="link text-uppercase fw-normal lh-1"
+                            (click)="removeFromCart(product)">Remove</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="col-12">
+                    Delivery on 2nd Oct
+                </div>
             </div>
         </div>
-        <div class="card" *ngIf="initialized">
-            <div class="card-body">
-                <dl class="dlist-align">
-                    <dt>Total price:</dt>
-                    <dd class="text-right ml-3">${{cart.totalPrice}}</dd>
-                </dl>
-                <dl class="dlist-align">
-                    <dt>Discount:</dt>
-                    <dd class="text-right text-danger ml-3">- ${{cart.discount}}</dd>
-                </dl>
-                <dl class="dlist-align">
-                    <dt>Total:</dt>
-                    <dd class="text-right text-dark b ml-3"><strong>${{cart.total}}</strong></dd>
-                </dl>
-                <!-- <hr> <button type="button" class="btn btn-out btn-primary btn-square btn-main"
+    </div>
+</div>
+<aside class="col-lg-3">
+    <div class="card mb-3">
+        <div class="card-body">
+            <form>
+                <div class="form-group"> <label>Have coupon?</label>
+                    <div class="input-group"> <input type="text" class="form-control coupon" name=""
+                            placeholder="Coupon code"> <span class="input-group-append"> <button
+                                class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card" *ngIf="initialized">
+        <div class="card-body">
+            <dl class="dlist-align">
+                <dt>Total price:</dt>
+                <dd class="text-right ml-3">${{cart.totalPrice}}</dd>
+            </dl>
+            <dl class="dlist-align">
+                <dt>Discount:</dt>
+                <dd class="text-right text-danger ml-3">- ${{cart.discount}}</dd>
+            </dl>
+            <dl class="dlist-align">
+                <dt>Total:</dt>
+                <dd class="text-right text-dark b ml-3"><strong>${{cart.total}}</strong></dd>
+            </dl>
+            <!-- <hr> <button type="button" class="btn btn-out btn-primary btn-square btn-main"
                     (click)="placeOrder(cart)"> Proceed To Buy</button>
                 <hr> <a class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue
                     Shopping</a> -->
-            </div>
         </div>
-    </aside>
+    </div>
+</aside>
