@@ -198,26 +198,54 @@
     {
       "orderId": "",
       "productId": "1",
-      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "productName": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
       "image": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1687842433_3385347.jpg?format=webp&w=1080&dpr=1.5",
       "price": "567",
       "discountedPrice": "756",
       "discount": "0",
       "quantity": 1,
       "cart-serviceId": "cart",
-      "id": "3twXQIx"
+      "id": "3twXQIx",
+      "deliveryDate":"Oct 15"
     },
     {
       "orderId": "",
       "productId": "2",
-      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
-      "image": "57f8978b-986b-4467-ba1d-7bcdfb6b91e0.jpeg",
+      "productName": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "image": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1687842433_3385347.jpg?format=webp&w=1080&dpr=1.5",
       "price": "567",
       "discountedPrice": "756",
       "discount": "0",
       "quantity": 1,
       "cart-serviceId": "cart",
-      "id": "g6hTXVl"
+      "id": "g6hTXVl",
+      "deliveryDate":"Oct 17"
+    },
+    {
+      "orderId": "",
+      "productId": "2",
+      "productName": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "image": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1687842433_3385347.jpg?format=webp&w=1080&dpr=1.5",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "cart-serviceId": "cart",
+      "id": "g6hTXVl",
+      "deliveryDate":"Oct 17"
+    },
+    {
+      "orderId": "",
+      "productId": "2",
+      "productName": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
+      "image": "https://prod-img.thesouledstore.com/public/theSoul/uploads/catalog/product/1687842433_3385347.jpg?format=webp&w=1080&dpr=1.5",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "cart-serviceId": "cart",
+      "id": "g6hTXVl",
+      "deliveryDate":"Oct 17"
     }
   ],
   "users": [

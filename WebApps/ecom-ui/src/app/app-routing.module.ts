@@ -113,7 +113,7 @@ const appsRoutes: Routes = [
                 path: 'list', component: ListAddressComponent
               },
               {
-                path: 'create/:id', component: CreateAddressComponent
+                path: 'create', component: CreateAddressComponent
               }
             ]
           },

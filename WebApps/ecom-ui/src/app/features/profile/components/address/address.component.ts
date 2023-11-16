@@ -13,13 +13,13 @@ export class AddressComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  btnText = "Add Address"
+  btnText = "Add A New Address"
   addAddress() {
-    if (this.btnText == "Add Address") {
+    if (this.btnText == "Add A New Address") {
       this.btnText = "Back"
       this.route.navigate(['user/profile/address/create']);
     } else {
-      this.btnText = "Add Address"
+      this.btnText = "Add A New Address"
       this.route.navigate(['user/profile/address/list']);
     }
   }

@@ -1,5 +1,5 @@
 <div class="p-3 border-bottom">
-    <a routerLink="myorders" class="fs-5 list-group-item">
+    <a (click)="redirectToMyOrders()" class="fs-5 list-group-item">
         <div class="row">
             <div class="col-2"><i class="bi bi-cart4"></i></div>
             <div class="col-6"> My Orders</div>
@@ -7,18 +7,22 @@
     </a>
 </div>
 <div class="p-3 border-bottom">
-    <a routerLink="my-profile" class="fs-5 list-group-item">
+    <div class="fs-5 list-group-item">
         <div class="row">
             <div class="col-2"><i class="bi bi-person"></i></div>
             <div class="col-10"> Account Settings</div>
         </div>
+    </div>
+    <a routerLink="my-profile" class="fs-5 list-group-item">
+        <div class="row pt-3">
+            <div class="col-2"></div>
+            <div class="col-10"> Personal Information</div>
+        </div>
     </a>
-
     <a routerLink="address/list" appRoles [hasRole]='["user"]' class="list-group-item">
         <div class="row pt-3">
             <div class="col-2"></div>
             <div class="col-6 " style="font-size: larger;"> Addresses</div>
         </div>
     </a>
-
 </div>

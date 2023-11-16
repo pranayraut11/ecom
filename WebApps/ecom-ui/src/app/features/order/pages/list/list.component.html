@@ -1,46 +1,48 @@
-<div class="card">
+<div class="container">
+    <div class="row ">
+        <div class="col-3">
+            <div class="row">
+                <div class="col-12">
+                    <div class="block"> First filter</div>
 
-    <div class="card-header">
-        Orders
-    </div>
-    <div class="card-body">
 
-        <!-- Table -->
-        <div class="table-responsive">
-            <table class="table table-fit table-hover ">
-                <thead>
-                    <tr class="d-flex">
-                        <th scope="col" class="col-1">#</th>
-                        <th scope="col" class="col-2 text-center">Image</th>
-                        <th scope="col" class="col-5 text-center">Name</th>
-                        <th scope="col" class="col-1">Price</th>
-                        <th scope="col" class="col-2">Delivery Date</th>
-                        <th scope="col" class="col-1">Actions</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let product of productList let i= index">
-                    <tr class="d-flex">
-                        <td scope="row" class="col-1"> {{i+1}} </td>
-                        <td class="col-2">
-                            <img class="img-fluid"
-                                src="http://dev-env/filemanager/files/{{product.productId}}/{{product.image}}"
-                                alt="pic" />
-                        </td>
-                        <td class="col-5">{{product.productName}} </td>
-                        <td class="col-1">{{product.price}}</td>
-                        <td class="col-2">{{product.deliveryDate}} </td>
-                        <td class="col-1">
-                            <div class="d-flex flex-row  mb-12">
-                                <div class="col-4">
+                </div>
 
-                                    <i class="bi bi-eye" role="button"></i>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="block"> Second filter</div>
+                </div>
 
-                </tbody>
-            </table>
+            </div>
         </div>
+        <div class=" col-9">
+            <div class="row pt-4">
+                <div class="input-group">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" style="border-radius:0;" type="submit">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="block" *ngFor="let product of productList let i= index">
+                <div class="row p-2">
+                    <div class="col-2">
+                        <img class="" style="height: 105px;width: 105px;" src="{{product.image}}" alt="pic" />
+                    </div>
+                    <div class="col-4" style="font-size: small;">{{product.productName}} </div>
+                    <div class="col-3" style="font-size: medium;">
+                        <div class="row">
+                            <div class="col-1"><i class="bi bi-currency-rupee"></i></div>
+                            <div class="col-4" style="margin-left: -10px;"> {{product.price}}</div>
+                        </div>
+                    </div>
+                    <div class="col-3">Delivered On {{product.deliveryDate}} </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
