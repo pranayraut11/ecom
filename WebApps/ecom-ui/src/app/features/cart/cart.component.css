@@ -14,3 +14,28 @@
             flex-direction: column;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   }
+
+  .myButton {
+	box-shadow:inset 0px 1px 8px 0px #fb641b;
+	background:linear-gradient(to bottom, #fb641b 5%, #fb641b 100%);
+	background-color:#fb641b;
+	border:1px solid #fb641b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Verdana;
+	font-size:13px;
+	font-weight:bold;
+	padding:15px 37px;
+	text-decoration:none;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #fb641b 5%, #fb641b 100%);
+	background-color:#fb641b;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+        

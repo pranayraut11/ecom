@@ -1,63 +1,18 @@
 <div class="container">
     <div class="row">
-        <div class="col-9">
-            <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
-        </div>
-        <div class="col-3">
-            <div class="block">
-                <div class="row px-3 py-2" >
-                    <div class="fs-5 text-muted col-12 border-bottom">
-                        Price Details
-                    </div>
-                </div>
-                
-                <div class="row  px-3" >
-                    <div class="col-8 py-2">
-                        Price (3 items)
-                    </div>
-                    <div class="col-4 py-2 text-end">
-                        2700
-                    </div>
-                    
-                </div>
-                <div class="row  px-3" >
-                    <div class="col-8 py-3 border-bottom">
-                        Delivery Charges
-                    </div>
-                    <div class="col-4 py-3 text-end border-bottom">
-                        2700
-                    </div>
-                </div>
-            
-                <div class="row px-3" >
-                    <div class="col-8 py-3  border-bottom">
-                        Total Payable
-                    </div>
-                    <div class="col-4 py-3 text-end border-bottom">
-                        2700
-                    </div>
-                </div>
-                <div class="row px-3 text-center" >
-                    <div class="col-12 py-3  border-bottom">
-                    Your total saving 4200
-                    </div>
-                </div>
-                <div class="row">
+        <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+    </div>
+    <div class="row sticky-bottom">
+        <div class="col-9 ">
+            <div class="block ">
+                <div class="col-12 row p-3">
 
-
-                    <div class="col-6">
-                        <button type="button" (click)="proceedToBuy()"
-                            class="btn btn-out btn-primary btn-square btn-main">
+                    <div class="col-12 d-flex flex-row-reverse">
+                        <button type="button" (click)="proceedToBuy()" class="myButton" style="border-width: 0px;">
                             {{btnText}}</button>
-                    </div>
-                   
-                    <div class="col-6">
-                        <a class="btn btn-out btn-success btn-square btn-main" data-abc="true">Continue
-                            Shopping</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>

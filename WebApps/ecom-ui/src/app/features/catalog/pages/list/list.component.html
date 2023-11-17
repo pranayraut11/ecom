@@ -3,7 +3,7 @@
         <div *ngFor="let product of products" class="col-3">
             <div class="block">
                 <div class="middle">
-                    <img src="http://dev-env/filemanager-service/files/{{product.id}}/{{product.images[0]}}" alt="pic" />
+                    <img src="{{product.images[0]}}" alt="pic" />
                 </div>
 
                 <div class="bottom">
@@ -12,8 +12,8 @@
                     <div class="style">Color: Red / Style: M9621C</div>
                     <div class="price">${{product.price.discountedPrice}} <span
                             class="old-price">${{product.price.price}}</span></div>
-                    <div class="buttons d-flex flex-row mt-5 gap-3"> <button class="btn btn-dark"
-                            (click)="addToCart(product)">Add to Basket</button> </div>
+                    <!-- <div class="buttons d-flex flex-row mt-5 gap-3"> <button class="btn btn-dark"
+                            (click)="addToCart(product)">Add to Basket</button> </div> -->
 
                     <!-- <a class="btn btn-primary btn-lg btn-block buy-now btn-outline-dark" ">
                         Add to cart <span class="glyphicon glyphicon-triangle-right"></span> -->
