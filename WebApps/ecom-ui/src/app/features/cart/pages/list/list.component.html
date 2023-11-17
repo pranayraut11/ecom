@@ -1,124 +1,56 @@
-<div class="row">
-    <div class="col-9">
-        <div *ngFor="let product of cartProducts let i= index">
-            <div class="block">
-                <div class="row p-2">
+<div *ngFor="let product of cartProducts let i= index">
+    <div class="block">
+        <div class="row p-2">
 
+            <div class="col-2">
+                <div class="row">
+                    <img class="img-fluid" style="height: fit-content;width: 125px;" src="{{product.image}}"
+                        alt="pic" />
+                </div>
+                <div class="row py-2">
+                    <div class="btn-group">
+                        <span class="bi bi-dash-circle " (click)="decreaseQuantity(product)"></span>
+                        <div class="px-2">
+                            <input type="text" class="form-control" Style="width: 50px;" value="{{product.quantity}}" />
+                        </div>
+                        <span class="bi bi-plus-circle" (click)="increaseQuantity(product)"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-7">
+                <div class="row">
+                    <div class="col-12">
+                        {{product.name}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        Seller : xyz
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-2 fw-light text-decoration-line-through">${{product.price}}</div>
+                    <div class="col-2">${{product.discountedPrice}}</div>
+                </div>
+                <div class="row p-4"></div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <a type="button" class="link text-uppercase fw-normal lh-1">Save to
+                            wishlist</a>
+                    </div>
                     <div class="col-2">
-                        <div class="row">
-                            <img class="img-fluid" style="height: fit-content;width: 125px;" src="{{product.image}}"
-                                alt="pic" />
-                        </div>
-                        <div class="row py-2">
-                            <div class="btn-group">
-                                <span class="bi bi-dash-circle " (click)="decreaseQuantity(product)"></span>
-                                <div class="px-2">
-                                    <input type="text" class="form-control" Style="width: 50px;"
-                                        value="{{product.quantity}}" />
-                                </div>
-                                <span class="bi bi-plus-circle" (click)="increaseQuantity(product)"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-7">
-                        <div class="row">
-                            <div class="col-12">
-                                {{product.name}}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                Seller : xyz
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-2 fw-light text-decoration-line-through">${{product.price}}</div>
-                            <div class="col-2">${{product.discountedPrice}}</div>
-                        </div>
-                        <div class="row p-4"></div>
-
-                        <div class="row">
-                            <div class="col-4">
-                                <a type="button" class="link text-uppercase fw-normal lh-1">Save to
-                                    wishlist</a>
-                            </div>
-                            <div class="col-2">
-                                <a type="button" class="link text-uppercase fw-normal lh-1"
-                                    (click)="removeFromCart(product)">Remove</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="col-12">
-                            Delivery on 2nd Oct
-                        </div>
+                        <a type="button" class="link text-uppercase fw-normal lh-1"
+                            (click)="removeFromCart(product)">Remove</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-3">
-        <div class="block">
-            <div class="row px-3 py-2">
-                <div class="fs-5 text-muted col-12 border-bottom">
-                    Price Details
+            <div class="col-3">
+                <div class="col-12">
+                    Delivery on 2nd Oct
                 </div>
-            </div>
-
-            <div class="row  px-3">
-                <div class="col-8 py-2">
-                    Price (3 items)
-                </div>
-                <div class="col-4 py-2 text-end">
-                    ${{cart.totalPrice}}
-                </div>
-
-            </div>
-            <div class="row  px-3">
-                <div class="col-8 py-3 border-bottom">
-                    Delivery Charges
-                </div>
-                <div class="col-4 py-3 text-end border-bottom">
-                    2700
-                </div>
-            </div>
-
-            <div class="row px-3">
-                <div class="col-8 py-3  border-bottom">
-                    Total Payable
-                </div>
-                <div class="col-4 py-3 text-end border-bottom">
-                    ${{cart.total}}
-                </div>
-            </div>
-            <div class="row px-3 text-center">
-                <div class="col-12 py-3  border-bottom">
-                    Your total saving ${{cart.discount}}
-                </div>
-            </div>
-
-        </div>
-        <div class="block ">
-            <div class="p-3">
-                <form>
-                    <div class="form-group"> <label class="py-2">Have coupon?</label>
-                        <div class="btn-group">
-                            <div class="row">
-                                <div class="col-8"> <input type="text" class="form-control" name=""
-                                        placeholder="Coupon code">
-                                </div>
-                                <div class="col-4"><button class="btn btn-primary">Apply</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
 </div>
-<aside class="col-lg-3">
-
-</aside>

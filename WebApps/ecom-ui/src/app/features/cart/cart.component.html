@@ -1,7 +1,70 @@
 <div class="container">
     <div class="row">
-        <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+        <div class="col-9">
+            <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+        </div>
+        <div class="col-3">
+            <div class="block">
+                <div class="row px-3 py-2">
+                    <div class="fs-5 text-muted col-12 border-bottom">
+                        Price Details
+                    </div>
+                </div>
+
+                <div class="row  px-3">
+                    <div class="col-8 py-2">
+                        Price (3 items)
+                    </div>
+                    <div class="col-4 py-2 text-end">
+                        ${{cart.totalPrice}}
+                    </div>
+
+                </div>
+                <div class="row  px-3">
+                    <div class="col-8 py-3 border-bottom">
+                        Delivery Charges
+                    </div>
+                    <div class="col-4 py-3 text-end border-bottom">
+                        2700
+                    </div>
+                </div>
+
+                <div class="row px-3">
+                    <div class="col-8 py-3  border-bottom">
+                        Total Payable
+                    </div>
+                    <div class="col-4 py-3 text-end border-bottom">
+                        ${{cart.total}}
+                    </div>
+                </div>
+                <div class="row px-3 text-center">
+                    <div class="col-12 py-3  border-bottom">
+                        Your total saving ${{cart.discount}}
+                    </div>
+                </div>
+
+            </div>
+            <div class="block ">
+                <div class="p-3">
+                    <form>
+                        <div class="form-group"> <label class="py-2">Have coupon?</label>
+                            <div class="btn-group">
+                                <div class="row">
+                                    <div class="col-8"> <input type="text" class="form-control" name=""
+                                            placeholder="Coupon code">
+                                    </div>
+                                    <div class="col-4"><button class="btn btn-primary">Apply</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+
     <div class="row sticky-bottom">
         <div class="col-9 ">
             <div class="block ">

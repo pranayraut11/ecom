@@ -1,11 +1,10 @@
-  .block {
+.block {
     margin-top: 20px;
     border-radius: 4px;
     width: 100%;
-    min-height: 240px;
+    min-height: 70px;
     background: #fff;
-    padding-left: 8%;
-    padding-top: 8%;
+    padding: 10px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -16,14 +15,3 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   }
   
-  .link{
-    text-decoration: none;
-    color: black;
-   
-    height: 35px;
-    width: 90%;
-  }
-
-  .borderhr{
-    border-bottom: 1px solid rgb(233, 237, 228);
-  }

@@ -42,6 +42,7 @@ import { BackCreateButtonComponent } from './shared/components/back-create-butto
 import { AppCatalogRoutingModule } from './features/catalog/app-catalog-routing.module';
 import { ProductTemplateComponent } from './features/catalog/pages/create/components/product-template/product-template.component';
 import { ProductCreateComponent } from './features/catalog/pages/create/components/product-create/product-create.component';
+import { NotificationComponent } from './features/profile/components/notification/notification.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +82,8 @@ import { ProductCreateComponent } from './features/catalog/pages/create/componen
     SellerMenuComponent,
     BackCreateButtonComponent,
     ProductTemplateComponent,
-    ProductCreateComponent
+    ProductCreateComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule, AppCatalogRoutingModule,

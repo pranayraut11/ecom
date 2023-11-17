@@ -25,6 +25,7 @@ import { CardsComponent } from './features/payment/methods/cards/cards.component
 import { CashOnDeliveryComponent } from './features/payment/methods/cash-on-delivery/cash-on-delivery.component';
 import { DetailsComponent } from './features/catalog/pages/details/details.component';
 import { OrderSuccessComponent } from './features/order/order-success/order-success.component';
+import { NotificationComponent } from './features/profile/components/notification/notification.component';
 
 const appsRoutes: Routes = [
   // { path: 'cart', component: CartListComponent }, 
@@ -124,6 +125,9 @@ const appsRoutes: Routes = [
 
           {
             path: 'myorders', component: OrderListComponent
+          },
+          {
+            path: 'notification',component: NotificationComponent
           }
         ]
 
