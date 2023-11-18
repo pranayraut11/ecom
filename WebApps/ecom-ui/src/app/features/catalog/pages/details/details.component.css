@@ -177,6 +177,25 @@ body {
 
 .buttons .btn {
     height: 50px;
-    width: 150px;
-    border-radius: 0px !important
+    width: 170px;
+    border-radius: 0px !important;
+    background-color: #fb641b;
+    border: 0;
+    color: #fff;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.link{
+    text-decoration: none;
+    color: #2874f0;
+}
+.borderhr{
+    border-bottom: 2px solid#2874f0;
+}
+.greyfont{
+    font-weight: 500;
+    color: rgb(140, 143, 146);
 }
