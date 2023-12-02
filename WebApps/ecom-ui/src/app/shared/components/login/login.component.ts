@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/seller"]);
         } else {
           console.log("User is not seller")
-          this.router.navigate(["/user/list"]);
+          this.router.navigate(["/usergome"]);
         }
       },
       complete: () => {

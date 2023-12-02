@@ -1,24 +1,35 @@
-<div class="block sticky-top">
-  <div class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <div class="col-1">
-        <a class="navbar-brand" href="#">Ecom</a>
+<div class="block">
+  <div class="container">
+    <div class="row">
+      <div class="col-1 text-end">
+        <a class="navbar-brand" href="#">
+          <img src="../../../../assets/images/Logo.PNG" height="100%" width="110%">
+        </a>
       </div>
 
-      <div class="input-group">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-secondary" style="border-radius:0;" type="submit">
-            <i class="bi bi-search"></i>
-          </button>
+      <div class="col-6" style="margin-top: 1%;">
+        <div class="input-group"> <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-secondary" style="border-radius:0;" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="col-auto d-flex justify-content-center">
-        <div class="dropdown">
-          <a class="nav-link active" appRoles [hasRole]='["user"]' id="dropdownMenuButton2" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <i class="bi bi-person" style="font-size: 130%;"></i> Pranay
+      <div class="col-2 " style="margin-top: 1%;" *ngIf="!isAuthenticated">
+        <form>
+          <app-login></app-login>
+        </form>
+      </div>
+      <div class="col-2" *ngIf="isAuthenticated" style="text-align: center;">
+
+        <div class="dropdown" >
+
+          <a class="nav-link active" style="font-size: large;" appRoles [hasRole]='["user"]' id="dropdownMenuButton2"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person"></i> Pranay <i class="bi bi-chevron-down" style="font-size: small;"></i>
           </a>
+
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a routerLink="profile/my-profile" class="dropdown-item" href="#">
                 <i class="bi bi-person-fill"></i> My Profile</a>
@@ -40,11 +51,18 @@
               </a>
             </li>
           </ul>
+
         </div>
+
       </div>
-      <div class="col-1 d-flex justify-content-center">
-        <a class="nav-link active" routerLink="cart/products" aria-current="page" appRoles [hasRole]='["user"]'>
-          <i class="bi bi-cart" style="font-size: x-large;"></i>
+      <div class="col-1 " style="margin-top: 1%;font-size: large;">
+        <a class="nav-link active" routerLink="cart/products" aria-current="page">
+          <i class="bi bi-cart" style="font-size: large; "></i> Cart
+        </a>
+      </div>
+      <div class="col-2 " style="margin-top: 1%;font-size: large;">
+        <a class="nav-link active" routerLink="cart/products" aria-current="page">
+          <i class="bi bi-bank"></i> Become a Seller
         </a>
       </div>
     </div>

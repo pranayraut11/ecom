@@ -199,3 +199,9 @@ textarea:focus, input:focus{
     font-weight: 500;
     color: rgb(140, 143, 146);
 }
+bulletList {
+    list-style-type: disc !important;
+    padding-left:1em !important;
+    margin-left:1em;
+    color: #96918b;
+}

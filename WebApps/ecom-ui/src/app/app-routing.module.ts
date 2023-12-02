@@ -26,6 +26,7 @@ import { CashOnDeliveryComponent } from './features/payment/methods/cash-on-deli
 import { DetailsComponent } from './features/catalog/pages/details/details.component';
 import { OrderSuccessComponent } from './features/order/order-success/order-success.component';
 import { NotificationComponent } from './features/profile/components/notification/notification.component';
+import { LoginComponent } from './shared/components/login/login.component';
 
 const appsRoutes: Routes = [
   // { path: 'cart', component: CartListComponent }, 
@@ -34,12 +35,18 @@ const appsRoutes: Routes = [
   // { path: 'auth/register', component: UserRegistrationComponent },
   { path: '', redirectTo: 'user/list', pathMatch: 'full' },
   { path: 'home', redirectTo: 'user/list', pathMatch: 'prefix' },
+  { path: 'usergome',component:HomeComponent },
   { path: 'seller', redirectTo: 'seller/dashboard', pathMatch: 'prefix' },
   {
     path: 'user', component: HomeComponent, children: [
       {
         path: 'list',
         component: CatalogListComponent,
+
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
 
       },
       {
