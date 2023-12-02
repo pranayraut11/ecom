@@ -8,55 +8,79 @@
 </div>
 <!-- Modal -->
 <div class="row">
-    <div id="loginModel" class="modal" role="dialog" #loginModel>
-        <div class="modal-dialog">
+    <div class="col-12">
+        <div id="loginModel" class="modal" role="dialog" #loginModel>
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title text-xs-center">Log In</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-danger" *ngIf="showErrorMessage">
-                        {{errorMessage}}
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content block">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-xs-center">Log In</h4>
                     </div>
-                    <form role="form" method="POST" (ngSubmit)="login(f)" #f="ngForm">
-                        <input type="hidden" name="_token" value="">
-                        <div class="form-group">
-                            <label class="control-label">E-Mail Address</label>
-                            <div>
-                                <input type="email" class="form-control input-lg" name="username" value="" ngModel>
-                            </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger" *ngIf="showErrorMessage">
+                            {{errorMessage}}
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">Password</label>
-                            <div>
-                                <input type="password" class="form-control input-lg" name="password" ngModel>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
+                        <form role="form" method="POST" (ngSubmit)="login(f)" #f="ngForm">
+                            <input type="hidden" name="_token" value="">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label ">E-Mail Address</label>
+                                    <div class="py-2">
+                                        <input type="email" class="form-control input-lg" name="username" value=""
+                                            ngModel>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div>
-                                <a class="btn btn-link" href="">Forgot Your Password?</a>
-                                <button type="submit" class="btn btn-info btn-block">Login</button>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label py-2">Password</label>
+                                    <div>
+                                        <input type="password" class="form-control input-lg" name="password" ngModel>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                            <div class="row">
 
-                </div>
-                <div class="modal-footer text-xs-center">
-                    Don't have an account? <a href="/user/register">Sign up »</a>
+                                <div class="form-group">
+                                    <div class="py-3">
+
+                                        <button type="submit" class="btn btn-info btn-block col-12">Login</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="checkbox ">
+                                        <label>
+                                            <input type="checkbox" name="remember"> Remember Me
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-7" style="margin-top: -1%;text-align: end;">
+                                    
+                                    
+                                        <a class="btn" href="">Forgot Your Password?</a>
+                                 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer text-xs-center">
+                        Don't have an account? <a href="/user/register">Sign up »</a>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
