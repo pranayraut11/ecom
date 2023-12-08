@@ -44,6 +44,7 @@ import { ProductTemplateComponent } from './features/catalog/pages/create/compon
 import { ProductCreateComponent } from './features/catalog/pages/create/components/product-create/product-create.component';
 import { NotificationComponent } from './features/profile/components/notification/notification.component';
 import { LoginPopupComponent } from './shared/components/login/login-popup/login-popup.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +86,8 @@ import { LoginPopupComponent } from './shared/components/login/login-popup/login
     ProductTemplateComponent,
     ProductCreateComponent,
     NotificationComponent,
-    LoginPopupComponent
+    LoginPopupComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule, AppCatalogRoutingModule,

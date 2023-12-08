@@ -28,7 +28,7 @@ import { OrderSuccessComponent } from './features/order/order-success/order-succ
 import { NotificationComponent } from './features/profile/components/notification/notification.component';
 import { LoginComponent } from './shared/components/login/login.component';
 import { LoginPopupComponent } from './shared/components/login/login-popup/login-popup.component';
-
+import { DashboardComponent } from './features/dashboard/dashboard.component';
 const appsRoutes: Routes = [
   // { path: 'cart', component: CartListComponent }, 
   //{ path: 'myorders', component: OrderListComponent },
@@ -38,7 +38,13 @@ const appsRoutes: Routes = [
   { path: 'home', redirectTo: 'user/list', pathMatch: 'prefix' },
   { path: 'usergome',component:HomeComponent },
   { path: 'bynow',redirectTo: 'user/cart/products', pathMatch: 'prefix' },
-  { path: 'seller', redirectTo: 'seller/dashboard', pathMatch: 'prefix' },
+  {
+    path:'seller',component:SellerHomeComponent,children:[
+      {
+        path:'dashboard',component:DashboardComponent
+      }
+    ]
+  },
   {
     path: 'user', component: HomeComponent, children: [
       {
