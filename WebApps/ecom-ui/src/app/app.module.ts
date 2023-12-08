@@ -43,6 +43,7 @@ import { AppCatalogRoutingModule } from './features/catalog/app-catalog-routing.
 import { ProductTemplateComponent } from './features/catalog/pages/create/components/product-template/product-template.component';
 import { ProductCreateComponent } from './features/catalog/pages/create/components/product-create/product-create.component';
 import { NotificationComponent } from './features/profile/components/notification/notification.component';
+import { LoginPopupComponent } from './shared/components/login/login-popup/login-popup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +84,8 @@ import { NotificationComponent } from './features/profile/components/notificatio
     BackCreateButtonComponent,
     ProductTemplateComponent,
     ProductCreateComponent,
-    NotificationComponent
+    NotificationComponent,
+    LoginPopupComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule, AppCatalogRoutingModule,

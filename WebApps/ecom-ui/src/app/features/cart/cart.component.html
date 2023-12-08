@@ -82,8 +82,14 @@
                 <div class="col-12 row p-3">
 
                     <div class="col-12 d-flex flex-row-reverse">
-                        <button type="button" (click)="proceedToBuy()" class="myButton" style="border-width: 0px;">
+                        <button type="button" (click)="proceedToBuy()" *ngIf="isAuthenticated" class="myButton" style="border-width: 0px;">
                             {{btnText}}</button>
+
+                           
+                                <a *ngIf="!isAuthenticated" class="myButton" style="border-width: 0px;" data-bs-toggle="modal"
+                                    data-bs-target="#loginModel">
+                                    {{btnText}}</a>
+                          
                     </div>
                 </div>
             </div>

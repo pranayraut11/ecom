@@ -21,6 +21,7 @@ export class CartComponent implements OnInit {
   emptyCart: boolean = true;
   cartProducts: CartProduct[];
   btnText = "Proceed to Buy";
+  isAuthenticated: boolean;
 
   ngOnInit(): void {
 
@@ -38,6 +39,7 @@ export class CartComponent implements OnInit {
           this.emptyCart = true;
         }
       });
+      this.isAuthenticated=false;
     } else {
       console.log("In Cart token is not expired")
       this.cartRestService.getMyCartProducts().subscribe((products: CartProduct[]) => {
@@ -49,6 +51,7 @@ export class CartComponent implements OnInit {
           this.emptyCart = true;
         }
       });
+      this.isAuthenticated=true;
     }
   }
 

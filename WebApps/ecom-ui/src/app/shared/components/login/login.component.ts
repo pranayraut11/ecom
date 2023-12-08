@@ -5,8 +5,6 @@ import { from, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/core/auth/Auth-Service';
 import { AUTH_TOKEN } from '../../constants/AuthConst';
 import { Login } from '../../models/Login.model';
-
-
 import { AuthRestService } from '../../services/rest-services/auth-rest-service';
 declare var $: any;
 @Component({
@@ -25,56 +23,12 @@ export class LoginComponent implements OnInit {
   showErrorMessage: boolean = false;
   hasRole: string;
   ngOnInit(): void {
-
     console.log("is " + this.isAuthenticated);
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
-      if (user) {
-        if (user.roles.includes("seller")) {
-          console.log("User is seller")
-          this.router.navigate(["/seller"]);
-        } else {
-          console.log("User is not seller")
-          this.router.navigate(["/user/list"]);
-        }
-      }
     });
   }
-
-  login(form: NgForm) {
-
-    const value = form.value;
-    const login = new Login(value.username, value.password);
-
-    this.authService.login(login).subscribe({
-      next: (response) => {
-
-        console.log(localStorage.getItem(AUTH_TOKEN));
-        $('#loginModel').modal('hide');
-        this.show = false;
-        if (response.roles.includes("seller")) {
-          console.log("User is seller")
-          this.router.navigate(["/seller"]);
-        } else {
-          console.log("User is not seller")
-          this.router.navigate(["/usergome"]);
-        }
-      },
-      complete: () => {
-
-        console.log("Req complete");
-      }
-      ,
-      error: (error) => {
-        console.log(error);
-        this.errorMessage = error;
-
-        this.showErrorMessage = true;
-      }
-    });
-
-  }
-
+  
   logout() {
 
     console.log("logout")
