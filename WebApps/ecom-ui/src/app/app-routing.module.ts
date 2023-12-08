@@ -37,6 +37,7 @@ const appsRoutes: Routes = [
   { path: '', redirectTo: 'user/list', pathMatch: 'full' },
   { path: 'home', redirectTo: 'user/list', pathMatch: 'prefix' },
   { path: 'usergome',component:HomeComponent },
+  { path: 'bynow',redirectTo: 'user/cart/products', pathMatch: 'prefix' },
   { path: 'seller', redirectTo: 'seller/dashboard', pathMatch: 'prefix' },
   {
     path: 'user', component: HomeComponent, children: [

@@ -20,7 +20,7 @@ export class CartListComponent implements OnInit {
   initialized = false;
   ngOnInit(): void {
     console.log("In cart list service");
-    this.communicationService.emitData.subscribe(
+    this.communicationService.cartProducts.subscribe(
       res=>    this.cartProducts = res
     );
     

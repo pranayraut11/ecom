@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommunicationService } from 'src/app/core/services/communication-service';
 import { CartService } from 'src/app/features/cart/cart-service';
 import { CartProduct } from 'src/app/shared/models/cart.product.model';
 import { Product } from 'src/app/shared/models/product.model';
@@ -13,7 +14,7 @@ import { ProductRestService } from 'src/app/shared/services/rest-services/produc
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private actRouter : ActivatedRoute,private catalogRestService: ProductRestService,private cartRestService: CartRestService,private router : Router,private cartService: CartService) { }
+  constructor(private actRouter : ActivatedRoute,private catalogRestService: ProductRestService,private cartRestService: CartRestService,private router : Router,private cartService: CartService,private communicationService : CommunicationService) { }
   product : Product;
   ngOnInit(): void {
     let id = this.actRouter.snapshot.paramMap.get("id");
@@ -40,6 +41,7 @@ export class DetailsComponent implements OnInit {
   }
 
   gotoBuyProduct(product: Product){
-      this.router.navigate(["/user/cart/address"]);
+      this.communicationService.addProductId(product.id);
+      this.router.navigate(['/bynow',{productId:product.id}]);
   }
 }

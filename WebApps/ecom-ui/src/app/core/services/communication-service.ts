@@ -1,14 +1,21 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subject } from "rxjs";
+import { CartProduct } from "src/app/shared/models/cart.product.model";
 
 @Injectable({ providedIn: 'root'})
 export class CommunicationService{
-    emitData :  BehaviorSubject<any>;
+    cartProducts :  BehaviorSubject<CartProduct[]>;
+    byNow :  BehaviorSubject<string>;
     constructor(){
-        this.emitData = new BehaviorSubject(null);
+        this.cartProducts = new BehaviorSubject(null);
+        this.byNow = new BehaviorSubject(null);
     }
     
-    addData(data : any){
-        this.emitData.next(data);
+    addCartProducts(data : CartProduct[]){
+        this.cartProducts.next(data);
+    }
+
+    addProductId(productId : string){
+        this.byNow.next(productId);
     }
 }

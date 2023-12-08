@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/core/auth/Auth-Service';
 import { Cart } from 'src/app/shared/models/cart';
 import { CartProduct } from 'src/app/shared/models/cart.product.model';
 import { CartRestService } from 'src/app/shared/services/rest-services/cart-rest-service';
 import { CartListComponent } from './pages/list/list.component';
 import { CommunicationService } from 'src/app/core/services/communication-service';
+import { CART } from 'src/app/shared/constants/ApiEndpoints';
 
 @Component({
   selector: 'cart-app',
@@ -15,7 +16,7 @@ import { CommunicationService } from 'src/app/core/services/communication-servic
 export class CartComponent implements OnInit {
 
 
-  constructor(private route: Router, private cartRestService: CartRestService, private authService: AuthService, private communicationService: CommunicationService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private cartRestService: CartRestService, private authService: AuthService, private communicationService: CommunicationService) { }
 
   cart: Cart;
   emptyCart: boolean = true;
@@ -28,30 +29,40 @@ export class CartComponent implements OnInit {
     console.log("In cart service");
     if (this.authService.isTokenExpired()) {
       console.log("In Cart token is expired")
-      var productIds= new Array();
-      productIds.push("1")
+      var productId ;
+      this.communicationService.byNow.subscribe(res=>productId=res);
+      var productIds = new Array();
+      if (productId) {
+        console.log("Product id got from by now"+productId)
+        productIds.push("1");
+      } else {
+        var cartProducts = localStorage.getItem(CART);
+        productIds = JSON.parse(cartProducts);
+      }
+
+
       this.cartRestService.getCartProducts(productIds).subscribe((products: CartProduct[]) => {
         if (products) {
-          this.communicationService.addData(products);
+          this.communicationService.addCartProducts(products);
           this.calculateTotal(products)
           this.emptyCart = false;
         } else {
           this.emptyCart = true;
         }
       });
-      this.isAuthenticated=false;
+      this.isAuthenticated = false;
     } else {
       console.log("In Cart token is not expired")
       this.cartRestService.getMyCartProducts().subscribe((products: CartProduct[]) => {
         if (products) {
-          this.communicationService.addData(products);
+          this.communicationService.addCartProducts(products);
           this.calculateTotal(products)
           this.emptyCart = false;
         } else {
           this.emptyCart = true;
         }
       });
-      this.isAuthenticated=true;
+      this.isAuthenticated = true;
     }
   }
 
@@ -81,12 +92,12 @@ export class CartComponent implements OnInit {
   proceedToBuy() {
     if (this.btnText == "Proceed to Buy") {
       this.btnText = "Use this Address";
-      this.route.navigate(["user/cart/address"])
+      this.router.navigate(["user/cart/address"])
     } else if (this.btnText == "Use this Address") {
       this.btnText = "Place order";
-      this.route.navigate(["user/cart/payment/savedcards"])
+      this.router.navigate(["user/cart/payment/savedcards"])
     } else if (this.btnText == "Place order") {
-      this.route.navigate(["user/order-successfull"])
+      this.router.navigate(["user/order-successfull"])
     }
   }
 }
