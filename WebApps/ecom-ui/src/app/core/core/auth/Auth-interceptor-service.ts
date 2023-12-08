@@ -32,7 +32,7 @@ export class AuthInterceptorService implements HttpInterceptor {
                     'access_token': string,
                     'refresh_token': string,
                     'expires_in': number
-                } = JSON.parse(localStorage.getItem("token"));
+                } = JSON.parse(tokenDetailsJson);
                 const modifiedReq = req.clone({
                     headers: req.headers.set('Authorization', 'Bearer ' + tokenDetails.access_token)
                 });

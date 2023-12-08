@@ -44,33 +44,49 @@ export class AuthService {
     }
 
     autoLogin() {
-        const tokenDetails = localStorage.getItem(AUTH_TOKEN);
-        if (tokenDetails) {
-            const tokenDetailsJons: {
-                'access_token': string,
-                'refresh_token': string,
-                'expires_in': number,
-                'roles': string[]
-            } = JSON.parse(tokenDetails);
-            if (tokenDetails) {
-                const tokenExpirationDate = new Date(new Date().getTime() + tokenDetailsJons.expires_in * 1000);
-                if (!this.isTokenExpired(tokenExpirationDate)) {
-                    const user = new UserTokenDetails(tokenDetailsJons.access_token, tokenDetailsJons.refresh_token, tokenExpirationDate,tokenDetailsJons.roles);
-                    this.user.next(user);
-                }
-            }
+        if (!this.isTokenExpired()) {
+            const tokenDetails = localStorage.getItem(AUTH_TOKEN);
+            const tokenDetailsJons =  this.getTokenDetails(tokenDetails);
+            const user = new UserTokenDetails(tokenDetailsJons.access_token, tokenDetailsJons.refresh_token, this.getExpirationDate(tokenDetailsJons.expires_in),tokenDetailsJons.roles);
+            this.user.next(user);
         }
         
     }
 
-    isTokenExpired(tokenExpirationDate: Date) {
-        let currentDateTime = new Date();
-        console.log(currentDateTime.getTime());
-        console.log(tokenExpirationDate.getTime());
-        if (currentDateTime.getTime() > tokenExpirationDate.getTime()) {
-            return true;
+    getTokenDetails(tokenDetails:any){
+        const tokenDetailsJons: {
+            'access_token': string,
+            'refresh_token': string,
+            'expires_in': number,
+            'roles': string[]
+        } = JSON.parse(tokenDetails);
+        return tokenDetailsJons;
+    }
+
+    getExpirationDate(expires_in:number){
+        return new Date(new Date().getTime() + expires_in * 1000);
+              
+    }
+    isTokenExpired() {
+        const tokenDetails = localStorage.getItem(AUTH_TOKEN);
+        console.log("isTokenExpired got "+tokenDetails);
+        if (tokenDetails) {
+            console.log("Token details found in storage "+tokenDetails);
+            const tokenDetailsJons =  this.getTokenDetails(tokenDetails);
+            if (tokenDetailsJons) {
+                const tokenExpirationDate = this.getExpirationDate(tokenDetailsJons.expires_in);
+                let currentDateTime = new Date();
+                console.log(currentDateTime.getTime());
+                console.log(tokenExpirationDate.getTime());
+                if (currentDateTime.getTime() > tokenExpirationDate.getTime()) {
+                    return true;
+                }else{
+                    return false; 
+                }
+            }
         }
-        return false;
+       
+        return true;
     }
 
 }

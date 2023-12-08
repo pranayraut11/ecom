@@ -4,6 +4,7 @@ import { Login } from '../../models/Login.model';
 import { environment } from 'src/environments/environment';
 import { USER_LOGIN, USER_LOGOUT, USER_SERVICE } from '../../constants/ApiEndpoints';
 import { Token } from '../../models/Token';
+import { AUTH_TOKEN } from '../../constants/AuthConst';
 
 @Injectable({
   providedIn: 'root'
@@ -23,4 +24,5 @@ export class AuthRestService {
   logout() {
     return this.rest.get(environment.baseURL + USER_SERVICE+'/'+'auth/'+USER_LOGOUT);
   }
+
 }

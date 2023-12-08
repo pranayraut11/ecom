@@ -1,9 +1,20 @@
 <div class="container">
     <div class="row">
         <div class="col-9">
-            <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+            <router-outlet></router-outlet>
         </div>
-        <div class="col-3">
+        <div class="row" *ngIf="emptyCart">
+            <div class="col-4"></div>
+            <div class="col-5 " style="text-align: center;">
+                <i style="font-size: 700%" class="bi bi-cart-x"></i>
+                <h3 class="py-2">Your Cart is <span style="color: red;">Empty</span>
+                </h3>
+                
+                <div class="col-5 btn btn-success" routerLink="/user/list">Return To Shop</div>
+            </div>
+
+        </div>
+        <div class="col-3" *ngIf="!emptyCart">
             <div class="block">
                 <div class="row px-3 py-2">
                     <div class="fs-5 text-muted col-12 border-bottom">
@@ -16,7 +27,7 @@
                         Price (3 items)
                     </div>
                     <div class="col-4 py-2 text-end">
-                        ${{cart.totalPrice}}
+                        <i class="bi bi-currency-rupee"></i>{{cart.totalPrice}}
                     </div>
 
                 </div>
@@ -25,7 +36,7 @@
                         Delivery Charges
                     </div>
                     <div class="col-4 py-3 text-end border-bottom">
-                        2700
+                        <i class="bi bi-currency-rupee"></i> {{cart.deliveryCharges}}
                     </div>
                 </div>
 
@@ -34,12 +45,12 @@
                         Total Payable
                     </div>
                     <div class="col-4 py-3 text-end border-bottom">
-                        ${{cart.total}}
+                        <i class="bi bi-currency-rupee"></i>{{cart.total}}
                     </div>
                 </div>
                 <div class="row px-3 text-center">
                     <div class="col-12 py-3  border-bottom">
-                        Your total saving ${{cart.discount}}
+                        Your total saving  <i class="bi bi-currency-rupee"></i>{{cart.discount}}
                     </div>
                 </div>
 
@@ -65,7 +76,7 @@
         </div>
     </div>
 
-    <div class="row sticky-bottom">
+    <div class="row sticky-bottom" *ngIf="!emptyCart">
         <div class="col-9 ">
             <div class="block ">
                 <div class="col-12 row p-3">

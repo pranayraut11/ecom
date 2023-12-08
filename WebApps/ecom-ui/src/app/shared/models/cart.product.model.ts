@@ -15,7 +15,10 @@ export class CartProduct {
     public discount: number;
 
     public quantity: number;
-    constructor(orderId: string,productId: string, name: string, image: string, price: number, discountedPrice: number, discount: number, quantity: number) {
+
+    public deliveryCharge: number;
+    
+    constructor(orderId: string,productId: string, name: string, image: string, price: number, discountedPrice: number, discount: number, quantity: number,deliveryCharge: number) {
         this.orderId = orderId;
         this.productId = productId;
         this.name = name;
@@ -24,5 +27,6 @@ export class CartProduct {
         this.discountedPrice = discountedPrice;
         this.discount = discount;
         this.quantity = quantity;
+        this.deliveryCharge = deliveryCharge;
     }
 }

@@ -18,6 +18,10 @@ server.use((req, res, next) => {
       "roles": [req.body.username]
   }
   }
+  if (req.method === 'POST' & req.url === '/cart-service/cart/product-ids') {
+    req.method = 'GET';
+    req.url = "/cart-service/cart";
+  }
   
   // Continue to JSON Server router
   next()
@@ -33,9 +37,10 @@ server.use(jsonServer.rewriter({
   '/user-service/auth/login': '/login',
   '/user-service/address' : '/address'
 }))
+
 server.use(router)
 
 
 server.listen(3000, () => {
-  console.log('JSON Server is running')
+  console.log('JSON Server is running on PORT 3000 ')
 })

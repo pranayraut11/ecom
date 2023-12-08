@@ -1,10 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Cart } from '../../../../shared/models/cart';
 import { CartProduct } from '../../../../shared/models/cart.product.model';
 import { OrderRestService } from '../../../../shared/services/rest-services/order-rest-service';
 import { CartRestService } from '../../../../shared/services/rest-services/cart-rest-service';
 import { CreateOrder } from 'src/app/shared/models/CreateOrder.model';
+import { CommunicationService } from 'src/app/core/services/communication-service';
 
 @Component({
   selector: 'cart-list',
@@ -12,25 +13,16 @@ import { CreateOrder } from 'src/app/shared/models/CreateOrder.model';
   styleUrls: ['./list.component.css']
 })
 export class CartListComponent implements OnInit {
-  @Output() reload = new EventEmitter<string>();
-  constructor(private cartRestService: CartRestService, private orderRestService: OrderRestService) { }
+ // @Output() reload = new EventEmitter<any>();
+  constructor(private cartRestService: CartRestService, private orderRestService: OrderRestService,private communicationService : CommunicationService) { }
   cart: Cart;
   cartProducts: CartProduct[];
   initialized = false;
   ngOnInit(): void {
-    console.log("In cart service");
-    //this.reload.emit('proc');
-    this.cartRestService.getCartProducts().subscribe((cart: Cart) => {
-      
-      if (cart) {
-        console.log("In cart condition");
-        this.cart = cart;
-        this.cartProducts = cart.products;
-        console.log(this.cart);
-        console.log(this.cartProducts);
-      }
-    this.initialized = true;
-    });
+    console.log("In cart list service");
+    this.communicationService.emitData.subscribe(
+      res=>    this.cartProducts = res
+    );
     
   }
 

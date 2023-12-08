@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { EnvironmentInjector, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Cart } from "../../models/cart";
@@ -13,11 +13,19 @@ export class CartRestService{
     constructor(private rest: HttpClient){}
 
     addToCart(cartProduct : CartProduct) : Observable<Cart>{
-       return this.rest.post<Cart>(environment.baseURL+CART_SERVICE+CART,cartProduct);
+      const headers = new HttpHeaders()
+        .set("X-CustomHeader", "none");
+       return this.rest.post<Cart>(environment.baseURL+CART_SERVICE+CART,cartProduct,{headers});
     }
 
-    getCartProducts() : Observable<Cart>{
-        return this.rest.get<Cart>(environment.baseURL+CART_SERVICE+CART+'/1',{responseType:'json'});
+    getMyCartProducts() : Observable<CartProduct[]>{
+        return this.rest.get<CartProduct[]>(environment.baseURL+CART_SERVICE+CART,{responseType:'json'});
+    }
+
+    getCartProducts(productIds: string[]) : Observable<CartProduct[]>{
+        const headers = new HttpHeaders()
+        .set("X-CustomHeader", "none");
+        return this.rest.post<CartProduct[]>(environment.baseURL+CART_SERVICE+CART+"/product-ids",productIds,{headers,responseType:'json'});
     }
 
     removeFromCart(id: string){

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from 'src/app/features/cart/cart-service';
 import { CartProduct } from 'src/app/shared/models/cart.product.model';
 import { Product } from 'src/app/shared/models/product.model';
 import { CartRestService } from 'src/app/shared/services/rest-services/cart-rest-service';
@@ -12,7 +13,7 @@ import { ProductRestService } from 'src/app/shared/services/rest-services/produc
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private actRouter : ActivatedRoute,private catalogRestService: ProductRestService,private cartRestService: CartRestService,private router : Router) { }
+  constructor(private actRouter : ActivatedRoute,private catalogRestService: ProductRestService,private cartRestService: CartRestService,private router : Router,private cartService: CartService) { }
   product : Product;
   ngOnInit(): void {
     let id = this.actRouter.snapshot.paramMap.get("id");
@@ -35,11 +36,7 @@ export class DetailsComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    let cartProduct = new CartProduct("", product.id, product.name, product.images[0], product.price.price, product.price.discountedPrice, product.price.discount, 1);
-    console.log(product);
-    this.cartRestService.addToCart(cartProduct).subscribe(response => {
-      console.log(response);
-    });;
+    this.cartService.addToCart(product);
   }
 
   gotoBuyProduct(product: Product){

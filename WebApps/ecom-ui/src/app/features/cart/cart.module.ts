@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ListComponent } from './pages/list/list.component';
+import { CartListComponent } from './pages/list/list.component';
 
 
 
 @NgModule({
   declarations: [
-    ListComponent
+    CartListComponent
   ],
   imports: [
     CommonModule

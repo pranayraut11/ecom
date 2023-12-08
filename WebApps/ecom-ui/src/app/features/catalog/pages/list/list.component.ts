@@ -4,6 +4,7 @@ import { ProductRestService } from 'src/app/shared/services/rest-services/produc
 import { Product } from 'src/app/shared/models/product.model';
 import { CartProduct } from 'src/app/shared/models/cart.product.model';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/features/cart/cart-service';
 
 @Component({
   selector: 'app-catalog-list',
@@ -15,7 +16,7 @@ export class CatalogListComponent implements OnInit {
 
   products: Product[];
 
-  constructor(private productRestService: ProductRestService, private cartRestService: CartRestService,private route: Router) { }
+  constructor(private productRestService: ProductRestService, private cartRestService: CartRestService,private route: Router,private cartService: CartService) { }
 
   ngOnInit(): void {
     this.productRestService.getProductList().subscribe((product: any[]) => {
@@ -26,13 +27,7 @@ export class CatalogListComponent implements OnInit {
 
   }
 
-  addToCart(product: Product) {
-    let cartProduct = new CartProduct("", product.id, product.name, product.images[0], product.price.price, product.price.discountedPrice, product.price.discount, 1);
-    console.log(product);
-    this.cartRestService.addToCart(cartProduct).subscribe(response => {
-      console.log(response);
-    });;
-  }
+  
   goToDetails(id: string) {
     console.log(id);
     this.route.navigate(['user/details/'+id]);
