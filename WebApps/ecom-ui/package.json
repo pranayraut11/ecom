@@ -20,6 +20,7 @@
     "@angular/router": "^14.1.0",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
+    "chart.js": "^4.4.1",
     "jquery": "^3.6.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

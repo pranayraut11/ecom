@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/core/auth/Auth-Service';
 
 @Component({
   selector: 'app-seller-header',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SellerHeaderComponent implements OnInit {
 
-  constructor() { }
+  isAuthenticated : boolean;
+
+  constructor(private authService : AuthService) { }
 
   ngOnInit(): void {
+    if(!this.authService.isTokenExpired){
+      this.isAuthenticated = true;
+    }else{
+      this.isAuthenticated = true;
+    }
   }
 
 }
