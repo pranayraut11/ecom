@@ -38,6 +38,6 @@ export class ListAddressComponent implements OnInit {
   }
 
   updateAddress(id : string){
-    this.route.navigate(['user/profile/address/create/'+id]);
+    this.route.navigate(['user/profile/address/create/']);
   }
 }
