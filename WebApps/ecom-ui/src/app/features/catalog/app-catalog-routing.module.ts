@@ -10,30 +10,7 @@ import { ProductCreateComponent } from './pages/create/components/product-create
 
 const appsRoutes: Routes = [
   {
-    path: 'seller', component: SellerHomeComponent, children: [
-      {
-        path: 'create',
-        component: CreateProductComponent, children: [
-          {
-            path: 'select',
-            component: ProductTemplateComponent
-          },
-          {
-            path: 'create-new',
-            component:   ProductCreateComponent
-          }
-        ]
 
-      },
-      {
-        path: 'dashboard',
-        component: SellerMenuComponent
-      },
-      {
-        path: 'product',
-        component: TableListComponent,
-      }
-    ]
   }
 ]
 

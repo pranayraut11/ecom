@@ -39,12 +39,12 @@ import { SearchComponent } from './shared/components/search/search.component';
 import { SellerHeaderComponent } from './features/layout/seller/component/seller-header/seller-header.component';
 import { SellerMenuComponent } from './features/layout/seller/component/seller-menu/seller-menu.component';
 import { BackCreateButtonComponent } from './shared/components/back-create-button/back-create-button.component';
-import { AppCatalogRoutingModule } from './features/catalog/app-catalog-routing.module';
 import { ProductTemplateComponent } from './features/catalog/pages/create/components/product-template/product-template.component';
 import { ProductCreateComponent } from './features/catalog/pages/create/components/product-create/product-create.component';
 import { NotificationComponent } from './features/profile/components/notification/notification.component';
 import { LoginPopupComponent } from './shared/components/login/login-popup/login-popup.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { AppSellerRoutingModule } from './features/layout/seller/app-seller-routing-module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +90,7 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
     DashboardComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule, AppCatalogRoutingModule,
+    BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule,AppSellerRoutingModule
   ],
   providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorService,multi:true}],
   bootstrap: [AppComponent]

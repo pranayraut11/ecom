@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, tap, throwError } from "rxjs";
+import { BehaviorSubject, Subscription, catchError, tap, throwError } from "rxjs";
 import { AUTH_TOKEN } from "src/app/shared/constants/AuthConst";
 import { Login } from "src/app/shared/models/Login.model";
 import { Token } from "src/app/shared/models/Token";
@@ -16,6 +16,7 @@ export class AuthService {
 
     }
     user = new BehaviorSubject<UserTokenDetails>(null);
+    private userSub: Subscription;
     tokenDetails: Token;
     login(login: Login) {
         return this.authRest.login(login).pipe(catchError(errorRes => {
@@ -31,6 +32,17 @@ export class AuthService {
         }));
     }
 
+    getUserRoles() : any[] {
+        let roles : string[];
+        this.userSub = this.user.subscribe(response => {
+            if (this.userSub) {
+              if (response) {
+                roles = response.roles;
+              }
+            }
+          });
+          return roles;
+    }
 
     logout() {
         return this.authRest.logout().pipe(catchError(errorRes => {

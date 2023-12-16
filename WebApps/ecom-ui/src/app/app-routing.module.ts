@@ -39,13 +39,6 @@ const appsRoutes: Routes = [
   { path: 'usergome',component:HomeComponent },
   { path: 'bynow',redirectTo: 'user/cart/products', pathMatch: 'prefix' },
   {
-    path:'seller',component:SellerHomeComponent,children:[
-      {
-        path:'dashboard',component:DashboardComponent
-      }
-    ]
-  },
-  {
     path: 'user', component: HomeComponent, children: [
       {
         path: 'list',

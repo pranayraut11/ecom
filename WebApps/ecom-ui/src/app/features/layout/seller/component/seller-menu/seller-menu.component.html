@@ -14,16 +14,16 @@
         <div class="col-10">ACCOUNT SETTINGS</div>
       </div>
     </div>
-    <a routerLink="my-profile" class="list-group-item">
+    <a routerLink="profile/personal-info" class="list-group-item">
       <div class="row pt-3">
         <div class="col-1"></div>
         <div class="col-10"> Personal Information</div>
       </div>
     </a>
-    <a routerLink="address/list" appRoles [hasRole]='["user"]' class="list-group-item">
+    <a routerLink="profile/address/list" class="list-group-item">
       <div class="row pt-3">
         <div class="col-1"></div>
-        <div class="col-6 " style="font-size: larger;"> Addresses</div>
+        <div class="col-6 "> Addresses</div>
       </div>
     </a>
   </div>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <a routerLink="notification" class="list-group-item">
-      <div class="row pt-3">
+      <div class="row pt-3" routerLink="/seller/notification">
         <div class="col-1"></div>
         <div class="col-10"> Notifications</div>
       </div>
