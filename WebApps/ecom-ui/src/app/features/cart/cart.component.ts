@@ -30,7 +30,7 @@ export class CartComponent implements OnInit {
     if (this.authService.isTokenExpired()) {
       console.log("In Cart token is expired")
       var productId ;
-      this.communicationService.byNow.subscribe(res=>productId=res);
+      this.communicationService.buyNow.subscribe(res=>productId=res);
       var productIds = new Array();
       if (productId) {
         console.log("Product id got from by now"+productId)

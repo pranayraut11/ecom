@@ -5,10 +5,10 @@ import { CartProduct } from "src/app/shared/models/cart.product.model";
 @Injectable({ providedIn: 'root'})
 export class CommunicationService{
     cartProducts :  BehaviorSubject<CartProduct[]>;
-    byNow :  BehaviorSubject<string>;
+    buyNow :  BehaviorSubject<string>;
     constructor(){
         this.cartProducts = new BehaviorSubject(null);
-        this.byNow = new BehaviorSubject(null);
+        this.buyNow = new BehaviorSubject(null);
     }
     
     addCartProducts(data : CartProduct[]){
@@ -16,6 +16,6 @@ export class CommunicationService{
     }
 
     addProductId(productId : string){
-        this.byNow.next(productId);
+        this.buyNow.next(productId);
     }
 }

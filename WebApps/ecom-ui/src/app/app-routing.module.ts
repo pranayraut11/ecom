@@ -129,6 +129,13 @@ const appsRoutes: Routes = [
               {
                 path: 'create', component: CreateAddressComponent
               }
+              ,
+              {
+                path: 'update/:id', component: CreateAddressComponent
+              },
+              {
+                path: 'create', component: CreateAddressComponent
+              }
             ]
           },
 

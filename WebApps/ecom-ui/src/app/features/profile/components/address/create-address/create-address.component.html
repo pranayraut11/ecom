@@ -1,5 +1,5 @@
 <form class="row g-3" (ngSubmit)="saveAddress(f)" #f="ngForm">
-    <div ngModelGroup="addressData" #addressData="ngModelGroup">
+    <div ngModelGroup="addressData" #addressData="ngModelGroup" >
 
         <div class="row pb-3">
 
@@ -78,10 +78,10 @@
         </div>
         <div class="row">
             <div class="col-2">
-                <button type="submit" class="col-12 btn btn-primary">Save</button>
+                <button type="submit" class="col-12 btn btn-primary">{{btnText}}</button>
             </div>
             <div class="col-4">
-                <button type="submit" class="col-6 btn btn-secondary">Cancel</button>
+                <button type="reset" class="col-6 btn btn-secondary">Clear</button>
             </div>
         </div>
     </div>

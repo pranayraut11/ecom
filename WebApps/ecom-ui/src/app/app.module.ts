@@ -87,7 +87,7 @@ import { AppSellerRoutingModule } from './features/layout/seller/app-seller-rout
     ProductCreateComponent,
     NotificationComponent,
     LoginPopupComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule,AppSellerRoutingModule

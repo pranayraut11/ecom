@@ -11,7 +11,12 @@ export class AddressComponent implements OnInit {
 
   constructor(private route: Router,private authService: AuthService) { }
   roles;
+  btnText = "Add A New Address"
   ngOnInit(): void {
+    console.log(this.btnText)
+    if(this.route.url.includes("create")){
+      this.btnText = 'Back';
+    }
     this.roles =  this.authService.user.subscribe();
     this.authService.user.subscribe(response => {
         if (response) {
@@ -20,7 +25,7 @@ export class AddressComponent implements OnInit {
       });
   }
 
-  btnText = "Add A New Address"
+
   addAddress() {
     let pathToNavigate = this.roles[0]+'/profile/address/';
     if (this.btnText == "Add A New Address") {

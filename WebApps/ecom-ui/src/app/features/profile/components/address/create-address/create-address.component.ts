@@ -11,14 +11,15 @@ import { AddressRestService } from 'src/app/shared/services/rest-services/addres
 })
 export class CreateAddressComponent implements OnInit {
 
-  address: Address;
-  initialized : boolean;
+  address = new Address("","","","","","","","","","","",false);
+  initialized : boolean=false;
   constructor(private addressRest: AddressRestService, private actRoute: ActivatedRoute) { }
-
+  btnText:string = 'Save'
   ngOnInit(): void {
     let id = this.actRoute.snapshot.paramMap.get("id");
-    
-    this.getAddress(id);
+    if(id){
+      this.getAddress(id);
+    }
   }
 
   saveAddress(form: NgForm) {
@@ -34,7 +35,7 @@ export class CreateAddressComponent implements OnInit {
     this.addressRest.getAddress(id).subscribe((response) => {
       this.address = response;
       console.log(this.address);
-      
+      this.btnText = 'Update';
     })
   }
 }
