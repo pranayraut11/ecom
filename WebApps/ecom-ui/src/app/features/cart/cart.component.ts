@@ -26,6 +26,11 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(this.router.url.includes("address")){
+      this.btnText = "Use this Address";
+    } else if(this.router.url.includes("payment")){
+      this.btnText = "Place Order";
+    }
     console.log("In cart service");
     if (this.authService.isTokenExpired()) {
       console.log("In Cart token is expired")
