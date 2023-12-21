@@ -2,13 +2,8 @@ import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { CartListComponent } from './features/cart/pages/list/list.component';
-import { CreateOrderComponent } from './features/order/pages/create/create.component';
-import { CreateProductComponent } from './features/catalog/pages/create/create.component';
 import { UserRegistrationComponent } from './shared/components/user-registration/user-registration.component';
-import { CatalogListComponent } from './features/catalog/pages/list/list.component';
-import { SellerHomeComponent } from './features/layout/seller/pages/home/home.component';
-import { HomeComponent } from './features/layout/customer/pages/home/home.component';
-import { TableListComponent } from './features/catalog/pages/table-list/table-list.component';
+import { HomeComponent } from './features/layout/customer/pages/home/home.component';import { TableListComponent } from './features/catalog/pages/table-list/table-list.component';
 import { OrderListComponent } from './features/order/pages/list/list.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { CreateAddressComponent } from './features/profile/components/address/create-address/create-address.component';
@@ -28,7 +23,7 @@ import { OrderSuccessComponent } from './features/order/order-success/order-succ
 import { NotificationComponent } from './features/profile/components/notification/notification.component';
 import { LoginComponent } from './shared/components/login/login.component';
 import { LoginPopupComponent } from './shared/components/login/login-popup/login-popup.component';
-import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { CategoryComponent } from './features/catalog/pages/category/category.component';
 const appsRoutes: Routes = [
   // { path: 'cart', component: CartListComponent }, 
   //{ path: 'myorders', component: OrderListComponent },
@@ -42,7 +37,7 @@ const appsRoutes: Routes = [
     path: 'user', component: HomeComponent, children: [
       {
         path: 'list',
-        component: CatalogListComponent,
+        component: CategoryComponent,
 
       },
       {

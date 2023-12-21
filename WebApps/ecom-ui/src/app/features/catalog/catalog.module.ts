@@ -7,6 +7,7 @@ import { TableListComponent } from './pages/table-list/table-list.component';
 import { BasicInfoComponent } from './create/components/basic-info/basic-info.component';
 import { ProductBasicInfoComponent } from './pages/create/components/product-template/product-template.component';
 import { ProductDetailedInfoComponent } from './pages/create/components/product-create/product-create.component';
+import { CategoryComponent } from './pages/category/category.component';
 
 
 
@@ -18,7 +19,8 @@ import { ProductDetailedInfoComponent } from './pages/create/components/product-
     TableListComponent,
     BasicInfoComponent,
     ProductBasicInfoComponent,
-    ProductDetailedInfoComponent
+    ProductDetailedInfoComponent,
+    CategoryComponent
   ],
   imports: [
     CommonModule

@@ -45,6 +45,7 @@ import { NotificationComponent } from './features/profile/components/notificatio
 import { LoginPopupComponent } from './shared/components/login/login-popup/login-popup.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { AppSellerRoutingModule } from './features/layout/seller/app-seller-routing-module';
+import { CategoryComponent } from './features/catalog/pages/category/category.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,6 +89,7 @@ import { AppSellerRoutingModule } from './features/layout/seller/app-seller-rout
     NotificationComponent,
     LoginPopupComponent,
     DashboardComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule,AppSellerRoutingModule

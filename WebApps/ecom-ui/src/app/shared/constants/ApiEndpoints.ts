@@ -31,3 +31,5 @@ export const CART_SERVICE = 'cart-service'
 export const CART = '/cart';
 //Order service
 export const ORDER_SERVICE = 'order-service'
+//Category
+export const CATEGORY_SERVICE = 'category-service'

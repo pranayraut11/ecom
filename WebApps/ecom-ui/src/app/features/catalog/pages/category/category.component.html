@@ -1,0 +1,67 @@
+<div class="homepage">
+    <div class="row">
+        <div class="col-12">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://img.freepik.com/free-vector/horizontal-sale-banner-template_23-2148897328.jpg?w=1060&t=st=1700332612~exp=1700333212~hmac=35f4ad7308d52d987340341cfb86652b6ac1a294edc7ca41a81e5ab09df2cb53"
+                            class="d-block" width="100%" height="360px" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://img.freepik.com/free-psd/summer-sale-70-discount_23-2148476960.jpg?w=1060&t=st=1700332743~exp=1700333343~hmac=1b0c221879fa1cb656a4c9da7399bfc4f2760fed3daa568934bc375ef6f9b231"
+                            class="d-block " width="100%" height="360px" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://img.freepik.com/free-vector/fashion-collection-social-media-cover-template_23-2149988066.jpg?w=1060&t=st=1700332807~exp=1700333407~hmac=5e47b133888218a17b6ed9e20e08b0c426d4ddc01ffa5fef82b5a9c580d451bd"
+                            class="d-block " width="100%" height="360px" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row bannercard">
+        <div class="row">
+            <div class="col-6 fs-5 fw-bold">Best Of Electronics</div>
+        </div>
+        <div class="row">
+            <div *ngFor="let product of category" class="col-2">
+                <div class="block " (click)='goToDetails(product.id)'>
+                    <div class="middle">
+                        <img src="{{product.imageUrl}}" alt="pic" />
+                    </div>
+
+                    <div class="bottom">
+                        <div class="heading"><a>{{product.name}}</a></div>
+                        <div class="price"> {{product.prefix}}  <i class="bi bi-currency-rupee"></i>{{product.amount}}
+                        </div>
+                        <!-- <div class="buttons d-flex flex-row mt-5 gap-3"> <button class="btn btn-dark"
+                            (click)="addToCart(product)">Add to Basket</button> </div> -->
+
+                        <!-- <a class="btn btn-primary btn-lg btn-block buy-now btn-outline-dark" ">
+                        Add to cart <span class="glyphicon glyphicon-triangle-right"></span> -->
+                        <!-- </a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
