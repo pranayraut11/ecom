@@ -3,7 +3,7 @@ import { CartRestService } from 'src/app/shared/services/rest-services/cart-rest
 import { ProductRestService } from 'src/app/shared/services/rest-services/product-rest-service';
 import { Product } from 'src/app/shared/models/product.model';
 import { CartProduct } from 'src/app/shared/models/cart.product.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/features/cart/cart-service';
 
 @Component({
@@ -16,15 +16,19 @@ export class CatalogListComponent implements OnInit {
 
   products: Product[];
 
-  constructor(private productRestService: ProductRestService, private cartRestService: CartRestService,private route: Router,private cartService: CartService) { }
+  product : Product;
+
+
+  constructor(private actRouter : ActivatedRoute,private productRestService: ProductRestService, private cartRestService: CartRestService,private route: Router,private cartService: CartService) { }
 
   ngOnInit(): void {
+    let id = this.actRouter.snapshot.paramMap.get("id");
+    console.log("List category "+id)
     this.productRestService.getProductList().subscribe((product: any[]) => {
       console.log(product);
       this.products = product;
       console.log(this.products);
     });
-
   }
 
   

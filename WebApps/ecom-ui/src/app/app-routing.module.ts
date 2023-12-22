@@ -24,6 +24,7 @@ import { NotificationComponent } from './features/profile/components/notificatio
 import { LoginComponent } from './shared/components/login/login.component';
 import { LoginPopupComponent } from './shared/components/login/login-popup/login-popup.component';
 import { CategoryComponent } from './features/catalog/pages/category/category.component';
+import { CatalogListComponent } from './features/catalog/pages/list/list.component';
 const appsRoutes: Routes = [
   // { path: 'cart', component: CartListComponent }, 
   //{ path: 'myorders', component: OrderListComponent },
@@ -38,6 +39,11 @@ const appsRoutes: Routes = [
       {
         path: 'list',
         component: CategoryComponent,
+
+      },
+      {
+        path: 'list/:id',
+        component: CatalogListComponent,
 
       },
       {

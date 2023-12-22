@@ -29,9 +29,9 @@ export class CategoryComponent implements OnInit {
   }
 
   
-  goToDetails(id: string) {
-    console.log(id);
-    this.route.navigate(['user/list/'+id]);
+  getList(category: string) {
+    console.log(category);
+    this.route.navigate(['user/list/'+category]);
   }
 
 }

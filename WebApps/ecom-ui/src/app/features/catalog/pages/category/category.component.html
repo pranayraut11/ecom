@@ -43,7 +43,7 @@
         </div>
         <div class="row">
             <div *ngFor="let product of category" class="col-2">
-                <div class="block " (click)='goToDetails(product.id)'>
+                <div class="block " (click)='getList(product.name)'>
                     <div class="middle">
                         <img src="{{product.imageUrl}}" alt="pic" />
                     </div>
