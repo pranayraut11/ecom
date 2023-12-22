@@ -17,6 +17,9 @@
 
 }
 
+.hr{
+  border-bottom: 1px solid rgb(203, 198, 198);
+}
 .bannercard {
   margin-top: 10px;
   margin-left: 0%;
@@ -97,3 +100,5 @@
   width: 275px;
   border-radius: 0px !important
 }
+
+

@@ -1,6 +1,54 @@
 <div class="homepage">
     <div class="row">
-        <div class="col-3">Filter</div>
+        <div class="col-3">
+            <div class="bannercard px-4">
+                <div class="row hr py-2" style="font-size: large; font-weight: 450; ">
+                    Filters
+                </div>
+                <div class="row hr py-3">
+                    <div class="row" style="font-size: large; font-weight: 450; ">
+                        Price
+                    </div>
+                    <div class="row">
+                        <div class="col-5" style="text-align: start;">Min</div>
+                        <div class="col-3">{{minPriceRange}}</div>
+
+                        <input type="range" class="form-range" #minRanger (input)="minRange(minRanger.value)" min="100"
+                            max="500" id="customRange2">
+
+
+                        <div class="col-5" style="text-align: start;">Max</div>
+                        <div class="col-3">{{maxPriceRange}}</div>
+                        <input [value]="maxValue" type="range" class="form-range" #maxRanger
+                            (input)="maxRange(maxRanger.value)" min="5" max="500" id="customRange3">
+
+                    </div>
+                </div>
+                <div class="row  ">
+                    <div class="row  py-3 " style="font-size: large; font-weight: 450; ">Brand</div>
+                    <div class="row">
+                        <div class="form-check" style="text-align: start;">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            
+                           Puma
+                           
+                        </div>
+                        <div class="form-check" style="text-align: start;">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            
+                           Nike
+                           
+                        </div>
+                        <div class="form-check" style="text-align: start;">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            
+                           Adidas
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-9">
             <div class="row bannercard">
                 <div class="row">

@@ -18,10 +18,16 @@ export class CatalogListComponent implements OnInit {
 
   product : Product;
 
+  minPriceRange=0;
+  maxPriceRange=0;
+  maxValue=5000;
 
   constructor(private actRouter : ActivatedRoute,private productRestService: ProductRestService, private cartRestService: CartRestService,private route: Router,private cartService: CartService) { }
 
   ngOnInit(): void {
+
+   
+    
     let id = this.actRouter.snapshot.paramMap.get("id");
     console.log("List category "+id)
     this.productRestService.getProductList().subscribe((product: any[]) => {
@@ -29,6 +35,14 @@ export class CatalogListComponent implements OnInit {
       this.products = product;
       console.log(this.products);
     });
+  }
+
+  minRange(valueText:any){
+    this.minPriceRange=valueText;
+  }
+
+  maxRange(valueText:any){
+    this.maxPriceRange=valueText;
   }
 
   
