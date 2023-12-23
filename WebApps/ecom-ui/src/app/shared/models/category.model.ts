@@ -1,19 +1,14 @@
-export class Category{
-    id: string;
-    name: string;
-    amount : number;
-    prefix: string;
-    postfix: string;
-constructor(id: string,
-    name: string,
-    amount : number,
-    prefix: string,
-    postfix: string){
-    this.id=id;
-    this.name= name;
-    this.amount = amount;
-    this.prefix=prefix;
-    this.postfix= postfix;
-}
+import { SubCategory } from "./SubCategory.model"
+
+export class Category {
+
+    private name: string;
+    private subCategories: SubCategory[];
+
+
+	constructor($name: string, $subCategories: SubCategory[]) {
+		this.name = $name;
+		this.subCategories = $subCategories;
+	}
 
 }

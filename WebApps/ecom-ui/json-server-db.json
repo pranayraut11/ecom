@@ -326,34 +326,72 @@
       "id": "lUdUKJV"
     }
   ],
-  "category": [
+  "categories": [
     {
-      "id": "1",
-      "name": "TV",
-      "amount":90,
-      "prefix":"From",
-      "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+      "name": "Electronics",
+      "subCategories": [
+        {
+          "id": "1",
+          "name": "TV",
+          "amount": 90,
+          "prefix": "From",
+          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        },
+        {
+          "id": "2",
+          "name": "Mens TShirt",
+          "amount": 50,
+          "prefix": "From",
+          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        },
+        {
+          "id": "3",
+          "name": "Pets Bed",
+          "amount": 60,
+          "prefix": "From",
+          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        },
+        {
+          "id": "4",
+          "name": "Monitors",
+          "amount": 10,
+          "prefix": "From",
+          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        }
+      ]
     },
     {
-      "id": "2",
-      "name": "Mens TShirt",
-      "amount":50,
-      "prefix":"From",
-      "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-    },
-    {
-      "id": "3",
-      "name": "Pets Bed",
-      "amount":60,
-      "prefix":"From",
-      "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-    },
-    {
-      "id": "4",
-      "name": "Monitors",
-      "amount":10,
-      "prefix":"From",
-      "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+      "name": "Cloths",
+      "subCategories": [
+        {
+          "id": "1",
+          "name": "TV",
+          "amount": 90,
+          "prefix": "From",
+          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        },
+        {
+          "id": "2",
+          "name": "Mens TShirt",
+          "amount": 50,
+          "prefix": "From",
+          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        },
+        {
+          "id": "3",
+          "name": "Pets Bed",
+          "amount": 60,
+          "prefix": "From",
+          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        },
+        {
+          "id": "4",
+          "name": "Monitors",
+          "amount": 10,
+          "prefix": "From",
+          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        }
+      ]
     }
   ]
 }

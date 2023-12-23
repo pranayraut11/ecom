@@ -37,7 +37,7 @@ server.use(jsonServer.rewriter({
   '/user-service/auth/login': '/login',
   '/user-service/address' : '/address',
   '/user-service/address/:id' : '/address/:id',
-  '/category-service/' : '/category'
+  '/category-service/' : '/categories'
 }))
 
 server.use(router)

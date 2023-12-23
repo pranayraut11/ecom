@@ -37,20 +37,20 @@
             </div>
         </div>
     </div>
-    <div class="row bannercard">
+    <div class="row bannercard" *ngFor="let category of categories">
         <div class="row">
-            <div class="col-6 fs-5 fw-bold">Best Of Electronics</div>
+            <div class="col-6 fs-5 fw-bold">{{category.name}}</div>
         </div>
         <div class="row">
-            <div *ngFor="let product of category" class="col-2">
-                <div class="block " (click)='getList(product.name)'>
+            <div  class="col-2" *ngFor="let subCategory of category.subCategories">
+                <div class="block " (click)='getList(subCategory.name)'>
                     <div class="middle">
-                        <img src="{{product.imageUrl}}" alt="pic" />
+                        <img src="{{subCategory.imageUrl}}" alt="pic" />
                     </div>
 
                     <div class="bottom">
-                        <div class="heading"><a>{{product.name}}</a></div>
-                        <div class="price"> {{product.prefix}}  <i class="bi bi-currency-rupee"></i>{{product.amount}}
+                        <div class="heading"><a>{{subCategory.name}}</a></div>
+                        <div class="price"> {{subCategory.prefix}}  <i class="bi bi-currency-rupee"></i>{{subCategory.amount}}
                         </div>
                         <!-- <div class="buttons d-flex flex-row mt-5 gap-3"> <button class="btn btn-dark"
                             (click)="addToCart(product)">Add to Basket</button> </div> -->
