@@ -1,8 +1,8 @@
 package com.ecom.product.integration.controller;
 
 
-import com.ecom.product.controller.ProductController;
 import com.ecom.product.configuration.ContainersConfig;
+import com.ecom.product.controller.ProductController;
 import com.ecom.shared.common.utility.FileUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

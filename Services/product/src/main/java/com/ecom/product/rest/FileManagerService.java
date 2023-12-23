@@ -2,6 +2,7 @@ package com.ecom.product.rest;
 
 import com.ecom.product.constant.APIEndPoints;
 import com.ecom.shared.common.exception.EcomException;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +19,6 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
-import jakarta.validation.constraints.NotEmpty;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -1,6 +1,5 @@
 package com.ecom.product.model;
 
-import com.ecom.product.entity.Price;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
