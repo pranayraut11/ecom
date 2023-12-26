@@ -1,8 +1,11 @@
 package com.ecom.product.controller;
 
 import com.ecom.product.constant.ExceptionCode;
+import com.ecom.product.dto.PageRequest;
+import com.ecom.product.dto.PageResponse;
 import com.ecom.product.dto.PriceDTO;
 import com.ecom.product.dto.ProductDTO;
+import com.ecom.product.entity.Product;
 import com.ecom.product.service.specification.ProductService;
 import com.ecom.shared.common.validation.DtoValidator;
 import com.ecom.shared.common.validation.FileValidation;
@@ -11,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +23,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("product")
+@RequestMapping("products")
 @Slf4j
 public class ProductController {
 
@@ -45,9 +49,9 @@ public class ProductController {
     }
 
     @Operation(summary = "Get all products")
-    @GetMapping()
-    public List<ProductDTO> getAll() {
-        return productService.getAll();
+    @PostMapping("filter")
+    public PageResponse getAll(@RequestBody PageRequest pageRequest) {
+        return productService.getAll(pageRequest);
     }
 
     @Operation(summary = "Delete product and its images")

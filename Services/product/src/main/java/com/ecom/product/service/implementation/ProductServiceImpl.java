@@ -3,30 +3,35 @@ package com.ecom.product.service.implementation;
 import com.ecom.product.constant.Collections;
 import com.ecom.product.constant.LamdaExpressions;
 import com.ecom.product.constant.MessageConstants;
-import com.ecom.product.dto.PriceDTO;
-import com.ecom.product.dto.ProductDTO;
+import com.ecom.product.dto.*;
 import com.ecom.product.entity.Product;
 import com.ecom.product.mappers.specification.PriceMapper;
 import com.ecom.product.mappers.specification.ProductMapper;
-import com.ecom.product.repository.specification.ProductRepository;
+import com.ecom.product.repository.ProductRepository;
 import com.ecom.product.rest.FileManagerService;
 import com.ecom.product.service.specification.ProductService;
+import com.ecom.product.utility.DBCriteriaUtil;
 import com.ecom.shared.common.exception.EcomException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.CriteriaDefinition;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
 
 @Service
 @Slf4j
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepository productRepository;
+    private ProductRepository<Product> productRepository;
 
     private ProductMapper productMapper;
 
@@ -34,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
 
     private FileManagerService fileManagerService;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper, PriceMapper priceMapper, FileManagerService fileManagerService) {
+    public ProductServiceImpl(ProductRepository<Product> productRepository, ProductMapper productMapper, PriceMapper priceMapper, FileManagerService fileManagerService) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
         this.priceMapper = priceMapper;
@@ -47,6 +52,35 @@ public class ProductServiceImpl implements ProductService {
         productRepository.findAll().forEach(product -> productList.add(productMapper.productToProductDTO(product)));
         return productList;
     }
+
+    @Override
+    public PageResponse getAll(PageRequest page) {
+        List<Criteria> andCriterias = new ArrayList<>();
+        List<Criteria> orCriterias = new ArrayList<>();
+        if (Objects.nonNull(page.getAndCriteria())) {
+            page.getAndCriteria().forEach(searchCriteria ->
+                    andCriterias.add(DBCriteriaUtil.buildCriteria(searchCriteria)));
+        }
+        Criteria andCriteria = new Criteria().andOperator(andCriterias.toArray(new Criteria[andCriterias.size()]));
+        if (Objects.nonNull(page.getOrCriteria())) {
+            page.getOrCriteria().forEach(searchCriteria ->
+                    orCriterias.add(DBCriteriaUtil.buildCriteria(searchCriteria)));
+        }
+        Criteria orCriteria = new Criteria().orOperator(orCriterias.toArray(new Criteria[orCriterias.size()]));
+        Query query = null;
+        if (Objects.nonNull(page.getAndCriteria()) && Objects.nonNull(page.getOrCriteria())) {
+            query = Query.query(new Criteria().andOperator(andCriteria).orOperator(orCriteria));
+        } else if (Objects.nonNull(page.getOrCriteria())) {
+            query = Query.query(new Criteria().orOperator(orCriteria));
+        } else if (Objects.nonNull(page.getAndCriteria())) {
+            query = Query.query(new Criteria().andOperator(andCriteria));
+        }
+
+
+        return productRepository.findAll(query, page, Product.class);
+    }
+
+
 
     @Override
     public ProductDTO get(String id) {

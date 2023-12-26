@@ -100,6 +100,16 @@
             <artifactId>spring-boot-testcontainers</artifactId>
             <scope>test</scope>
         </dependency>
+		<dependency>
+		  <groupId>io.mongock</groupId>
+		  <artifactId>mongock-springboot-v3</artifactId>
+		  <version>5.3.6</version>
+		</dependency>
+		<dependency>
+		  <groupId>io.mongock</groupId>
+		  <artifactId>mongodb-springdata-v4-driver</artifactId>
+		  <version>5.3.6</version>
+		</dependency>
     </dependencies>
 
 	<pluginRepositories>
@@ -114,7 +124,7 @@
 	</pluginRepositories>
 
     <dependencyManagement>
-       
+ 
     </dependencyManagement>
     <build>
 
