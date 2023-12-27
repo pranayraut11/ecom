@@ -10,8 +10,10 @@ import com.ecom.product.mappers.specification.ProductMapper;
 import com.ecom.product.repository.ProductRepository;
 import com.ecom.product.rest.FileManagerService;
 import com.ecom.product.service.specification.ProductService;
-import com.ecom.product.utility.DBCriteriaUtil;
+import com.ecom.shared.common.dto.PageRequest;
+import com.ecom.shared.common.dto.PageResponse;
 import com.ecom.shared.common.exception.EcomException;
+import com.ecom.shared.common.utility.DBCriteriaUtil;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -55,29 +57,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PageResponse getAll(PageRequest page) {
-        List<Criteria> andCriterias = new ArrayList<>();
-        List<Criteria> orCriterias = new ArrayList<>();
-        if (Objects.nonNull(page.getAndCriteria())) {
-            page.getAndCriteria().forEach(searchCriteria ->
-                    andCriterias.add(DBCriteriaUtil.buildCriteria(searchCriteria)));
-        }
-        Criteria andCriteria = new Criteria().andOperator(andCriterias.toArray(new Criteria[andCriterias.size()]));
-        if (Objects.nonNull(page.getOrCriteria())) {
-            page.getOrCriteria().forEach(searchCriteria ->
-                    orCriterias.add(DBCriteriaUtil.buildCriteria(searchCriteria)));
-        }
-        Criteria orCriteria = new Criteria().orOperator(orCriterias.toArray(new Criteria[orCriterias.size()]));
-        Query query = null;
-        if (Objects.nonNull(page.getAndCriteria()) && Objects.nonNull(page.getOrCriteria())) {
-            query = Query.query(new Criteria().andOperator(andCriteria).orOperator(orCriteria));
-        } else if (Objects.nonNull(page.getOrCriteria())) {
-            query = Query.query(new Criteria().orOperator(orCriteria));
-        } else if (Objects.nonNull(page.getAndCriteria())) {
-            query = Query.query(new Criteria().andOperator(andCriteria));
-        }
 
 
-        return productRepository.findAll(query, page, Product.class);
+
+        return productRepository.findAll(DBCriteriaUtil.getQuery(page), page, Product.class);
     }
 
 

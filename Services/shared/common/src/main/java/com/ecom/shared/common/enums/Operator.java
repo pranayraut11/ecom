@@ -1,4 +1,4 @@
-package com.ecom.product.dto;
+package com.ecom.shared.common.enums;
 
 import lombok.Getter;
 

@@ -1,12 +1,9 @@
 package com.ecom.product.service.specification;
 
-import com.ecom.product.dto.PageRequest;
-import com.ecom.product.dto.PageResponse;
 import com.ecom.product.dto.PriceDTO;
 import com.ecom.product.dto.ProductDTO;
-import com.ecom.product.entity.Product;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.ecom.shared.common.dto.PageRequest;
+import com.ecom.shared.common.dto.PageResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
