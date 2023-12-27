@@ -1,9 +1,7 @@
-package com.ecom.product.dto;
+package com.ecom.shared.common.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
 

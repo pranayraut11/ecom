@@ -1,11 +1,12 @@
-package com.ecom.product.utility;
+package com.ecom.shared.common.utility;
 
-import com.ecom.product.dto.Operator;
-import com.ecom.product.dto.SearchCriteria;
+import com.ecom.shared.common.dto.PageRequest;
+import com.ecom.shared.common.dto.SearchCriteria;
+import com.ecom.shared.common.enums.Operator;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 public class DBCriteriaUtil {
@@ -24,6 +25,30 @@ public class DBCriteriaUtil {
 
     }
 
+    public static Query getQuery(PageRequest page){
+        List<Criteria> andCriterias = new ArrayList<>();
+        List<Criteria> orCriterias = new ArrayList<>();
+        if (Objects.nonNull(page.getAndCriteria())) {
+            page.getAndCriteria().forEach(searchCriteria ->
+                    andCriterias.add(DBCriteriaUtil.buildCriteria(searchCriteria)));
+        }
+        Criteria andCriteria = new Criteria().andOperator(andCriterias.toArray(new Criteria[andCriterias.size()]));
+        if (Objects.nonNull(page.getOrCriteria())) {
+            page.getOrCriteria().forEach(searchCriteria ->
+                    orCriterias.add(DBCriteriaUtil.buildCriteria(searchCriteria)));
+        }
+        Criteria orCriteria = new Criteria().orOperator(orCriterias.toArray(new Criteria[orCriterias.size()]));
+        Query query = null;
+        if (Objects.nonNull(page.getAndCriteria()) && Objects.nonNull(page.getOrCriteria())) {
+            query = Query.query(new Criteria().andOperator(andCriteria).orOperator(orCriteria));
+        } else if (Objects.nonNull(page.getOrCriteria())) {
+            query = Query.query(new Criteria().orOperator(orCriteria));
+        } else if (Objects.nonNull(page.getAndCriteria())) {
+            query = Query.query(new Criteria().andOperator(andCriteria));
+        }
+
+        return query;
+    }
     public static Criteria buildCriteria(SearchCriteria condition) {
         Function<SearchCriteria, Criteria>
                 function = FILTER_CRITERIA.get(condition.getOperator());

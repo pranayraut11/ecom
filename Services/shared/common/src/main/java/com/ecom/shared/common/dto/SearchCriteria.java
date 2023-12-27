@@ -1,5 +1,6 @@
-package com.ecom.product.dto;
+package com.ecom.shared.common.dto;
 
+import com.ecom.shared.common.enums.Operator;
 import lombok.Data;
 
 @Data

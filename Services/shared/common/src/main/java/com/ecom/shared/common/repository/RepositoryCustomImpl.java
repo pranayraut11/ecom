@@ -1,7 +1,6 @@
-package com.ecom.product.repository.implementation;
+package com.ecom.shared.common.repository;
 
-import com.ecom.product.dto.PageResponse;
-import com.ecom.product.repository.ProductRepositoryCustom;
+import com.ecom.shared.common.dto.PageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -10,11 +9,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 
 @Component
-public class ProductRepositoryCustomImpl<T> implements ProductRepositoryCustom<T> {
+public class RepositoryCustomImpl<T> implements RepositoryCustom<T> {
 
     @Autowired
     private MongoTemplate mongoTemplate;
