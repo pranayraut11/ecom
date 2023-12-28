@@ -4,16 +4,17 @@ import { Product } from "src/app/shared/models/product.model";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { PRODUCT, PRODUCT_SERVICE, SEARCH } from "../../constants/ApiEndpoints";
+import { Page } from "../../models/Page.model";
 
 @Injectable({ "providedIn": "root" })
 export class ProductRestService {
 
   constructor(private rest: HttpClient) { }
 
-  getProductList(): Observable<Product[]> {
+  getProductList(): Observable<Page> {
      const headers = new HttpHeaders()
      .set("X-CustomHeader", "none");
-    return this.rest.get<Product[]>(environment.baseURL + PRODUCT_SERVICE+PRODUCT,{headers});
+    return this.rest.get<any>(environment.baseURL + PRODUCT_SERVICE+PRODUCT,{headers});
   }
 
   getProduct(id:string): Observable<Product> {

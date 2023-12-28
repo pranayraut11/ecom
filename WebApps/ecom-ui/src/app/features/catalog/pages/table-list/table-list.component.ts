@@ -15,7 +15,7 @@ export class TableListComponent implements OnInit {
   constructor(private productRestService: ProductRestService) { }
 
   ngOnInit(): void {
-    this.productRestService.getProductList().subscribe((product: Product[]) => {
+    this.productRestService.getProductList().subscribe((product: any) => {
       console.log(product);
      
       this.products = product;

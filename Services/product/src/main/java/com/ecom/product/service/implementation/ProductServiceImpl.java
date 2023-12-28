@@ -57,9 +57,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public PageResponse getAll(PageRequest page) {
-
-
-
         return productRepository.findAll(DBCriteriaUtil.getQuery(page), page, Product.class);
     }
 

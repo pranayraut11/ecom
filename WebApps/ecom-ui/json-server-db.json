@@ -52,92 +52,100 @@
       ]
     }
   ],
-  "product": [
-    {
-      "id": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "description": "First product desc",
-      "price": {
-        "price": "567",
-        "discountedPrice": "756",
-        "discount": "0"
+  "product": {
+    "totalElements":20,
+    "totalPages":2,
+    "first":true,
+    "last":false,
+    "size":10,
+    "number":1,
+    "data": [
+      {
+        "id": "SAMSUNG tv",
+        "name": "SAMSUNG tv",
+        "description": "First product desc",
+        "price": {
+          "price": "567",
+          "discountedPrice": "756",
+          "discount": "0"
+        },
+        "images": [
+          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        ],
+        "_class": "com.ecom.product.entity.Product"
       },
-      "images": [
-        "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-      ],
-      "_class": "com.ecom.product.entity.Product"
-    },
-    {
-      "id": "Videocon",
-      "name": "Videocon",
-      "description": "First product desc",
-      "price": {
-        "price": "567",
-        "discountedPrice": "756",
-        "discount": "0"
+      {
+        "id": "Videocon",
+        "name": "Videocon",
+        "description": "First product desc",
+        "price": {
+          "price": "567",
+          "discountedPrice": "756",
+          "discount": "0"
+        },
+        "images": [
+          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        ],
+        "_class": "com.ecom.product.entity.Product"
       },
-      "images": [
-        "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-      ],
-      "_class": "com.ecom.product.entity.Product"
-    },
-    {
-      "id": "LG",
-      "name": "LG",
-      "description": "First product desc",
-      "price": {
-        "price": "567",
-        "discountedPrice": "756",
-        "discount": "0"
+      {
+        "id": "LG",
+        "name": "LG",
+        "description": "First product desc",
+        "price": {
+          "price": "567",
+          "discountedPrice": "756",
+          "discount": "0"
+        },
+        "images": [
+          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        ],
+        "_class": "com.ecom.product.entity.Product"
       },
-      "images": [
-        "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-      ],
-      "_class": "com.ecom.product.entity.Product"
-    },
-    {
-      "id": "One plus",
-      "name": "One plus",
-      "description": "First product desc",
-      "price": {
-        "price": "567",
-        "discountedPrice": "756",
-        "discount": "0"
+      {
+        "id": "One plus",
+        "name": "One plus",
+        "description": "First product desc",
+        "price": {
+          "price": "567",
+          "discountedPrice": "756",
+          "discount": "0"
+        },
+        "images": [
+          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        ],
+        "_class": "com.ecom.product.entity.Product"
       },
-      "images": [
-        "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-      ],
-      "_class": "com.ecom.product.entity.Product"
-    },
-    {
-      "id": "RealMe",
-      "name": "RealMe",
-      "description": "First product desc",
-      "price": {
-        "price": "567",
-        "discountedPrice": "756",
-        "discount": "0"
+      {
+        "id": "RealMe",
+        "name": "RealMe",
+        "description": "First product desc",
+        "price": {
+          "price": "567",
+          "discountedPrice": "756",
+          "discount": "0"
+        },
+        "images": [
+          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        ],
+        "_class": "com.ecom.product.entity.Product"
       },
-      "images": [
-        "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-      ],
-      "_class": "com.ecom.product.entity.Product"
-    },
-    {
-      "id": "README",
-      "name": "README",
-      "description": "First product desc",
-      "price": {
-        "price": "567",
-        "discountedPrice": "756",
-        "discount": "0"
-      },
-      "images": [
-        "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-      ],
-      "_class": "com.ecom.product.entity.Product"
-    }
-  ],
+      {
+        "id": "README",
+        "name": "README",
+        "description": "First product desc",
+        "price": {
+          "price": "567",
+          "discountedPrice": "756",
+          "discount": "0"
+        },
+        "images": [
+          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+        ],
+        "_class": "com.ecom.product.entity.Product"
+      }
+    ]
+  },
   "orders": [],
   "users": [
     {
@@ -229,27 +237,6 @@
       "landmark": "Sarkar chowk"
     },
     {
-      "id": "254123c8-39e8-4b49-ba6b-ddcea47ae74b",
-      "firstName": "Pranay",
-      "lastName": "Raut",
-      "addressLine1": "VMV ROAD NAVSARI STOP",
-      "addressLine2": "rty",
-      "city": "AMRAVATI",
-      "state": "Maharastra",
-      "pincode": 411067,
-      "defaultAddress": false,
-      "type": "Home"
-    },
-    {
-      "id": "CIpSI_N",
-      "addressLine1": "VMV ROAD NAVSARI STOP",
-      "addressLine2": "12344",
-      "city": "AMRAVATI",
-      "state": "Maharastra",
-      "mobile": "7507849345",
-      "type": "Office"
-    },
-    {
       "id": "_nppaSW"
     }
   ],
@@ -270,51 +257,6 @@
       "expires_in": "123123123123",
       "roles": "['seller']",
       "id": "_edaf7y"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": [
-        "user"
-      ],
-      "id": "UT5g5Uk"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": [
-        "user"
-      ],
-      "id": "1mIoCF0"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": [
-        "user"
-      ],
-      "id": "A2YN32o"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": [
-        "user"
-      ],
-      "id": "YqRvXge"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": [
-        "user"
-      ],
-      "id": "EiFQR1O"
     },
     {
       "access_token": "asdsadasd",
