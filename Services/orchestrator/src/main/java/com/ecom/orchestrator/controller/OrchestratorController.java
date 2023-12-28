@@ -1,6 +1,7 @@
 package com.ecom.orchestrator.controller;
 
 import com.ecom.orchestrator.dto.OrchestratorRequest;
+import com.ecom.orchestrator.dto.OrchestratorRequestDTO;
 import com.ecom.orchestrator.dto.OrderRequest;
 import com.ecom.orchestrator.dto.OrderResponse;
 import com.ecom.orchestrator.service.specification.order.OrchestratorService;
@@ -20,7 +21,7 @@ public class OrchestratorController {
     private OrchestratorService orchestratorService;
 
     @PostMapping("order")
-    public void createOrder(@RequestBody OrderRequest orderRequest) {
+    public void createOrder(@RequestBody final OrchestratorRequestDTO orderRequest) {
           orchestratorService.createTransaction(orderRequest);
     }
 }

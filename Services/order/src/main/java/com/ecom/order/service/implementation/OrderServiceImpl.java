@@ -70,47 +70,44 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
 
     @Override
     public void createOrder(CreateOrderDTO createOrderDTO) {
-
-        log.info("Creating order for {} and for cart {}  ", UserDetails.getUserId(), createOrderDTO.getId());
+        String id = createOrderDTO.getId();
+        log.info("Creating order for {} and for cart {}  ", UserDetails.getUserId(), id);
         String orderID = UUID.randomUUID().toString();
-        List<Product> products;
-        // Get user details from user service
+        List<Product> products = getProducts(createOrderDTO);
 
-        // Get seller details from user service
+        //Check inventory
+        List<InventoryDTO> productsWithSeller = products.stream().map(product -> InventoryDTO.builder().productId(product.getProductId()).userId(product.getSeller().getSellerId()).build()).collect(Collectors.toList());
+        List<String> unavailableProducts = inventoryRestService.checkStockAvailability(productsWithSeller);
+        // If all products are available then create order otherwise throw an error
+        if (unavailableProducts.isEmpty()) {
+            // Build order object
+            Order order = Order.builder().orderId(orderID).userId("pranay1@gmail.com").products(products).build();
+            // Save order object
+            log.info("Saving order for id {} ...", id);
+            create(order);
+            log.info("Successfully saved order for cart {} ", id);
+            if (!createOrderDTO.isBuyNow()) {
+                log.info("Deleting cart {} ...", id);
+                cartRestService.deleteCart(id);
+                log.info("Cart deleted successfully {}", id);
+            }
+        } else {
+            throw new EcomException(HttpStatus.NOT_FOUND, "");
+        }
+    }
+
+    private List<Product> getProducts(CreateOrderDTO createOrderDTO) {
+        List<Product> products = null;
         if (createOrderDTO.isBuyNow()) {
             log.info("Getting product details for cart {} ", createOrderDTO.getId());
             products = productRestService.getProducts(List.of(createOrderDTO.getId()));
             log.info("Product details retrieved successfully for cart {} ", createOrderDTO.getId());
         } else {
             // Get cart details from cart service
-
             Cart cart = cartRestService.getCart();
             products = cart.getProducts();
-            // List<String> productIds = cart.getProducts().stream().map(product -> product.getProductId()).collect(Collectors.toList());
-
-
-            // Get Product details from product service
-
-            //List<Product> products =  productRestService.getProducts(productIds);
-            List<InventoryDTO> productsWithSeller = products.stream().map(product -> InventoryDTO.builder().productId(product.getProductId()).userId(product.getSeller().getSellerId()).build()).collect(Collectors.toList());
-            List<String> unavailableProducts = inventoryRestService.checkStockAvailability(productsWithSeller);
-            if (unavailableProducts.isEmpty()) {
-                // Build order object
-                Order order = Order.builder().orderId(orderID).userId("pranay1@gmail.com").products(products).build();
-                // Save order object
-                log.info("Saving order for cart {} ...", createOrderDTO.getId());
-                orderRepository.save(order);
-                log.info("Successfully saved order for cart {} ", createOrderDTO.getId());
-                log.info("Deleting cart {} ...", createOrderDTO.getId());
-                cartRestService.deleteCart(cart.getId());
-                log.info("Cart deleted successfully {}", createOrderDTO.getId());
-            }else{
-                throw new EcomException(HttpStatus.NOT_FOUND,"");
-            }
-
         }
-
-
+        return products;
     }
 
     @Override

@@ -2,11 +2,10 @@ package com.ecom.orchestrator.service.implementation.order;
 
 import com.ecom.orchestrator.service.specification.order.Workflow;
 import com.ecom.orchestrator.service.specification.order.WorkflowStep;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public class OrderWorkflow implements Workflow {
 
     private List<WorkflowStep> orderWorkflowSteps;
@@ -18,6 +17,7 @@ public class OrderWorkflow implements Workflow {
 
     @Override
     public List<WorkflowStep> getWorkflowSteps() {
-        return  this.orderWorkflowSteps;
+        return this.orderWorkflowSteps;
     }
+
 }
