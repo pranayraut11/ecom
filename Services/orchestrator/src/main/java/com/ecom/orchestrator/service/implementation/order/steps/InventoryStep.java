@@ -1,13 +1,11 @@
 package com.ecom.orchestrator.service.implementation.order.steps;
 
-import com.ecom.orchestrator.constants.enums.InventoryStatus;
-import com.ecom.orchestrator.constants.enums.WorkflowStepStatus;
-import com.ecom.orchestrator.dto.InventoryRequest;
-import com.ecom.orchestrator.dto.InventoryRequestDTO;
+import com.ecom.orchestrator.enums.InventoryStatus;
+import com.ecom.orchestrator.enums.WorkflowStepStatus;
 import com.ecom.orchestrator.dto.InventoryResponse;
 import com.ecom.orchestrator.service.specification.order.WorkflowStep;
+import com.ecom.shared.common.dto.InventoryRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -17,9 +15,9 @@ public class InventoryStep implements WorkflowStep {
 
     private WebClient webClient;
     private WorkflowStepStatus workflowStepStatus = WorkflowStepStatus.INITIATED;
-    private InventoryRequestDTO inventoryRequest;
+    private InventoryRequest inventoryRequest;
 
-    public InventoryStep(WebClient webClient, InventoryRequestDTO inventoryRequest) {
+    public InventoryStep(WebClient webClient, InventoryRequest inventoryRequest) {
         this.webClient = webClient;
         this.inventoryRequest = inventoryRequest;
     }

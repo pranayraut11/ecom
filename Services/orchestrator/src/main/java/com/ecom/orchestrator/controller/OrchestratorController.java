@@ -1,17 +1,12 @@
 package com.ecom.orchestrator.controller;
 
-import com.ecom.orchestrator.dto.OrchestratorRequest;
-import com.ecom.orchestrator.dto.OrchestratorRequestDTO;
-import com.ecom.orchestrator.dto.OrderRequest;
-import com.ecom.orchestrator.dto.OrderResponse;
 import com.ecom.orchestrator.service.specification.order.OrchestratorService;
+import com.ecom.shared.common.dto.OrderOrchestratorRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
-import reactor.core.publisher.Sinks;
 
 @RestController
 @RequestMapping("orchestrate")
@@ -21,7 +16,7 @@ public class OrchestratorController {
     private OrchestratorService orchestratorService;
 
     @PostMapping("order")
-    public void createOrder(@RequestBody final OrchestratorRequestDTO orderRequest) {
+    public void createOrder(@RequestBody final OrderOrchestratorRequestDTO orderRequest) {
           orchestratorService.createTransaction(orderRequest);
     }
 }

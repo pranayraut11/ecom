@@ -1,7 +1,7 @@
 package com.ecom.orchestrator.rest;
 
-import com.ecom.orchestrator.dto.PaymentRequest;
 import com.ecom.orchestrator.dto.PaymentResponse;
+import com.ecom.shared.common.dto.PaymentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

@@ -9,13 +9,13 @@ import com.ecom.user.repository.UserRepository;
 import com.ecom.user.rest.KeycloakAuthService;
 import com.ecom.user.service.specification.UserService;
 import com.ecom.user.utils.UserUtils;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.common.VerificationException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 
 @Service
 @Slf4j
@@ -56,7 +56,11 @@ public class UserServiceImpl implements UserService {
         userClientCredentials.setUsername(user.getUsername());
         userClientCredentials.setPassword(UserUtils.getPassword(user.getCredentials()));
         TokenDetails newlyCreatedUserToken = keycloakAuthService.login(userClientCredentials, realm);
-        com.ecom.shared.common.dto.UserDetails.setUserInfo(newlyCreatedUserToken.getAccess_token());
+        try {
+            com.ecom.shared.common.dto.UserDetails.setUserInfo(newlyCreatedUserToken.getAccess_token());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         user.setUserId(com.ecom.shared.common.dto.UserDetails.getUserId());
         user.setCredentials(null);
         userRepository.save(user);

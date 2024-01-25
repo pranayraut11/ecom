@@ -66,7 +66,7 @@ public class KeycloakAuthService {
             }
             return details;
         } else {
-            throw new EcomException(tokenDetails.getStatusCode(), AUTH_ERR_001,"message",false);
+            throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, AUTH_ERR_001);
         }
     }
 
@@ -82,7 +82,7 @@ public class KeycloakAuthService {
         if (tokenDetails.getStatusCode().equals(HttpStatus.CREATED)) {
             log.info("User : {} created successfully ",user);
         } else {
-            throw new EcomException(tokenDetails.getStatusCode(),AUTH_ERR_001,"message",false);
+            throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR,AUTH_ERR_001);
         }
     }
 
@@ -97,7 +97,7 @@ public class KeycloakAuthService {
         if ( logoutResponse.getStatusCode().is2xxSuccessful()) {
             log.info("Successfulley logged out from Keycloak");
         } else {
-            throw new EcomException(logoutResponse.getStatusCode(),AUTH_ERR_001,"message",false);
+            throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR,AUTH_ERR_001);
         }
     }
 

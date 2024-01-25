@@ -2,14 +2,12 @@ package com.ecom.user.controller;
 
 import com.ecom.user.dto.Login;
 import com.ecom.user.dto.TokenDetails;
-import com.ecom.user.rest.KeycloakAuthService;
 import com.ecom.user.service.specification.AuthService;
 import org.keycloak.common.VerificationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("auth")

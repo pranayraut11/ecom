@@ -6,6 +6,6 @@ com/ecom/inventory/constants/Operation.class
 com/ecom/inventory/config/ImportConfig.class
 com/ecom/inventory/repository/InventoryRepository.class
 com/ecom/inventory/service/implementation/InventoryServiceImpl.class
-com/ecom/inventory/entity/ProductInventory.class
-com/ecom/inventory/dto/InventoryResponse.class
 com/ecom/inventory/dto/InventoryDTO.class
+com/ecom/inventory/dto/InventoryResponse.class
+com/ecom/inventory/entity/ProductInventory.class

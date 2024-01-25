@@ -1,9 +1,9 @@
 package com.ecom.user.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor

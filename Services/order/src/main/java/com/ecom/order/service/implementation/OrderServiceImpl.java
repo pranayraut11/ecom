@@ -5,20 +5,28 @@ import com.ecom.order.dto.CreateOrderDTO;
 import com.ecom.order.dto.InventoryDTO;
 import com.ecom.order.dto.OrderDTO;
 import com.ecom.order.entity.Order;
+import com.ecom.order.messages.producer.OrderProducer;
 import com.ecom.order.model.Product;
 import com.ecom.order.repository.OrderRepository;
 import com.ecom.order.rest.CartRestService;
 import com.ecom.order.rest.InventoryRestService;
 import com.ecom.order.rest.ProductRestService;
 import com.ecom.order.service.specification.OrderService;
+import com.ecom.shared.common.dto.InventoryRequest;
+import com.ecom.shared.common.dto.OrderOrchestratorRequestDTO;
+import com.ecom.shared.common.dto.PaymentRequest;
 import com.ecom.shared.common.dto.UserDetails;
+import com.ecom.shared.common.enums.PaymentMode;
 import com.ecom.shared.common.exception.EcomException;
 import com.ecom.shared.common.service.BaseService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +48,12 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
 
     @Autowired
     private InventoryRestService inventoryRestService;
+
+    @Autowired
+    private OrderProducer orderProducer;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public List<Order> getAll() {
@@ -72,7 +86,7 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
     public void createOrder(CreateOrderDTO createOrderDTO) {
         String id = createOrderDTO.getId();
         log.info("Creating order for {} and for cart {}  ", UserDetails.getUserId(), id);
-        String orderID = UUID.randomUUID().toString();
+        UUID orderID = UUID.randomUUID();
         List<Product> products = getProducts(createOrderDTO);
 
         //Check inventory
@@ -90,6 +104,17 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
                 log.info("Deleting cart {} ...", id);
                 cartRestService.deleteCart(id);
                 log.info("Cart deleted successfully {}", id);
+            }
+            OrderOrchestratorRequestDTO orchestratorRequestDTO = OrderOrchestratorRequestDTO.builder()
+                    .orderId(order.getOrderId()).userId("pranay1@gmail.com").
+                    payment(PaymentRequest.builder().orderId(orderID).paymentMode(PaymentMode.UPI).
+                            paymentServiceProvider("PHONEPAY").amount(BigDecimal.TEN).build()).amount(BigDecimal.TEN).
+                    inventory(InventoryRequest.builder().userId("pranay1@gmail.com").
+                            products(List.of(com.ecom.shared.common.dto.Product.builder().id("ppq").quantity(2).build())).build()).build();
+            try {
+                orderProducer.sendOrder(objectMapper.writeValueAsString(orchestratorRequestDTO));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
             }
         } else {
             throw new EcomException(HttpStatus.NOT_FOUND, "");

@@ -1,10 +1,11 @@
 package com.ecom.payment.dto;
 
 import com.ecom.payment.constants.enums.PaymentMode;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
 import java.math.BigInteger;
 
 @Data

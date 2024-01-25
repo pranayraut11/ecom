@@ -4,6 +4,7 @@ import com.ecom.order.dto.InventoryDTO;
 import com.ecom.shared.common.exception.EcomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Elements;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -33,7 +34,7 @@ public class InventoryRestService {
         try {
             return webClient.post().uri(uriComponents.toUri()).body(BodyInserters.fromValue(inventoryDTO)).retrieve().bodyToMono(List.class).block();
         } catch (WebClientResponseException we) {
-            throw new EcomException(we.getStatusCode(), "INVN_0001", we.getMessage(), false);
+            throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, "INVN_0001");
         }
     }
 

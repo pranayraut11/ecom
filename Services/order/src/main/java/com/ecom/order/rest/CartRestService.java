@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Elements;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -33,7 +34,7 @@ public class CartRestService {
         try {
             cart = webClient.method(HttpMethod.GET).uri(getUriComponent(APIEndPoints.CART_PRODUCT_URL).build().toUri()).retrieve().bodyToMono(Cart.class).block();
         } catch (WebClientResponseException we) {
-            throw new EcomException(we.getStatusCode(), "AUTH_0004", we.getMessage(), false);
+            throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH_0004");
         }
         return cart;
     }
@@ -42,7 +43,7 @@ public class CartRestService {
         try {
             webClient.method(HttpMethod.DELETE).uri(getUriComponent(APIEndPoints.CART_BASE_URL).path("/"+id).build().toUri()).retrieve().bodyToMono(Void.class).block();
         } catch (WebClientResponseException we) {
-            throw new EcomException(we.getStatusCode(), "AUTH_0004", we.getMessage(), false);
+            throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH_0004");
         }
     }
 }

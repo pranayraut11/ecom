@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Elements;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -35,7 +36,7 @@ public class ProductRestService {
         try {
             products = webClient.method(HttpMethod.POST).uri(getUriComponent(APIEndPoints.PRODUCT_BASE_URL).build().toUri()).body(BodyInserters.fromValue(productIds)).retrieve().bodyToMono(List.class).block();
         } catch (WebClientResponseException we) {
-            throw new EcomException(we.getStatusCode(), "AUTH_0004", we.getMessage(), false);
+            throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, "AUTH_0004");
         }
         return products;
     }

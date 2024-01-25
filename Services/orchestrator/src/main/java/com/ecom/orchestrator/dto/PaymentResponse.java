@@ -1,6 +1,6 @@
 package com.ecom.orchestrator.dto;
 
-import com.ecom.orchestrator.constants.enums.PaymentStatus;
+import com.ecom.orchestrator.enums.PaymentStatus;
 import lombok.Data;
 
 @Data

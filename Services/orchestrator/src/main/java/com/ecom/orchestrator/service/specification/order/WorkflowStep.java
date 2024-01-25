@@ -1,6 +1,6 @@
 package com.ecom.orchestrator.service.specification.order;
 
-import com.ecom.orchestrator.constants.enums.WorkflowStepStatus;
+import com.ecom.orchestrator.enums.WorkflowStepStatus;
 import reactor.core.publisher.Mono;
 
 public interface WorkflowStep {

@@ -2,9 +2,7 @@ package com.ecom.user.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import javax.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor

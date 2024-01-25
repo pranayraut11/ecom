@@ -1,10 +1,10 @@
 package com.ecom.orchestrator.service.implementation.order.steps;
 
-import com.ecom.orchestrator.constants.enums.PaymentStatus;
-import com.ecom.orchestrator.constants.enums.WorkflowStepStatus;
+import com.ecom.orchestrator.enums.PaymentStatus;
+import com.ecom.orchestrator.enums.WorkflowStepStatus;
 import com.ecom.orchestrator.dto.InventoryResponse;
-import com.ecom.orchestrator.dto.PaymentRequestDTO;
 import com.ecom.orchestrator.service.specification.order.WorkflowStep;
+import com.ecom.shared.common.dto.PaymentRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -15,9 +15,9 @@ public class PaymentStep implements WorkflowStep {
 
     private WebClient webClient;
     private WorkflowStepStatus workflowStepStatus = WorkflowStepStatus.INITIATED;
-    private PaymentRequestDTO orderRequest;
+    private PaymentRequest orderRequest;
 
-    public PaymentStep(WebClient webClient, PaymentRequestDTO orderRequest) {
+    public PaymentStep(WebClient webClient, PaymentRequest orderRequest) {
         this.webClient = webClient;
         this.orderRequest = orderRequest;
     }

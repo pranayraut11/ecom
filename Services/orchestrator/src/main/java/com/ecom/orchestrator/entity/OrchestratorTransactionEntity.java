@@ -1,7 +1,7 @@
 package com.ecom.orchestrator.entity;
 
-import com.ecom.orchestrator.constants.enums.TransactionName;
-import com.ecom.orchestrator.constants.enums.WorkflowStepStatus;
+import com.ecom.orchestrator.enums.TransactionName;
+import com.ecom.orchestrator.enums.WorkflowStepStatus;
 import com.ecom.shared.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;

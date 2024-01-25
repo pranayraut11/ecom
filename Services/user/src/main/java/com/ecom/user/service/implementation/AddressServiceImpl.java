@@ -5,13 +5,13 @@ import com.ecom.user.entity.UserDetails;
 import com.ecom.user.model.Address;
 import com.ecom.user.repository.UserRepository;
 import com.ecom.user.service.specification.AddressService;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;

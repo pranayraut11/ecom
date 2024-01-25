@@ -1,7 +1,7 @@
 package com.ecom.orchestrator.rest;
 
-import com.ecom.orchestrator.dto.InventoryRequest;
 import com.ecom.orchestrator.dto.InventoryResponse;
+import com.ecom.shared.common.dto.InventoryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

@@ -2,9 +2,9 @@ package com.ecom.user.utils;
 
 import com.ecom.shared.common.exception.EcomException;
 import com.ecom.user.model.Credential;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.http.HttpStatus;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.stream.Collectors;
 
