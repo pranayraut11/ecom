@@ -1,0 +1,59 @@
+server:
+  port: 8086
+############## Database #################
+spring:
+  application:
+    name: catalog-service
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://127.0.0.1:27017/?compressors=zlib&readPreference=primary&gssapiServiceName=mongodb&appname=MongoDB%20Compass&ssl=false
+      database: product
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:6080/realms/master
+          jwk-set-uri: http://localhost:6080/realms/master/protocol/openid-connect/certs
+####### Enable/Disable API security
+security:
+  enabled: true
+########################### security details ##################
+
+####################### In-house Service details ########################
+app:
+  service:
+    filemanager:
+      host: localhost
+      port: 9090
+
+########################## Spring ########################
+#spring.jackson.serialization.fail-on-empty-beans=false
+#spring.main.allow-bean-definition-overriding=true
+
+logging:
+  level:
+    com:
+      ecom: debug
+
+###################### Mongock data init #################
+mongock:
+  enabled: false
+  migrationScanPackage: com.ecom.product.initdata
+
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+    url: http://localhost:4317/v1/traces
+  endpoints:
+    web:
+      exposure.include: prometheus
+    prometheus:
+      enabled: true
+
+

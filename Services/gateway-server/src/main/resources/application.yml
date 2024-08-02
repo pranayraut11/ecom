@@ -1,0 +1,22 @@
+server:
+  port: 6061
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      httpclient:
+        connect-timeout: 5000
+        response-timeout: 5s
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true

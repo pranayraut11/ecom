@@ -3,7 +3,9 @@ package com.ecom.shared.common.exception;
 import com.ecom.shared.common.config.i18.Translator;
 import com.ecom.shared.common.dto.ApiError;
 import com.ecom.shared.common.dto.ApiSubError;
+import com.ecom.shared.common.enums.DatabaseExceptionErrorCode;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.mongodb.MongoTimeoutException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,11 @@ public class EcomExceptionHandler {
     @ExceptionHandler(value = HttpClientErrorException.class)
     public ResponseEntity<ApiError> handleHttpClientErrorException(HttpClientErrorException httpClientErrorException) {
         return ResponseEntity.status(httpClientErrorException.getStatusCode()).body(new ApiError(httpClientErrorException.getStatusCode(), httpClientErrorException.getLocalizedMessage()));
+    }
+
+    @ExceptionHandler(value = MongoTimeoutException.class)
+    public ResponseEntity<ApiError> handleMongoTimeoutException(MongoTimeoutException exception) {
+        return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(new ApiError(HttpStatus.REQUEST_TIMEOUT, DatabaseExceptionErrorCode.DATABASE_CONNECTION_TIMEOUT.getErrorCode(), exception.getMessage()));
     }
 
     @ExceptionHandler(value = IllegalArgumentException.class)

@@ -4,7 +4,7 @@ import com.ecom.product.constant.ExceptionCode;
 import com.ecom.product.dto.PriceDTO;
 import com.ecom.product.dto.ProductDTO;
 import com.ecom.product.service.specification.ProductService;
-import com.ecom.shared.common.dto.PageRequest;
+import com.ecom.shared.common.dto.PageRequestDTO;
 import com.ecom.shared.common.dto.PageResponse;
 import com.ecom.shared.common.validation.DtoValidator;
 import com.ecom.shared.common.validation.FileValidation;
@@ -48,8 +48,8 @@ public class ProductController {
 
     @Operation(summary = "Get all products")
     @PostMapping("filter")
-    public PageResponse getAll(@RequestBody PageRequest pageRequest) {
-        return productService.getAll(pageRequest);
+    public PageResponse getAll(@RequestBody PageRequestDTO pageRequestDTO) {
+        return productService.getAll(pageRequestDTO);
     }
 
     @Operation(summary = "Delete product and its images")

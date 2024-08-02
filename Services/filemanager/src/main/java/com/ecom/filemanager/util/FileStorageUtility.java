@@ -15,7 +15,7 @@ import java.util.List;
 public final class FileStorageUtility {
 
     public static void deleteFile(@NotEmpty List<Path> paths) {
-        paths.stream().forEach(path -> {
+        paths.forEach(path -> {
             try {
                 if (Files.deleteIfExists(path)) {
                     log.info("File deleted successfully {}", path.getFileName());

@@ -1,0 +1,28 @@
+server:
+  port: 8082
+
+############## Database #################
+spring:
+  application:
+    name: inventory-service
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://127.0.0.1:27017/?compressors=zlib&readPreference=primary&gssapiServiceName=mongodb&appname=MongoDB%20Compass&ssl=false
+      database: inventory
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:6080/realms/master
+          jwk-set-uri: http://localhost:6080/realms/master/protocol/openid-connect/certs
+
+####### Enable/Disable API security
+security:
+  enabled: true
+########################### security details ##################
+
+########################### Spring ######################
+#spring.jackson.serialization.fail-on-empty-beans=false

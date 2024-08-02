@@ -2,7 +2,7 @@ package com.ecom.product.service.specification;
 
 import com.ecom.product.dto.PriceDTO;
 import com.ecom.product.dto.ProductDTO;
-import com.ecom.shared.common.dto.PageRequest;
+import com.ecom.shared.common.dto.PageRequestDTO;
 import com.ecom.shared.common.dto.PageResponse;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +13,7 @@ public interface ProductService {
 
     List<ProductDTO> getAll();
 
-    PageResponse getAll(PageRequest pageRequest);
+    PageResponse getAll(PageRequestDTO pageRequestDTO);
 
     ProductDTO get(String id);
 

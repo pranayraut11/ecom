@@ -1,6 +1,6 @@
 package com.ecom.shared.common.utility;
 
-import com.ecom.shared.common.dto.PageRequest;
+import com.ecom.shared.common.dto.PageRequestDTO;
 import com.ecom.shared.common.dto.SearchCriteria;
 import com.ecom.shared.common.enums.Operator;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -25,7 +25,7 @@ public class DBCriteriaUtil {
 
     }
 
-    public static Query getQuery(PageRequest page){
+    public static Query getQuery(PageRequestDTO page){
         List<Criteria> andCriterias = new ArrayList<>();
         List<Criteria> orCriterias = new ArrayList<>();
         if (Objects.nonNull(page.getAndCriteria())) {

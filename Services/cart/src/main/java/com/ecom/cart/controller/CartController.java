@@ -4,18 +4,18 @@ package com.ecom.cart.controller;
 import com.ecom.cart.entity.Cart;
 import com.ecom.cart.entity.Product;
 import com.ecom.cart.service.specification.CartService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("cart")
+@RequestMapping("/cart")
+@AllArgsConstructor
 public class CartController {
 
 
-    @Autowired
     private CartService cartService;
 
-    @GetMapping()
+    @GetMapping("get")
     public Cart getCart(){
         return cartService.getCart();
     }

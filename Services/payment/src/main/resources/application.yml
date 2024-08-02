@@ -1,0 +1,34 @@
+server:
+  port: 8085
+
+############## Database #################
+spring:
+  application:
+    name: payment-service
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://127.0.0.1:27017/?compressors=zlib&readPreference=primary&gssapiServiceName=mongodb&appname=MongoDB%20Compass&ssl=false
+      database: inventory
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:6080/realms/master
+          jwk-set-uri: http://localhost:6080/realms/master/protocol/openid-connect/certs
+
+####### Enable/Disable API security
+security:
+  enabled: true
+########################### security details ##################
+
+#spring.security.oauth2.client.provider.ecom.issuer-uri=${auth.client-uri}
+#spring.security.oauth2.client.registration.ecom.client-id=${auth.client-id}
+#spring.security.oauth2.client.registration.ecom.client-secret=${auth.client-secret}
+#spring.security.oauth2.client.registration.ecom.scope=openid
+#spring.security.oauth2.client.registration.ecom.authorization-grant-type=authorization_code
+#spring.security.oauth2.client.registration.ecom.redirect-uri=http://localhost:9090/login/oauth2/code/employee-management-api
+
+########################## Spring ##########################

@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@EnableMongoRepositories
+@EnableMongoRepositories(basePackages = { "com.ecom" })
 @EnableMongock
 public class CatalogApplication {
 

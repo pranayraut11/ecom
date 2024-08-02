@@ -5,7 +5,7 @@ import com.ecom.order.dto.CreateOrderDTO;
 import com.ecom.order.dto.InventoryDTO;
 import com.ecom.order.dto.OrderDTO;
 import com.ecom.order.entity.Order;
-import com.ecom.order.messages.producer.OrderProducer;
+//import com.ecom.order.messages.producer.OrderProducer;
 import com.ecom.order.model.Product;
 import com.ecom.order.repository.OrderRepository;
 import com.ecom.order.rest.CartRestService;
@@ -49,8 +49,8 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
     @Autowired
     private InventoryRestService inventoryRestService;
 
-    @Autowired
-    private OrderProducer orderProducer;
+//    @Autowired
+//    private OrderProducer orderProducer;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -111,11 +111,11 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
                             paymentServiceProvider("PHONEPAY").amount(BigDecimal.TEN).build()).amount(BigDecimal.TEN).
                     inventory(InventoryRequest.builder().userId("pranay1@gmail.com").
                             products(List.of(com.ecom.shared.common.dto.Product.builder().id("ppq").quantity(2).build())).build()).build();
-            try {
-                orderProducer.sendOrder(objectMapper.writeValueAsString(orchestratorRequestDTO));
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
+//            try {
+//                orderProducer.sendOrder(objectMapper.writeValueAsString(orchestratorRequestDTO));
+//            } catch (JsonProcessingException e) {
+//                throw new RuntimeException(e);
+//            }
         } else {
             throw new EcomException(HttpStatus.NOT_FOUND, "");
         }

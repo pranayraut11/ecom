@@ -1,0 +1,57 @@
+server:
+  port: 8081
+
+####################### Service properties ########################
+file:
+  upload:
+    base:
+      path: files
+
+spring:
+  application:
+    name: filemanager-service
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://127.0.0.1:27017/?compressors=zlib&readPreference=primary&gssapiServiceName=mongodb&appname=MongoDB%20Compass&ssl=false
+      database: filemanger
+  main:
+    allow-bean-definition-overriding: true
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:6080/realms/master
+          jwk-set-uri: http://localhost:6080/realms/master/protocol/openid-connect/certs
+############## Database #################
+
+####### Enable/Disable API security
+security:
+  enabled: false
+########################### security details ##################
+#
+#spring.security.oauth2.client.provider.ecom.issuer-uri=${auth.client-uri}
+#spring.security.oauth2.client.registration.ecom.client-id=${auth.client-id}
+#spring.security.oauth2.client.registration.ecom.client-secret=${auth.client-secret}
+#spring.security.oauth2.client.registration.ecom.scope=openid
+#spring.security.oauth2.client.registration.ecom.authorization-grant-type=authorization_code
+#spring.security.oauth2.client.registration.ecom.redirect-uri=http://localhost:9090/login/oauth2/code/employee-management-api
+
+
+######################## File storage details ##########################
+minio:
+  bucket:
+    name: files
+  access:
+    name: miniouser
+    secret: miniouser
+  host: minio.local
+  port: 9000
+
+

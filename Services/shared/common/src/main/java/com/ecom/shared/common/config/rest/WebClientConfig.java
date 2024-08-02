@@ -1,11 +1,18 @@
 package com.ecom.shared.common.config.rest;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.reactive.function.client.ClientRequest;
@@ -36,13 +43,15 @@ public class WebClientConfig {
     private ExchangeFilterFunction logFilter() {
         return (clientRequest, next) -> {
             ClientRequest clientRequestCpoy = clientRequest;
-            String token = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Authorization");
+            Authentication authentication =  SecurityContextHolder.getContext().getAuthentication();
+            JwtAuthenticationToken oauthToken = (JwtAuthenticationToken) authentication;
+            String token = oauthToken.getToken().getTokenValue();
             log.info("External Request to {}", clientRequest.url());
             log.info("Token :  {}",token);
             if(StringUtils.hasLength(token)) {
                 clientRequestCpoy  = ClientRequest.from(clientRequest)
                         .headers(headers -> {
-                            headers.set(HttpHeaders.AUTHORIZATION, token.trim());
+                            headers.set(HttpHeaders.AUTHORIZATION, OAuth2AccessToken.TokenType.BEARER.getValue()+" "+ token.trim());
                         })
                         .build();
             }

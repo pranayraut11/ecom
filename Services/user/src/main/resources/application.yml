@@ -1,0 +1,57 @@
+server:
+  port: 8087
+
+auth:
+  grantType: password
+  realm: ecom
+  server:
+    host: keycloak.local
+  admin:
+    clientId: admin-cli
+    clientSecret: QAsyatkW0Z8joE8oO6DnYj5Co7X00RKa
+    username: raut.pranay11@gmail.com
+    password: 123
+  service:
+    clientId: ${keycloak.resource}
+    clientSecret: ${keycloak.credentials.secret}
+
+############## Database #################
+spring:
+  application:
+   name: user-service
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://127.0.0.1:27017/?compressors=zlib&readPreference=primary&gssapiServiceName=mongodb&appname=MongoDB%20Compass&ssl=false
+      database: user_db
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  jpa:
+    properties:
+      hibernate:
+       jdbc:
+         lob:
+           non_contextual_creation: true
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: update
+
+# Hibernate ddl auto (create, create-drop, validate, update)
+logging:
+  level:
+    org.springframework: info
+
+####### Enable/Disable API security
+security:
+  enabled: true
+########################### security details ##################
+#auth.client-id = user-service
+#auth.client-secret = 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
+#auth.client-uri = http://localhost:8080/realms/ecom
+#
+#spring.security.oauth2.client.provider.ecom.issuer-uri=${auth.client-uri}
+#spring.security.oauth2.client.registration.ecom.client-id=${auth.client-id}
+#spring.security.oauth2.client.registration.ecom.client-secret=${auth.client-secret}
+#spring.security.oauth2.client.registration.ecom.scope=openid
+#spring.security.oauth2.client.registration.ecom.authorization-grant-type=authorization_code
+#spring.security.oauth2.client.registration.ecom.redirect-uri=http://localhost:9090/login/oauth2/code/employee-management-api

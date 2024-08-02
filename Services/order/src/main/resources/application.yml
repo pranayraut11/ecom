@@ -1,0 +1,43 @@
+server:
+  port: 8084
+######################## Database #############################
+spring:
+  application:
+    name: order-service
+  data:
+    mongodb:
+      authentication-database: admin
+      uri: mongodb://127.0.0.1:27017/?compressors=zlib&readPreference=primary&gssapiServiceName=mongodb&appname=MongoDB%20Compass&ssl=false
+      database: order
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:6080/realms/master
+          jwk-set-uri: http://localhost:6080/realms/master/protocol/openid-connect/certs
+
+####### Enable/Disable API security
+security:
+  enabled: true
+########################### security details ##################
+
+
+########################## Spring ##########################
+
+
+######################### In-house services details ############
+app:
+  service:
+    cart:
+      host: localhost
+    product:
+      host: localhost
+    inventory:
+      host: localhost
+
+
+######################### Kafka ################################
+#spring.kafka.bootstrap-servers=localhost:9092
+#spring.kafka.consumer.group-id=ecom-order
