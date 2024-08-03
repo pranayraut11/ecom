@@ -2,7 +2,6 @@ package com.ecom.inventory.service.implementation;
 
 import com.ecom.inventory.constants.Operation;
 import com.ecom.inventory.dto.InventoryDTO;
-import com.ecom.inventory.dto.InventoryResponse;
 import com.ecom.inventory.entity.ProductInventory;
 import com.ecom.inventory.enums.InventoryStatus;
 import com.ecom.inventory.repository.InventoryRepository;
@@ -15,14 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class InventoryServiceImpl extends BaseService<ProductInventory> implements InventoryService {
+public class InventoryServiceImpl implements InventoryService {
 
     @Autowired
     private InventoryRepository inventoryRepository;

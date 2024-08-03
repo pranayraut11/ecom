@@ -2,10 +2,10 @@ package com.ecom.order.rest;
 
 import com.ecom.order.dto.InventoryDTO;
 import com.ecom.shared.common.exception.EcomException;
+import org.apache.http.HttpVersion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.config.Elements;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -26,7 +26,7 @@ public class InventoryRestService {
     private WebClient webClient;
 
     UriComponentsBuilder getUriComponent(String path) {
-        return UriComponentsBuilder.newInstance().scheme(Elements.HTTP).host(host).port("8080").path(path);
+        return UriComponentsBuilder.newInstance().scheme(HttpVersion.HTTP).host(host).port("8080").path(path);
     }
 
     public List<String> checkStockAvailability(List<InventoryDTO> inventoryDTO) {

@@ -15,7 +15,7 @@ public class CartController {
 
     private CartService cartService;
 
-    @GetMapping("get")
+    @GetMapping()
     public Cart getCart(){
         return cartService.getCart();
     }

@@ -5,11 +5,11 @@ import com.ecom.order.constants.APIEndPoints;
 import com.ecom.order.dto.Cart;
 import com.ecom.shared.common.exception.EcomException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpVersion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.config.Elements;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
@@ -26,7 +26,7 @@ public class CartRestService {
     private WebClient webClient;
 
     UriComponentsBuilder getUriComponent(String context) {
-        return UriComponentsBuilder.newInstance().scheme(Elements.HTTP).host(host).port("8080").path(context);
+        return UriComponentsBuilder.newInstance().scheme(HttpVersion.HTTP).host(host).port("8080").path(context);
     }
 
     public Cart getCart() {

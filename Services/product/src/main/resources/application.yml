@@ -2,8 +2,15 @@ server:
   port: 8086
 ############## Database #################
 spring:
+  mongodb:
+    connection:
+      max-size: 60
+      min-size: 6
+      timeout: 15
+      max-ideal-time: 300
+      max-wait-time: 60
   application:
-    name: catalog-service
+    name: catalog
   data:
     mongodb:
       authentication-database: admin
@@ -57,3 +64,11 @@ management:
       enabled: true
 
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  fetch-registry: true
+  register-with-eureka: true
+  instance:
+    preferIpAddress: true

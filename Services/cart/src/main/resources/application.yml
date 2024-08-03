@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: cart-service
+    name: cart
   main:
     allow-bean-definition-overriding: true
   autoconfigure:
@@ -39,3 +39,11 @@ security:
 
 ################# Spring ####################
 #spring.main.allow-bean-definition-overriding=true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  fetch-registry: true
+  register-with-eureka: true
+  instance:
+    preferIpAddress: true

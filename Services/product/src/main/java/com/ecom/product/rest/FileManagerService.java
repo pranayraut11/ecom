@@ -25,7 +25,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static org.springframework.security.config.Elements.HTTP;
+import static org.apache.http.HttpVersion.HTTP;
+
 
 @Component
 @Slf4j

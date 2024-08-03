@@ -1,6 +1,6 @@
 package com.ecom.inventory.entity;
 
-import com.ecom.shared.common.entity.BaseEntity;
+import com.ecom.wrapper.database.mongodb.entity.BaseEntity;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 

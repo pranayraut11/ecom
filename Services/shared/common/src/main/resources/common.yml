@@ -14,20 +14,12 @@
 #spring.security.oauth2.client.registration.ecom.authorization-grant-type=authorization_code
 #spring.security.oauth2.client.registration.ecom.redirect-uri=http://localhost:9090/login/oauth2/code/employee-management-api
 
-##################### MongoDB connection pools details ###########################
-spring:
-  mongodb:
-    connection:
-      max-size: 60
-      min-size: 6
-      timeout: 15
-      max-ideal-time: 300
-      max-wait-time: 60
-
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+  fetch-registry: true
+  register-with-eureka: true
   instance:
     preferIpAddress: true

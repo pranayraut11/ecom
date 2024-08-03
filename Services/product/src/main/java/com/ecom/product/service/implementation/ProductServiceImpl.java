@@ -10,13 +10,15 @@ import com.ecom.product.mappers.specification.ProductMapper;
 import com.ecom.product.repository.ProductRepository;
 import com.ecom.product.rest.FileManagerService;
 import com.ecom.product.service.specification.ProductService;
-import com.ecom.shared.common.dto.PageRequestDTO;
-import com.ecom.shared.common.dto.PageResponse;
+
 import com.ecom.shared.common.exception.EcomException;
-import com.ecom.shared.common.utility.DBCriteriaUtil;
+import com.ecom.shared.contract.dto.PageRequestDTO;
+import com.ecom.shared.contract.dto.PageResponse;
+import com.ecom.wrapper.database.mongodb.utility.DBCriteriaUtil;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +31,7 @@ import java.util.List;
 @Slf4j
 public class ProductServiceImpl implements ProductService {
 
-    private ProductRepository<Product> productRepository;
+    private ProductRepository productRepository;
 
     private ProductMapper productMapper;
 
@@ -37,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
 
     private FileManagerService fileManagerService;
 
-    public ProductServiceImpl(ProductRepository<Product> productRepository, ProductMapper productMapper, PriceMapper priceMapper, FileManagerService fileManagerService) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper, PriceMapper priceMapper, FileManagerService fileManagerService) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
         this.priceMapper = priceMapper;
@@ -52,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public PageResponse getAll(PageRequestDTO page) {
+    public Page<Product> getAll(PageRequestDTO page) {
         PageRequest pageRequest = PageRequest.of(page.getPage(), page.getSize());
         return productRepository.findAll(DBCriteriaUtil.getQuery(page), pageRequest, Product.class);
     }

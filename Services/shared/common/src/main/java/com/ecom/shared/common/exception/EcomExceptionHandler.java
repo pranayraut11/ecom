@@ -1,12 +1,10 @@
 package com.ecom.shared.common.exception;
 
-import com.ecom.shared.common.config.i18.Translator;
-import com.ecom.shared.common.dto.ApiError;
-import com.ecom.shared.common.dto.ApiSubError;
 import com.ecom.shared.common.enums.DatabaseExceptionErrorCode;
+import com.ecom.shared.contract.dto.ApiError;
+import com.ecom.shared.contract.dto.ApiSubError;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mongodb.MongoTimeoutException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,9 +16,6 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class EcomExceptionHandler {
-
-    @Autowired
-    private Translator translator;
 
     @ExceptionHandler(value = EcomException.class)
     public ResponseEntity<ApiError> handleException(EcomException exception) {
@@ -39,8 +34,7 @@ public class EcomExceptionHandler {
 
     @ExceptionHandler(value = IllegalArgumentException.class)
     public ResponseEntity<ApiError> handleIllegalArgumentException(IllegalArgumentException exception) {
-        String convertedMessage = translator.translate(exception.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, convertedMessage));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiError(HttpStatus.BAD_REQUEST, "convertedMessage"));
     }
 
     @ExceptionHandler(value = JsonProcessingException.class)

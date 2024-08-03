@@ -1,9 +1,8 @@
 package com.ecom.shared.common.utility;
 
-import com.ecom.shared.common.dto.CustomMultipartFile;
+import com.ecom.shared.contract.dto.CustomMultipartFile;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -11,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.Objects;
 
 @Slf4j
 public class FileUtility {

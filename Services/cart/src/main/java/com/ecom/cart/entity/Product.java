@@ -1,11 +1,15 @@
 package com.ecom.cart.entity;
 
+import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.redis.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 
+@Document
 @Data
+@Builder
 public class Product {
     @Indexed
     private String productId;

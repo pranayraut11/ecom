@@ -4,7 +4,7 @@ server:
 ############## Database #################
 spring:
   application:
-    name: inventory-service
+    name: inventory
   data:
     mongodb:
       authentication-database: admin
@@ -12,17 +12,16 @@ spring:
       database: inventory
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:6080/realms/master
-          jwk-set-uri: http://localhost:6080/realms/master/protocol/openid-connect/certs
 
-####### Enable/Disable API security
-security:
-  enabled: true
 ########################### security details ##################
 
 ########################### Spring ######################
 #spring.jackson.serialization.fail-on-empty-beans=false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  fetch-registry: true
+  register-with-eureka: true
+  instance:
+    preferIpAddress: true

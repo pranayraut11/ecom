@@ -3,16 +3,18 @@ package com.ecom.product.controller;
 import com.ecom.product.constant.ExceptionCode;
 import com.ecom.product.dto.PriceDTO;
 import com.ecom.product.dto.ProductDTO;
+import com.ecom.product.entity.Product;
 import com.ecom.product.service.specification.ProductService;
-import com.ecom.shared.common.dto.PageRequestDTO;
-import com.ecom.shared.common.dto.PageResponse;
 import com.ecom.shared.common.validation.DtoValidator;
 import com.ecom.shared.common.validation.FileValidation;
+import com.ecom.shared.contract.dto.PageRequestDTO;
+import com.ecom.shared.contract.dto.PageResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,7 +50,7 @@ public class ProductController {
 
     @Operation(summary = "Get all products")
     @PostMapping("filter")
-    public PageResponse getAll(@RequestBody PageRequestDTO pageRequestDTO) {
+    public Page<Product> getAll(@RequestBody PageRequestDTO pageRequestDTO) {
         return productService.getAll(pageRequestDTO);
     }
 

@@ -7,9 +7,6 @@ import com.ecom.user.dto.KeycloakUser;
 import com.ecom.user.dto.TokenDetails;
 import com.ecom.user.dto.User;
 import lombok.extern.slf4j.Slf4j;
-import org.keycloak.TokenVerifier;
-import org.keycloak.common.VerificationException;
-import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -22,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.Objects;
 
 import static com.ecom.user.constant.enums.AuthConstants.*;
-import static org.springframework.security.config.Elements.HTTP;
+import static org.apache.http.HttpVersion.HTTP;
 
 @Component
 @Slf4j
@@ -40,7 +37,7 @@ public class KeycloakAuthService {
         this.restTemplate = restTemplate;
     }
 
-    public TokenDetails login(AuthClientDetails authClientDetails, String realms) throws VerificationException {
+    public TokenDetails login(AuthClientDetails authClientDetails, String realms) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String,String> parameters = new LinkedMultiValueMap<>();
@@ -57,12 +54,12 @@ public class KeycloakAuthService {
         if (tokenDetails.getStatusCode().is2xxSuccessful()) {
             TokenDetails details = tokenDetails.getBody();
             if( Objects.nonNull(details)) {
-                AccessToken token = TokenVerifier.create(details.getAccess_token(), AccessToken.class).getToken();
-                if (Objects.nonNull(token.getRealmAccess())) {
-
-                    log.info("UserId {}", token.getSubject());
-                    details.setRoles(token.getRealmAccess().getRoles());
-                }
+//                AccessToken token = TokenVerifier.create(details.getAccess_token(), AccessToken.class).getToken();
+//                if (Objects.nonNull(token.getRealmAccess())) {
+//
+//                    log.info("UserId {}", token.getSubject());
+//                    details.setRoles(token.getRealmAccess().getRoles());
+//                }
             }
             return details;
         } else {

@@ -7,8 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-@EnableMongoRepositories
+@EnableMongoRepositories(basePackages = { "com.ecom" })
 @ComponentScan(value = "com.ecom.*")
+@EnableDiscoveryClient
 public class UserApplication {
 
 	public static void main(String[] args) {

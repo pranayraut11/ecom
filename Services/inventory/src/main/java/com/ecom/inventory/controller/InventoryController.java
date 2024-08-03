@@ -2,19 +2,17 @@ package com.ecom.inventory.controller;
 
 import com.ecom.inventory.dto.InventoryDTO;
 import com.ecom.inventory.dto.InventoryResponse;
-import com.ecom.inventory.entity.ProductInventory;
 import com.ecom.inventory.service.specification.InventoryService;
-import com.ecom.shared.common.controller.BaseController;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("inventory")
-public class InventoryController extends BaseController<ProductInventory> {
+@AllArgsConstructor
+public class InventoryController {
 
-    @Autowired
     private InventoryService inventoryService;
 
 

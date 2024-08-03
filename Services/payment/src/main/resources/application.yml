@@ -4,7 +4,7 @@ server:
 ############## Database #################
 spring:
   application:
-    name: payment-service
+    name: payment
   data:
     mongodb:
       authentication-database: admin
@@ -32,3 +32,11 @@ security:
 #spring.security.oauth2.client.registration.ecom.redirect-uri=http://localhost:9090/login/oauth2/code/employee-management-api
 
 ########################## Spring ##########################
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  fetch-registry: true
+  register-with-eureka: true
+  instance:
+    preferIpAddress: true

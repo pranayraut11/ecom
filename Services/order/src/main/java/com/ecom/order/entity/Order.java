@@ -2,7 +2,7 @@ package com.ecom.order.entity;
 
 import com.ecom.order.model.Address;
 import com.ecom.order.model.Product;
-import com.ecom.shared.common.entity.BaseEntity;
+import com.ecom.wrapper.database.mongodb.entity.BaseEntity;
 import jakarta.persistence.Id;
 import lombok.Builder;
 import lombok.Data;

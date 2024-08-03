@@ -19,11 +19,9 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <groupId>com.ecom.wrapper.database</groupId>
+            <artifactId>mongodb</artifactId>
         </dependency>
-
-        <!-- #################### In House ########################-->
         <dependency>
             <groupId>com.ecom</groupId>
             <artifactId>common</artifactId>

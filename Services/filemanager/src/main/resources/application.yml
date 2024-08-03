@@ -9,7 +9,7 @@ file:
 
 spring:
   application:
-    name: filemanager-service
+    name: filemanager
   servlet:
     multipart:
       max-file-size: 10MB
@@ -23,12 +23,6 @@ spring:
     allow-bean-definition-overriding: true
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:6080/realms/master
-          jwk-set-uri: http://localhost:6080/realms/master/protocol/openid-connect/certs
 ############## Database #################
 
 ####### Enable/Disable API security
@@ -55,3 +49,11 @@ minio:
   port: 9000
 
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  fetch-registry: true
+  register-with-eureka: true
+  instance:
+    preferIpAddress: true

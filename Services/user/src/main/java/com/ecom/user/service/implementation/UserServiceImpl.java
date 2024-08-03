@@ -11,7 +11,6 @@ import com.ecom.user.service.specification.UserService;
 import com.ecom.user.utils.UserUtils;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
-import org.keycloak.common.VerificationException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(@NotNull UserDetails user) throws VerificationException {
+    public void create(@NotNull UserDetails user)  {
         log.info("Creating user {} ... ",user.getEmail());
         TokenDetails tokenDetails = keycloakAuthService.login(adminClientCredentials, realm);
         KeycloakUser keycloakUser = new KeycloakUser();

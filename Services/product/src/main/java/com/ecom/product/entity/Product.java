@@ -1,6 +1,6 @@
 package com.ecom.product.entity;
 
-import com.ecom.shared.common.entity.BaseEntity;
+import com.ecom.wrapper.database.mongodb.entity.BaseEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

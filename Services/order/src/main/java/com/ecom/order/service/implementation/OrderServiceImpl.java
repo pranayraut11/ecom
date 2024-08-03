@@ -12,14 +12,11 @@ import com.ecom.order.rest.CartRestService;
 import com.ecom.order.rest.InventoryRestService;
 import com.ecom.order.rest.ProductRestService;
 import com.ecom.order.service.specification.OrderService;
-import com.ecom.shared.common.dto.InventoryRequest;
-import com.ecom.shared.common.dto.OrderOrchestratorRequestDTO;
-import com.ecom.shared.common.dto.PaymentRequest;
-import com.ecom.shared.common.dto.UserDetails;
-import com.ecom.shared.common.enums.PaymentMode;
+
 import com.ecom.shared.common.exception.EcomException;
 import com.ecom.shared.common.service.BaseService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ecom.shared.contract.dto.UserDetails;
+import com.ecom.shared.contract.enums.PaymentMode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,12 +102,12 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
                 cartRestService.deleteCart(id);
                 log.info("Cart deleted successfully {}", id);
             }
-            OrderOrchestratorRequestDTO orchestratorRequestDTO = OrderOrchestratorRequestDTO.builder()
-                    .orderId(order.getOrderId()).userId("pranay1@gmail.com").
-                    payment(PaymentRequest.builder().orderId(orderID).paymentMode(PaymentMode.UPI).
-                            paymentServiceProvider("PHONEPAY").amount(BigDecimal.TEN).build()).amount(BigDecimal.TEN).
-                    inventory(InventoryRequest.builder().userId("pranay1@gmail.com").
-                            products(List.of(com.ecom.shared.common.dto.Product.builder().id("ppq").quantity(2).build())).build()).build();
+//            OrderOrchestratorRequestDTO orchestratorRequestDTO = OrderOrchestratorRequestDTO.builder()
+//                    .orderId(order.getOrderId()).userId("pranay1@gmail.com").
+//                    payment(PaymentRequest.builder().orderId(orderID).paymentMode(PaymentMode.UPI).
+//                            paymentServiceProvider("PHONEPAY").amount(BigDecimal.TEN).build()).amount(BigDecimal.TEN).
+//                    inventory(InventoryRequest.builder().userId("pranay1@gmail.com").
+//                            products(List.of(Product.builder().id("ppq").quantity(2).build())).build()).build();
 //            try {
 //                orderProducer.sendOrder(objectMapper.writeValueAsString(orchestratorRequestDTO));
 //            } catch (JsonProcessingException e) {

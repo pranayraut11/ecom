@@ -2,8 +2,9 @@ package com.ecom.product.service.specification;
 
 import com.ecom.product.dto.PriceDTO;
 import com.ecom.product.dto.ProductDTO;
-import com.ecom.shared.common.dto.PageRequestDTO;
-import com.ecom.shared.common.dto.PageResponse;
+import com.ecom.product.entity.Product;
+import com.ecom.shared.contract.dto.PageRequestDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ public interface ProductService {
 
     List<ProductDTO> getAll();
 
-    PageResponse getAll(PageRequestDTO pageRequestDTO);
+    Page<Product> getAll(PageRequestDTO pageRequestDTO);
 
     ProductDTO get(String id);
 

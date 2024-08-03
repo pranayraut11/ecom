@@ -1,17 +1,18 @@
 package com.ecom.cart.entity;
 
-import com.ecom.shared.common.entity.BaseEntity;
+import com.ecom.wrapper.database.mongodb.entity.BaseEntity;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.redis.core.RedisHash;
-import org.springframework.data.redis.core.index.Indexed;
+import lombok.Getter;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@RedisHash("Cart")
-@Data
 @Builder
+@Document
+@Data
 public class Cart extends BaseEntity {
 
     List<Product> products;
