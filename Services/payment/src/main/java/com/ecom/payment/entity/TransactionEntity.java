@@ -2,7 +2,7 @@ package com.ecom.payment.entity;
 
 import com.ecom.payment.constants.enums.PaymentMode;
 import com.ecom.payment.constants.enums.PaymentStatus;
-import com.ecom.shared.common.entity.BaseEntity;
+import com.ecom.wrapper.database.mongodb.entity.BaseEntity;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 

@@ -7,7 +7,6 @@ import com.ecom.inventory.enums.InventoryStatus;
 import com.ecom.inventory.repository.InventoryRepository;
 import com.ecom.inventory.service.specification.InventoryService;
 import com.ecom.shared.common.exception.EcomException;
-import com.ecom.shared.common.service.BaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,0 +1,13 @@
+services:
+  kafdrop:
+    image: obsidiandynamics/kafdrop:latest
+    networks:
+      - kafka-network
+    ports:
+      - 19000:9000
+    environment:
+      KAFKA_BROKERCONNECT: kafka:29092
+
+networks:
+  kafka-network:
+    driver: bridge

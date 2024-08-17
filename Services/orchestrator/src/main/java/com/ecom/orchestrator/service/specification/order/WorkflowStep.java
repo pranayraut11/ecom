@@ -1,12 +1,15 @@
 package com.ecom.orchestrator.service.specification.order;
 
-import com.ecom.orchestrator.enums.WorkflowStepStatus;
-import reactor.core.publisher.Mono;
+import com.ecom.orchestrator.enums.ExecutionOrder;
 
 public interface WorkflowStep {
 
-    WorkflowStepStatus getStatus();
-    Mono<Boolean> process();
 
-    Mono<Boolean> revert();
+    Boolean process();
+
+    Boolean revert();
+
+    ExecutionOrder getOrder();
+
+
 }

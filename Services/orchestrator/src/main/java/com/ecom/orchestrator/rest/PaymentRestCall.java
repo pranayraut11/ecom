@@ -1,8 +1,9 @@
 package com.ecom.orchestrator.rest;
 
 import com.ecom.orchestrator.dto.PaymentResponse;
-import com.ecom.shared.common.dto.PaymentRequest;
+import com.ecom.shared.contract.dto.PaymentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -14,12 +15,14 @@ import reactor.core.publisher.Mono;
 
 import java.util.function.Consumer;
 
-import static org.springframework.security.config.Elements.HTTP;
+import static org.apache.http.HttpVersion.HTTP;
+
 
 @Component
 public class PaymentRestCall {
 
     @Autowired
+    @Qualifier(value = "payment")
     private WebClient webClient;
 
     UriComponentsBuilder getUriComponents() {

@@ -18,6 +18,39 @@ spring:
         jwt:
           issuer-uri: http://localhost:6080/realms/master
           jwk-set-uri: http://localhost:6080/realms/master/protocol/openid-connect/certs
+  cloud:
+    function:
+      definition: blockInventoryStatus;unBlockInventoryStatus;createPaymentStatus;revertPaymentStatus
+    stream:
+      kafka:
+        binder:
+          brokers:
+            - localhost:9092
+      bindings:
+        blockInventory-out-0:
+          destination: order.inventory.block
+          group: ${spring.application.name}
+        blockInventoryStatus-in-0:
+          destination: order.inventory.block.response
+          group: ${spring.application.name}
+        unBlockInventory-out-0:
+          destination: order.inventory.unblock
+          group: ${spring.application.name}
+        unBlockInventoryStatus-in-0:
+          destination: order.inventory.unblock.response
+          group: ${spring.application.name}
+        createPayment-out-0:
+          destination: order.payment.create
+        createPaymentStatus-in-0:
+          destination: order.payment.create.status
+          group: ${spring.application.name}
+        revertPayment-out-0:
+          destination: order.payment.revert
+          group: ${spring.application.name}
+        revertPaymentStatus-in-0:
+          destination: order.payment.revert.status
+          group: ${spring.application.name}
+
 
 ####### Enable/Disable API security
 security:
@@ -33,10 +66,10 @@ security:
 
 
 ########################## Kafka #############################
-kafka:
-  server:
-    url: localhost:9092
-  groupid: 12
+#kafka:
+#  server:
+#    url: localhost:9092
+#  groupid: 12
 
 service:
   endpoints:

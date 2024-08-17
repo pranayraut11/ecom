@@ -28,11 +28,6 @@ public class SecurityConfig {
                         .anyExchange().authenticated())
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.
                         jwt(jwtSpec -> jwtSpec.jwtAuthenticationConverter(grantedAuthoritiesExtractor())));
-
-
-        //http.addFilterAfter(new HttpRequestFilter(), BasicAuthenticationFilter.class);
-        // http.csrf(AbstractHttpConfigurer::disable);
-        //http.cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()));
         return http.build();
     }
 

@@ -1,11 +1,11 @@
 package com.ecom.shared.common.validation;
 
 import com.ecom.shared.common.exception.BadRequest;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validator;
 import java.util.HashMap;
 import java.util.Set;
 

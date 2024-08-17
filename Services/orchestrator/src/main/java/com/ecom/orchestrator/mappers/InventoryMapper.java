@@ -1,7 +1,7 @@
 package com.ecom.orchestrator.mappers;
 
-import com.ecom.shared.common.dto.InventoryRequest;
-import com.ecom.shared.common.dto.OrderOrchestratorRequestDTO;
+import com.ecom.shared.contract.dto.InventoryRequest;
+import com.ecom.shared.contract.dto.OrderOrchestratorRequestDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

@@ -1,7 +1,6 @@
 package com.ecom.product.initdata;
 
 import com.ecom.product.entity.Product;
-import com.github.cloudyrock.mongock.ChangeSet;
 import io.mongock.api.annotations.ChangeUnit;
 import io.mongock.api.annotations.Execution;
 import io.mongock.api.annotations.RollbackExecution;

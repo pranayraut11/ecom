@@ -4,7 +4,6 @@ import com.ecom.order.dto.CreateOrderDTO;
 import com.ecom.order.dto.OrderDTO;
 import com.ecom.order.service.specification.OrderService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

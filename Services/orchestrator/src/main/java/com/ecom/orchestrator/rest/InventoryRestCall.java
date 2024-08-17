@@ -1,8 +1,9 @@
 package com.ecom.orchestrator.rest;
 
 import com.ecom.orchestrator.dto.InventoryResponse;
-import com.ecom.shared.common.dto.InventoryRequest;
+import com.ecom.shared.contract.dto.InventoryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -14,13 +15,15 @@ import reactor.core.publisher.Mono;
 
 import java.util.function.Consumer;
 
-import static org.springframework.security.config.Elements.HTTP;
+import static org.apache.http.HttpVersion.HTTP;
+
 
 @Component
 public class InventoryRestCall {
 
     @Autowired
-    private WebClient webClient;
+    @Qualifier(value = "inventory")
+    private WebClient inventory;
 
 
     UriComponentsBuilder getUriComponent(String path) {
@@ -33,7 +36,7 @@ public class InventoryRestCall {
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         };
         UriComponents uriComponents = getUriComponent("inventory/remove").build();
-        return webClient.put().uri(uriComponents.toUri()).headers(headers).body(BodyInserters.fromValue(inventoryRequest)).retrieve().
+        return inventory.put().uri(uriComponents.toUri()).headers(headers).body(BodyInserters.fromValue(inventoryRequest)).retrieve().
                 bodyToMono(InventoryResponse.class);
     }
 
@@ -42,7 +45,7 @@ public class InventoryRestCall {
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         };
         UriComponents uriComponents = getUriComponent("inventory/add").build();
-        return webClient.put().uri(uriComponents.toUri()).headers(headers).body(BodyInserters.fromValue(inventoryRequest)).retrieve().
+        return inventory.put().uri(uriComponents.toUri()).headers(headers).body(BodyInserters.fromValue(inventoryRequest)).retrieve().
                 bodyToMono(InventoryResponse.class);
     }
 

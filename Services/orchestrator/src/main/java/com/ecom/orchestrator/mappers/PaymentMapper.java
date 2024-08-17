@@ -1,7 +1,7 @@
 package com.ecom.orchestrator.mappers;
 
-import com.ecom.shared.common.dto.OrderOrchestratorRequestDTO;
-import com.ecom.shared.common.dto.PaymentRequest;
+import com.ecom.shared.contract.dto.OrderOrchestratorRequestDTO;
+import com.ecom.shared.contract.dto.PaymentRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

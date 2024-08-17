@@ -3,7 +3,6 @@ package com.ecom.order.model;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
 public class Product {

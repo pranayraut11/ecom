@@ -1,6 +1,5 @@
 package com.ecom.wrapper.database.mongodb.repository;
 
-import com.ecom.shared.contract.dto.PageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

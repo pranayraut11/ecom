@@ -11,6 +11,22 @@ spring:
       database: order
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+    function:
+      definition: createOrder
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        createOrder-in-0:
+          destination: createOrder
+          group: order-group
+
+
 ####### Enable/Disable API security
 security:
   enabled: true
@@ -42,3 +58,4 @@ eureka:
   register-with-eureka: true
   instance:
     preferIpAddress: true
+

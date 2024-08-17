@@ -8,7 +8,6 @@ import com.ecom.product.service.specification.ProductService;
 import com.ecom.shared.common.validation.DtoValidator;
 import com.ecom.shared.common.validation.FileValidation;
 import com.ecom.shared.contract.dto.PageRequestDTO;
-import com.ecom.shared.contract.dto.PageResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,7 +48,7 @@ public class ProductController {
     }
 
     @Operation(summary = "Get all products")
-    @PostMapping("filter")
+    @PostMapping("/filter")
     public Page<Product> getAll(@RequestBody PageRequestDTO pageRequestDTO) {
         return productService.getAll(pageRequestDTO);
     }
