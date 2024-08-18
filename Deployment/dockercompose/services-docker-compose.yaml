@@ -1,0 +1,22 @@
+services:
+  discovery:
+    image: pranayraut11/discovery-app
+    container_name: discovery
+    ports:
+      - "8761:8761"
+    networks:
+      - ecom-backend
+
+  order:
+    image: pranayraut11/order-app
+    container_name: order
+    ports:
+      - "8084:8084"
+    networks:
+      - ecom-backend
+    depends_on:
+      - discovery
+
+networks:
+  ecom-backend:
+    driver: bridge

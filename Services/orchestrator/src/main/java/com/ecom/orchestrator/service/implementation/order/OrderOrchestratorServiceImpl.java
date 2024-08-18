@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 public class OrderOrchestratorServiceImpl implements OrchestratorService {
 
     @Autowired
-    private OrderWorkflow orderWorkflow;
+    private OrderWorkflowStart orderWorkflowStart;
+
     @Override
     public  void createTransaction(final OrderOrchestratorRequestDTO requestDTO) {
-        orderWorkflow.start();
+        orderWorkflowStart.start();
     }
 
     @Override
     public void undoTransaction(String requestDTO) {
-        orderWorkflow.undo();
     }
 
 }
