@@ -1,13 +1,10 @@
 package com.ecom.order.service.implementation;
 
-import com.ecom.order.dto.Cart;
 import com.ecom.order.dto.CreateOrderDTO;
 import com.ecom.order.dto.OrderDTO;
 import com.ecom.order.entity.Order;
 import com.ecom.order.model.Product;
 import com.ecom.order.repository.OrderRepository;
-import com.ecom.order.rest.CartRestService;
-import com.ecom.order.rest.InventoryRestService;
 import com.ecom.order.rest.OrchestratorClient;
 import com.ecom.order.rest.ProductClient;
 import com.ecom.order.service.specification.OrderService;
@@ -34,16 +31,10 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
     private OrderRepository orderRepository;
 
     @Autowired
-    private CartRestService cartRestService;
-
-    @Autowired
     private ProductClient productClients;
 
     @Autowired
     private OrchestratorClient orchestratorClient;
-
-    @Autowired
-    private InventoryRestService inventoryRestService;
 
 //    @Autowired
 //    private OrderProducer orderProducer;
@@ -94,8 +85,8 @@ public class OrderServiceImpl extends BaseService<Order> implements OrderService
             log.info("Product details retrieved successfully {} ", createOrderDTO.getId());
         } else {
             // Get cart details from cart service
-            Cart cart = cartRestService.getCart();
-            products = cart.getProducts();
+            //Cart cart = cartRestService.getCart();
+           // products = cart.getProducts();
         }
         return products;
     }

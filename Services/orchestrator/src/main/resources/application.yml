@@ -5,11 +5,6 @@ server:
 spring:
   application:
     name: orchestrator
-  data:
-    mongodb:
-      authentication-database: admin
-      uri: mongodb://127.0.0.1:27017/?compressors=zlib&readPreference=primary&gssapiServiceName=mongodb&appname=MongoDB%20Compass&ssl=false
-      database: inventory
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   security:
@@ -84,3 +79,8 @@ eureka:
   register-with-eureka: true
   instance:
     preferIpAddress: true
+
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] %C"

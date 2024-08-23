@@ -167,6 +167,28 @@ services:
     networks:
       - ecom-backend
 
+  tempo:
+    image: grafana/tempo:2.4.2
+    container_name: tempo
+    command: -config.file /etc/tempo-config.yml
+    ports:
+      - "3110:3100"
+      - "4317:4317"
+    volumes:
+      - ./tempo/tempo.yml:/etc/tempo-config.yml
+    networks:
+      - ecom-backend
+
+  prometheus:
+    image: prom/prometheus:v2.50.1
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - ecom-backend
+
 networks:
   ecom-backend:
     name: ecom-backend

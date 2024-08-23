@@ -11,20 +11,6 @@ spring:
       database: order
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-  cloud:
-    openfeign:
-      circuitbreaker:
-        enabled: true
-    function:
-      definition: createOrder
-    stream:
-      kafka:
-        binder:
-          brokers: localhost:9092
-      bindings:
-        createOrder-in-0:
-          destination: createOrder
-          group: order-group
 
 
 ####### Enable/Disable API security
@@ -46,10 +32,6 @@ app:
     inventory:
       host: localhost
 
-
-######################### Kafka ################################
-#spring.kafka.bootstrap-servers=localhost:9092
-#spring.kafka.consumer.group-id=ecom-order
 eureka:
   client:
     serviceUrl:
@@ -64,11 +46,34 @@ management:
     web:
       exposure:
         include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+    endpoint:
+      shutdown:
+        enabled: true
+      health:
+        probes:
+          enabled: true
+  metrics:
+    sampling:
+      probability: 1.0
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+      maximum-expected-value:
+        http.server.requests: 1s
+      minimum-expected-value:
+        http.server.requests: 100ms
+    tags:
+      application: ${spring.application.name}
+  info:
+    env:
+      enabled: true
 
 logging:
-  level:
-    com:
-      ecom:
-        order: DEBUG
   pattern:
-    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] %C"
+

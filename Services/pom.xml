@@ -21,6 +21,7 @@
         <docker.username>pranayraut11</docker.username>
 		<java.version>17</java.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
+        <otelVersion>1.33.5</otelVersion>
     </properties>
     <dependencies>
         <dependency>
@@ -102,10 +103,34 @@
 		  <artifactId>mongodb-springdata-v4-driver</artifactId>
 		  <version>5.3.6</version>
 		</dependency>
+        <!-- Client for communicating with other microservices -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- Toe enable tracing, metrics, logging -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <!-- Distributed tracing -->
+        <dependency>
+            <groupId>io.opentelemetry.javaagent</groupId>
+            <artifactId>opentelemetry-javaagent</artifactId>
+            <version>${otelVersion}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- App metrics  (Micrometer Prometheus)  -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+        <!-- circuit breaker -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
