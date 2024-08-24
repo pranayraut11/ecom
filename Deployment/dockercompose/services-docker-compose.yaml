@@ -1,5 +1,7 @@
 include:
-  - ./observability/lightweight-logging-docker-compose.yaml
+  #- ./observability/logging-tracing-docker-compose.yaml
+  - ./observability/metrics-docker-compose.yaml
+  - ./observability/grafana-docker-compose.yaml
 services:
   discovery:
     image: pranayraut11/discovery-app
@@ -12,19 +14,14 @@ services:
       resources:
         limits:
           cpus: '0.5'
-          memory: 512M
-    healthcheck:
-      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8761/actuator/health/readiness | grep UP || exit 1"]
-      interval: 20s
-      timeout: 5s
-      retries: 20
-      start_period: 10s
-    environment:
-      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
-      OTEL_METRICS_EXPORTER: none
-      OTEL_SERVICE_NAME: discovery
-      SPRING_PROFILES_ACTIVE: "dev"
+          memory: 800M
+#    environment:
+      #Tracing properties for opentelemetry java agent
+#      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
+#      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
+#      OTEL_METRICS_EXPORTER: none
+#      OTEL_SERVICE_NAME: discovery
+#      SPRING_PROFILES_ACTIVE: "dev"
 
   order:
     image: pranayraut11/order-app
@@ -36,76 +33,80 @@ services:
     deploy:
       resources:
         limits:
+          cpus: '0.5'
           memory: 700M
-    depends_on:
-      discovery:
-        condition: service_healthy
-    environment:
-      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
-      OTEL_METRICS_EXPORTER: none
-      OTEL_SERVICE_NAME: order
-      SPRING_PROFILES_ACTIVE: "dev"
+#    environment:
+      #Tracing properties for opentelemetry java agent
+#      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
+#      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
+#      OTEL_METRICS_EXPORTER: none
+#      OTEL_SERVICE_NAME: order
+#      SPRING_PROFILES_ACTIVE: "dev"
 
-  inventory:
-    image: pranayraut11/inventory-app
-    container_name: inventory
-    ports:
-      - "8081:8081"
-    networks:
-      - ecom-backend
-    deploy:
-      resources:
-          limits:
-            memory: 700M
-    depends_on:
-      discovery:
-        condition: service_healthy
-    environment:
-      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
-      OTEL_METRICS_EXPORTER: none
-      OTEL_SERVICE_NAME: inventory
-      SPRING_PROFILES_ACTIVE: "dev"
+#  inventory:
+#    image: pranayraut11/inventory-app
+#    container_name: inventory
+#    ports:
+#      - "8081:8081"
+#    networks:
+#      - ecom-backend
+#    deploy:
+#      resources:
+#          limits:
+#            memory: 700M
+#    depends_on:
+#      discovery:
+#        condition: service_healthy
+#    environment:
+#      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
+#      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
+#      OTEL_METRICS_EXPORTER: none
+#      OTEL_SERVICE_NAME: inventory
+#      SPRING_PROFILES_ACTIVE: "dev"
+#
+#  payment:
+#    image: pranayraut11/payment-app
+#    container_name: payment
+#    ports:
+#      - "8085:8085"
+#    networks:
+#      - ecom-backend
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 700M
+#    depends_on:
+#      discovery:
+#        condition: service_healthy
+#    environment:
+#      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
+#      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
+#      OTEL_METRICS_EXPORTER: none
+#      OTEL_SERVICE_NAME: payment
+#      SPRING_PROFILES_ACTIVE: "dev"
+#
+#  orchestrator:
+#    image: pranayraut11/orchestrator-app
+#    container_name: orchestrator
+#    ports:
+#      - "8083:8083"
+#    networks:
+#      - ecom-backend
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 700M
+#    depends_on:
+#      discovery:
+#        condition: service_healthy
+#    environment:
+#      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
+#      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
+#      OTEL_METRICS_EXPORTER: none
+#      OTEL_SERVICE_NAME: orchestrator
+#      SPRING_PROFILES_ACTIVE: "dev"
 
-  payment:
-    image: pranayraut11/payment-app
-    container_name: payment
-    ports:
-      - "8085:8085"
-    networks:
-      - ecom-backend
-    deploy:
-      resources:
-        limits:
-          memory: 700M
-    depends_on:
-      discovery:
-        condition: service_healthy
-    environment:
-      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
-      OTEL_METRICS_EXPORTER: none
-      OTEL_SERVICE_NAME: payment
-      SPRING_PROFILES_ACTIVE: "dev"
-
-  orchestrator:
-    image: pranayraut11/orchestrator-app
-    container_name: orchestrator
-    ports:
-      - "8083:8083"
-    networks:
-      - ecom-backend
-    deploy:
-      resources:
-        limits:
-          memory: 700M
-    depends_on:
-      discovery:
-        condition: service_healthy
-    environment:
-      JAVA_TOOL_OPTIONS: "-javaagent:/app/libs/opentelemetry-javaagent-1.33.5.jar"
-      OTEL_EXPORTER_OTLP_ENDPOINT: http://tempo:4317
-      OTEL_METRICS_EXPORTER: none
-      OTEL_SERVICE_NAME: orchestrator
-      SPRING_PROFILES_ACTIVE: "dev"
+networks:
+  ecom-backend:
+    name: ecom-backend
+    driver: "bridge"

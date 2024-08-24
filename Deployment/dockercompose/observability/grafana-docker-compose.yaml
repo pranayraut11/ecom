@@ -1,5 +1,3 @@
-include:
-  - logging-docker-compose.yaml
 services:
   grafana:
     image: grafana/grafana:latest
@@ -19,7 +17,3 @@ services:
         - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
     networks:
       - ecom-backend
-
-
-
-

@@ -81,7 +81,7 @@
 				<version>3.2.1</version>
 				<configuration>
 					<from>
-						<image>openjdk:17-jdk-slim-buster</image>
+						<image>openjdk@sha256:1201f5d5750aac6efa9e97c50bbedb6490a617b408b7ade93358d6388e261bcd</image>
 					</from>
 					<to>
 						<image>${docker.username}/${project.artifactId}-app</image>

@@ -13,15 +13,6 @@ spring:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
 
-####### Enable/Disable API security
-security:
-  enabled: true
-########################### security details ##################
-
-
-########################## Spring ##########################
-
-
 ######################### In-house services details ############
 app:
   service:
@@ -58,15 +49,6 @@ management:
         probes:
           enabled: true
   metrics:
-    sampling:
-      probability: 1.0
-    distribution:
-      percentiles-histogram:
-        http.server.requests: true
-      maximum-expected-value:
-        http.server.requests: 1s
-      minimum-expected-value:
-        http.server.requests: 100ms
     tags:
       application: ${spring.application.name}
   info:
@@ -75,5 +57,4 @@ management:
 
 logging:
   pattern:
-    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] %C"
-
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"

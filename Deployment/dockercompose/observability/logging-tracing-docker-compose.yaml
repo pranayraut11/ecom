@@ -18,7 +18,11 @@ services:
       retries: 5
     networks:
       - ecom-backend
-
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 400M
   write:
     image: grafana/loki:latest
     container_name: write
@@ -38,6 +42,11 @@ services:
       - minio
     networks:
       - ecom-backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 400M
 
   alloy:
     image: grafana/alloy:v1.0.0
@@ -52,6 +61,11 @@ services:
       - gateway
     networks:
       - ecom-backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 400M
 
   minio:
     image: minio/minio:latest
@@ -82,6 +96,11 @@ services:
       retries: 5
     networks:
       - ecom-backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 400M
 
   backend:
     image: grafana/loki:latest
@@ -96,6 +115,11 @@ services:
       - gateway
     networks:
       - ecom-backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 400M
 
   gateway:
     image: nginx:1.25.5
@@ -166,6 +190,11 @@ services:
       retries: 5
     networks:
       - ecom-backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 400M
 
   tempo:
     image: grafana/tempo:2.4.2
@@ -178,21 +207,11 @@ services:
       - ./tempo/tempo.yml:/etc/tempo-config.yml
     networks:
       - ecom-backend
-
-  prometheus:
-    image: prom/prometheus:v2.50.1
-    container_name: prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - ecom-backend
-
-networks:
-  ecom-backend:
-    name: ecom-backend
-    driver: "bridge"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 400M
 
 
 
