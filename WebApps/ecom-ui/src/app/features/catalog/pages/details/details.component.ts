@@ -31,6 +31,7 @@ export class DetailsComponent implements OnInit {
 
   getProduct(id : string) {
     this.catalogRestService.getProduct(id).subscribe((response)=>{
+      console.log("Product :"+response);
       this.product = response;
     });
 

@@ -29,9 +29,9 @@ server.use((req, res, next) => {
 
 //Add routing url 
 server.use(jsonServer.rewriter({
-  '/product-service/product': '/product',
-  '/product-service/product/:id': '/product/:id',
-  '/product-service/product?q=:q': '/product?q=:q',
+  '/product-service/products': '/products',
+  '/product-service/products/:id': '/product/:id',
+  '/product-service/products?q=:q': '/products?q=:q',
   '/cart-service/cart': '/cart',
   '/cart-service/cart/:id': '/cart/:id',
   '/user-service/auth/login': '/login',

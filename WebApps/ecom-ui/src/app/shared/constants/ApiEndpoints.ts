@@ -25,6 +25,7 @@ export const ADDRESS = 'address';
 //Product service
 export const PRODUCT_SERVICE = 'product-service';
 export const PRODUCT = '/product';
+export const PRODUCTS = '/products';
 export const SEARCH = '/search';
 //Cart 
 export const CART_SERVICE = 'cart-service'

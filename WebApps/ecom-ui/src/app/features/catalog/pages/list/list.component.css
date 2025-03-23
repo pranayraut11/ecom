@@ -21,7 +21,7 @@
   border-bottom: 1px solid rgb(203, 198, 198);
 }
 .bannercard {
-  margin-top: 10px;
+  margin-top: 0px;
   margin-left: 0%;
   border-radius: 1px;
   width: 100%;
@@ -90,10 +90,6 @@
   text-decoration: line-through;
 }
 
-.homepage {
-  margin-left: 2%;
-  width: 95%;
-}
 
 .buttons .btn {
   height: 50px;

@@ -27,6 +27,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         console.log("Header in auth" + header);
         if (header == null) {
             let tokenDetailsJson = localStorage.getItem("token");
+            console.log("Token in auth" + tokenDetailsJson);
             if (tokenDetailsJson) {
                 const tokenDetails: {
                     'access_token': string,
@@ -45,7 +46,7 @@ export class AuthInterceptorService implements HttpInterceptor {
                 }));
             }
         } else {
-            
+            console.log("Auth header is not null "+header);
             return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     this.spinnerService.hide();

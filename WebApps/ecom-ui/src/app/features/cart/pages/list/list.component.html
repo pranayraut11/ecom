@@ -1,7 +1,6 @@
 <div *ngFor="let product of cartProducts let i= index">
     <div class="block">
-        <div class="row p-2">
-
+        <div class="row p-3">
             <div class="col-2">
                 <div class="row">
                     <img class="img-fluid" style="height: fit-content;width: 125px;" src="{{product.image}}"
@@ -24,30 +23,30 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 fw-lighter">
                         Seller : xyz
                     </div>
                 </div>
                 <div class="row">
 
-                    <div class="col-2 fw-light text-decoration-line-through">${{product.price}}</div>
+                    <div class="col-2 fw-lighter text-decoration-line-through">${{product.price}}</div>
                     <div class="col-2">${{product.discountedPrice}}</div>
                 </div>
-                <div class="row p-4"></div>
+               
 
-                <div class="row">
+                <div class="row pt-2">
                     <div class="col-4">
-                        <a type="button" class="link text-uppercase fw-normal lh-1">Save to
+                        <a type="button" class="link text-uppercase fw-bold lh-1">Save to
                             wishlist</a>
                     </div>
                     <div class="col-2">
-                        <a type="button" class="link text-uppercase fw-normal lh-1"
+                        <a type="button" class="link text-uppercase fw-bold lh-1"
                             (click)="removeFromCart(product)">Remove</a>
                     </div>
                 </div>
             </div>
             <div class="col-3">
-                <div class="col-12">
+                <div class="col-12 fw-light text-end">
                     Delivery on 2nd Oct
                 </div>
             </div>

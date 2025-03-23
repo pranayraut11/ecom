@@ -1,19 +1,47 @@
-<div class="container">
+<div class="homepage">
     <div class="row ">
         <div class="col-3">
-            <div class="row">
+            <div class=" block fiterBlock p-3">
                 <div class="col-12">
-                    <div class="block"> First filter</div>
-
-
+                    <div class=""> Filters</div>
+                    <hr style="color: blanchedalmond;">
                 </div>
 
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="block"> Second filter</div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="pb-3"> ORDER STATUS</div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Default checkbox
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            <label class="form-check-label" for="flexCheckChecked">
+                              Checked checkbox
+                            </label>
+                          </div>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="pb-3"> ORDER TIME</div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Default checkbox
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            <label class="form-check-label" for="flexCheckChecked">
+                              Checked checkbox
+                            </label>
+                          </div>
+                    </div>
 
+                </div>
             </div>
         </div>
         <div class=" col-9">
@@ -28,18 +56,26 @@
                 </div>
             </div>
             <div class="block" *ngFor="let product of productList let i= index">
-                <div class="row p-2">
+                <div class="row p-4">
                     <div class="col-2">
-                        <img class="" style="height: 105px;width: 105px;" src="{{product.image}}" alt="pic" />
+                        <img class="" style="height: 100%;width: 105px;" src="{{product.image}}" alt="pic" />
                     </div>
-                    <div class="col-4" style="font-size: small;">{{product.productName}} </div>
+
+
+                    <div class="col-4 pt-2" style="font-size: small;">
+                        <div class="row">{{product.name}} </div>
+                        <div class="row">Color : Red Size : 10</div>
+                    </div>
                     <div class="col-3" style="font-size: medium;">
                         <div class="row">
                             <div class="col-1"><i class="bi bi-currency-rupee"></i></div>
-                            <div class="col-4" style="margin-left: -10px;"> {{product.price}}</div>
+                            <div class="col-4" style="margin-left: -10px;"> {{product.price.price}}</div>
                         </div>
                     </div>
-                    <div class="col-3">Delivered On {{product.deliveryDate}} </div>
+                    <div class="col-3">
+                        <div class="row">Delivered On </div>
+                        <div class="row">{{product.deliveryDate}}</div>
+                    </div>
                 </div>
             </div>
         </div>

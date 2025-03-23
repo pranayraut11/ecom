@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
        
     }
     ngOnInit() {
+       
         if(localStorage.getItem(AUTH_TOKEN)){
             console.log("User is authenticated")
             this.isAuthenticated=true;

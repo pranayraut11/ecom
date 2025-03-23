@@ -52,13 +52,29 @@
       ]
     }
   ],
-  "product": {
-    "totalElements":20,
-    "totalPages":2,
-    "first":true,
-    "last":false,
-    "size":10,
-    "number":1,
+  "product": [
+    {
+      "id": "SAMSUNG tv",
+      "name": "SAMSUNG tv",
+      "description": "First product desc",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "images": [
+        "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+      ],
+      "_class": "com.ecom.product.entity.Product"
+    }
+  ],
+  "products": {
+    "totalElements": 20,
+    "totalPages": 2,
+    "first": true,
+    "last": false,
+    "size": 10,
+    "number": 1,
     "data": [
       {
         "id": "SAMSUNG tv",
@@ -146,7 +162,34 @@
       }
     ]
   },
-  "orders": [],
+  "orders": [
+    {
+      "id": "SAMSUNG tv",
+      "name": "SAMSUNG tv",
+      "description": "First product desc",
+      "deliveryDate": "2021-06-06",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
+      "_class": "com.ecom.product.entity.Product"
+    },
+    {
+      "id": "SAMSUNG tv",
+      "name": "SAMSUNG tv",
+      "description": "First product desc",
+      "deliveryDate": "2021-06-01",
+      "price": {
+        "price": "567",
+        "discountedPrice": "756",
+        "discount": "0"
+      },
+      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
+      "_class": "com.ecom.product.entity.Product"
+    }
+  ],
   "users": [
     {
       "id": 1234,
@@ -195,6 +238,90 @@
       "deliveryCharge": 150,
       "discount": "0",
       "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+    },
+    {
+      "orderId": "",
+      "productId": "SAMSUNG tv",
+      "name": "SAMSUNG tv",
+      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "deliveryCharge": 150,
+      "id": "X2L6PXR"
+    },
+    {
+      "orderId": "",
+      "productId": "SAMSUNG tv",
+      "name": "SAMSUNG tv",
+      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "deliveryCharge": 150,
+      "id": "0bBPO9R"
+    },
+    {
+      "orderId": "",
+      "productId": "SAMSUNG tv",
+      "name": "SAMSUNG tv",
+      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "deliveryCharge": 150,
+      "id": "OsRgth5"
+    },
+    {
+      "orderId": "",
+      "productId": "SAMSUNG tv",
+      "name": "SAMSUNG tv",
+      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "deliveryCharge": 150,
+      "id": "89hOFA-"
+    },
+    {
+      "orderId": "",
+      "productId": "SAMSUNG tv",
+      "name": "SAMSUNG tv",
+      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "deliveryCharge": 150,
+      "id": "sBaps_r"
+    },
+    {
+      "orderId": "",
+      "productId": "SAMSUNG tv",
+      "name": "SAMSUNG tv",
+      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "deliveryCharge": 150,
+      "id": "YJZ67CB"
+    },
+    {
+      "orderId": "",
+      "productId": "SAMSUNG tv",
+      "name": "SAMSUNG tv",
+      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
+      "price": "567",
+      "discountedPrice": "756",
+      "discount": "0",
+      "quantity": 1,
+      "deliveryCharge": 150,
+      "id": "l1IfJrE"
     }
   ],
   "address": [
@@ -235,9 +362,6 @@
       "type": "Office",
       "mobile": "7507849345",
       "landmark": "Sarkar chowk"
-    },
-    {
-      "id": "_nppaSW"
     }
   ],
   "login": [
@@ -266,6 +390,33 @@
         "user"
       ],
       "id": "lUdUKJV"
+    },
+    {
+      "access_token": "asdsadasd",
+      "refresh_token": "asdsadasd",
+      "expires_in": "123123123123",
+      "roles": [
+        "pranay"
+      ],
+      "id": "3mWXub-"
+    },
+    {
+      "access_token": "asdsadasd",
+      "refresh_token": "asdsadasd",
+      "expires_in": "123123123123",
+      "roles": [
+        "Andrew Owen"
+      ],
+      "id": "OjjDoG1"
+    },
+    {
+      "access_token": "asdsadasd",
+      "refresh_token": "asdsadasd",
+      "expires_in": "123123123123",
+      "roles": [
+        "user"
+      ],
+      "id": "Kym9prt"
     }
   ],
   "categories": [
@@ -310,28 +461,42 @@
           "name": "TV",
           "amount": 90,
           "prefix": "From",
-          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
         },
         {
           "id": "2",
           "name": "Mens TShirt",
           "amount": 50,
           "prefix": "From",
-          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
         },
         {
           "id": "3",
           "name": "Pets Bed",
           "amount": 60,
           "prefix": "From",
-          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
         },
         {
           "id": "4",
           "name": "Monitors",
           "amount": 10,
           "prefix": "From",
-          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
+        },
+        {
+          "id": "5",
+          "name": "Pets Bed",
+          "amount": 60,
+          "prefix": "From",
+          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
+        },
+        {
+          "id": "6",
+          "name": "Monitors",
+          "amount": 10,
+          "prefix": "From",
+          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
         }
       ]
     }
