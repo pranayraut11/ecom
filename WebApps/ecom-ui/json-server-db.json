@@ -26,27 +26,39 @@
       ]
     },
     {
-      "category": "Bike",
+      "category": "Men",
       "subCategories": [
         {
-          "name": "CBZ",
-          "url": "http:bike"
+          "name": "Footwear",
+          "url": "http:bike",
+          "subCategories": [
+            {
+              "name": "Lofers",
+              "url": "http:cars",
+              "subCategories": [
+                  {
+                    "name": "Leather Lofers",
+                    "url": "http:cars"
+                  }
+                ]
+            }
+          ]
         },
         {
-          "name": "Luna",
+          "name": "Winter wear",
           "url": "http:bike"
         }
       ]
     },
     {
-      "category": "Bike",
+      "category": "Electronics",
       "subCategories": [
         {
-          "name": "CBZ",
+          "name": "TV",
           "url": "http:bike"
         },
         {
-          "name": "Luna",
+          "name": "Fridge",
           "url": "http:bike"
         }
       ]

@@ -1,34 +1,28 @@
-<div class="py-2 px-2"  >
-    <div class="block " >
-        <nav class="navbar navbar-expand-lg navbar-dark">
+<!-- menubar.component.html -->
+<div class="homepage pt-2 pb-2">
+    <div class="">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
                         <li class="nav-item dropdown col-6" *ngFor="let category of categories">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{category.category}}
                             </a>
-                            <ul class="dropdown-menu">
-
-
-                                <li class="nav-item dropend" *ngFor="let subCategory of category.subCategories">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        {{subCategory.name}}
-                                    </a>
-                                    <ul class="dropdown-menu" *ngFor="let subCategory1 of subCategory.subCategories">
-                                        <li><a class="dropdown-item" href="#">{{subCategory1.name}}</a></li>
-
-                                    </ul>
-                                </li>
-                            </ul>
+                            <div class="dropdown-menu multi-column">
+                                <div class="row">
+                                    <div class="col-md-4" *ngFor="let subCategory of category.subCategories">
+                                        <h6 class="dropdown-item">{{subCategory.name}}</h6>
+                                        <ul class="list-unstyled">
+                                            <li *ngFor="let subCategory1 of subCategory.subCategories">
+                                                <a class="dropdown-header " href="#">{{subCategory1.name}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
-
                     </ul>
-
                 </div>
             </div>
         </nav>
