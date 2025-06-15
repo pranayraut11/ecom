@@ -26,28 +26,48 @@ public class DBCriteriaUtil {
 
     }
 
-    public static Query getQuery(PageRequestDTO page){
+    public static Query getQuery(PageRequestDTO page) {
         List<Criteria> andCriterias = new ArrayList<>();
         List<Criteria> orCriterias = new ArrayList<>();
+        List<Criteria> inCriterias = new ArrayList<>();
+
         if (Objects.nonNull(page.getAndCriteria())) {
             page.getAndCriteria().forEach(searchCriteria ->
                     andCriterias.add(DBCriteriaUtil.buildCriteria(searchCriteria)));
         }
-        Criteria andCriteria = new Criteria().andOperator(andCriterias.toArray(new Criteria[andCriterias.size()]));
+        if (Objects.nonNull(page.getInCriteria())) {
+            page.getInCriteria().forEach(searchCriteria -> {
+                if (searchCriteria.getValues() != null && !searchCriteria.getValues().isEmpty()) {
+                    inCriterias.add(Criteria.where(searchCriteria.getKey()).in(searchCriteria.getValues()));
+                }
+            });
+        }
         if (Objects.nonNull(page.getOrCriteria())) {
             page.getOrCriteria().forEach(searchCriteria ->
                     orCriterias.add(DBCriteriaUtil.buildCriteria(searchCriteria)));
         }
-        Criteria orCriteria = new Criteria().orOperator(orCriterias.toArray(new Criteria[orCriterias.size()]));
-        Query query = null;
-        if (Objects.nonNull(page.getAndCriteria()) && Objects.nonNull(page.getOrCriteria())) {
-            query = Query.query(new Criteria().andOperator(andCriteria).orOperator(orCriteria));
-        } else if (Objects.nonNull(page.getOrCriteria())) {
-            query = Query.query(new Criteria().orOperator(orCriteria));
-        } else if (Objects.nonNull(page.getAndCriteria())) {
-            query = Query.query(new Criteria().andOperator(andCriteria));
+
+        Query query = new Query();
+        List<Criteria> combinedAnd = new ArrayList<>();
+        if (!andCriterias.isEmpty()) combinedAnd.addAll(andCriterias);
+        if (!inCriterias.isEmpty()) combinedAnd.addAll(inCriterias);
+
+        Criteria finalAnd = null;
+        if (!combinedAnd.isEmpty()) {
+            finalAnd = new Criteria().andOperator(combinedAnd.toArray(new Criteria[0]));
+        }
+        Criteria finalOr = null;
+        if (!orCriterias.isEmpty()) {
+            finalOr = new Criteria().orOperator(orCriterias.toArray(new Criteria[0]));
         }
 
+        if (finalAnd != null && finalOr != null) {
+            query.addCriteria(new Criteria().andOperator(finalAnd).orOperator(finalOr));
+        } else if (finalAnd != null) {
+            query.addCriteria(finalAnd);
+        } else if (finalOr != null) {
+            query.addCriteria(finalOr);
+        }
         return query;
     }
     public static Criteria buildCriteria(SearchCriteria condition) {

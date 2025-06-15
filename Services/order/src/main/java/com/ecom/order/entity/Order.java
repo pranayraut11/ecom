@@ -1,22 +1,26 @@
 package com.ecom.order.entity;
 
-import com.ecom.order.model.Address;
 import com.ecom.order.model.Product;
-import com.ecom.wrapper.database.mongodb.entity.BaseEntity;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
 @Builder
 @Document
-public class Order extends BaseEntity {
-
+public class Order extends com.ecom.wrapper.database.mongodb.entity.BaseEntity {
+    private String orderId; // unique order identifier
     private String userId;
-
-    private List<Address> addresses;
-
-    List<Product> products;
+    private String addressId;
+    private List<Product> products;
+    private BigDecimal totalAmount;
+    private String paymentMode;
+    private String paymentProvider;
+    private String couponCode;
+    private OrderStatus status; // use enum instead of String
+    private boolean gift;
+    private String instructions;
 }

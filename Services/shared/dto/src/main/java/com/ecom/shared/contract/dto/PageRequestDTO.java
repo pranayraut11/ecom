@@ -13,6 +13,7 @@ import java.util.List;
 public class PageRequestDTO {
     private List<SearchCriteria> andCriteria;
     private List<SearchCriteria> orCriteria;
+    private List<SearchCriteria> inCriteria; // for IN queries
     private String orders;
     private int page;
     private int size;

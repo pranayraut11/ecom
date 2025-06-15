@@ -38,7 +38,7 @@ public class CartServiceImpl  implements CartService  {
     @Override
     public void delete(String id) {
 
-        Cart cart = cartRepository.findByUserId("UserDetails.getUserId()");
+        Cart cart = cartRepository.findByUserId(UserDetails.getUserId());
         if (cart != null) {
             Product product = cart.getProducts().stream().filter(cartProduct -> cartProduct.getProductId().equals(id)).collect(Collectors.toList()).stream().findFirst().get();
             cart.getProducts().remove(product);

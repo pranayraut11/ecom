@@ -64,4 +64,10 @@ public class ProductController {
     public void createProductForSeller(@RequestBody PriceDTO priceDTO) throws JsonProcessingException {
         productService.addSellerToProduct(priceDTO);
     }
+
+    @Operation(summary = "Get products by productIds")
+    @PostMapping("/by-ids")
+    public List<ProductDTO> getProductsByIds(@RequestBody List<String> productIds) {
+        return productService.getProductsByIds(productIds);
+    }
 }

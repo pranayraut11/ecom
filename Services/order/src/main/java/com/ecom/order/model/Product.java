@@ -12,15 +12,19 @@ public class Product {
 
     private String description;
 
-    private Seller seller;
-
     private String image;
 
-    private BigDecimal price;
+    private String sellerId;
+
+    private String sellerName;
+
+    private String sku; // or variant info
+
+    private short quantity;
+
+    private BigDecimal unitPrice;
 
     private BigDecimal discountedPrice;
 
-    private short discount;
-
-    private short quantity;
+    private BigDecimal totalPrice;
 }
