@@ -100,4 +100,10 @@ public class ProductServiceImpl implements ProductService {
         product.getPrices().add(priceMapper.priceDtoToPrice(priceDTO));
         productRepository.save(product);
     }
+
+    @Override
+    public List<ProductDTO> getProductsByIds(List<String> productIds) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getProductsByIds'");
+    }
 }

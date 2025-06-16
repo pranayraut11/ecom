@@ -25,4 +25,8 @@ public interface ProductService {
     void update(ProductDTO entity);
 
     void addSellerToProduct(PriceDTO priceDTO);
+
+    List<ProductDTO> getProductsByIds(List<String> productIds);
+
+
 }
