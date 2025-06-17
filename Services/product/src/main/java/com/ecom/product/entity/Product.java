@@ -28,4 +28,6 @@ public class Product extends BaseEntity {
     private List<String> images;
 
     private List<Price> prices;
+
+    private Boolean inStock;
 }

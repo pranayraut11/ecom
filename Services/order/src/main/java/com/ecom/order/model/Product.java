@@ -22,9 +22,12 @@ public class Product {
 
     private short quantity;
 
-    private BigDecimal unitPrice;
+    private BigDecimal price;
 
     private BigDecimal discountedPrice;
 
     private BigDecimal totalPrice;
+
+    private boolean active;
+    private boolean inStock;
 }

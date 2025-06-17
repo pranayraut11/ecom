@@ -19,8 +19,6 @@ public interface OrderMapper {
         @Mapping(target = "orderId", ignore = true),
         @Mapping(target = "userId", ignore = true),
         @Mapping(target = "status", ignore = true),
-        @Mapping(target = "orderTimestamp", ignore = true),
-        @Mapping(target = "updatedTimestamp", ignore = true),
         @Mapping(target = "totalAmount", ignore = true)
     })
     Order toOrder(CreateOrderDTO dto, List<Product> products);

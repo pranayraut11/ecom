@@ -1,8 +1,10 @@
 package com.ecom.order.entity;
 
 import com.ecom.order.model.Product;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
@@ -11,6 +13,8 @@ import java.util.List;
 @Data
 @Builder
 @Document
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order extends com.ecom.wrapper.database.mongodb.entity.BaseEntity {
     private String orderId; // unique order identifier
     private String userId;

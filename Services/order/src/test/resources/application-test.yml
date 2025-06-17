@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/order-test
+      database: order-test
+
+# Disable transaction management for MongoDB tests
+spring.mongodb.embedded.version: 4.0.2
