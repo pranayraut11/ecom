@@ -8,7 +8,7 @@ import { OrderListComponent } from './features/order/pages/list/list.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { CreateAddressComponent } from './features/profile/components/address/create-address/create-address.component';
 import { UpdateProfileComponent } from './features/profile/components/update-profile/update-profile.component';
-import { ListAddressComponent } from './features/profile/components/address/list-address/list-address.component';
+
 import { AddressComponent } from './features/profile/components/address/address.component';
 import { CartComponent } from './features/cart/cart.component';
 import { PaymentComponent } from './features/payment/payment.component';
@@ -24,7 +24,7 @@ import { NotificationComponent } from './features/profile/components/notificatio
 import { LoginComponent } from './shared/components/login/login.component';
 import { LoginPopupComponent } from './shared/components/login/login-popup/login-popup.component';
 import { CategoryComponent } from './features/catalog/pages/category/category.component';
-import { CatalogListComponent } from './features/catalog/pages/list/list.component';
+import { ListComponent } from './features/catalog/pages/list/list.component';
 const appsRoutes: Routes = [
   // { path: 'cart', component: CartListComponent }, 
   //{ path: 'myorders', component: OrderListComponent },
@@ -40,11 +40,9 @@ const appsRoutes: Routes = [
         path: 'list',
         component: CategoryComponent,
 
-      },
-      {
+      },      {
         path: 'list/:id',
-        component: CatalogListComponent,
-
+        loadComponent: () => import('./features/catalog/pages/list/list.component').then(c => c.ListComponent),
       },
       {
         path: 'login',
@@ -74,7 +72,7 @@ const appsRoutes: Routes = [
           },
           {
             path: 'address',
-            component: ListAddressComponent
+            loadComponent: () => import('./features/profile/components/address/list-address/list-address.component').then(m => m.ListAddressComponent)
           },
           {
             path: 'payment',
@@ -125,7 +123,7 @@ const appsRoutes: Routes = [
           {
             path: 'address', component: AddressComponent, children: [
               {
-                path: 'list', component: ListAddressComponent
+                path: 'list', loadComponent: () => import('./features/profile/components/address/list-address/list-address.component').then(m => m.ListAddressComponent)
               },
               {
                 path: 'create', component: CreateAddressComponent

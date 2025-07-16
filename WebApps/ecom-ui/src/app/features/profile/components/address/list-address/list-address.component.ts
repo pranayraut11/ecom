@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Address } from 'src/app/shared/models/address.model';
 import { AddressRestService } from 'src/app/shared/services/rest-services/address-rest-service';
@@ -6,7 +7,9 @@ import { AddressRestService } from 'src/app/shared/services/rest-services/addres
 @Component({
   selector: 'app-list-address',
   templateUrl: './list-address.component.html',
-  styleUrls: ['./list-address.component.css']
+  styleUrls: ['./list-address.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class ListAddressComponent implements OnInit {
 

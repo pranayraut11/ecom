@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 import { Cart } from '../../../../shared/models/cart';
 import { CartProduct } from '../../../../shared/models/cart.product.model';
 import { OrderRestService } from '../../../../shared/services/rest-services/order-rest-service';
@@ -10,7 +10,9 @@ import { CommunicationService } from 'src/app/core/services/communication-servic
 @Component({
   selector: 'cart-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['./list.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class CartListComponent implements OnInit {
  // @Output() reload = new EventEmitter<any>();

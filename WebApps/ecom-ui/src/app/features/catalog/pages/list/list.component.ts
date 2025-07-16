@@ -6,13 +6,16 @@ import { CartProduct } from 'src/app/shared/models/cart.product.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/features/cart/cart-service';
 import { Page } from 'src/app/shared/models/Page.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-catalog-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['./list.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
-export class CatalogListComponent implements OnInit {
+export class ListComponent implements OnInit {
 
 
   products: Product[];

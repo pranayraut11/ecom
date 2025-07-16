@@ -9,7 +9,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { ProfileComponent } from './profile.component';
 import { ProfileMenuComponent } from './components/profile-menu/profile-menu.component';
 import { AddressComponent } from './components/address/address.component';
-import { ListAddressComponent } from './components/address/list-address/list-address.component';
+
 import { CreateAddressComponent } from './components/address/create-address/create-address.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -30,7 +30,7 @@ import { ProfileRoutingModule } from './profile-routing.module';
     ProfileComponent,
     ProfileMenuComponent,
     AddressComponent,
-    ListAddressComponent,
+
     CreateAddressComponent,
     UpdateProfileComponent,
     NotificationComponent

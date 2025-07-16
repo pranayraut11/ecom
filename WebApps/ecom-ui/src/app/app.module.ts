@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { CatalogListComponent } from './features/catalog/pages/list/list.component';
+import { ListComponent } from './features/catalog/pages/list/list.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CartListComponent } from './features/cart/pages/list/list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +23,7 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { ProfileMenuComponent } from './features/profile/components/profile-menu/profile-menu.component';
 import { CreateAddressComponent } from './features/profile/components/address/create-address/create-address.component';
 import { UpdateProfileComponent } from './features/profile/components/update-profile/update-profile.component';
-import { ListAddressComponent } from './features/profile/components/address/list-address/list-address.component';
+
 import { AddressComponent } from './features/profile/components/address/address.component';
 import { CartComponent } from './features/cart/cart.component';
 import { PaymentComponent } from './features/payment/payment.component';
@@ -53,15 +53,13 @@ import { TableListComponent } from './features/catalog/pages/table-list/table-li
 @NgModule({
   declarations: [
     // Regular components (not standalone)
-    CatalogListComponent,
     CreateProductComponent,
-    CartListComponent,
     CreateOrderComponent,
     FilterComponent,
     SellerHomeComponent,
     OrderListComponent,
     UpdateProfileComponent,
-    ListAddressComponent,
+
     UpiComponent,
     CardsComponent,
     WalletsComponent,
@@ -98,6 +96,8 @@ import { TableListComponent } from './features/catalog/pages/table-list/table-li
     SearchComponent,
     BackCreateButtonComponent,
     LoginPopupComponent,
+    ListComponent,
+    CartListComponent,
     
     // Components that were converted to standalone
     HomeComponent,

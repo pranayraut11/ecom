@@ -12,7 +12,7 @@ import { TableListComponent } from "../../catalog/pages/table-list/table-list.co
 import { UpdateProfileComponent } from "../../profile/components/update-profile/update-profile.component";
 import { AddressComponent } from "../../profile/components/address/address.component";
 import { CreateAddressComponent } from "../../profile/components/address/create-address/create-address.component";
-import { ListAddressComponent } from "../../profile/components/address/list-address/list-address.component";
+
 
 const appsRoutes: Routes = [
     {
@@ -52,7 +52,7 @@ const appsRoutes: Routes = [
                                 path: 'create', component: CreateAddressComponent
                             },
                             {
-                                path: 'list', component: ListAddressComponent
+                                path: 'list', loadComponent: () => import('../../../../features/profile/components/address/list-address/list-address.component').then(m => m.ListAddressComponent)
                             }
                         ]
                     },
