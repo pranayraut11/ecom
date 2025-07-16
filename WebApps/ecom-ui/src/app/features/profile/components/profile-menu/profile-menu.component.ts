@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RolesDirective } from 'src/app/core/directives/roles.directive';
 
 @Component({
   selector: 'app-profile-menu',
   templateUrl: './profile-menu.component.html',
-  styleUrls: ['./profile-menu.component.css']
+  styleUrls: ['./profile-menu.component.css'],
+  standalone: true,
+  imports: [
+    RouterModule,
+    CommonModule,
+    RolesDirective
+  ]
 })
 export class ProfileMenuComponent implements OnInit {
 
@@ -14,7 +22,7 @@ export class ProfileMenuComponent implements OnInit {
   }
 
   redirectToMyOrders(){
-this.route.navigate(["user/myorders"]);
+    this.route.navigate(["user/myorders"]);
   }
 
 }

@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/core/auth/Auth-Service';
 import { AUTH_TOKEN } from 'src/app/shared/constants/AuthConst';
 import { Login } from 'src/app/shared/models/Login.model';
+import { CommonModule } from '@angular/common';
+import { UserRegistrationComponent } from '../../user-registration/user-registration.component';
+
 declare var $: any;
 @Component({
   selector: 'app-login-popup',
   templateUrl: './login-popup.component.html',
-  styleUrls: ['./login-popup.component.css']
+  styleUrls: ['./login-popup.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    UserRegistrationComponent
+  ]
 })
 
 export class LoginPopupComponent implements OnInit {

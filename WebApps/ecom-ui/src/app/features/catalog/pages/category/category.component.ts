@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Category } from 'src/app/shared/models/Category.model';
 import { CategoryRestService } from 'src/app/shared/services/rest-services/category-rest-service';
+import { CommonModule } from '@angular/common';
+import { Category } from 'src/app/shared/models/Category.model';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  styleUrls: ['./category.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class CategoryComponent implements OnInit {
 

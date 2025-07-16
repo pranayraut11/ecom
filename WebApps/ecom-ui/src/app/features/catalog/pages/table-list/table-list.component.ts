@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/shared/models/product.model';
 import { ProductRestService } from 'src/app/shared/services/rest-services/product-rest-service';
+import { BackCreateButtonComponent } from 'src/app/shared/components/back-create-button/back-create-button.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-table-list',
   templateUrl: './table-list.component.html',
-  styleUrls: ['./table-list.component.css']
+  styleUrls: ['./table-list.component.css'],
+  imports: [BackCreateButtonComponent, CommonModule],
+  standalone: true
 })
 export class TableListComponent implements OnInit {
 

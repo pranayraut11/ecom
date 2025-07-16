@@ -18,7 +18,6 @@ import { RolesDirective } from './core/directives/roles.directive';
 import { AppRoutingModule } from './app-routing.module';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { SellerHomeComponent } from './features/layout/seller/pages/home/home.component';
-import { TableListComponent } from './features/catalog/pages/table-list/table-list.component';
 import { OrderListComponent } from './features/order/pages/list/list.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { ProfileMenuComponent } from './features/profile/components/profile-menu/profile-menu.component';
@@ -46,55 +45,71 @@ import { LoginPopupComponent } from './shared/components/login/login-popup/login
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { AppSellerRoutingModule } from './features/layout/seller/app-seller-routing-module';
 import { CategoryComponent } from './features/catalog/pages/category/category.component';
+import { DetailsComponent } from './features/catalog/pages/details/details.component';
+import { OrderSuccessComponent } from './features/order/order-success/order-success.component';
+import { RouterModule } from '@angular/router';
+import { TableListComponent } from './features/catalog/pages/table-list/table-list.component';
+
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
+    // Regular components (not standalone)
     CatalogListComponent,
     CreateProductComponent,
     CartListComponent,
     CreateOrderComponent,
-    CreateProductComponent,
-    HomeComponent,
-    FooterComponent,
     FilterComponent,
-    LoginComponent,
-    UserRegistrationComponent,
-    RolesDirective,
-    LoadingSpinnerComponent,
     SellerHomeComponent,
-    TableListComponent,
     OrderListComponent,
-    ProfileComponent,
-    ProfileMenuComponent,
-    CreateAddressComponent,
     UpdateProfileComponent,
     ListAddressComponent,
-    AddressComponent,
-    CartComponent,
-    PaymentComponent,
     UpiComponent,
     CardsComponent,
     WalletsComponent,
     CashOnDeliveryComponent,
     NetBankingComponent,
     SavedCardsComponent,
-    MenubarComponent,
-    SearchComponent,
     SellerHeaderComponent,
     SellerMenuComponent,
-    BackCreateButtonComponent,
     ProductTemplateComponent,
     ProductCreateComponent,
     NotificationComponent,
-    LoginPopupComponent,
     DashboardComponent,
-    CategoryComponent
+    DetailsComponent,
+    OrderSuccessComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, FormsModule, AppRoutingModule,ReactiveFormsModule,AppSellerRoutingModule
+    BrowserModule, 
+    HttpClientModule, 
+    FormsModule, 
+    AppRoutingModule,
+    ReactiveFormsModule,
+    AppSellerRoutingModule,
+    RouterModule,
+    
+    // Import standalone components
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    LoginComponent,
+    UserRegistrationComponent,
+    RolesDirective,
+    LoadingSpinnerComponent,
+    MenubarComponent,
+    SearchComponent,
+    BackCreateButtonComponent,
+    LoginPopupComponent,
+    
+    // Components that were converted to standalone
+    HomeComponent,
+    ProfileComponent,
+    ProfileMenuComponent,
+    AddressComponent,
+    CartComponent,
+    PaymentComponent,
+    TableListComponent,
+    CreateAddressComponent,
+    CategoryComponent
   ],
-  providers: [{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptorService,multi:true}],
-  bootstrap: [AppComponent]
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}]
 })
 export class AppModule { }

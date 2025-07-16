@@ -3,7 +3,8 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../core/auth/Auth-Service';
 
 @Directive({
-  selector: '[appRoles]'
+  selector: '[appRoles]',
+  standalone: true
 })
 export class RolesDirective implements OnInit {
 

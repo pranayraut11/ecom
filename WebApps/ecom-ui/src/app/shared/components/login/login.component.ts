@@ -6,11 +6,19 @@ import { AuthService } from 'src/app/core/core/auth/Auth-Service';
 import { AUTH_TOKEN } from '../../constants/AuthConst';
 import { Login } from '../../models/Login.model';
 import { AuthRestService } from '../../services/rest-services/auth-rest-service';
+import { CommonModule } from '@angular/common';
+import { LoginPopupComponent } from './login-popup/login-popup.component';
+
 declare var $: any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    LoginPopupComponent
+  ]
 })
 
 export class LoginComponent implements OnInit {

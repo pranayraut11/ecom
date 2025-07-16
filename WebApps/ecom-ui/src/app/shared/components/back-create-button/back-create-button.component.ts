@@ -1,10 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RolesDirective } from 'src/app/core/directives/roles.directive';
 
 @Component({
   selector: 'app-back-create-button',
   templateUrl: './back-create-button.component.html',
-  styleUrls: ['./back-create-button.component.css']
+  styleUrls: ['./back-create-button.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RolesDirective
+  ]
 })
 export class BackCreateButtonComponent implements OnInit {
 

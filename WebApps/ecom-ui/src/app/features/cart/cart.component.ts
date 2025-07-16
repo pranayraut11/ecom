@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/core/core/auth/Auth-Service';
 import { Cart } from 'src/app/shared/models/cart';
 import { CartProduct } from 'src/app/shared/models/cart.product.model';
@@ -7,11 +7,17 @@ import { CartRestService } from 'src/app/shared/services/rest-services/cart-rest
 import { CartListComponent } from './pages/list/list.component';
 import { CommunicationService } from 'src/app/core/services/communication-service';
 import { CART } from 'src/app/shared/constants/ApiEndpoints';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'cart-app',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
+  standalone: true,
+  imports: [
+    RouterModule,
+    CommonModule
+  ]
 })
 export class CartComponent implements OnInit {
 

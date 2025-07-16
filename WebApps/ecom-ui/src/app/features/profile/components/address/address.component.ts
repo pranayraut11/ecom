@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/core/core/auth/Auth-Service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-address',
   templateUrl: './address.component.html',
-  styleUrls: ['./address.component.css']
+  styleUrls: ['./address.component.css'],
+  standalone: true,
+  imports: [
+    RouterModule,
+    CommonModule
+  ]
 })
 export class AddressComponent implements OnInit {
 

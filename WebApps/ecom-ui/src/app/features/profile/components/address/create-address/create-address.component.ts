@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Address } from 'src/app/shared/models/address.model';
 import { AddressRestService } from 'src/app/shared/services/rest-services/address-rest-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-address',
   templateUrl: './create-address.component.html',
-  styleUrls: ['./create-address.component.css']
+  styleUrls: ['./create-address.component.css'],
+  standalone: true,
+  imports: [FormsModule, CommonModule]
 })
 export class CreateAddressComponent implements OnInit {
 

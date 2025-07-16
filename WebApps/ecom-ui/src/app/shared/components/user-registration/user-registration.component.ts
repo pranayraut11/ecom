@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CreateUser } from '../../models/CreateUser.model';
 import { UserCredential } from '../../models/UserCredential';
 import { UserRestService } from '../../services/rest-services/user-rest-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.css']
+  styleUrls: ['./user-registration.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule
+  ]
 })
 export class UserRegistrationComponent implements OnInit {
 
