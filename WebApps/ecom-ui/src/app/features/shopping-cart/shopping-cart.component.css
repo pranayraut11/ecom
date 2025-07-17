@@ -1,0 +1,66 @@
+.block {
+    margin-top: 0px;
+    border-radius: 1px;
+    border-bottom: 0.1px solid rgb(203, 198, 198);
+    width: 100%;
+    height: 140px;
+    background: #fff;
+    padding: 0px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+            box-shadow: 0 0px 0px rgba(0,0,0,0.1);
+  }
+
+  .block-pricedetails {
+    width: 97%;
+  }
+
+  .block-proceedtobuy {
+    width: 100%;
+    height: fit-content;
+  }
+
+  .myButton {
+	box-shadow:inset 0px 1px 8px 0px #fb641b;
+	background:linear-gradient(to bottom, #fb641b 5%, #fb641b 100%);
+	background-color:#fb641b;
+	border-radius:0px;
+	border:1px solid #fb641b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Verdana;
+	font-size:15px;
+	font-weight:bold;
+	padding:10px 33px;
+	text-decoration:none;
+  }
+
+  .myButton:hover {
+	background:linear-gradient(to bottom, #fb641b 5%, #fb641b 100%);
+	background-color:#fb641b;
+  }
+
+  .myButton:active {
+	position:relative;
+	top:1px;
+  }
+
+  .homepage {
+    padding: 0 10px 0 10px;
+  }
+
+  .sticky-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 0 15px 0 15px;
+    z-index: 1000; /* Make sure it's above other content */
+  }

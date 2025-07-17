@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app/app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptorService } from './app/core/core/auth/Auth-interceptor-service';
+import { AuthInterceptorService } from './app/core/auth/interceptors/auth-interceptor.service';
 import { RouterModule } from '@angular/router';
 
 if (environment.production) {

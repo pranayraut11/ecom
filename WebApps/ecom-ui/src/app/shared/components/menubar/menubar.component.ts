@@ -27,8 +27,21 @@ export class MenubarComponent implements OnInit {
   loadMenu() {
     console.log("Menus")
     this.menuRest.getMenus().subscribe((response) => {
-      this.categories = response;
-      console.log( this.categories)
+      this.categories = this.processMenuUrls(response);
+      console.log(this.categories)
     })
+  }
+
+  private processMenuUrls(menus: any[]): any[] {
+    return menus.map(menu => {
+      if (menu.subCategories) {
+        menu.subCategories = this.processMenuUrls(menu.subCategories);
+      }
+      // Ensure all menu items have a valid URL
+      if (!menu.url || menu.url.startsWith('http:') && !menu.url.startsWith('http://')) {
+        menu.url = 'https://raw.githubusercontent.com/microsoft/vscode-copilot-release/main/sample-images/placeholder.jpg';
+      }
+      return menu;
+    });
   }
 }

@@ -1,0 +1,89 @@
+<form class="row g-3" (ngSubmit)="saveAddress(f)" #f="ngForm">
+    <div ngModelGroup="addressData" #addressData="ngModelGroup" >
+
+        <div class="row pb-3">
+
+            <div class="col">
+
+                <input type="text" class="form-control" [(ngModel)]="address.firstName" id="firstName" name="firstName"
+                    placeholder="First name" aria-label="First name">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" name="lastName" placeholder="Last name" aria-label="Last name"
+                    [(ngModel)]="address.lastName">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" name="mobile" placeholder="Mobile" aria-label="Mobile"
+                    [(ngModel)]="address.mobile">
+            </div>
+
+
+        </div>
+
+        <div class="row pb-3">
+            <div class="col-12">
+
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="addressLine1"
+                    [(ngModel)]="address.addressLine1">
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-12">
+
+                <input type="text" class="form-control" id="inputAddress2" name="addressLine2"
+                    placeholder="Apartment, studio, or floor" [(ngModel)]="address.addressLine2">
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-md-6">
+
+                <input type="text" class="form-control" id="landMark" name="landmark" placeholder="Landmark"
+                    aria-label="Landmark" [(ngModel)]="address.landmark">
+            </div>
+            <div class="col-md-3">
+
+                <select id="inputCity" class="form-select" name="city" placeholder="city" aria-label="city"
+                    [(ngModel)]="address.city">
+                    <option selected>Select city</option>
+                    <option>...</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+
+                <select id="inputState" class="form-select" name="state" placeholder="State" aria-label="State"
+                    [(ngModel)]="address.state">
+                    <option selected>Select State</option>
+                    <option>...</option>
+                </select>
+            </div>
+        </div>
+        <div class="row pb-3">
+            <div class="col-md-2">
+
+                <input type="text" class="form-control" id="inputZip" name="zipcode" placeholder="Zipcode"
+                    aria-label="Zipcode" [(ngModel)]="address.pincode">
+            </div>
+            <div class="col-md-3">
+
+                <select class="form-select" aria-label="Address Type" name="type" [(ngModel)]="address.type">
+                    <option>Home (9AM-10PM)</option>
+                    <option>Office (10AM-7PM)</option>
+                </select>
+            </div>
+            <div class="col-md-2 form-check form-switch">
+                <label for="inputCity" class="form-label">Default</label>
+                <input class=" form-control form-check-input" type="checkbox" name="default" id="flexSwitchCheckDefault"
+                    [(ngModel)]="address.defaultAddress">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <button type="submit" class="col-12 btn btn-primary">{{btnText}}</button>
+            </div>
+            <div class="col-4">
+                <button type="reset" class="col-6 btn btn-secondary">Clear</button>
+            </div>
+        </div>
+    </div>
+
+</form>

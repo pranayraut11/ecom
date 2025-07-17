@@ -1,0 +1,32 @@
+<div class="block">
+
+    <div class="card-header">
+
+        <div class="row">
+            <div class="col-3 fs-5">
+                Manage Addresses
+            </div>
+
+        </div>
+        <div class="row pt-3 pb-3">
+            <div class="col-12 ">
+                <div class="fs-5">
+                    <button (click)="addAddress()" routerLink="create" class="col-12 btn btn-secondary">
+                      {{btnText}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+
+
+        <div class="d-grid gap-3">
+
+            <div class="row">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
+    </div>
+</div>

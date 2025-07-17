@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/core/core/auth/Auth-Service';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { AUTH_TOKEN } from 'src/app/shared/constants/AuthConst';
 import { Login } from 'src/app/shared/models/Login.model';
 import { CommonModule } from '@angular/common';

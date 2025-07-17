@@ -1,14 +1,21 @@
 import { SubCategory } from "./SubCategory.model"
 
 export class Category {
+    id: string;
+    name: string;
+    description: string;
+    imageUrl: string;
+    prefix: string;
+    amount: string;
+    subCategories: SubCategory[];
 
-    private name: string;
-    private subCategories: SubCategory[];
-
-
-	constructor($name: string, $subCategories: SubCategory[]) {
-		this.name = $name;
-		this.subCategories = $subCategories;
+	constructor(id: string, name: string, description: string, imageUrl: string, prefix: string, amount: string, subCategories: SubCategory[]) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.imageUrl = imageUrl;
+		this.prefix = prefix;
+		this.amount = amount;
+		this.subCategories = subCategories;
 	}
-
 }

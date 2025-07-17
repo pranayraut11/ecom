@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './core/core/auth/Auth-Service';
+import { AuthService } from './core/auth/services/auth.service';
 import { SpinnerService } from './core/services/spinner-service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';

@@ -4,7 +4,9 @@
         <div class="row ">
             <div class="col-md-1"></div>
             <div class="col-md-3">
-                <img src="{{product.image}}"  class="col-md-12" style="width: 100%;">
+                <img [src]="product.image || 'https://raw.githubusercontent.com/microsoft/vscode-copilot-release/main/sample-images/placeholder.jpg'"
+                     (error)="$event.target.src='https://raw.githubusercontent.com/microsoft/vscode-copilot-release/main/sample-images/placeholder.jpg'"  
+                     class="col-md-12" style="width: 100%;">
             </div>
             <div class="col-md-5 " style="margin-top: 2%;">
                 <a href="#" class="">{{product.productName}}</a>

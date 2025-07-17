@@ -1,0 +1,41 @@
+.block {
+    border-radius: 4px;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #dee2e6;
+}
+  
+.link {
+    text-decoration: none;
+}
+  
+.address-selectable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+  
+.address-selectable:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+    border-color: #007bff;
+}
+
+.badge {
+    font-weight: normal;
+    padding: 0.35em 0.65em;
+}
+
+i.bi {
+    cursor: pointer;
+}
+
+i.bi:hover {
+    color: #007bff;
+}
+
+i.bi-trash3:hover {
+    color: #dc3545;
+}

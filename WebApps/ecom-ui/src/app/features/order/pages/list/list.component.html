@@ -88,7 +88,10 @@
             <div class="block" *ngFor="let product of productList let i= index">
                 <div class="row p-4">
                     <div class="col-2">
-                        <img class="" style="height: 100%;width: 105px;" src="{{product.image}}" alt="pic" />
+                        <img class="" style="height: 100%;width: 105px;" 
+                             [src]="product.image || 'https://raw.githubusercontent.com/microsoft/vscode-copilot-release/main/sample-images/placeholder.jpg'" 
+                             (error)="$event.target.src='https://raw.githubusercontent.com/microsoft/vscode-copilot-release/main/sample-images/placeholder.jpg'"
+                             alt="pic" />
                     </div>
 
 

@@ -1,101 +1,143 @@
-<div class="homepage">
+<div class="product-list-page">
     <div class="row">
         <div class="col-3">
-            <div class="bannercard px-4">
-                <div class="row hr py-2" style="font-size: large; font-weight: 450; ">
-                    Filters
+            <div class="filters-panel">
+                <div class="filters-header">
+                    <h3>Filters</h3>
+                    <button class="clear-filters-btn" (click)="clearFilters()">
+                        <i class="bi bi-x-circle"></i> Clear
+                    </button>
                 </div>
-                <div class="row hr py-3">
-                    <div class="row" style="font-size: large; font-weight: 450; ">
-                        Price
-                    </div>
-                    <div class="row">
-                        <div class="col-5" style="text-align: start;">Min</div>
-                        <div class="col-3">{{minPriceRange}}</div>
-
-                        <input type="range" class="form-range" #minRanger (input)="minRange(minRanger.value)" min="100"
-                            max="500" id="customRange2">
-
-
-                        <div class="col-5" style="text-align: start;">Max</div>
-                        <div class="col-3">{{maxPriceRange}}</div>
-                        <input [value]="maxValue" type="range" class="form-range" #maxRanger
-                            (input)="maxRange(maxRanger.value)" min="5" max="500" id="customRange3">
-
+                
+                <div class="filter-section">
+                    <h4 class="filter-title">Price Range</h4>
+                    <div class="price-range-inputs">
+                        <div class="range-group">
+                            <label>Min</label>
+                            <div class="range-value">₹{{minPriceRange}}</div>
+                            <input type="range" 
+                                class="range-slider"
+                                #minRanger 
+                                [(ngModel)]="minPriceRange"
+                                (ngModelChange)="getProducts()" 
+                                min="0" 
+                                max="5000">
+                        </div>
+                        <div class="range-group">
+                            <label>Max</label>
+                            <div class="range-value">₹{{maxPriceRange}}</div>
+                            <input type="range" 
+                                class="range-slider"
+                                #maxRanger 
+                                [(ngModel)]="maxPriceRange"
+                                (ngModelChange)="getProducts()"
+                                min="0" 
+                                max="5000">
+                        </div>
                     </div>
                 </div>
-                <div class="row  ">
-                    <div class="row  py-3 " style="font-size: large; font-weight: 450; ">Brand</div>
-                    <div class="row">
-                        <div class="form-check" style="text-align: start;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 
-                            Puma
-
-                        </div>
-                        <div class="form-check" style="text-align: start;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                            Nike
-
-                        </div>
-                        <div class="form-check" style="text-align: start;">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                            Adidas
-
-                        </div>
+                <div class="filter-section">
+                    <h4 class="filter-title">Brands</h4>
+                    <div class="brand-filters">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" (change)="filterByBrand($event, 'Puma')">
+                            <span class="checkmark"></span>
+                            <span class="brand-name">Puma</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" (change)="filterByBrand($event, 'Nike')">
+                            <span class="checkmark"></span>
+                            <span class="brand-name">Nike</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" (change)="filterByBrand($event, 'Adidas')">
+                            <span class="checkmark"></span>
+                            <span class="brand-name">Adidas</span>
+                        </label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-9">
-            <div class="row bannercard">
-                <div class="row">
-                    <div class="col-6 fs-5 fw-bold">Best Of Electronics</div>
+            <div class="products-section">
+                <div class="products-header">
+                    <h2>Products</h2>
+                    <div class="sort-section">
+                        <label for="sort">Sort by:</label>
+                        <select id="sort" class="sort-select" (change)="sortProducts($event)">
+                            <option value="popular">Most Popular</option>
+                            <option value="newest">Newest First</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="row">
-                    <div *ngFor="let product of products" class="col-3">
-                        <div class="block " (click)='goToDetails(product.id)'>
-                            <div class="middle">
-                                <img src="{{product.images[0]}}" alt="pic" />
+
+                <div class="products-grid">
+                    <div class="product-card" *ngFor="let product of products" (click)="quickView(product)">
+                        <div class="product-image-container">
+                            <img [src]="getProductImageUrl(product)" 
+                                 [alt]="product.name" 
+                                 class="product-image"
+                                 loading="lazy">
+                            <div class="quick-actions" (click)="$event.stopPropagation()">
+                                <button class="action-btn" (click)="addToCart(product)" title="Add to Cart">
+                                    <i class="bi bi-cart-plus"></i>
+                                </button>
+                                <button class="action-btn" (click)="addToWishlist(product)" title="Add to Wishlist">
+                                    <i class="bi bi-heart"></i>
+                                </button>
                             </div>
-
-                            <div class="bottom">
-                                <div class="heading"><a>{{product.name}}</a></div>
-                                <div class="price"><i class="bi bi-currency-rupee"></i>{{product.price.discountedPrice}}
-                                    <span class="old-price"><i
-                                            class="bi bi-currency-rupee"></i>{{product.price.price}}</span>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name" [title]="product.name">{{product.name}}</h3>
+                            <div class="product-meta">
+                                <span class="product-brand" *ngIf="product.brand">{{product.brand}}</span>
+                                <div class="product-rating" *ngIf="product.rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span>{{product.rating}}</span>
                                 </div>
-                                <!-- <div class="buttons d-flex flex-row mt-5 gap-3"> <button class="btn btn-dark"
-                            (click)="addToCart(product)">Add to Basket</button> </div> -->
-
-                                <!-- <a class="btn btn-primary btn-lg btn-block buy-now btn-outline-dark" ">
-                        Add to cart <span class="glyphicon glyphicon-triangle-right"></span> -->
-                                <!-- </a> -->
+                            </div>
+                            <div class="product-price">
+                                <div class="price-group">
+                                    <span class="current-price">₹{{product.price?.price | number:'1.0-0'}}</span>
+                                    <span class="original-price" *ngIf="product.price?.originalPrice && product.price?.originalPrice > product.price?.price">
+                                        <del>₹{{product.price?.originalPrice | number:'1.0-0'}}</del>
+                                    </span>
+                                </div>
+                                <span class="discount" *ngIf="product.price?.discount">
+                                    {{((product.price.discount / product.price.originalPrice) * 100).toFixed(0)}}% OFF
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row py-1">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end">
-                        <li class="{{previousPagButton}}" (click)="changePage(currentPage - 1)">
-                            <a class="page-link" tabindex="-1"  aria-disabled="pageResponse.first">Previous</a>
-                        </li>
 
-                        <li class="page-item" *ngFor="let page of pages">
-                            <a class="page-link" (click)="changePage(page)" >{{page}}</a>
-                        </li>
-                       
-                        <li class="{{nextPagButton}}" *ngIf="!pageResponse.last" (click)="changePage(currentPage + 1)">
-                            <a class="page-link"   >Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                <div class="pagination-container" *ngIf="pageResponse?.totalPages > 1">
+                    <nav aria-label="Product navigation">
+                        <ul class="pagination">
+                            <li [class]="previousPagButton">
+                                <button class="page-btn" (click)="previousPage()" [disabled]="pageResponse?.first">
+                                    <i class="bi bi-chevron-left"></i>
+                                </button>
+                            </li>
+                            <li class="page-item" *ngFor="let page of pages">
+                                <button class="page-btn" 
+                                    [class.active]="currentPage === page - 1"
+                                    (click)="goToPage(page - 1)">
+                                    {{page}}
+                                </button>
+                            </li>
+                            <li [class]="nextPagButton">
+                                <button class="page-btn" (click)="nextPage()" [disabled]="pageResponse?.last">
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-
         </div>
     </div>
 </div>

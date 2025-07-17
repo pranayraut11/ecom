@@ -5,21 +5,21 @@
       "subCategories": [
         {
           "name": "Men's Top wear",
-          "url": "http:cars",
+          "url": "https://img.freepik.com/free-photo/handsome-man-white-shirt-posing-attractive-guy-with-fashion-hairstyle-confident-man-with-short-beard-adult-boy-with-brown-hair-isolated_186202-8545.jpg",
           "subCategories": [
             {
               "name": "Men's TShirt",
-              "url": "http:cars"
+              "url": "https://img.freepik.com/free-photo/man-wearing-t-shirt-gesturing_23-2149393645.jpg"
             }
           ]
         },
         {
           "name": "Men's Bottom wear",
-          "url": "http:cars",
+          "url": "https://img.freepik.com/free-photo/jeans_1203-8093.jpg",
           "subCategories": [
             {
               "name": "Men's Shorts",
-              "url": "http:cars"
+              "url": "https://img.freepik.com/free-photo/handsome-man-white-shirt-posing-attractive-guy-with-fashion-hairstyle-confident-man-with-short-beard-adult-boy-with-brown-hair-isolated_186202-8545.jpg"
             }
           ]
         }
@@ -30,15 +30,15 @@
       "subCategories": [
         {
           "name": "Footwear",
-          "url": "http:bike",
+          "url": "https://img.freepik.com/free-photo/sport-running-shoes_1203-3414.jpg",
           "subCategories": [
             {
               "name": "Lofers",
-              "url": "http:cars",
+              "url": "https://img.freepik.com/free-photo/mens-elegant-shoes_1203-8566.jpg",
               "subCategories": [
                 {
                   "name": "Leather Lofers",
-                  "url": "http:cars"
+                  "url": "https://img.freepik.com/free-photo/leather-mens-shoes-made-genuine-leather_1268-18237.jpg"
                 }
               ]
             }
@@ -46,7 +46,7 @@
         },
         {
           "name": "Winter wear",
-          "url": "http:bike"
+          "url": "https://img.freepik.com/free-photo/young-man-winter-clothes-standing-with-takeaway-coffee_273609-15427.jpg"
         }
       ]
     },
@@ -55,471 +55,580 @@
       "subCategories": [
         {
           "name": "TV",
-          "url": "http:bike"
+          "url": "https://img.freepik.com/free-vector/realistic-tv-screen_23-2147508247.jpg"
         },
         {
           "name": "Fridge",
-          "url": "http:bike"
+          "url": "https://img.freepik.com/free-photo/refrigerator-kitchen-interior_23-2150711935.jpg"
+        },
+        {
+          "name": "Smartphones",
+          "url": "https://img.freepik.com/free-photo/mobile-phone-parts-isolated-white-background_1368-8064.jpg"
+        },
+        {
+          "name": "Washing Machines",
+          "url": "https://img.freepik.com/free-photo/washing-machine-minimal-bathroom_53876-147519.jpg"
+        },
+        {
+          "name": "Air Conditioners",
+          "url": "https://img.freepik.com/free-vector/realistic-conditioner-illustration_23-2148890675.jpg"
+        },
+        {
+          "name": "Kitchen Appliances",
+          "url": "https://img.freepik.com/free-photo/food-mixer-blender-juicer-home-kitchen-appliance_107791-1768.jpg"
         }
       ]
     }
   ],
-  "product": [
-    {
-      "id": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "description": "First product desc",
-      "price": {
-        "price": "567",
-        "discountedPrice": "756",
-        "discount": "0"
-      },
-      "images": [
-        "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-      ],
-      "_class": "com.ecom.product.entity.Product"
-    }
-  ],
   "products": {
-    "totalElements": 20,
+    "totalElements": 12,
     "totalPages": 2,
     "first": true,
     "last": false,
     "size": 10,
-    "number": 1,
+    "number": 0,
     "data": [
       {
-        "id": "SAMSUNG tv",
-        "name": "SAMSUNG tv",
-        "description": "First product desc",
+        "id": "SAMSUNG-TV-1",
+        "name": "SAMSUNG 43-inch Crystal 4K Smart TV",
+        "description": "Crystal 4K UHD Resolution, HDR, Crystal Processor 4K, Multiple Voice Assistants, Smart TV Features",
+        "category": "TV",
+        "brand": "Samsung",
+        "rating": 4.5,
+        "reviewCount": 857,
+        "warranty": "1 Year Comprehensive Warranty",
+        "seller": "ElectroKart",
         "price": {
-          "price": "567",
-          "discountedPrice": "756",
-          "discount": "0"
+          "price": 34990,
+          "originalPrice": 52990,
+          "discount": 18000
         },
+        "colors": ["Black", "Silver"],
         "images": [
-          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-        ],
-        "_class": "com.ecom.product.entity.Product"
+          "https://img.freepik.com/free-vector/realistic-tv-screen_23-2147508247.jpg",
+          "https://img.freepik.com/free-vector/realistic-smart-tv-set-vector-illustration-black-blank-television-screen-modern-lcd-panel-stylish-design-isolated-transparent-background-large-computer-monitor-display-digital-mockup_107791-3857.jpg",
+          "https://img.freepik.com/free-vector/realistic-tv-screen_23-2147508247.jpg"
+        ]
       },
       {
-        "id": "Videocon",
-        "name": "Videocon",
-        "description": "First product desc",
+        "id": "LG-OLED-TV-1",
+        "name": "LG C2 Series 55-inch OLED evo Smart TV",
+        "description": "OLED evo Gallery Edition, 4K UHD Resolution, Dolby Vision IQ, Dolby Atmos, WebOS 22, Game Optimizer, Perfect for Movies and Gaming",
+        "category": "TV",
+        "brand": "LG",
+        "rating": 4.8,
+        "reviewCount": 1243,
+        "warranty": "1 Year Comprehensive Warranty + 1 Year Panel Warranty",
+        "seller": "SuperTech",
         "price": {
-          "price": "567",
-          "discountedPrice": "756",
-          "discount": "0"
+          "price": 109990,
+          "originalPrice": 149990,
+          "discount": 40000
         },
+        "colors": ["Black"],
         "images": [
-          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-        ],
-        "_class": "com.ecom.product.entity.Product"
+          "https://img.freepik.com/free-vector/realistic-tv-screen_23-2147508247.jpg",
+          "https://img.freepik.com/free-vector/tv-with-curved-screen-realistic-illustration_1284-64087.jpg",
+          "https://img.freepik.com/free-vector/plasma-tv-realistic-illustration_1284-23315.jpg"
+        ]
       },
       {
-        "id": "LG",
-        "name": "LG",
-        "description": "First product desc",
+        "id": "SONY-BRAVIA-1",
+        "name": "Sony Bravia 65-inch 4K Ultra HD Smart Google TV",
+        "description": "4K HDR Processor X1, Dolby Vision & Atmos, Google TV, Voice Search, Apple Airplay, HDMI 2.1 for PS5",
+        "category": "TV",
+        "brand": "Sony",
+        "rating": 4.7,
+        "reviewCount": 942,
+        "warranty": "2 Years Comprehensive Warranty",
+        "seller": "ElectroMart",
         "price": {
-          "price": "567",
-          "discountedPrice": "756",
-          "discount": "0"
+          "price": 89990,
+          "originalPrice": 129990,
+          "discount": 40000
         },
+        "colors": ["Black"],
         "images": [
-          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-        ],
-        "_class": "com.ecom.product.entity.Product"
+          "https://img.freepik.com/free-psd/smart-tv-mock-up-living-room_1150-35444.jpg",
+          "https://img.freepik.com/free-psd/smart-tv-mock-up_1310-494.jpg",
+          "https://img.freepik.com/free-psd/smart-tv-mockup-living-room_1150-35442.jpg"
+        ]
       },
       {
-        "id": "One plus",
-        "name": "One plus",
-        "description": "First product desc",
+        "id": "IPHONE-15-PRO-1",
+        "name": "Apple iPhone 15 Pro (256GB) - Natural Titanium",
+        "description": "6.1-inch Super Retina XDR Display, A17 Pro Chip, 48MP Main Camera with 5x Optical Zoom, Titanium Design, Action Button, USB-C",
+        "category": "MOBILE",
+        "brand": "Apple",
+        "rating": 4.9,
+        "reviewCount": 2156,
+        "warranty": "1 Year Manufacturer Warranty",
+        "seller": "iStore",
         "price": {
-          "price": "567",
-          "discountedPrice": "756",
-          "discount": "0"
+          "price": 134900,
+          "originalPrice": 139900,
+          "discount": 5000
         },
+        "colors": ["Natural Titanium", "Blue Titanium", "White Titanium", "Black Titanium"],
         "images": [
-          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-        ],
-        "_class": "com.ecom.product.entity.Product"
+          "https://img.freepik.com/free-psd/smartphone-mockup_1310-812.jpg",
+          "https://img.freepik.com/free-psd/premium-mobile-phone-screen-mockup-template_53876-65749.jpg",
+          "https://img.freepik.com/free-psd/smartphone-mockup_1310-777.jpg"
+        ]
       },
       {
-        "id": "RealMe",
-        "name": "RealMe",
-        "description": "First product desc",
+        "id": "SAMSUNG-S23-ULTRA-1",
+        "name": "Samsung Galaxy S23 Ultra 5G (256GB) - Green",
+        "description": "6.8-inch Dynamic AMOLED 2X, Snapdragon 8 Gen 2, 200MP Camera, S Pen, 5000mAh Battery, IP68 Water Resistant",
+        "category": "MOBILE",
+        "brand": "Samsung",
+        "rating": 4.7,
+        "reviewCount": 1879,
+        "warranty": "1 Year Manufacturer Warranty",
+        "seller": "MobileHub",
         "price": {
-          "price": "567",
-          "discountedPrice": "756",
-          "discount": "0"
+          "price": 104999,
+          "originalPrice": 124999,
+          "discount": 20000
         },
+        "colors": ["Green", "Phantom Black", "Cream", "Lavender"],
         "images": [
-          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-        ],
-        "_class": "com.ecom.product.entity.Product"
+          "https://img.freepik.com/free-photo/new-smartphone-balancing-with-different-phones_23-2150170135.jpg",
+          "https://img.freepik.com/free-psd/smartphone-clay-mockup_439185-800.jpg",
+          "https://img.freepik.com/free-photo/new-smartphone-balancing-with-blurry-phones_23-2150170121.jpg"
+        ]
       },
       {
-        "id": "README",
-        "name": "README",
-        "description": "First product desc",
+        "id": "ONEPLUS-11-5G-1",
+        "name": "OnePlus 11 5G (256GB) - Eternal Green",
+        "description": "6.7-inch QHD+ AMOLED, Snapdragon 8 Gen 2, Hasselblad Camera, 100W SuperVOOC Charging, 5000mAh Battery",
+        "category": "MOBILE",
+        "brand": "OnePlus",
+        "rating": 4.6,
+        "reviewCount": 1245,
+        "warranty": "1 Year Manufacturer Warranty",
+        "seller": "OnePlus Store",
         "price": {
-          "price": "567",
-          "discountedPrice": "756",
-          "discount": "0"
+          "price": 56999,
+          "originalPrice": 61999,
+          "discount": 5000
         },
+        "colors": ["Eternal Green", "Titan Black"],
         "images": [
-          "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-        ],
-        "_class": "com.ecom.product.entity.Product"
+          "https://img.freepik.com/free-photo/smartphone-with-blank-screen-isolated_125540-888.jpg",
+          "https://img.freepik.com/free-psd/smartphone-mockup_1310-812.jpg",
+          "https://img.freepik.com/free-psd/realistic-smartphone-mockup_1310-804.jpg"
+        ]
+      },
+      {
+        "id": "MENS-SHIRT-1",
+        "name": "Dennis Lingo Men's Slim Fit Casual Shirt",
+        "description": "Premium Cotton Blend, Slim Fit, Button-Down Collar, Full Sleeves, Modern Design, Perfect for Casual and Semi-Formal Occasions",
+        "category": "MENS_CLOTHING",
+        "brand": "Dennis Lingo",
+        "rating": 4.3,
+        "reviewCount": 2478,
+        "warranty": "15 Days Return Policy",
+        "seller": "FashionPoint",
+        "price": {
+          "price": 649,
+          "originalPrice": 1849,
+          "discount": 1200
+        },
+        "colors": ["Green", "Blue", "Black", "Grey"],
+        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "images": [
+          "https://img.freepik.com/free-photo/front-view-green-shirt-hanged-clothes-rack_23-2148589517.jpg",
+          "https://img.freepik.com/free-photo/handsome-male-model-posing-studio_23-2148479119.jpg",
+          "https://img.freepik.com/free-photo/shirt_1203-8194.jpg"
+        ]
+      },
+      {
+        "id": "WOMENS-DRESS-1",
+        "name": "Yellow Floral Print Maxi Dress",
+        "description": "Floral print, Round neck, Three-quarter, flared sleeves, Gathered or pleated detail, Maxi length, Polyester fabric",
+        "category": "WOMENS_CLOTHING",
+        "brand": "Antheaa",
+        "rating": 4.5,
+        "reviewCount": 1865,
+        "warranty": "30 Days Return Policy",
+        "seller": "ElegantWear",
+        "price": {
+          "price": 999,
+          "originalPrice": 2499,
+          "discount": 1500
+        },
+        "colors": ["Yellow", "Blue", "Pink"],
+        "sizes": ["XS", "S", "M", "L", "XL"],
+        "images": [
+          "https://img.freepik.com/free-photo/pretty-red-head-woman-yellow-dress-posing-yellow-summer-mood_273443-4421.jpg",
+          "https://img.freepik.com/free-photo/woman-with-beautiful-yellow-dress_23-2148463547.jpg",
+          "https://img.freepik.com/free-photo/full-length-portrait-happy-excited-girl-bright-colorful-clothes-holding-shopping-bags-while-standing-showing-peace-gesture-isolated_231208-5946.jpg"
+        ]
+      },
+      {
+        "id": "ADIDAS-SHOES-1",
+        "name": "Adidas Originals Men's Gazelle Sneakers",
+        "description": "Classic Gazelle design, Suede upper, Synthetic lining, Rubber outsole, Lace-up closure, Iconic 3-Stripes branding",
+        "category": "FOOTWEAR",
+        "brand": "Adidas",
+        "rating": 4.6,
+        "reviewCount": 3241,
+        "warranty": "45 Days Return Policy",
+        "seller": "SneakerWorld",
+        "price": {
+          "price": 5999,
+          "originalPrice": 8999,
+          "discount": 3000
+        },
+        "colors": ["Blue", "Black", "Green", "Red"],
+        "sizes": ["UK6", "UK7", "UK8", "UK9", "UK10", "UK11"],
+        "images": [
+          "https://img.freepik.com/free-photo/new-pair-white-sneakers-isolated-white_185193-69448.jpg",
+          "https://img.freepik.com/free-photo/studio-shot-pair-sneakers_23-2148052090.jpg",
+          "https://img.freepik.com/free-photo/high-angle-white-sneakers_23-2149352679.jpg"
+        ]
+      },
+      {
+        "id": "SOFA-SET-1",
+        "name": "Modern L-Shaped Sectional Sofa in Grey",
+        "description": "Modern design, High-density foam, Solid wood frame, Premium upholstery, Left or right configuration, 3+2 seater, Includes ottoman",
+        "category": "SOFA",
+        "brand": "HomeTown",
+        "rating": 4.4,
+        "reviewCount": 578,
+        "warranty": "3 Years Manufacturer Warranty",
+        "seller": "FurnitureHub",
+        "price": {
+          "price": 32999,
+          "originalPrice": 59999,
+          "discount": 27000
+        },
+        "colors": ["Grey", "Blue", "Beige"],
+        "images": [
+          "https://img.freepik.com/free-photo/comfortable-modern-sofa_144627-16152.jpg",
+          "https://img.freepik.com/free-photo/gray-sofa-white-living-room-with-copy-space_43614-758.jpg",
+          "https://img.freepik.com/free-photo/living-room-with-blue-sofa-gold-coffee-table_123827-22252.jpg"
+        ]
+      },
+      {
+        "id": "WASHING-MACHINE-1",
+        "name": "LG 8 Kg Front Load Washing Machine",
+        "description": "8kg capacity, 1400 RPM, 14 wash programs, Steam wash, Smart diagnosis, Direct drive technology, Energy efficient, Inverter motor",
+        "category": "WASHING_MACHINES",
+        "brand": "LG",
+        "rating": 4.5,
+        "reviewCount": 763,
+        "warranty": "2 Years Comprehensive + 10 Years Motor Warranty",
+        "seller": "HomeAppliances",
+        "price": {
+          "price": 34990,
+          "originalPrice": 44990,
+          "discount": 10000
+        },
+        "colors": ["Silver", "White"],
+        "images": [
+          "https://www.lg.com/in/images/washing-machines/md07518739/gallery/FHM1065ZDL-Washing-Machines-Front-View-D-01.jpg",
+          "https://www.lg.com/in/images/washing-machines/md07518739/gallery/FHM1065ZDL-Washing-Machines-Front-View-D-02.jpg",
+          "https://www.lg.com/in/images/washing-machines/md07518739/gallery/FHM1065ZDL-Washing-Machines-Front-View-D-03.jpg"
+        ]
+      },
+      {
+        "id": "REFRIGERATOR-1",
+        "name": "LG 655L Side-by-Side Refrigerator with InstaView",
+        "description": "655L capacity, Door-in-Door design, InstaView Door-in-Door, Linear Cooling, Smart ThinQ, Multi Air Flow, Inverter Linear Compressor",
+        "category": "REFRIGERATORS",
+        "brand": "LG",
+        "rating": 4.6,
+        "reviewCount": 521,
+        "warranty": "1 Year Comprehensive + 10 Years Compressor Warranty",
+        "seller": "HomeAppliances",
+        "price": {
+          "price": 84990,
+          "originalPrice": 104990,
+          "discount": 20000
+        },
+        "colors": ["Platinum Silver", "Matte Black"],
+        "images": [
+          "https://www.lg.com/in/images/refrigerators/md07540437/gallery/GC-B257JLDV-Refrigerators-Front-View-D-01.jpg",
+          "https://www.lg.com/in/images/refrigerators/md07540437/gallery/GC-B257JLDV-Refrigerators-Front-View-D-02.jpg",
+          "https://www.lg.com/in/images/refrigerators/md07540437/gallery/GC-B257JLDV-Refrigerators-Front-View-D-03.jpg"
+        ]
+      },
+      {
+        "id": "AIR-CONDITIONER-1",
+        "name": "LG 1.5 Ton 5 Star Inverter Split AC",
+        "description": "1.5 Ton capacity, 5 Star Energy Rating, Dual Inverter Compressor, 4-in-1 Convertible Cooling, HD Filter with Anti-Virus Protection, Smart Diagnosis",
+        "category": "AC",
+        "brand": "LG",
+        "rating": 4.4,
+        "reviewCount": 687,
+        "warranty": "1 Year Comprehensive + 10 Years Compressor Warranty",
+        "seller": "CoolTech",
+        "price": {
+          "price": 39990,
+          "originalPrice": 59990,
+          "discount": 20000
+        },
+        "colors": ["White"],
+        "images": [
+          "https://www.lg.com/in/images/air-conditioners/md07529563/gallery/RS-Q19WNZE-Air-Conditioners-Front-View-D-1.jpg",
+          "https://www.lg.com/in/images/air-conditioners/md07529563/gallery/RS-Q19WNZE-Air-Conditioners-Front-View-D-2.jpg",
+          "https://www.lg.com/in/images/air-conditioners/md07529563/gallery/RS-Q19WNZE-Air-Conditioners-Front-View-D-3.jpg"
+        ]
       }
     ]
   },
-  "orders": [
-    {
-      "id": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "description": "First product desc",
-      "deliveryDate": "2021-06-06",
-      "price": {
-        "price": "567",
-        "discountedPrice": "756",
-        "discount": "0"
-      },
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
-      "_class": "com.ecom.product.entity.Product"
-    },
-    {
-      "id": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "description": "First product desc",
-      "deliveryDate": "2021-06-01",
-      "price": {
-        "price": "567",
-        "discountedPrice": "756",
-        "discount": "0"
-      },
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
-      "_class": "com.ecom.product.entity.Product"
-    }
-  ],
-  "users": [
-    {
-      "id": 1234,
-      "name": "Andrew Owen",
-      "age": 26,
-      "eyeColor": "blue"
-    },
-    {
-      "id": 1235,
-      "name": "Susan Que",
-      "age": 45,
-      "eyeColor": "hazel"
-    },
-    {
-      "id": 1236,
-      "name": "John Doe",
-      "age": 53,
-      "eyeColor": "brown"
-    }
-  ],
-  "admins": [
-    {
-      "id": 1232,
-      "name": "John Owen",
-      "age": 53,
-      "eyeColor": "brown"
-    }
-  ],
-  "cart": [
-    {
-      "id": "1",
-      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
-      "description": "First product desc",
-      "price": "600",
-      "discountedPrice": "400",
-      "discount": "0",
-      "deliveryCharge": 100,
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-    },
-    {
-      "id": "2",
-      "name": "SAMSUNG Series 8 189 cm (75 inch) Ultra HD (4K) LED Smart Tizen TV  (UA75NU8000KXXL)",
-      "description": "First product desc",
-      "price": "600",
-      "discountedPrice": "400",
-      "deliveryCharge": 150,
-      "discount": "0",
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
-    },
-    {
-      "orderId": "",
-      "productId": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
-      "price": "567",
-      "discountedPrice": "756",
-      "discount": "0",
-      "quantity": 1,
-      "deliveryCharge": 150,
-      "id": "X2L6PXR"
-    },
-    {
-      "orderId": "",
-      "productId": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
-      "price": "567",
-      "discountedPrice": "756",
-      "discount": "0",
-      "quantity": 1,
-      "deliveryCharge": 150,
-      "id": "0bBPO9R"
-    },
-    {
-      "orderId": "",
-      "productId": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
-      "price": "567",
-      "discountedPrice": "756",
-      "discount": "0",
-      "quantity": 1,
-      "deliveryCharge": 150,
-      "id": "OsRgth5"
-    },
-    {
-      "orderId": "",
-      "productId": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
-      "price": "567",
-      "discountedPrice": "756",
-      "discount": "0",
-      "quantity": 1,
-      "deliveryCharge": 150,
-      "id": "89hOFA-"
-    },
-    {
-      "orderId": "",
-      "productId": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
-      "price": "567",
-      "discountedPrice": "756",
-      "discount": "0",
-      "quantity": 1,
-      "deliveryCharge": 150,
-      "id": "sBaps_r"
-    },
-    {
-      "orderId": "",
-      "productId": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
-      "price": "567",
-      "discountedPrice": "756",
-      "discount": "0",
-      "quantity": 1,
-      "deliveryCharge": 150,
-      "id": "YJZ67CB"
-    },
-    {
-      "orderId": "",
-      "productId": "SAMSUNG tv",
-      "name": "SAMSUNG tv",
-      "image": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png",
-      "price": "567",
-      "discountedPrice": "756",
-      "discount": "0",
-      "quantity": 1,
-      "deliveryCharge": 150,
-      "id": "l1IfJrE"
-    }
-  ],
-  "address": [
-    {
-      "id": "ebac5bd3-9cc5-4c3a-acd8-9cfcb9714ed1",
-      "firstName": "Pranay",
-      "lastName": "Raut",
-      "addressLine1": "VMV ROAD NAVSARI STOP",
-      "addressLine2": "12344",
-      "city": "AMRAVATI",
-      "state": "Maharastra",
-      "pincode": 411067,
-      "defaultAddress": true,
-      "type": "Office"
-    },
-    {
-      "id": "b190049d-a732-4ff2-8a4e-4e853713adfc",
-      "firstName": "Pranay",
-      "lastName": "Raut",
-      "addressLine1": "VMV ROAD NAVSARI STOP",
-      "addressLine2": "Add",
-      "city": "AMRAVATI",
-      "state": "Maharastra",
-      "pincode": 411067,
-      "defaultAddress": false,
-      "type": "Home"
-    },
-    {
-      "id": "3bc22eb4-d2c4-40f4-8190-f6ba66b01832",
-      "firstName": "Pranay",
-      "lastName": "Raut",
-      "addressLine1": "VMV ROAD NAVSARI STOP",
-      "addressLine2": "ret",
-      "city": "AMRAVATI",
-      "state": "Maharastra",
-      "pincode": 411067,
-      "defaultAddress": false,
-      "type": "Office",
-      "mobile": "7507849345",
-      "landmark": "Sarkar chowk"
-    }
-  ],
-  "login": [
-    {
-      "id": "1",
-      "username": "pranay",
-      "password": "123"
-    },
-    {
-      "username": "dsa",
-      "password": "dsa",
-      "id": "uO8Vpnc"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": "['seller']",
-      "id": "_edaf7y"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": [
-        "user"
-      ],
-      "id": "lUdUKJV"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": [
-        "pranay"
-      ],
-      "id": "3mWXub-"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": [
-        "Andrew Owen"
-      ],
-      "id": "OjjDoG1"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": [
-        "user"
-      ],
-      "id": "Kym9prt"
-    },
-    {
-      "access_token": "asdsadasd",
-      "refresh_token": "asdsadasd",
-      "expires_in": "123123123123",
-      "roles": [
-        "user"
-      ],
-      "id": "8-bZfJG"
-    }
-  ],
+  "cart": [],
   "categories": [
     {
-      "name": "Electronics",
+      "id": "FASHION",
+      "name": "Fashion",
+      "description": "Clothing, Footwear & Accessories",
+      "imageUrl": "https://img.freepik.com/free-photo/black-friday-elements-assortment_23-2149074076.jpg",
+      "prefix": "Up to",
+      "amount": "70% off",
       "subCategories": [
         {
-          "id": "1",
-          "name": "TV",
-          "amount": 90,
-          "prefix": "From",
-          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+          "id": "MENS_CLOTHING",
+          "name": "Men's Clothing",
+          "imageUrl": "https://img.freepik.com/free-photo/handsome-man-white-shirt-posing-attractive-guy-with-fashion-hairstyle-confident-man-with-short-beard-adult-boy-with-brown-hair-isolated_186202-8545.jpg",
+          "prefix": "Min",
+          "amount": "50% off"
         },
         {
-          "id": "2",
-          "name": "Mens TShirt",
-          "amount": 50,
-          "prefix": "From",
-          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+          "id": "WOMENS_CLOTHING",
+          "name": "Women's Clothing",
+          "imageUrl": "https://img.freepik.com/free-photo/portrait-young-stylish-girl-model-casual-summer-clothes-brown-hat-with-natural-makeup-isolated_158538-8585.jpg",
+          "prefix": "Under",
+          "amount": "₹499"
         },
         {
-          "id": "3",
-          "name": "Pets Bed",
-          "amount": 60,
-          "prefix": "From",
-          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+          "id": "FOOTWEAR",
+          "name": "Footwear",
+          "imageUrl": "https://img.freepik.com/free-photo/sport-running-shoes_1203-3414.jpg",
+          "prefix": "Starting at",
+          "amount": "₹999"
         },
         {
-          "id": "4",
-          "name": "Monitors",
-          "amount": 10,
-          "prefix": "From",
-          "imageUrl": "https://purepng.com/public/uploads/large/purepng.com-bicyclebicyclesbicyclebikecyclehuman-poweredpedal-drivensingle-track-vehicletwo-wheels-1701528100146isxs4.png"
+          "id": "ACCESSORIES",
+          "name": "Accessories",
+          "imageUrl": "https://img.freepik.com/free-photo/stylish-golden-watch-white-surface_181624-27080.jpg",
+          "prefix": "Up to",
+          "amount": "60% off"
         }
       ]
     },
     {
-      "name": "Cloths",
+      "id": "MEN",
+      "name": "Men's Fashion",
+      "description": "T-shirts, Shirts, Jeans, Shoes & more",
+      "imageUrl": "https://img.freepik.com/free-photo/shirt-confident-retro-modern-man_1368-3558.jpg",
+      "prefix": "Min",
+      "amount": "50% off",
       "subCategories": [
         {
-          "id": "1",
-          "name": "TV",
-          "amount": 90,
-          "prefix": "From",
-          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
+          "id": "TSHIRTS",
+          "name": "T-Shirts",
+          "imageUrl": "https://img.freepik.com/free-photo/man-wearing-t-shirt-gesturing_23-2149393645.jpg",
+          "prefix": "Under",
+          "amount": "₹599"
         },
         {
-          "id": "2",
-          "name": "Mens TShirt",
-          "amount": 50,
-          "prefix": "From",
-          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
+          "id": "SHIRTS",
+          "name": "Shirts",
+          "imageUrl": "https://img.freepik.com/free-photo/man-shirt-with-inscription-smart-beautiful_1187-6661.jpg",
+          "prefix": "Min",
+          "amount": "40% off"
         },
         {
-          "id": "3",
-          "name": "Pets Bed",
-          "amount": 60,
-          "prefix": "From",
-          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
+          "id": "JEANS",
+          "name": "Jeans",
+          "imageUrl": "https://img.freepik.com/free-photo/jeans_1203-8093.jpg",
+          "prefix": "Starting at",
+          "amount": "₹999"
+        }
+      ]
+    },
+    {
+      "id": "HOME",
+      "name": "Home & Furniture",
+      "description": "Bedsheets, Curtains, Sofa sets & more",
+      "imageUrl": "https://img.freepik.com/free-photo/wooden-table-product-background_53876-90186.jpg",
+      "prefix": "Up to",
+      "amount": "65% off",
+      "subCategories": [
+        {
+          "id": "SOFA",
+          "name": "Sofas & Recliners",
+          "imageUrl": "https://img.freepik.com/free-photo/gray-sofa-white-living-room-with-copy-space_43614-758.jpg",
+          "prefix": "Up to",
+          "amount": "65% off"
         },
         {
-          "id": "4",
-          "name": "Monitors",
-          "amount": 10,
-          "prefix": "From",
-          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
+          "id": "BED",
+          "name": "Beds & Mattresses",
+          "imageUrl": "https://img.freepik.com/free-psd/bedroom-interior-design_176382-1972.jpg",
+          "prefix": "Min",
+          "amount": "30% off"
         },
         {
-          "id": "5",
-          "name": "Pets Bed",
-          "amount": 60,
-          "prefix": "From",
-          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
+          "id": "DECOR",
+          "name": "Home Decor",
+          "imageUrl": "https://img.freepik.com/free-photo/living-room-with-blue-sofa-gold-coffee-table_123827-22252.jpg",
+          "prefix": "Min",
+          "amount": "40% off"
+        }
+      ]
+    },
+    {
+      "id": "TV",
+      "name": "Televisions",
+      "description": "Smart TVs, LED TVs, and more",
+      "imageUrl": "https://img.freepik.com/free-photo/premium-home-system-with-screen-closeup_23-2149654095.jpg",
+      "prefix": "Starting at",
+      "amount": "₹24,990",
+      "subCategories": [
+        {
+          "id": "SMART_TV",
+          "name": "Smart TVs",
+          "imageUrl": "https://img.freepik.com/free-vector/realistic-isolated-led-tv-screen_52683-29241.jpg",
+          "prefix": "Starting at",
+          "amount": "₹24,990"
         },
         {
-          "id": "6",
-          "name": "Monitors",
-          "amount": 10,
-          "prefix": "From",
-          "imageUrl": "https://png.pngtree.com/png-vector/20231016/ourmid/pngtree-blue-jeans-png-file-png-image_10198429.png"
+          "id": "OLED_TV",
+          "name": "OLED TVs",
+          "imageUrl": "https://img.freepik.com/free-vector/plasma-tv-realistic-illustration_1284-23315.jpg",
+          "prefix": "Starting at",
+          "amount": "₹89,990"
+        },
+        {
+          "id": "QLED_TV",
+          "name": "QLED TVs",
+          "imageUrl": "https://img.freepik.com/free-vector/tv-stand-realistic-composition_1284-21335.jpg",
+          "prefix": "Starting at",
+          "amount": "₹42,999"
+        },
+        {
+          "id": "TV_32",
+          "name": "32 Inch TVs",
+          "imageUrl": "https://img.freepik.com/free-vector/tv-with-curved-screen-realistic-illustration_1284-64087.jpg",
+          "prefix": "Starting at",
+          "amount": "₹14,990"
+        },
+        {
+          "id": "TV_43",
+          "name": "43 Inch TVs",
+          "imageUrl": "https://img.freepik.com/free-psd/smart-tv-mock-up-living-room_1150-35444.jpg",
+          "prefix": "Starting at",
+          "amount": "₹29,990"
+        },
+        {
+          "id": "TV_55",
+          "name": "55 Inch & Above",
+          "imageUrl": "https://img.freepik.com/free-vector/plasma-tv-realistic-illustration_1284-23315.jpg",
+          "prefix": "Starting at",
+          "amount": "₹49,990"
+        }
+      ]
+    },
+    {
+      "id": "MOBILE",
+      "name": "Smartphones",
+      "description": "Latest smartphones from top brands",
+      "imageUrl": "https://img.freepik.com/free-photo/mobile-phone-parts-isolated-white-background_1368-8064.jpg",
+      "prefix": "Starting at",
+      "amount": "₹12,499",
+      "subCategories": [
+        {
+          "id": "SAMSUNG",
+          "name": "Samsung",
+          "imageUrl": "https://img.freepik.com/free-photo/new-smartphone-balancing-with-blurry-phones_23-2150170121.jpg",
+          "prefix": "Starting at",
+          "amount": "₹18,999"
+        },
+        {
+          "id": "APPLE",
+          "name": "Apple",
+          "imageUrl": "https://img.freepik.com/free-psd/smartphone-mockup_1310-812.jpg",
+          "prefix": "Starting at",
+          "amount": "₹69,990"
+        },
+        {
+          "id": "ONEPLUS",
+          "name": "OnePlus",
+          "imageUrl": "https://img.freepik.com/free-psd/smartphone-clay-mockup_439185-800.jpg",
+          "prefix": "Starting at",
+          "amount": "₹29,999"
+        },
+        {
+          "id": "XIAOMI",
+          "name": "Xiaomi",
+          "imageUrl": "https://img.freepik.com/free-photo/mobile-phone-with-pink-background_23-2150229833.jpg",
+          "prefix": "Starting at",
+          "amount": "₹12,499"
+        },
+        {
+          "id": "BUDGET_PHONES",
+          "name": "Budget Phones",
+          "imageUrl": "https://img.freepik.com/free-vector/realistic-smartphone-different-sides-set_23-2148833722.jpg",
+          "prefix": "Under",
+          "amount": "₹15,000"
+        },
+        {
+          "id": "PREMIUM_PHONES",
+          "name": "Premium Phones",
+          "imageUrl": "https://img.freepik.com/free-psd/premium-mobile-phone-screen-mockup-template_53876-65749.jpg",
+          "prefix": "Starting at",
+          "amount": "₹50,000"
+        }
+      ]
+    },
+    {
+      "id": "APPLIANCES",
+      "name": "Home Appliances",
+      "description": "Washing Machines, ACs, Refrigerators & more",
+      "imageUrl": "https://img.freepik.com/free-photo/various-household-electronic-appliances-parquet-floor_23-2150171083.jpg",
+      "prefix": "Up to",
+      "amount": "40% off",
+      "subCategories": [
+        {
+          "id": "WASHING_MACHINES",
+          "name": "Washing Machines",
+          "imageUrl": "https://img.freepik.com/free-photo/washing-machine-minimal-bathroom_53876-147519.jpg",
+          "prefix": "Starting at",
+          "amount": "₹15,990"
+        },
+        {
+          "id": "REFRIGERATORS",
+          "name": "Refrigerators",
+          "imageUrl": "https://img.freepik.com/free-photo/refrigerator-kitchen-interior_23-2150711935.jpg",
+          "prefix": "Starting at",
+          "amount": "₹18,990"
+        },
+        {
+          "id": "AC",
+          "name": "Air Conditioners",
+          "imageUrl": "https://img.freepik.com/free-vector/realistic-conditioner-illustration_23-2148890675.jpg",
+          "prefix": "Starting at",
+          "amount": "₹32,990"
+        },
+        {
+          "id": "KITCHEN_APPLIANCES",
+          "name": "Kitchen Appliances",
+          "imageUrl": "https://img.freepik.com/free-photo/food-mixer-blender-juicer-home-kitchen-appliance_107791-1768.jpg",
+          "prefix": "Up to",
+          "amount": "50% off"
         }
       ]
     }
-  ]
+  ],
+  "address": [],
+  "login": {
+    "access_token": "dummy_token",
+    "refresh_token": "dummy_refresh",
+    "expires_in": "3600",
+    "roles": ["USER"]
+  }
 }

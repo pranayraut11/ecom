@@ -4,6 +4,13 @@ const router = jsonServer.router('json-server-db.json')
 
 const middlewares = jsonServer.defaults()
 
+// Add CORS headers
+server.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', '*')
+  next()
+})
+
 server.use(middlewares)
 
 
@@ -29,19 +36,67 @@ server.use((req, res, next) => {
 
 //Add routing url 
 server.use(jsonServer.rewriter({
-  '/product-service/products': '/products',
-  '/product-service/products/:id': '/product/:id',
-  '/product-service/products?q=:q': '/products?q=:q',
+  '/product-service/products*': '/products$1', // Handle all product routes with query params
+  '/product-service/product/:id': '/product/:id',
   '/cart-service/cart': '/cart',
   '/cart-service/cart/:id': '/cart/:id',
   '/user-service/auth/login': '/login',
   '/user-service/address' : '/address',
   '/user-service/address/:id' : '/address/:id',
-  '/category-service/' : '/categories'
+  '/category-service/' : '/categories',
+  '/menus': '/menus'
 }))
 
 server.use(router)
 
+// Handle product filtering and pagination
+server.use((req, res, next) => {
+  if (req.method === 'GET' && req.path === '/products') {
+    // Get query parameters
+    const page = parseInt(req.query.page) || 0;
+    const size = parseInt(req.query.size) || 10;
+    const category = req.query.category;
+    const maxPrice = parseFloat(req.query.maxPrice);
+    const minPrice = parseFloat(req.query.minPrice);
+
+    // Get the base data
+    const db = router.db;
+    let data = db.get('products.data').value() || [];
+
+    // Apply filters
+    if (category) {
+      data = data.filter(product => product.category === category);
+    }
+    if (maxPrice) {
+      data = data.filter(product => parseFloat(product.price.price) <= maxPrice);
+    }
+    if (minPrice) {
+      data = data.filter(product => parseFloat(product.price.price) >= minPrice);
+    }
+
+    // Calculate pagination
+    const totalElements = data.length;
+    const totalPages = Math.ceil(totalElements / size);
+    const startIndex = page * size;
+    const endIndex = startIndex + size;
+    const paginatedData = data.slice(startIndex, endIndex);
+
+    // Construct response
+    const response = {
+      totalElements,
+      totalPages,
+      first: page === 0,
+      last: page >= totalPages - 1,
+      size,
+      number: page,
+      data: paginatedData
+    };
+
+    res.json(response);
+    return;
+  }
+  next();
+})
 
 server.listen(3000, () => {
   console.log('JSON Server is running on PORT 3000 ')

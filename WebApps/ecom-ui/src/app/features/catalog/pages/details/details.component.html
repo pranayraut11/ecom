@@ -1,168 +1,129 @@
-<div class="homepage">
-    <div class="card ">
-        <div class="row p-3">
-            <div class="col-5 border-end">
-                <div class="d-flex flex-column justify-content-center">
-                    <div class="main_image"> <img src="{{product.images[0]}}" id="main_product_image" width="350">
+<div class="product-details-container" *ngIf="product; else loading">
+    <div class="product-details-card">
+        <div class="row">
+            <div class="col-md-5 col-sm-12">
+                <div class="product-gallery">
+                    <div class="main-image-container">
+                        <img [src]="getMainImageUrl()" 
+                             id="main_product_image" 
+                             [alt]="product.name" 
+                             class="main-product-image">
                     </div>
-                    <div class="thumbnail_images">
-                        <ul id="thumbnail">
-                            <li><img (click)="changeImage(this)" src="{{product.images[0]}}" width="70"></li>
-                            <li><img (click)="changeImage(this)" src="{{product.images[0]}}" width="70"></li>
-                            <li><img (click)="changeImage(this)" src="{{product.images[0]}}" width="70"></li>
-                            <li><img (click)="changeImage(this)" src="{{product.images[0]}}" width="70"></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="buttons">
-                    <div class="row">
-                        <div class="col-1 "></div>
-                        <div class="col-5 text-center"><button class="btn btn-outline-dark "
-                                style="background-color: #fb641b;" (click)="gotoBuyProduct(product)"
-                                routerLinkActive="router-link-active">
-                                <i class="bi bi-lightning-charge"></i> BUY NOW</button></div>
-                        <div class="col-6 text-center">
-                            <button class="btn btn-dark " style="background-color: #ff9f00;"
-                                (click)="addToCart(product)">
-                                <i class="bi bi-cart2"></i> ADD TO BASKET</button>
+                    <div class="thumbnail-container">
+                        <div class="thumbnail-item" 
+                             *ngFor="let image of product.images; let i = index" 
+                             [class.active]="i === selectedImageIndex"
+                             (click)="changeImage(image, i)">
+                            <img [src]="image || getPlaceholderImage()" 
+                                 [alt]="product.name + ' thumbnail ' + i">
                         </div>
                     </div>
-
+                    <div class="product-actions">
+                        <button class="action-button buy-now" (click)="gotoBuyProduct(product)">
+                            <i class="bi bi-lightning-charge"></i> BUY NOW
+                        </button>
+                        <button class="action-button add-to-cart" (click)="addToCart(product)">
+                            <i class="bi bi-cart2"></i> ADD TO CART
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-7">
-                <div class="p-3 right-side">
-                    <div class="row">
-                        <div class="col-10" style="font-weight: 400;font-size: x-large;">
-                            {{product.name}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="py-2"><span class="badge bg-success" style="border-radius: 10%;font-weight: 500;">
-                                4.2
-                                <i class="bi bi-star-fill"></i></span>
-                            <span style="font-weight: 400;color: rgb(140, 143, 146);font-size: small;"> 340 Ratings & 43
-                                Reviews</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="btn-group">
-                            <div class="fs-3 " style="font-weight: 600;">
-                                <i class="bi bi-currency-rupee"></i>{{product.price.discountedPrice}}
-                            </div>
-                            <div class="text-decoration-line-through py-2"
-                                style="font-weight: 400;color: rgb(140, 143, 146);font-size: medium;">
-                                <i class="bi bi-currency-rupee"></i>{{product.price.price}}
-                            </div>
-                            <div class="px-1 py-2" style="font-weight: 500;color:#388e3c;font-size: medium;">66% off
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row py-2 mt-2">
-                        <div class="input-group">
-                            <div class="col-3 greyfont">
-                                Delivery
-                            </div>
-                            <div class="col-5">
-                                <div class="row borderhr">
-                                    <div class="col-1" style="margin-left: -5%;">
-                                        <i class="bi bi-geo-alt-fill"></i>
-                                    </div>
-                                    <div class="col-5">
-                                        <input type="text" style="border:#ffffff 0;" class="" required>
-
-                                    </div>
-                                    <div class="col-5 text-end" style="margin-left: 11%;">
-                                        <a class="link">Change</a>
-                                    </div>
-
-                                </div>
-                                <div class="row mt-1" style="font-size: smaller;">Delivery by 27 Nov, Monday | Free₹40
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-2">
-                        <div class="row">
-                            <div class="col-3"> <span class="greyfont">Color</span>
-                            </div>
-                            <div class="col-5">
-                                <div class="colors" style="margin-left: -9%;">
-                                    <ul id="marker">
-                                        <li id="marker-1"></li>
-                                        <li id="marker-2"></li>
-                                        <li id="marker-3"></li>
-                                        <li id="marker-4"></li>
-                                        <li id="marker-5"></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                    <div class="mt-2">
-                        <div class="row">
-                            <div class="col-3"> <span class="greyfont">Highlights</span>
-                            </div>
-                            <div class="col-5" style="margin-left: -3%;">
-
-                                <div class="row">
-                                    <div class="col-1 greyfont"
-                                        style="margin-top: -1%;margin-left: -2%; font-size: x-large;"><i
-                                            class="bi bi-dot"></i></div>
-                                    <div class="col-9"> Lorem ipsum dakjdkaj daskdasdh dlsadhlkas dsajdhashd</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-1 greyfont"
-                                        style="margin-top: -1%;margin-left: -2%; font-size: x-large;"><i
-                                            class="bi bi-dot"></i></div>
-                                    <div class="col-9"> Lorem ipsum</div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="">
-                                    <div class="row">
-                                        <div class="col-5 " style="margin-left: -30%;" > <span class="greyfont">Services</span>
-                                        </div>
-                                        <div class="col-10" >
-                                            <p>Cash on Delivery available</p>
-                                        </div>
             
-                                    </div>
-                                </div>
+            <div class="col-md-7 col-sm-12">
+                <div class="product-info">
+                    <h1 class="product-title">{{product.name}}</h1>
+                    
+                    <div class="product-rating">
+                        <div class="rating-badge">
+                            <span>{{product.rating || '4.2'}}</span>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <span class="rating-count">{{product.reviewCount || '340'}} Ratings & {{product.reviewCount ? (product.reviewCount/8).toFixed(0) : '43'}} Reviews</span>
+                    </div>
+                    
+                    <div class="product-price">
+                        <span class="current-price">₹{{product.price?.price | number:'1.0-0'}}</span>
+                        <span class="original-price" *ngIf="product.price?.originalPrice && product.price?.originalPrice > product.price?.price">
+                            <del>₹{{product.price?.originalPrice | number:'1.0-0'}}</del>
+                        </span>
+                        <span class="discount-badge" *ngIf="product.price?.discount">
+                            {{((product.price.discount / product.price.originalPrice) * 100).toFixed(0)}}% OFF
+                        </span>
+                    </div>
+                    
+                    <div class="product-delivery">
+                        <div class="section-label">Delivery</div>
+                        <div class="delivery-info">
+                            <div class="location">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>Deliver to</span>
+                                <input type="text" class="pincode-input" placeholder="Enter Pincode">
+                                <a href="javascript:void(0)" class="change-link">Check</a>
                             </div>
-                            
+                            <div class="delivery-estimate">
+                                <i class="bi bi-truck"></i>
+                                <span>Delivery by {{deliveryDate | date:'d MMM, EEEE'}} | <span class="free-delivery">FREE</span></span>
+                            </div>
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <div class="row">
-                            <div class="col-3"> <span class="greyfont">Seller</span>
+                    
+                    <div class="product-variants" *ngIf="product.colors && product.colors.length > 0">
+                        <div class="section-label">Color</div>
+                        <div class="color-options">
+                            <div class="color-option" 
+                                 *ngFor="let color of ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6']; let i = index"
+                                 [class.selected]="i === selectedColorIndex"
+                                 [style.backgroundColor]="color"
+                                 (click)="selectColor(i)">
                             </div>
-                            <div class="col-8" style="margin-left: -3%;">
-                                <p class="link">OmniTechRetail <span class="badge bg-success" style="border-radius: 10%;font-weight:
-                                    500;">
-                                    4.2
-                                    <i class="bi bi-star-fill"></i></span>
-                                </p>
-                            </div>
-
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <div class="row">
-                            <div class="col-3"> <span class="greyfont">Discription</span>
+                    
+                    <div class="product-highlights">
+                        <div class="section-label">Highlights</div>
+                        <ul class="highlights-list">
+                            <li>{{product.description}}</li>
+                            <li *ngIf="product.brand">Brand: {{product.brand}}</li>
+                            <li *ngIf="product.category">Category: {{product.category}}</li>
+                            <li *ngIf="product.warranty">Warranty: {{product.warranty || '1 Year Manufacturer Warranty'}}</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="product-services">
+                        <div class="section-label">Services</div>
+                        <ul class="services-list">
+                            <li><i class="bi bi-cash"></i> Cash on Delivery available</li>
+                            <li><i class="bi bi-arrow-repeat"></i> 7 Days Replacement Policy</li>
+                            <li><i class="bi bi-shield-check"></i> Warranty available</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="product-seller">
+                        <div class="section-label">Seller</div>
+                        <div class="seller-info">
+                            <span class="seller-name">{{product.seller || 'OmniTechRetail'}}</span>
+                            <div class="seller-rating">
+                                <span>4.2</span>
+                                <i class="bi bi-star-fill"></i>
                             </div>
-                            <div class="col-8" style="margin-left: -3%;">
-                                <p>{{product.description}}</p>
-                            </div>
-
                         </div>
                     </div>
-
+                    
+                    <div class="product-description">
+                        <div class="section-label">Description</div>
+                        <p class="description-text">{{product.description}}</p>
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
+</div>
+
+<ng-template #loading>
+    <div class="loading-container">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="loading-text">Loading product details...</p>
+    </div>
+</ng-template>

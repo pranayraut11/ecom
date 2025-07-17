@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,9 +14,14 @@ import { CommonModule } from '@angular/common';
 })
 export class PaymentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  placeOrder() {
+    // TODO: Add actual order placement logic here
+    this.router.navigate(['/user/order-successfull']);
   }
 
 }

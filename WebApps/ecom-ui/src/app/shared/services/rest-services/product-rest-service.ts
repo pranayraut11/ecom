@@ -44,4 +44,28 @@ export class ProductRestService {
     return this.rest.get<Product[]>(environment.baseURL+PRODUCT_SERVICE+PRODUCTS,{params:queryParams});
   }
 
+  getProducts(categoryId: string | null, page: number, filters?: any): Observable<Page> {
+    let queryParams = new HttpParams()
+      .set('page', page.toString());
+    
+    if (categoryId) {
+      queryParams = queryParams.set('category', categoryId);
+    }
+    
+    if (filters) {
+      if (filters.minPrice) {
+        queryParams = queryParams.set('minPrice', filters.minPrice);
+      }
+      if (filters.maxPrice) {
+        queryParams = queryParams.set('maxPrice', filters.maxPrice);
+      }
+      if (filters.brands && filters.brands.length) {
+        filters.brands.forEach((brand: string) => {
+          queryParams = queryParams.append('brands', brand);
+        });
+      }
+    }
+
+    return this.rest.get<Page>(environment.baseURL + PRODUCT_SERVICE + PRODUCTS, { params: queryParams });
+  }
 }

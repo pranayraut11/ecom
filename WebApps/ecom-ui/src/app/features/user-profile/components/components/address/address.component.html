@@ -1,0 +1,15 @@
+<div class="block">
+    <div class="p-3 border-bottom">
+        <div class="row">
+            <div class="col-8">
+                <span class="fs-5">Manage Addresses</span>
+            </div>
+            <div class="col-4 text-end">
+                <button (click)="addAddress()" class="btn btn-primary btn-sm">
+                    <i class="bi bi-plus-lg me-1"></i> {{btnText}}
+                </button>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

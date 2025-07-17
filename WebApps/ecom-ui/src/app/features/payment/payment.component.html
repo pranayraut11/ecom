@@ -22,5 +22,14 @@
                 </a></div>
         </div>
     </div>
-    <div class="col-9"><router-outlet></router-outlet></div>
+    <div class="col-9">
+        <router-outlet></router-outlet>
+        <div class="row mt-4">
+            <div class="col">
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" (click)="placeOrder()">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

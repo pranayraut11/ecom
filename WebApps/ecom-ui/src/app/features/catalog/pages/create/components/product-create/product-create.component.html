@@ -30,10 +30,12 @@
                 <div class="invalid-feedback">Please fill out this field.</div>
             </div>
 
-            <div class=" col" class="form-group">
-                <label for="discountedPrice" class="form-label">Product Discounted Price</label>
-
-                <input type="text" formControlName="discountedPrice" class="form-control" id="discountedPrice"
+            <div class=" col" class="form-group">                <label for="price" class="form-label">Product Price</label>
+                <input type="number" formControlName="price" class="form-control" id="price"
+                       placeholder="Current selling price">
+                
+                <label for="originalPrice" class="form-label mt-3">Original Price</label>
+                <input type="number" formControlName="originalPrice" class="form-control" id="originalPrice"
                     placeholder="Discounted Price" >
 
             </div>

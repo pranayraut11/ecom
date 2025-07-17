@@ -1,29 +1,41 @@
-<!-- menubar.component.html -->
-<div class="homepage pt-2 pb-2">
-    <div class="">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown col-6" *ngFor="let category of categories">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{category.category}}
-                            </a>
-                            <div class="dropdown-menu multi-column">
-                                <div class="row">
-                                    <div class="col-md-4" *ngFor="let subCategory of category.subCategories">
-                                        <h6 class="dropdown-item">{{subCategory.name}}</h6>
-                                        <ul class="list-unstyled">
-                                            <li *ngFor="let subCategory1 of subCategory.subCategories">
-                                                <a class="dropdown-header " href="#">{{subCategory1.name}}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+<!-- Enhanced Modern Menubar -->
+<div class="menubar-container">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCategories" aria-controls="navbarCategories" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list"></i> Categories
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCategories">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown" *ngFor="let category of categories">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-grid"></i> {{category.category}}
+                        </a>
+                        <div class="dropdown-menu mega-menu">
+                            <div class="mega-menu-header">
+                                <h5>Shop {{category.category}}</h5>
+                                <span>Explore our range of products</span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4" *ngFor="let subCategory of category.subCategories">
+                                    <h6 class="dropdown-header">
+                                        <i class="bi bi-tag"></i> {{subCategory.name}}
+                                    </h6>
+                                    <ul class="list-unstyled">
+                                        <li *ngFor="let subCategory1 of subCategory.subCategories">
+                                            <a class="dropdown-item" href="#">
+                                                {{subCategory1.name}}
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                </div>
+                            <div class="mega-menu-footer">
+                                <a href="#" class="view-all">View All {{category.category}} <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </nav>
     </div>

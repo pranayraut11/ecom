@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "api": "json-server --watch json-server-db.json --routes routes.json --port 3000",
+    "dev": "concurrently \"npm run start\" \"npm run api\""
   },
   "private": true,
   "dependencies": {
@@ -31,6 +33,7 @@
     "@angular/cli": "~14.1.1",
     "@angular/compiler-cli": "^14.1.0",
     "@types/jasmine": "~4.0.0",
+    "concurrently": "^9.2.0",
     "jasmine-core": "~4.2.0",
     "json-server": "^0.17.4",
     "karma": "~6.4.0",

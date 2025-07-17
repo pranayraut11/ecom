@@ -1,0 +1,69 @@
+<div class="block">
+  <div class="container">
+    <div class="row">
+      <div class="col-1 text-end">
+        <a class="navbar-brand" href="/seller/dashboard">
+          <img src="../../../../assets/images/Logo.PNG" height="100%" width="110%">
+        </a>
+      </div>
+      <div class="col-1 ">
+
+      </div>
+      <div class="col-7" style="margin-top: 1%;">
+        <div class="input-group"> <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-secondary" style="border-radius:0;" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="col-3" style="text-align: end;margin-top: 1%;">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-2" routerLink="notification" style="margin-top: 1%; text-align: end; ">
+            <i style="font-size: large;" class="bi bi-bell position-relative">
+              <span style="font-size: xx-small;font-family:Arial, Helvetica, sans-serif;font-weight: 50;"
+                class="position-absolute top-0 start-1 translate-middle badge rounded-pill bg-danger">
+                99+
+              </span>
+            </i>
+          </div>
+          <div class="col-7" style="text-align: center;">
+
+            <div class="dropdown">
+              <a class="nav-link active" style="font-size: large;" appRoles [hasRole]='["user,seller"]'
+                id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person"></i> Pranay <i class="bi bi-chevron-down" style="font-size: small;"></i>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a routerLink="profile/my-profile" class="dropdown-item" href="#">
+                    <i class="bi bi-person-fill"></i> My Profile</a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#" routerLink="notification">
+                    <i class="bi bi-bell"></i>
+                    Notifications</a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <form>
+                      <app-login></app-login>
+                    </form>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

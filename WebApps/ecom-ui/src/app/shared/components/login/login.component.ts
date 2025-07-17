@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { from, Subscription } from 'rxjs';
-import { AuthService } from 'src/app/core/core/auth/Auth-Service';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { AUTH_TOKEN } from '../../constants/AuthConst';
 import { Login } from '../../models/Login.model';
 import { AuthRestService } from '../../services/rest-services/auth-rest-service';

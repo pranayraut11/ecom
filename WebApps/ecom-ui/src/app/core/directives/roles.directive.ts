@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostBinding, HostListener, Input, OnChanges, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../core/auth/Auth-Service';
+import { AuthService } from '../auth/services/auth.service';
 
 @Directive({
   selector: '[appRoles]',

@@ -1,0 +1,70 @@
+<!-- Only show title with back button when in checkout mode (direct route) -->
+<div class="p-3" *ngIf="isCheckout">
+    <div class="row">
+        <div class="col-8">
+            <h2>{{pageTitle}}</h2>
+        </div>
+        <div class="col-4 text-end">
+            <button class="btn btn-secondary" (click)="router.navigate(['/user/cart'])">
+                <i class="bi bi-arrow-left"></i> Back to Cart
+            </button>
+        </div>
+    </div>
+    <hr>
+</div>
+
+<!-- Addresses list -->
+<div class="p-3">
+    <div *ngFor="let address of addresses" class="mb-3">
+        <div class="block" [class.address-selectable]="isCheckout" (click)="isCheckout ? selectAddressAndProceed(address.id) : null">
+            <div class="p-3">
+                <div class="row">
+                    <div class="col-2">
+                        <span class="badge bg-secondary">{{address.type}}</span>
+                        <span *ngIf="address.defaultAddress" class="badge bg-primary ms-1">Default</span>
+                    </div>
+                    <div class="col-8"></div>
+                    <div class="col-2 text-end">
+                        <i class="bi bi-pencil-square me-2" role="button" (click)="$event.stopPropagation(); updateAddress(address.id)"></i>
+                        <i class="bi bi-trash3" (click)="$event.stopPropagation(); deleteAddress(address.id)" role="button"></i>
+                    </div>
+                </div>
+                
+                <div class="row mt-2">
+                    <div class="col-12 fs-5">
+                        {{address.firstName}} {{address.lastName}}
+                    </div>
+                </div>
+                
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div style="font-size: small;font-weight: 400;">
+                            {{address.addressLine1}}, 
+                            {{address.addressLine2}}, 
+                            {{address.city}}, {{address.state}}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div style="font-weight: 500;">Pincode: {{address.pincode}}, Mobile: {{address.mobile}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Show a message when there are no addresses -->
+    <div *ngIf="!addresses || addresses.length === 0" class="text-center p-4">
+        <p>No addresses found. Please add an address.</p>
+    </div>
+
+    <!-- Add new address button when in checkout flow -->
+    <div class="mt-3" *ngIf="isCheckout && addresses && addresses.length > 0">
+        <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-primary" (click)="router.navigate(['/user/checkout-add-address'])">Add New Address</button>
+            <button class="btn btn-success" (click)="proceedWithDefaultAddress()">Proceed with Default Address</button>
+        </div>
+    </div>
+</div>
