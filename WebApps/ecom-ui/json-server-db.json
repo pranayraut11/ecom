@@ -103,7 +103,10 @@
           "originalPrice": 52990,
           "discount": 18000
         },
-        "colors": ["Black", "Silver"],
+        "colors": [
+          "Black",
+          "Silver"
+        ],
         "images": [
           "https://img.freepik.com/free-vector/realistic-tv-screen_23-2147508247.jpg",
           "https://img.freepik.com/free-vector/realistic-smart-tv-set-vector-illustration-black-blank-television-screen-modern-lcd-panel-stylish-design-isolated-transparent-background-large-computer-monitor-display-digital-mockup_107791-3857.jpg",
@@ -125,7 +128,9 @@
           "originalPrice": 149990,
           "discount": 40000
         },
-        "colors": ["Black"],
+        "colors": [
+          "Black"
+        ],
         "images": [
           "https://img.freepik.com/free-vector/realistic-tv-screen_23-2147508247.jpg",
           "https://img.freepik.com/free-vector/tv-with-curved-screen-realistic-illustration_1284-64087.jpg",
@@ -147,7 +152,9 @@
           "originalPrice": 129990,
           "discount": 40000
         },
-        "colors": ["Black"],
+        "colors": [
+          "Black"
+        ],
         "images": [
           "https://img.freepik.com/free-psd/smart-tv-mock-up-living-room_1150-35444.jpg",
           "https://img.freepik.com/free-psd/smart-tv-mock-up_1310-494.jpg",
@@ -169,7 +176,12 @@
           "originalPrice": 139900,
           "discount": 5000
         },
-        "colors": ["Natural Titanium", "Blue Titanium", "White Titanium", "Black Titanium"],
+        "colors": [
+          "Natural Titanium",
+          "Blue Titanium",
+          "White Titanium",
+          "Black Titanium"
+        ],
         "images": [
           "https://img.freepik.com/free-psd/smartphone-mockup_1310-812.jpg",
           "https://img.freepik.com/free-psd/premium-mobile-phone-screen-mockup-template_53876-65749.jpg",
@@ -191,7 +203,12 @@
           "originalPrice": 124999,
           "discount": 20000
         },
-        "colors": ["Green", "Phantom Black", "Cream", "Lavender"],
+        "colors": [
+          "Green",
+          "Phantom Black",
+          "Cream",
+          "Lavender"
+        ],
         "images": [
           "https://img.freepik.com/free-photo/new-smartphone-balancing-with-different-phones_23-2150170135.jpg",
           "https://img.freepik.com/free-psd/smartphone-clay-mockup_439185-800.jpg",
@@ -213,7 +230,10 @@
           "originalPrice": 61999,
           "discount": 5000
         },
-        "colors": ["Eternal Green", "Titan Black"],
+        "colors": [
+          "Eternal Green",
+          "Titan Black"
+        ],
         "images": [
           "https://img.freepik.com/free-photo/smartphone-with-blank-screen-isolated_125540-888.jpg",
           "https://img.freepik.com/free-psd/smartphone-mockup_1310-812.jpg",
@@ -235,8 +255,19 @@
           "originalPrice": 1849,
           "discount": 1200
         },
-        "colors": ["Green", "Blue", "Black", "Grey"],
-        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "colors": [
+          "Green",
+          "Blue",
+          "Black",
+          "Grey"
+        ],
+        "sizes": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ],
         "images": [
           "https://img.freepik.com/free-photo/front-view-green-shirt-hanged-clothes-rack_23-2148589517.jpg",
           "https://img.freepik.com/free-photo/handsome-male-model-posing-studio_23-2148479119.jpg",
@@ -258,8 +289,18 @@
           "originalPrice": 2499,
           "discount": 1500
         },
-        "colors": ["Yellow", "Blue", "Pink"],
-        "sizes": ["XS", "S", "M", "L", "XL"],
+        "colors": [
+          "Yellow",
+          "Blue",
+          "Pink"
+        ],
+        "sizes": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
         "images": [
           "https://img.freepik.com/free-photo/pretty-red-head-woman-yellow-dress-posing-yellow-summer-mood_273443-4421.jpg",
           "https://img.freepik.com/free-photo/woman-with-beautiful-yellow-dress_23-2148463547.jpg",
@@ -281,8 +322,20 @@
           "originalPrice": 8999,
           "discount": 3000
         },
-        "colors": ["Blue", "Black", "Green", "Red"],
-        "sizes": ["UK6", "UK7", "UK8", "UK9", "UK10", "UK11"],
+        "colors": [
+          "Blue",
+          "Black",
+          "Green",
+          "Red"
+        ],
+        "sizes": [
+          "UK6",
+          "UK7",
+          "UK8",
+          "UK9",
+          "UK10",
+          "UK11"
+        ],
         "images": [
           "https://img.freepik.com/free-photo/new-pair-white-sneakers-isolated-white_185193-69448.jpg",
           "https://img.freepik.com/free-photo/studio-shot-pair-sneakers_23-2148052090.jpg",
@@ -304,7 +357,11 @@
           "originalPrice": 59999,
           "discount": 27000
         },
-        "colors": ["Grey", "Blue", "Beige"],
+        "colors": [
+          "Grey",
+          "Blue",
+          "Beige"
+        ],
         "images": [
           "https://img.freepik.com/free-photo/comfortable-modern-sofa_144627-16152.jpg",
           "https://img.freepik.com/free-photo/gray-sofa-white-living-room-with-copy-space_43614-758.jpg",
@@ -326,7 +383,10 @@
           "originalPrice": 44990,
           "discount": 10000
         },
-        "colors": ["Silver", "White"],
+        "colors": [
+          "Silver",
+          "White"
+        ],
         "images": [
           "https://www.lg.com/in/images/washing-machines/md07518739/gallery/FHM1065ZDL-Washing-Machines-Front-View-D-01.jpg",
           "https://www.lg.com/in/images/washing-machines/md07518739/gallery/FHM1065ZDL-Washing-Machines-Front-View-D-02.jpg",
@@ -348,7 +408,10 @@
           "originalPrice": 104990,
           "discount": 20000
         },
-        "colors": ["Platinum Silver", "Matte Black"],
+        "colors": [
+          "Platinum Silver",
+          "Matte Black"
+        ],
         "images": [
           "https://www.lg.com/in/images/refrigerators/md07540437/gallery/GC-B257JLDV-Refrigerators-Front-View-D-01.jpg",
           "https://www.lg.com/in/images/refrigerators/md07540437/gallery/GC-B257JLDV-Refrigerators-Front-View-D-02.jpg",
@@ -370,7 +433,9 @@
           "originalPrice": 59990,
           "discount": 20000
         },
-        "colors": ["White"],
+        "colors": [
+          "White"
+        ],
         "images": [
           "https://www.lg.com/in/images/air-conditioners/md07529563/gallery/RS-Q19WNZE-Air-Conditioners-Front-View-D-1.jpg",
           "https://www.lg.com/in/images/air-conditioners/md07529563/gallery/RS-Q19WNZE-Air-Conditioners-Front-View-D-2.jpg",
@@ -379,7 +444,18 @@
       }
     ]
   },
-  "cart": [],
+  "cart": [
+    {
+      "productId": "ADIDAS-SHOES-1",
+      "quantity": 1,
+      "id": 1
+    },
+    {
+      "productId": "SONY-BRAVIA-1",
+      "quantity": 1,
+      "id": 2
+    }
+  ],
   "categories": [
     {
       "id": "FASHION",
@@ -629,6 +705,35 @@
     "access_token": "dummy_token",
     "refresh_token": "dummy_refresh",
     "expires_in": "3600",
-    "roles": ["USER"]
+    "roles": [
+      "USER"
+    ]
+  },
+  "samsungS23": {
+    "id": "SAMSUNG-S23-ULTRA-1",
+    "name": "Samsung Galaxy S23 Ultra 5G (256GB) - Green",
+    "description": "6.8-inch Dynamic AMOLED 2X, Snapdragon 8 Gen 2, 200MP Camera, S Pen, 5000mAh Battery, IP68 Water Resistant",
+    "category": "MOBILE",
+    "brand": "Samsung",
+    "rating": 4.7,
+    "reviewCount": 1879,
+    "warranty": "1 Year Manufacturer Warranty",
+    "seller": "MobileHub",
+    "price": {
+      "price": 104999,
+      "originalPrice": 124999,
+      "discount": 20000
+    },
+    "colors": [
+      "Green",
+      "Phantom Black",
+      "Cream",
+      "Lavender"
+    ],
+    "images": [
+      "https://img.freepik.com/free-photo/new-smartphone-balancing-with-different-phones_23-2150170135.jpg",
+      "https://img.freepik.com/free-psd/smartphone-clay-mockup_439185-800.jpg",
+      "https://img.freepik.com/free-photo/new-smartphone-balancing-with-blurry-phones_23-2150170121.jpg"
+    ]
   }
 }

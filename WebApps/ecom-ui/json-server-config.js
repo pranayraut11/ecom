@@ -11,6 +11,7 @@ server.use((req, res, next) => {
   next()
 })
 
+
 server.use(middlewares)
 
 
@@ -30,6 +31,18 @@ server.use((req, res, next) => {
     req.url = "/cart-service/cart";
   }
   
+  // Handle product detail requests
+  if (req.method === 'GET' && (req.url.startsWith('/product-service/product/') || req.url.startsWith('/catalog/product/'))) {
+    const productId = req.url.split('/').pop();
+    const db = router.db.getState();
+    const product = db.products.data.find(p => p.id === productId);
+    
+    if (product) {
+      res.jsonp(product);
+      return;
+    }
+  }
+  
   // Continue to JSON Server router
   next()
 })
@@ -37,14 +50,15 @@ server.use((req, res, next) => {
 //Add routing url 
 server.use(jsonServer.rewriter({
   '/product-service/products*': '/products$1', // Handle all product routes with query params
-  '/product-service/product/:id': '/product/:id',
+  '/product-service/product/:id': '/products/data/:id',
   '/cart-service/cart': '/cart',
   '/cart-service/cart/:id': '/cart/:id',
   '/user-service/auth/login': '/login',
   '/user-service/address' : '/address',
   '/user-service/address/:id' : '/address/:id',
   '/category-service/' : '/categories',
-  '/menus': '/menus'
+  '/menus': '/menus',
+  '/product/:id': '/products/data/:id'
 }))
 
 server.use(router)

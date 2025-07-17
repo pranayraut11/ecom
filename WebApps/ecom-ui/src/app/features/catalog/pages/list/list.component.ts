@@ -177,7 +177,8 @@ export class ListComponent implements OnInit {
 
   quickView(product: Product): void {
     // Navigate to product details
-    this.route.navigate(['/catalog/product', product.id]);
+    console.log('Quick view for product:', product);
+    this.route.navigate(['user/product', product.id]);
   }
 
   previousPage(): void {

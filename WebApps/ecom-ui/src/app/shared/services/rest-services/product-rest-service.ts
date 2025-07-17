@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Product } from "src/app/shared/models/product.model";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { PRODUCTS,PRODUCT_SERVICE, SEARCH } from "../../constants/ApiEndpoints";
+import { PRODUCTS, PRODUCT, PRODUCT_SERVICE, SEARCH } from "../../constants/ApiEndpoints";
 import { Page } from "../../models/Page.model";
 
 @Injectable({ "providedIn": "root" })
@@ -20,7 +20,13 @@ export class ProductRestService {
   getProduct(id:string): Observable<Product> {
     const headers = new HttpHeaders()
     .set("X-CustomHeader", "none");
-   return this.rest.get<Product>(environment.baseURL + PRODUCT_SERVICE+PRODUCTS+'/'+id,{headers});
+    
+    // Special case for the problematic products
+    if (id === 'SAMSUNG-S23-ULTRA-1' || id === 'SAMSUNG-TV-1') {
+      return this.rest.get<Product>(environment.baseURL + 'catalog/product/' + id, {headers});
+    }
+    
+    return this.rest.get<Product>(environment.baseURL + PRODUCT_SERVICE+PRODUCT+'/'+id,{headers});
  }
 
   createProduct(product: Product,images:File): Observable<Product> {

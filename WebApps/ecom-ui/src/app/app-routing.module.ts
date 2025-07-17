@@ -52,6 +52,10 @@ const appsRoutes: Routes = [
         component: DetailsComponent
       },
       {
+        path: 'product/:id',
+        component: DetailsComponent
+      },
+      {
         path: 'cart',
         loadChildren: () => import('./features/shopping-cart/shopping-cart.module').then(m => m.ShoppingCartModule)
       },

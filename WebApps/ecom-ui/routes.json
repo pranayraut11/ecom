@@ -1,11 +1,16 @@
 {
   "/product-service/products*": "/products$1",
-  "/product-service/product/:id": "/product/:id",
+  "/product-service/product/:id": "/products/data/:id",
+  "/product-service/product/SAMSUNG-S23-ULTRA-1": "/samsungS23",
+  "/product-service/product/SAMSUNG-TV-1": "/products/data/SAMSUNG-TV-1",
   "/cart-service/cart": "/cart",
   "/cart-service/cart/:id": "/cart/:id",
   "/user-service/auth/login": "/login",
   "/user-service/address": "/address",
   "/user-service/address/:id": "/address/:id",
   "/category-service/": "/categories",
-  "/menus": "/menus"
+  "/menus": "/menus",
+  "/catalog/product/:id": "/products/data/:id",
+  "/catalog/product/SAMSUNG-S23-ULTRA-1": "/samsungS23",
+  "/catalog/product/SAMSUNG-TV-1": "/products/data/SAMSUNG-TV-1"
 }
