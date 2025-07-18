@@ -24,103 +24,8 @@ server.use((req, res, next) => {
       "roles": [req.body.username]
     };
   }
-  
-  // Handle cart requests
-  if (req.method === 'GET' && req.url === '/cart-service/cart/product-ids') {
-    req.method = 'GET';
-    req.url = "/cart-service/cart";
-  }
-  
-  // Handle product detail requests
-  if (req.method === 'GET' && (req.url.startsWith('/product-service/product/') || req.url.startsWith('/catalog/product/'))) {
-    const productId = req.url.split('/').pop();
-    const db = router.db.getState();
-    const product = db.products.data.find(p => p.id === productId);
-    
-    if (product) {
-      res.jsonp(product);
-      return;
-    }
-  }
-  
-  // Handle address requests
-  if (req.url.startsWith('/user-service/address')) {
-    const db = router.db.getState();
-    
-    // Get all addresses
-    if (req.method === 'GET' && req.url === '/user-service/address') {
-      res.jsonp(db.addresses || []);
-      return;
-    }
-    
-    // Get address by ID
-    if (req.method === 'GET' && req.url.match(/\/user-service\/address\/[a-zA-Z0-9-]+$/)) {
-      const addressId = req.url.split('/').pop();
-      const address = db.addresses.find(a => a.id === addressId);
-      
-      if (address) {
-        res.jsonp(address);
-      } else {
-        res.status(404).jsonp({ error: "Address not found" });
-      }
-      return;
-    }
-    
-    // Add or update address
-    if (req.method === 'POST' && req.url === '/user-service/address') {
-      const newAddress = req.body;
-      const addresses = db.addresses || [];
-      
-      if (newAddress.id) {
-        // Update existing address
-        const index = addresses.findIndex(a => a.id === newAddress.id);
-        if (index !== -1) {
-          addresses[index] = newAddress;
-          db.addresses = addresses;
-          router.db.setState(db);
-          res.jsonp(newAddress);
-        } else {
-          res.status(404).jsonp({ error: "Address not found" });
-        }
-      } else {
-        // Add new address
-        newAddress.id = 'addr-' + (Math.floor(Math.random() * 9000) + 1000);
-        addresses.push(newAddress);
-        db.addresses = addresses;
-        router.db.setState(db);
-        res.jsonp(newAddress);
-      }
-      return;
-    }
-    
-    // Delete address
-    if (req.method === 'DELETE' && req.url.match(/\/user-service\/address\/[a-zA-Z0-9-]+$/)) {
-      const addressId = req.url.split('/').pop();
-      const addresses = db.addresses || [];
-      const index = addresses.findIndex(a => a.id === addressId);
-      
-      if (index !== -1) {
-        addresses.splice(index, 1);
-        db.addresses = addresses;
-        router.db.setState(db);
-        res.jsonp({ success: true });
-      } else {
-        res.status(404).jsonp({ error: "Address not found" });
-      }
-      return;
-    }
-  }
-  
-  // Handle menu requests
-  if (req.method === 'GET' && req.url === '/menus') {
-    const db = router.db.getState();
-    const menus = db.menus;
-    
-    if (menus) {
-      res.jsonp(menus);
-      return;
-    }
-  }
+
+
   
   next();
 });
@@ -128,8 +33,7 @@ server.use((req, res, next) => {
 // Add routing url 
 server.use(jsonServer.rewriter({
   '/product-service/products*': '/products$1',
-  '/product-service/products/:id': '/products/data/:id',
-  '/product-service/products/search?query=:id': '/products/data?id=id',
+  '/product-service/search/:id': '/data/?q=:id',
   '/cart-service/cart': '/cart',
   '/cart-service/cart/:id': '/cart/:id',
   '/user-service/auth/login': '/login',
@@ -137,7 +41,7 @@ server.use(jsonServer.rewriter({
   '/user-service/address/:id': '/address/:id',
   '/category-service/': '/categories',
   '/menus': '/menus',
-  '/products/:id': '/products/data/:id'
+  
 }));
 
 server.use(router);

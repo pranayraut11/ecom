@@ -9,7 +9,7 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductSearchService {
-  private apiUrl = `${environment.baseURL.replace(/\/+$/, '')}/product-service/products`;
+  private apiUrl = `${environment.baseURL.replace(/\/+$/, '')}/product-service`;
 
   constructor(private http: HttpClient) { }
 
@@ -19,10 +19,7 @@ export class ProductSearchService {
       return of([]);
     }
     // Ensure only one slash between base URL and endpoint
-    const url = `${this.apiUrl.replace(/\/+$/, '')}/search?query=${encodeURIComponent(query.trim())}`;
-    return this.http.get<Product[]>(url).pipe(
-      map(products => products.slice(0, 5)), // Limit to 5 results for dropdown
-      catchError(() => of([]))
-    );
+    const url = `${this.apiUrl.replace(/\/+$/, '')}/search/${query.trim()}`;
+    return this.http.get<Product[]>(url);
   }
 }

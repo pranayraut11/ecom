@@ -14,7 +14,7 @@ export class MenusRestService {
     getMenus() : Observable<Menu[]>{
         const headers = new HttpHeaders()
         .set("X-CustomHeader", "none");
-        console.log("Menus")
+        console.log("Menus " +environment.baseURL+'menus')
         return this.rest.get<Menu[]>(environment.baseURL+'menus',{headers});
     }
 

@@ -146,8 +146,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         this.router.navigate(['/product', product.id]);
     }
 
-    onSearch(event: Event): void {
-        event.preventDefault();
-        // Just prevent form submission, search is handled by the dropdown
+    onSearch(): void {
+        console.log('Search initiated:', this.searchControl.value);
+        this.searchResults$ = this.searchService.getSearchResults(this.searchControl.value);
     }
 }

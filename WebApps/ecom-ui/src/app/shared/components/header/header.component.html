@@ -11,7 +11,7 @@
       <!-- Search bar -->
       <div class="col-md-5 col-sm-12">
         <div class="search-container">
-          <form (ngSubmit)="onSearch($event)" class="search-form">
+          <div  class="search-form">
             <div class="input-group"> 
               <input class="form-control search-input" 
                      type="search" 
@@ -21,7 +21,7 @@
                      (focus)="showDropdown = true"
                      autocomplete="off">
               <div class="input-group-append">
-                <button class="btn search-btn" type="submit">
+                <button class="btn search-btn" (click)="onSearch()" >
                   <i class="bi bi-search"></i> <span>Search</span>
                 </button>
               </div>
@@ -55,7 +55,7 @@
                 </div>
               </ng-template>
             </ng-template>
-          </form>
+          </div>
         </div>
       </div>
 
