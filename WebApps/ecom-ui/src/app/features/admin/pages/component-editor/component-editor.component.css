@@ -1,0 +1,47 @@
+.component-info {
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.component-name {
+  font-weight: 500;
+}
+
+.component-type {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.active .component-type {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.properties-container, .styles-container {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+
+.nav-tabs .nav-link {
+  cursor: pointer;
+}
+
+.form-check-input {
+  cursor: pointer;
+}
+
+.form-label {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+.badge {
+  font-weight: 400;
+  font-size: 0.75rem;
+}

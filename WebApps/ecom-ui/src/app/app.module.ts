@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { ListComponent } from './features/catalog/pages/list/list.component';
@@ -47,8 +49,7 @@ import { CategoryComponent } from './features/catalog/pages/category/category.co
 import { DetailsComponent } from './features/catalog/pages/details/details.component';
 import { OrderSuccessComponent } from './features/order/order-success/order-success.component';
 import { RouterModule } from '@angular/router';
-import { CoreModule } from './core/core.module';
-import { TableListComponent } from './features/catalog/pages/table-list/table-list.component';
+import { SearchResultsComponent } from './features/search/search-results.component';
 
 @NgModule({
   declarations: [
@@ -73,17 +74,24 @@ import { TableListComponent } from './features/catalog/pages/table-list/table-li
     NotificationComponent,
     DashboardComponent,
     DetailsComponent,
-    OrderSuccessComponent
+    OrderSuccessComponent,
+    SearchResultsComponent
   ],
   imports: [
-    BrowserModule, 
+    BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      closeButton: true
+    }),
     HttpClientModule, 
     FormsModule, 
     AppRoutingModule,
     ReactiveFormsModule,
     AppSellerRoutingModule,
     RouterModule,
-    CoreModule,
     
     // All standalone components must be imported here
     AppComponent,
@@ -109,6 +117,9 @@ import { TableListComponent } from './features/catalog/pages/table-list/table-li
     CreateAddressComponent,
     CategoryComponent
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}]
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
+    ComponentRegistry
+  ]
 })
 export class AppModule { }

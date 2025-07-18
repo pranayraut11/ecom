@@ -1,0 +1,29 @@
+.card {
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-title {
+  color: #495057;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.display-4 {
+  font-weight: 500;
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+.list-group-item {
+  border-left: none;
+  border-right: none;
+}
+
+.list-group-item:first-child {
+  border-top: none;
+}
+
+.list-group-item-action:hover {
+  background-color: rgba(13, 110, 253, 0.05);
+}

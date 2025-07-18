@@ -1,35 +1,134 @@
-.block {
+.address-container {
+    padding: 0.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.address-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.5rem;
+}
+
+.address-card {
     border-radius: 4px;
-    width: 100%;
     background: #fff;
-    display: flex;
-    flex-direction: column;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     border: 1px solid #dee2e6;
+    transition: all 0.2s ease;
+    position: relative;
+    height: 100%;
 }
-  
+
+.address-content {
+    padding: 0.5rem;
+}
+
+.address-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
+.badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem;
+}
+
+.address-actions {
+    display: flex;
+}
+
+.address-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+}
+
+.address-details {
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+    color: #333;
+}
+
+.address-contact {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.3rem;
+}
+
+.address-action-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.3rem;
+}
+
+.default-action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+}
+
 .link {
     text-decoration: none;
 }
   
 .address-selectable {
     cursor: pointer;
-    transition: all 0.2s ease;
 }
   
 .address-selectable:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
     border-color: #007bff;
+}
+
+.address-selected {
+    border: 1px solid #28a745;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.address-selected::before {
+    content: '✓';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid white;
+    z-index: 1;
+}
+
+.page-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0;
+    padding: 2px 0;
+    text-align: left;
 }
 
 .badge {
     font-weight: normal;
-    padding: 0.35em 0.65em;
+    padding: 0.2em 0.4em;
+    font-size: 0.7em;
 }
 
 i.bi {
     cursor: pointer;
+    font-size: 1rem;
+    padding: 0.2rem;
 }
 
 i.bi:hover {
@@ -38,4 +137,144 @@ i.bi:hover {
 
 i.bi-trash3:hover {
     color: #dc3545;
+}
+
+/* Add button styling */
+.btn-primary {
+    background-color: #2874f0;
+    border-color: #2874f0;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 576px) {
+    .address-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .address-container {
+        padding: 0.3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    .address-content {
+        padding: 0.4rem;
+    }
+    
+    .address-name, .address-details, .address-contact {
+        font-size: 0.75rem;
+    }
+    
+    i.bi {
+        font-size: 0.8rem;
+    }
+}
+
+.btn-primary:hover {
+    background-color: #1a67d8;
+    border-color: #1a67d8;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.btn-success {
+    background-color: #3bb54a;
+    border-color: #3bb54a;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #34a040;
+    border-color: #34a040;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* Button styling */
+.btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+.btn-sm {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+}
+
+/* Compact address card */
+.address-selected::before {
+    width: 16px;
+    height: 16px;
+    top: -6px;
+    right: -6px;
+    font-size: 10px;
+}
+
+/* Compact style for text */
+.text-center p {
+    font-size: 0.85rem;
+    margin: 0.5rem 0;
+}
+
+/* Header styling */
+h2 {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Empty state styling */
+.text-center p {
+    color: #666;
+    font-size: 16px;
+}
+
+.address-page-wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Add block styling when used in checkout flow */
+.checkout-mode-container {
+    margin-top: 20px;
+    border-radius: 4px;
+    width: 100%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Adjust address container when in checkout mode */
+.checkout-mode-container .address-container {
+    padding: 1rem;
+}
+
+/* Match the styling of other pages */
+.checkout-mode-container .address-grid {
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1rem;
+}
+
+/* Ensure proper height in checkout flow */
+.checkout-mode-container .address-card {
+    min-height: 160px;
+}
+
+/* Improved styles for checkout mode */
+.checkout-mode-container .page-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive adjustments for checkout mode */
+@media (max-width: 768px) {
+    .checkout-mode-container {
+        margin-top: 10px;
+    }
+    
+    .checkout-mode-container .address-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
 }

@@ -1,103 +1,161 @@
-<!-- Page header with title and back button when in checkout mode -->
-<div class="container mt-3 mb-4">
-    <div class="row">
-        <div class="col-md-8">
-            <h2>{{pageTitle}}</h2>
-        </div>
-        <div class="col-md-4 text-end" *ngIf="isCheckout">
-            <button class="btn btn-secondary" (click)="router.navigate(['/user/checkout-address'])">
-                <i class="bi bi-arrow-left"></i> Back to Address Selection
-            </button>
-        </div>
+<!-- Wrapper container for consistent styling -->
+<div class="address-form-wrapper" [class.checkout-mode-container]="isCheckout">
+  <!-- Page header with title and back button when in checkout mode -->
+  <div class="container-fluid mt-3 mb-4">
+      <div class="row align-items-center">
+          <div class="col-md-6">
+              <h2 class="page-title">{{pageTitle}}</h2>
+          </div>
+          <div class="col-md-6 text-end" *ngIf="isCheckout">
+              <button class="btn btn-secondary" (click)="router.navigate(['/user/checkout-address'])">
+                  <i class="bi bi-arrow-left"></i> Back to Address Selection
+              </button>
+          </div>
+      </div>
+      <hr>
+  </div>
+
+<div class="container-fluid">
+    <div class="address-form-container">
+        <form class="form-container" (ngSubmit)="saveAddress(f)" #f="ngForm">
+            <div ngModelGroup="addressData" #addressData="ngModelGroup">
+                <!-- Personal Information -->
+                <div class="row mb-3">
+                    <div class="col-md-4 col-sm-12 mb-2">
+                        <label for="firstName" class="form-label">First Name*</label>
+                        <input type="text" class="form-control" [(ngModel)]="address.firstName" id="firstName" name="firstName"
+                            placeholder="First name" required #firstName="ngModel"
+                            [ngClass]="{'is-invalid': (firstName.invalid && (firstName.dirty || firstName.touched)) || (firstName.invalid && formSubmitted)}">
+                        <div *ngIf="(firstName.invalid && (firstName.dirty || firstName.touched)) || (firstName.invalid && formSubmitted)" class="invalid-feedback">
+                            First name is required.
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 mb-2">
+                        <label for="lastName" class="form-label">Last Name*</label>
+                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last name"
+                            [(ngModel)]="address.lastName" required #lastName="ngModel"
+                            [ngClass]="{'is-invalid': (lastName.invalid && (lastName.dirty || lastName.touched)) || (lastName.invalid && formSubmitted)}">
+                        <div *ngIf="(lastName.invalid && (lastName.dirty || lastName.touched)) || (lastName.invalid && formSubmitted)" class="invalid-feedback">
+                            Last name is required.
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 mb-2">
+                        <label for="mobile" class="form-label">Mobile Number*</label>
+                        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="10-digit mobile number"
+                            [(ngModel)]="address.mobile" required pattern="[0-9]{10}" #mobile="ngModel"
+                            [ngClass]="{'is-invalid': (mobile.invalid && (mobile.dirty || mobile.touched)) || (mobile.invalid && formSubmitted)}">
+                        <div *ngIf="(mobile.invalid && (mobile.dirty || mobile.touched)) || (mobile.invalid && formSubmitted)" class="invalid-feedback">
+                            <span *ngIf="mobile.errors?.['required']">Mobile number is required.</span>
+                            <span *ngIf="mobile.errors?.['pattern']">Please enter a valid 10-digit mobile number.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Address Lines -->
+                <div class="row mb-3">
+                    <div class="col-12 mb-2">
+                        <label for="addressLine1" class="form-label">Address Line 1*</label>
+                        <input type="text" class="form-control" id="addressLine1" placeholder="House No., Building Name" name="addressLine1"
+                            [(ngModel)]="address.addressLine1" required #addressLine1="ngModel"
+                            [ngClass]="{'is-invalid': (addressLine1.invalid && (addressLine1.dirty || addressLine1.touched)) || (addressLine1.invalid && formSubmitted)}">
+                        <div *ngIf="(addressLine1.invalid && (addressLine1.dirty || addressLine1.touched)) || (addressLine1.invalid && formSubmitted)" class="invalid-feedback">
+                            Address Line 1 is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12 mb-2">
+                        <label for="addressLine2" class="form-label">Address Line 2</label>
+                        <input type="text" class="form-control" id="addressLine2" name="addressLine2"
+                            placeholder="Road name, Area, Colony" [(ngModel)]="address.addressLine2">
+                    </div>
+                </div>
+
+                <!-- Landmark, City, State -->
+                <div class="row mb-3">
+                    <div class="col-md-4 col-sm-12 mb-2">
+                        <label for="landmark" class="form-label">Landmark</label>
+                        <input type="text" class="form-control" id="landmark" name="landmark" placeholder="Nearby landmark"
+                            [(ngModel)]="address.landmark">
+                    </div>
+                    <div class="col-md-4 col-sm-12 mb-2">
+                        <label for="inputCity" class="form-label">City*</label>
+                        <select id="inputCity" class="form-select" name="city" [(ngModel)]="address.city" required #city="ngModel"
+                            [ngClass]="{'is-invalid': (city.invalid && (city.dirty || city.touched)) || (city.invalid && formSubmitted)}">
+                            <option value="" selected>Select city</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Pune">Pune</option>
+                        </select>
+                        <div *ngIf="(city.invalid && (city.dirty || city.touched)) || (city.invalid && formSubmitted)" class="invalid-feedback">
+                            Please select a city.
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 mb-2">
+                        <label for="inputState" class="form-label">State*</label>
+                        <select id="inputState" class="form-select" name="state" [(ngModel)]="address.state" required #state="ngModel"
+                            [ngClass]="{'is-invalid': (state.invalid && (state.dirty || state.touched)) || (state.invalid && formSubmitted)}">
+                            <option value="" selected>Select State</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="West Bengal">West Bengal</option>
+                        </select>
+                        <div *ngIf="(state.invalid && (state.dirty || state.touched)) || (state.invalid && formSubmitted)" class="invalid-feedback">
+                            Please select a state.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pincode, Type, Default -->
+                <div class="row mb-3">
+                    <div class="col-md-3 col-sm-12 mb-2">
+                        <label for="inputZip" class="form-label">Pincode*</label>
+                        <input type="text" class="form-control" id="inputZip" name="zipcode" placeholder="6-digit pincode"
+                            [(ngModel)]="address.pincode" required pattern="[0-9]{6}" #pincode="ngModel"
+                            [ngClass]="{'is-invalid': (pincode.invalid && (pincode.dirty || pincode.touched)) || (pincode.invalid && formSubmitted)}">
+                        <div *ngIf="(pincode.invalid && (pincode.dirty || pincode.touched)) || (pincode.invalid && formSubmitted)" class="invalid-feedback">
+                            <span *ngIf="pincode.errors?.['required']">Pincode is required.</span>
+                            <span *ngIf="pincode.errors?.['pattern']">Please enter a valid 6-digit pincode.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-sm-12 mb-2">
+                        <label for="addressType" class="form-label">Address Type*</label>
+                        <select class="form-select" id="addressType" name="type" [(ngModel)]="address.type" required #type="ngModel"
+                            [ngClass]="{'is-invalid': (type.invalid && (type.dirty || type.touched)) || (type.invalid && formSubmitted)}">
+                            <option value="" selected>Select Address Type</option>
+                            <option value="Home (9AM-10PM)">Home (9AM-10PM)</option>
+                            <option value="Office (10AM-7PM)">Office (10AM-7PM)</option>
+                        </select>
+                        <div *ngIf="(type.invalid && (type.dirty || type.touched)) || (type.invalid && formSubmitted)" class="invalid-feedback">
+                            Please select an address type.
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 mb-2">
+                        <div class="form-check form-switch default-switch">
+                            <input class="form-check-input" type="checkbox" name="default" id="flexSwitchCheckDefault"
+                                [(ngModel)]="address.defaultAddress">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Make this my default address</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="row mt-4 button-group">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">{{btnText}}</button>
+                        <button type="reset" class="btn btn-secondary ms-2">Clear</button>
+                        <button type="button" class="btn btn-outline-secondary ms-2" (click)="cancelAndGoBack()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-    <hr>
+</div> <!-- End of address-form-wrapper -->
 </div>
-
-<form class="row g-3" (ngSubmit)="saveAddress(f)" #f="ngForm">
-    <div ngModelGroup="addressData" #addressData="ngModelGroup" >
-
-        <div class="row pb-3">
-
-            <div class="col">
-
-                <input type="text" class="form-control" [(ngModel)]="address.firstName" id="firstName" name="firstName"
-                    placeholder="First name" aria-label="First name">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" name="lastName" placeholder="Last name" aria-label="Last name"
-                    [(ngModel)]="address.lastName">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" name="mobile" placeholder="Mobile" aria-label="Mobile"
-                    [(ngModel)]="address.mobile">
-            </div>
-
-
-        </div>
-
-        <div class="row pb-3">
-            <div class="col-12">
-
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="addressLine1"
-                    [(ngModel)]="address.addressLine1">
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-12">
-
-                <input type="text" class="form-control" id="inputAddress2" name="addressLine2"
-                    placeholder="Apartment, studio, or floor" [(ngModel)]="address.addressLine2">
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-md-6">
-
-                <input type="text" class="form-control" id="landMark" name="landmark" placeholder="Landmark"
-                    aria-label="Landmark" [(ngModel)]="address.landmark">
-            </div>
-            <div class="col-md-3">
-
-                <select id="inputCity" class="form-select" name="city" placeholder="city" aria-label="city"
-                    [(ngModel)]="address.city">
-                    <option selected>Select city</option>
-                    <option>...</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-
-                <select id="inputState" class="form-select" name="state" placeholder="State" aria-label="State"
-                    [(ngModel)]="address.state">
-                    <option selected>Select State</option>
-                    <option>...</option>
-                </select>
-            </div>
-        </div>
-        <div class="row pb-3">
-            <div class="col-md-2">
-
-                <input type="text" class="form-control" id="inputZip" name="zipcode" placeholder="Zipcode"
-                    aria-label="Zipcode" [(ngModel)]="address.pincode">
-            </div>
-            <div class="col-md-3">
-
-                <select class="form-select" aria-label="Address Type" name="type" [(ngModel)]="address.type">
-                    <option>Home (9AM-10PM)</option>
-                    <option>Office (10AM-7PM)</option>
-                </select>
-            </div>
-            <div class="col-md-2 form-check form-switch">
-                <label for="inputCity" class="form-label">Default</label>
-                <input class=" form-control form-check-input" type="checkbox" name="default" id="flexSwitchCheckDefault"
-                    [(ngModel)]="address.defaultAddress">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-primary">{{btnText}}</button>
-                <button type="reset" class="btn btn-secondary ms-2">Clear</button>
-                <button *ngIf="isCheckout" type="button" class="btn btn-outline-secondary ms-2" (click)="router.navigate(['/user/checkout-address'])">Cancel</button>
-            </div>
-        </div>
-    </div>
-
-</form>

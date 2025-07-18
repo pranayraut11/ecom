@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { switchMap } from 'rxjs/operators';
 import { environment } from "src/environments/environment";
 import { ADDRESS, USER_SERVICE } from "../../constants/ApiEndpoints";
 import { Address } from "../../models/address.model";
@@ -12,8 +13,18 @@ export class AddressRestService{
 
     }
 
-    addOrUpdateAddress(address: Address){
-        return this.rest.post(environment.baseURL+USER_SERVICE+'/'+ADDRESS,address);
+    private unsetOtherDefaultAddresses() {
+        return this.rest.post(environment.baseURL+USER_SERVICE+'/'+ADDRESS+'/unset-default', {});
+    }
+
+    addOrUpdateAddress(address: Address) {
+        if (address.defaultAddress) {
+            // First unset any existing default addresses
+            return this.unsetOtherDefaultAddresses().pipe(
+                switchMap(() => this.rest.post(environment.baseURL+USER_SERVICE+'/'+ADDRESS, address))
+            );
+        }
+        return this.rest.post(environment.baseURL+USER_SERVICE+'/'+ADDRESS, address);
     }
 
     getAllAddress() : Observable<Address[]>{

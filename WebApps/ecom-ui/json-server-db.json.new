@@ -1,0 +1,66 @@
+{
+  "products": {
+    "totalElements": 12,
+    "totalPages": 2,
+    "first": true,
+    "last": false,
+    "size": 10,
+    "number": 0,
+    "data": [
+      {
+        "id": "SAMSUNG-TV-1",
+        "name": "SAMSUNG 43-inch Crystal 4K Smart TV",
+        "description": "Crystal 4K UHD Resolution, HDR, Crystal Processor 4K, Multiple Voice Assistants, Smart TV Features",
+        "category": "TV",
+        "brand": "Samsung",
+        "rating": 4.5,
+        "reviewCount": 857,
+        "warranty": "1 Year Comprehensive Warranty",
+        "seller": "ElectroKart",
+        "price": {
+          "price": 34990,
+          "originalPrice": 52990,
+          "discount": 18000
+        },
+        "colors": [
+          "Black",
+          "Silver"
+        ],
+        "images": [
+          "https://img.freepik.com/free-vector/realistic-tv-screen_23-2147508247.jpg",
+          "https://img.freepik.com/free-vector/realistic-smart-tv-set-vector-illustration-black-blank-television-screen-modern-lcd-panel-stylish-design-isolated-transparent-background-large-computer-monitor-display-digital-mockup_107791-3857.jpg",
+          "https://img.freepik.com/free-vector/realistic-tv-screen_23-2147508247.jpg"
+        ]
+      }
+    ]
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Electronics",
+      "image": "https://example.com/electronics.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Clothing",
+      "image": "https://example.com/clothing.jpg"
+    }
+  ],
+  "menus": [
+    {
+      "category": "Fashion",
+      "subCategories": [
+        {
+          "name": "Men's Top wear",
+          "url": "https://img.freepik.com/free-photo/handsome-man-white-shirt-posing-attractive-guy-with-fashion-hairstyle-confident-man-with-short-beard-adult-boy-with-brown-hair-isolated_186202-8545.jpg",
+          "subCategories": [
+            {
+              "name": "Men's TShirt",
+              "url": "https://img.freepik.com/free-photo/man-wearing-t-shirt-gesturing_23-2149393645.jpg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

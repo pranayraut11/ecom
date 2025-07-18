@@ -22,6 +22,7 @@ export class ListAddressComponent implements OnInit {
   addresses: Address[];
   isCheckout: boolean = false;
   pageTitle: string = "My Addresses";
+  selectedAddressId: string = null;
   
   ngOnInit(): void {
     this.getAllAddresses();
@@ -40,19 +41,57 @@ export class ListAddressComponent implements OnInit {
       this.isCheckout = true;
       this.pageTitle = "Select a Delivery Address";
     }
+    
+    // Retrieve previously selected address if any
+    if (this.isCheckout) {
+      const savedAddressId = localStorage.getItem('selectedAddressId');
+      if (savedAddressId) {
+        this.selectedAddressId = savedAddressId;
+      }
+    }
   }
 
   getAllAddresses() {
-    this.addressRest.getAllAddress().subscribe((response) => {
-      console.log(response);
-      this.addresses = response;
+    this.addressRest.getAllAddress().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.addresses = response;
+        
+        // If no address is selected yet but we have addresses and we're in checkout mode
+        if (this.isCheckout && !this.selectedAddressId && this.addresses && this.addresses.length > 0) {
+          // Find default address or use first one
+          const defaultAddress = this.addresses.find(a => a.defaultAddress);
+          if (defaultAddress) {
+            this.selectedAddressId = defaultAddress.id;
+          } else {
+            this.selectedAddressId = this.addresses[0].id;
+          }
+          // Save to localStorage
+          localStorage.setItem('selectedAddressId', this.selectedAddressId);
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching addresses:', err);
+      }
     });
   }
 
   deleteAddress(id: string) {
-    this.addressRest.deleteAddress(id).subscribe((response) => {
+    this.addressRest.deleteAddress(id).subscribe({
+      next: (response) => {
         console.log("Address deleted successfully"+response);
+        
+        // If the deleted address was selected, clear the selection
+        if (this.selectedAddressId === id) {
+          this.selectedAddressId = null;
+          localStorage.removeItem('selectedAddressId');
+        }
+        
         this.getAllAddresses(); // Refresh the list after delete
+      },
+      error: (err) => {
+        console.error('Error deleting address:', err);
+      }
     });
   }
 
@@ -68,12 +107,22 @@ export class ListAddressComponent implements OnInit {
   }
   
   selectAddressAndProceed(addressId: string) {
-    // Here you would typically save the selected address ID to a service or localStorage
-    console.log('Selected address ID:', addressId);
+    // Update selected address in component
+    this.selectedAddressId = addressId;
+    
+    // Save selected address ID to localStorage
     localStorage.setItem('selectedAddressId', addressId);
     
-    // Navigate to payment page
-    this.router.navigate(['/user/payment']);
+    if (this.isCheckout) {
+      // Navigate to payment page
+      this.router.navigate(['/user/payment']);
+    }
+  }
+  
+  selectAddress(addressId: string) {
+    // Just update selected address in component and localStorage
+    this.selectedAddressId = addressId;
+    localStorage.setItem('selectedAddressId', addressId);
   }
   
   proceedWithDefaultAddress() {
@@ -84,5 +133,9 @@ export class ListAddressComponent implements OnInit {
     if (addressToUse) {
       this.selectAddressAndProceed(addressToUse.id);
     }
+  }
+  
+  isAddressSelected(addressId: string): boolean {
+    return this.selectedAddressId === addressId;
   }
 }

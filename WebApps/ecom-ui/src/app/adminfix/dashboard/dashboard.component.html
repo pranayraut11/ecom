@@ -1,0 +1,378 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Admin Dashboard</h1>
+  
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-palette display-4 text-primary"></i>
+          <h2 class="mt-3">Themes</h2>
+          <p class="text-muted">Manage application themes and color schemes</p>
+          <button class="btn btn-primary" (click)="selectSection('themes')">Manage Themes</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-grid-3x3-gap display-4 text-success"></i>
+          <h2 class="mt-3">Components</h2>
+          <p class="text-muted">Configure UI components and their properties</p>
+          <button class="btn btn-success" (click)="selectSection('components')">Manage Components</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <i class="bi bi-layout-text-window display-4 text-info"></i>
+          <h2 class="mt-3">Layouts</h2>
+          <p class="text-muted">Design and organize page layouts</p>
+          <button class="btn btn-info" (click)="selectSection('layouts')">Manage Layouts</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Management Section -->
+  <div *ngIf="selectedSection === 'themes'" class="mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Theme Management</h2>
+      <button class="btn btn-primary" (click)="createNewTheme()">
+        <i class="bi bi-plus-circle me-2"></i> Create New Theme
+      </button>
+    </div>
+    
+    <!-- Theme Editor Form -->
+    <div *ngIf="themeForm" class="card mb-4 shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h3 class="m-0">{{ editingTheme ? 'Edit Theme' : 'Create New Theme' }}</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="themeForm" (ngSubmit)="saveTheme()">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="name" class="form-label">Theme Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter theme name">
+              <div *ngIf="themeForm.get('name')?.invalid && themeForm.get('name')?.touched" class="text-danger">
+                Name is required
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="displayName" class="form-label">Display Name</label>
+              <input type="text" class="form-control" id="displayName" formControlName="displayName" placeholder="Enter display name">
+              <div *ngIf="themeForm.get('displayName')?.invalid && themeForm.get('displayName')?.touched" class="text-danger">
+                Display name is required
+              </div>
+            </div>
+          </div>
+          
+          <div class="row mb-3">
+            <div class="col-md-3">
+              <label for="primaryColor" class="form-label">Primary Color</label>
+              <input type="color" class="form-control" id="primaryColor" formControlName="primaryColor">
+            </div>
+            <div class="col-md-3">
+              <label for="secondaryColor" class="form-label">Secondary Color</label>
+              <input type="color" class="form-control" id="secondaryColor" formControlName="secondaryColor">
+            </div>
+            <div class="col-md-3">
+              <label for="backgroundColor" class="form-label">Background Color</label>
+              <input type="color" class="form-control" id="backgroundColor" formControlName="backgroundColor">
+            </div>
+            <div class="col-md-3">
+              <label for="textColor" class="form-label">Text Color</label>
+              <input type="color" class="form-control" id="textColor" formControlName="textColor">
+            </div>
+          </div>
+          
+          <div class="row mb-3">
+            <div class="col-md-3">
+              <label for="linkColor" class="form-label">Link Color</label>
+              <input type="color" class="form-control" id="linkColor" formControlName="linkColor">
+            </div>
+            <div class="col-md-3">
+              <label for="accentColor" class="form-label">Accent Color</label>
+              <input type="color" class="form-control" id="accentColor" formControlName="accentColor">
+            </div>
+            <div class="col-md-6">
+              <label for="fontFamily" class="form-label">Font Family</label>
+              <input type="text" class="form-control" id="fontFamily" formControlName="fontFamily" placeholder="Enter font family">
+            </div>
+          </div>
+          
+          <div class="row mb-3">
+            <div class="col-md-3">
+              <label for="headerBackgroundColor" class="form-label">Header Background</label>
+              <input type="color" class="form-control" id="headerBackgroundColor" formControlName="headerBackgroundColor">
+            </div>
+            <div class="col-md-3">
+              <label for="headerTextColor" class="form-label">Header Text</label>
+              <input type="color" class="form-control" id="headerTextColor" formControlName="headerTextColor">
+            </div>
+            <div class="col-md-3">
+              <label for="footerBackgroundColor" class="form-label">Footer Background</label>
+              <input type="color" class="form-control" id="footerBackgroundColor" formControlName="footerBackgroundColor">
+            </div>
+            <div class="col-md-3">
+              <label for="footerTextColor" class="form-label">Footer Text</label>
+              <input type="color" class="form-control" id="footerTextColor" formControlName="footerTextColor">
+            </div>
+          </div>
+          
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="active" formControlName="active">
+            <label class="form-check-label" for="active">
+              Active
+            </label>
+          </div>
+          
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" (click)="cancelEdit()">Cancel</button>
+            <button type="button" class="btn btn-info me-2" (click)="logFormState()">Debug Form</button>
+            <button type="submit" class="btn btn-primary" [disabled]="themeForm.invalid">Save Theme</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Theme List -->
+    <div class="row">
+      <div *ngFor="let theme of themes" class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="m-0">{{ theme.displayName }}</h5>
+            <div>
+              <button class="btn btn-sm btn-light me-1" (click)="applyTheme(theme)" title="Apply Theme">
+                <i class="bi bi-check-circle"></i>
+              </button>
+              <button class="btn btn-sm btn-light" (click)="editTheme(theme)" title="Edit Theme">
+                <i class="bi bi-pencil"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body" [style.backgroundColor]="theme.backgroundColor" [style.color]="theme.textColor">
+            <div class="theme-preview mb-3">
+              <div class="color-sample d-flex mb-2">
+                <span class="color-box me-1" [style.backgroundColor]="theme.primaryColor"></span>
+                <span class="color-box me-1" [style.backgroundColor]="theme.secondaryColor"></span>
+                <span class="color-box me-1" [style.backgroundColor]="theme.backgroundColor"></span>
+                <span class="color-box" [style.backgroundColor]="theme.textColor"></span>
+              </div>
+              <div>
+                <a href="#" [style.color]="theme.linkColor">Sample Link</a>
+              </div>
+              <div class="mt-2">
+                <button class="btn btn-sm me-1" [style.backgroundColor]="theme.primaryColor" [style.color]="theme.headerTextColor">Primary</button>
+                <button class="btn btn-sm" [style.backgroundColor]="theme.secondaryColor" [style.color]="theme.headerTextColor">Secondary</button>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+              <button class="btn btn-danger btn-sm" (click)="deleteTheme(theme)">
+                <i class="bi bi-trash me-1"></i> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Component Management Section -->
+  <div *ngIf="selectedSection === 'components'" class="mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Component Management</h2>
+      <button class="btn btn-success" (click)="createNewComponent()">
+        <i class="bi bi-plus-circle me-2"></i> Create New Component
+      </button>
+    </div>
+    
+    <!-- Component Editor Form -->
+    <div *ngIf="componentForm" class="card mb-4 shadow-sm">
+      <div class="card-header bg-success text-white">
+        <h3 class="m-0">{{ editingComponent ? 'Edit Component' : 'Create New Component' }}</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="componentForm" (ngSubmit)="saveComponent()">
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label for="componentName" class="form-label">Component Name</label>
+              <input type="text" class="form-control" id="componentName" formControlName="name" placeholder="Enter component name">
+              <div *ngIf="componentForm.get('name')?.invalid && componentForm.get('name')?.touched" class="text-danger">
+                Name is required
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="componentDisplayName" class="form-label">Display Name</label>
+              <input type="text" class="form-control" id="componentDisplayName" formControlName="displayName" placeholder="Enter display name">
+              <div *ngIf="componentForm.get('displayName')?.invalid && componentForm.get('displayName')?.touched" class="text-danger">
+                Display name is required
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="componentType" class="form-label">Component Type</label>
+              <select class="form-select" id="componentType" formControlName="type">
+                <option value="">Select type</option>
+                <option value="header">Header</option>
+                <option value="footer">Footer</option>
+                <option value="hero-image">Hero Image</option>
+                <option value="product-grid">Product Grid</option>
+                <option value="category-nav">Category Navigation</option>
+              </select>
+              <div *ngIf="componentForm.get('type')?.invalid && componentForm.get('type')?.touched" class="text-danger">
+                Type is required
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="componentContent" class="form-label">Content</label>
+            <textarea class="form-control" id="componentContent" formControlName="content" rows="3" placeholder="Enter component content"></textarea>
+          </div>
+          
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="componentActive" formControlName="active">
+            <label class="form-check-label" for="componentActive">
+              Active
+            </label>
+          </div>
+          
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" (click)="cancelEdit()">Cancel</button>
+            <button type="submit" class="btn btn-success" [disabled]="componentForm.invalid">Save Component</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Component List -->
+    <div class="row">
+      <div *ngFor="let component of components" class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="m-0">{{ component.displayName }}</h5>
+            <button class="btn btn-sm btn-light" (click)="editComponent(component)" title="Edit Component">
+              <i class="bi bi-pencil"></i>
+            </button>
+          </div>
+          <div class="card-body">
+            <p><strong>Type:</strong> {{ component.type }}</p>
+            <p><strong>Active:</strong> {{ component.active ? 'Yes' : 'No' }}</p>
+            <div class="d-flex justify-content-end mt-3">
+              <button class="btn btn-danger btn-sm" (click)="deleteComponent(component)">
+                <i class="bi bi-trash me-1"></i> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Layout Management Section -->
+  <div *ngIf="selectedSection === 'layouts'" class="mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Layout Management</h2>
+      <button class="btn btn-info" (click)="createNewLayout()">
+        <i class="bi bi-plus-circle me-2"></i> Create New Layout
+      </button>
+    </div>
+    
+    <!-- Layout Editor Form -->
+    <div *ngIf="layoutForm" class="card mb-4 shadow-sm">
+      <div class="card-header bg-info text-white">
+        <h3 class="m-0">{{ editingLayout ? 'Edit Layout' : 'Create New Layout' }}</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="layoutForm" (ngSubmit)="saveLayout()">
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <label for="layoutName" class="form-label">Layout Name</label>
+              <input type="text" class="form-control" id="layoutName" formControlName="name" placeholder="Enter layout name">
+              <div *ngIf="layoutForm.get('name')?.invalid && layoutForm.get('name')?.touched" class="text-danger">
+                Name is required
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="layoutDisplayName" class="form-label">Display Name</label>
+              <input type="text" class="form-control" id="layoutDisplayName" formControlName="displayName" placeholder="Enter display name">
+              <div *ngIf="layoutForm.get('displayName')?.invalid && layoutForm.get('displayName')?.touched" class="text-danger">
+                Display name is required
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="layoutRoute" class="form-label">Route</label>
+              <input type="text" class="form-control" id="layoutRoute" formControlName="route" placeholder="Enter route (e.g., /home)">
+              <div *ngIf="layoutForm.get('route')?.invalid && layoutForm.get('route')?.touched" class="text-danger">
+                Route is required
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="layoutTheme" class="form-label">Theme</label>
+            <select class="form-select" id="layoutTheme" formControlName="theme">
+              <option value="">Select theme</option>
+              <option *ngFor="let theme of themes" [value]="theme.id">{{ theme.displayName }}</option>
+            </select>
+            <div *ngIf="layoutForm.get('theme')?.invalid && layoutForm.get('theme')?.touched" class="text-danger">
+              Theme is required
+            </div>
+          </div>
+          
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="layoutActive" formControlName="active">
+            <label class="form-check-label" for="layoutActive">
+              Active
+            </label>
+          </div>
+          
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" (click)="cancelEdit()">Cancel</button>
+            <button type="submit" class="btn btn-info" [disabled]="layoutForm.invalid">Save Layout</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Layout List -->
+    <div class="row">
+      <div *ngFor="let layout of layouts" class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="m-0">{{ layout.displayName }}</h5>
+            <button class="btn btn-sm btn-light" (click)="editLayout(layout)" title="Edit Layout">
+              <i class="bi bi-pencil"></i>
+            </button>
+          </div>
+          <div class="card-body">
+            <p><strong>Route:</strong> {{ layout.route }}</p>
+            <p><strong>Active:</strong> {{ layout.active ? 'Yes' : 'No' }}</p>
+            <div class="d-flex justify-content-end mt-3">
+              <button class="btn btn-danger btn-sm" (click)="deleteLayout(layout)">
+                <i class="bi bi-trash me-1"></i> Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .color-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+  
+  .theme-preview {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+</style>

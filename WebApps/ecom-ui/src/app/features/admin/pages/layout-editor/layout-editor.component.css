@@ -1,0 +1,65 @@
+.layout-info {
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.layout-name {
+  font-weight: 500;
+}
+
+.layout-route {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.active .layout-route {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.components-container, .sections-container, .styles-container {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
+
+.nav-tabs .nav-link {
+  cursor: pointer;
+}
+
+.form-check-input {
+  cursor: pointer;
+}
+
+.form-label {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+.badge {
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.accordion-button {
+  padding: 0.75rem 1rem;
+}
+
+.accordion-body {
+  padding: 1rem;
+}
+
+.styles-list {
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.component-selection select {
+  height: auto;
+}

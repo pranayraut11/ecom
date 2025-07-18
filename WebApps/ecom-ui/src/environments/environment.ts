@@ -9,6 +9,7 @@ export const environment = {
   baseURL: "http://localhost:3000/",
   //baseURL: "http://dev-env/",
   localURL: "http://localhost:8080/",
+  apiUrl: "http://localhost:3000",
   isSecured: false,
   client_id: 'ecom-ui',
   client_secret: 'Z8eq0SE6ng6LGVXe8uW69DWo3Tdf2nAI' 

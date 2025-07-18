@@ -17,11 +17,9 @@ import { FooterComponent } from 'src/app/shared/components/footer/footer.compone
   ]
 })
 export class HomeComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit(): void {
     
   }
-
 }

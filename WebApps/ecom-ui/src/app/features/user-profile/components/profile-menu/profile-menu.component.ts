@@ -22,7 +22,7 @@ export class ProfileMenuComponent implements OnInit {
   }
 
   redirectToMyOrders(){
-    this.route.navigate(["user/myorders"]);
+    this.route.navigate(["user/profile/myorders"]);
   }
 
 }

@@ -18,6 +18,7 @@ import { LoginComponent } from './shared/components/login/login.component';
 import { LoginPopupComponent } from './shared/components/login/login-popup/login-popup.component';
 import { CategoryComponent } from './features/catalog/pages/category/category.component';
 
+
 const appsRoutes: Routes = [
   { path: 'create', redirectTo: 'seller/create', pathMatch: 'full' },
   { path: '', redirectTo: 'user/list', pathMatch: 'full' },
@@ -63,10 +64,7 @@ const appsRoutes: Routes = [
         path: 'payment',
         loadChildren: () => import('./features/payment/payment.module').then(m => m.PaymentModule)
       },
-      {
-        path: 'myorders',
-        component: OrderListComponent,
-      },
+
       {
         path: 'order-successfull',
         loadComponent: () => import('./features/order/order-success/order-success.component').then(m => m.OrderSuccessComponent),
@@ -89,6 +87,26 @@ const appsRoutes: Routes = [
         path: 'checkout-add-address',
         loadComponent: () => import('./features/user-profile/components/components/address/create-address/create-address.component').then(m => m.CreateAddressComponent),
         data: { isCheckout: true }
+      }
+    ]
+  },
+  {
+    path: 'catalog', component: HomeComponent, children: [
+      {
+        path: 'category',
+        component: CategoryComponent
+      },
+      {
+        path: 'category/:id',
+        component: CategoryComponent
+      },
+      {
+        path: 'list/:id',
+        loadComponent: () => import('./features/catalog/pages/list/list.component').then(c => c.ListComponent)
+      },
+      {
+        path: 'product/:id',
+        component: DetailsComponent
       }
     ]
   }

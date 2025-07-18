@@ -10,6 +10,18 @@
             {
               "name": "Men's TShirt",
               "url": "https://img.freepik.com/free-photo/man-wearing-t-shirt-gesturing_23-2149393645.jpg"
+            },
+            {
+              "name": "Men's Casual Shirts",
+              "url": "https://img.freepik.com/free-photo/portrait-handsome-smiling-stylish-young-man-model-dressed-red-checkered-shirt-fashion-man-wearing-sunglasses_158538-4857.jpg"
+            },
+            {
+              "name": "Men's Formal Shirts",
+              "url": "https://img.freepik.com/free-photo/shirt-hanger-with-green-background_23-2150264157.jpg"
+            },
+            {
+              "name": "Men's Kurtas",
+              "url": "https://img.freepik.com/free-photo/portrait-handsome-smiling-stylish-young-man-model-dressed-jeans-clothes-fashion-man-wearing-sunglasses_158538-4976.jpg"
             }
           ]
         },
@@ -18,35 +30,58 @@
           "url": "https://img.freepik.com/free-photo/jeans_1203-8093.jpg",
           "subCategories": [
             {
-              "name": "Men's Shorts",
-              "url": "https://img.freepik.com/free-photo/handsome-man-white-shirt-posing-attractive-guy-with-fashion-hairstyle-confident-man-with-short-beard-adult-boy-with-brown-hair-isolated_186202-8545.jpg"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Men",
-      "subCategories": [
-        {
-          "name": "Footwear",
-          "url": "https://img.freepik.com/free-photo/sport-running-shoes_1203-3414.jpg",
-          "subCategories": [
+              "name": "Men's Jeans",
+              "url": "https://img.freepik.com/free-photo/denim-blue-jeans-stack-wooden-background_1150-16514.jpg"
+            },
             {
-              "name": "Lofers",
-              "url": "https://img.freepik.com/free-photo/mens-elegant-shoes_1203-8566.jpg",
-              "subCategories": [
-                {
-                  "name": "Leather Lofers",
-                  "url": "https://img.freepik.com/free-photo/leather-mens-shoes-made-genuine-leather_1268-18237.jpg"
-                }
-              ]
+              "name": "Men's Trousers",
+              "url": "https://img.freepik.com/free-photo/beige-pants-wooden-table_53876-127479.jpg"
+            },
+            {
+              "name": "Men's Shorts",
+              "url": "https://img.freepik.com/free-photo/shorts-pants-clothing_1203-8356.jpg"
+            },
+            {
+              "name": "Men's Track Pants",
+              "url": "https://img.freepik.com/free-photo/black-pants-floor_1203-6525.jpg"
             }
           ]
         },
         {
-          "name": "Winter wear",
-          "url": "https://img.freepik.com/free-photo/young-man-winter-clothes-standing-with-takeaway-coffee_273609-15427.jpg"
+          "name": "Women's Ethnic",
+          "url": "https://img.freepik.com/free-photo/stunning-indian-woman-traditional-sari-with-mehndi-tattoo-ethnic-jewelry-set_273443-4585.jpg",
+          "subCategories": [
+            {
+              "name": "Sarees",
+              "url": "https://img.freepik.com/free-photo/attractive-indian-model-girl-wearing-saree-jewelry-set_273443-4246.jpg"
+            },
+            {
+              "name": "Kurta Sets",
+              "url": "https://img.freepik.com/free-photo/traditional-indian-woman-wear-brown-embroidered-suit-set-posing-with-dupatta_231208-15239.jpg"
+            },
+            {
+              "name": "Dress Materials",
+              "url": "https://img.freepik.com/free-photo/beautiful-indian-woman-traditional-salwar-kamiz-dress_1157-47461.jpg"
+            }
+          ]
+        },
+        {
+          "name": "Women's Western",
+          "url": "https://img.freepik.com/free-photo/pretty-young-stylish-sexy-woman-pink-luxury-dress-summer-fashion-trend-chic-style-sunglasses-blue-studio-background-shopping-holding-paper-bags-talking-mobile-phone-shopaholic_285396-2957.jpg",
+          "subCategories": [
+            {
+              "name": "Western Dresses",
+              "url": "https://img.freepik.com/free-photo/portrait-young-stylish-girl-model-casual-summer-clothes-brown-hat-with-natural-makeup-isolated_158538-8585.jpg"
+            },
+            {
+              "name": "Tops & Tees",
+              "url": "https://img.freepik.com/free-photo/green-front-sweater_1101-751.jpg"
+            },
+            {
+              "name": "Jeans & Jeggings",
+              "url": "https://img.freepik.com/free-photo/woman-blue-denim-jeans_53876-101963.jpg"
+            }
+          ]
         }
       ]
     },
@@ -54,28 +89,214 @@
       "category": "Electronics",
       "subCategories": [
         {
-          "name": "TV",
-          "url": "https://img.freepik.com/free-vector/realistic-tv-screen_23-2147508247.jpg"
-        },
-        {
-          "name": "Fridge",
-          "url": "https://img.freepik.com/free-photo/refrigerator-kitchen-interior_23-2150711935.jpg"
+          "name": "Televisions",
+          "url": "https://img.freepik.com/free-vector/realistic-tv-screen_23-2147508247.jpg",
+          "subCategories": [
+            {
+              "name": "Smart TVs",
+              "url": "https://img.freepik.com/free-vector/tv-with-curved-screen-realistic-illustration_1284-64087.jpg"
+            },
+            {
+              "name": "OLED TVs",
+              "url": "https://img.freepik.com/free-vector/plasma-tv-realistic-illustration_1284-23315.jpg"
+            },
+            {
+              "name": "4K Ultra HD TVs",
+              "url": "https://img.freepik.com/free-psd/smart-tv-mock-up-living-room_1150-35444.jpg"
+            }
+          ]
         },
         {
           "name": "Smartphones",
-          "url": "https://img.freepik.com/free-photo/mobile-phone-parts-isolated-white-background_1368-8064.jpg"
+          "url": "https://img.freepik.com/free-photo/mobile-phone-parts-isolated-white-background_1368-8064.jpg",
+          "subCategories": [
+            {
+              "name": "Apple iPhones",
+              "url": "https://img.freepik.com/free-psd/smartphone-mockup_1310-812.jpg"
+            },
+            {
+              "name": "Samsung Phones",
+              "url": "https://img.freepik.com/free-psd/premium-mobile-phone-screen-mockup-template_53876-65749.jpg"
+            },
+            {
+              "name": "Google Pixel",
+              "url": "https://img.freepik.com/free-psd/full-screen-smartphone-mockup-design_53876-65968.jpg"
+            },
+            {
+              "name": "OnePlus Phones",
+              "url": "https://img.freepik.com/free-psd/smartphone-mockup_1310-777.jpg"
+            }
+          ]
         },
         {
-          "name": "Washing Machines",
-          "url": "https://img.freepik.com/free-photo/washing-machine-minimal-bathroom_53876-147519.jpg"
-        },
-        {
-          "name": "Air Conditioners",
-          "url": "https://img.freepik.com/free-vector/realistic-conditioner-illustration_23-2148890675.jpg"
+          "name": "Home Appliances",
+          "url": "https://img.freepik.com/free-photo/refrigerator-kitchen-interior_23-2150711935.jpg",
+          "subCategories": [
+            {
+              "name": "Refrigerators",
+              "url": "https://img.freepik.com/free-photo/domestic-kitchen-interior-with-appliances_23-2149484161.jpg"
+            },
+            {
+              "name": "Washing Machines",
+              "url": "https://img.freepik.com/free-photo/washing-machine-minimal-bathroom_53876-147519.jpg"
+            },
+            {
+              "name": "Air Conditioners",
+              "url": "https://img.freepik.com/free-vector/realistic-conditioner-illustration_23-2148890675.jpg"
+            },
+            {
+              "name": "Microwaves",
+              "url": "https://img.freepik.com/free-photo/microwave-oven-white-kitchen-interior_23-2150711909.jpg"
+            }
+          ]
         },
         {
           "name": "Kitchen Appliances",
-          "url": "https://img.freepik.com/free-photo/food-mixer-blender-juicer-home-kitchen-appliance_107791-1768.jpg"
+          "url": "https://img.freepik.com/free-photo/food-mixer-blender-juicer-home-kitchen-appliance_107791-1768.jpg",
+          "subCategories": [
+            {
+              "name": "Mixer Grinders",
+              "url": "https://img.freepik.com/free-photo/food-mixer-blender-juicer-home-kitchen-appliance_107791-1768.jpg"
+            },
+            {
+              "name": "Induction Cooktops",
+              "url": "https://img.freepik.com/free-photo/pan-induction-cooker_1203-1903.jpg"
+            },
+            {
+              "name": "Coffee Makers",
+              "url": "https://img.freepik.com/free-photo/coffee-making-machine-black-coffee-maker-cup-aroma-drink-generated-by-ai_188544-19537.jpg"
+            },
+            {
+              "name": "Toasters",
+              "url": "https://img.freepik.com/free-photo/toaster-bread-wooden-table_1150-12900.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Computers",
+      "subCategories": [
+        {
+          "name": "Laptops",
+          "url": "https://img.freepik.com/free-psd/laptop-mock-up-isolated_1310-1458.jpg",
+          "subCategories": [
+            {
+              "name": "Gaming Laptops",
+              "url": "https://img.freepik.com/free-photo/workplace-business-modern-male-accessories-laptop-black-background_155003-1717.jpg"
+            },
+            {
+              "name": "Thin & Light Laptops",
+              "url": "https://img.freepik.com/free-psd/laptop-psd-mockup-with-gradient-led-light_53876-138283.jpg"
+            },
+            {
+              "name": "MacBooks",
+              "url": "https://img.freepik.com/free-psd/digital-device-mockup_53876-91376.jpg"
+            }
+          ]
+        },
+        {
+          "name": "Computer Accessories",
+          "url": "https://img.freepik.com/free-photo/wireless-mouse-white-background_1232-824.jpg",
+          "subCategories": [
+            {
+              "name": "Keyboards & Mouse",
+              "url": "https://img.freepik.com/free-photo/minimal-peripheral-keyboard-mouse_23-2148446120.jpg"
+            },
+            {
+              "name": "External Hard Drives",
+              "url": "https://img.freepik.com/free-photo/external-hard-drive-500gb_1194-6948.jpg"
+            },
+            {
+              "name": "Monitors",
+              "url": "https://img.freepik.com/free-psd/digital-device-mockup-set_53876-89362.jpg"
+            },
+            {
+              "name": "Printers",
+              "url": "https://img.freepik.com/free-vector/realistic-printers-scanners-composition-with-isolated-image-office-multifunction-printer-with-shadows-reflection-illustration_1284-53853.jpg"
+            }
+          ]
+        },
+        {
+          "name": "PC Components",
+          "url": "https://img.freepik.com/free-photo/computer-motherboard-repair-shop_23-2149862008.jpg",
+          "subCategories": [
+            {
+              "name": "Graphics Cards",
+              "url": "https://img.freepik.com/free-photo/video-card-with-fans-circuit-board-components-electronic-computer-hardware-technology-programming-gaming-concept_346278-1630.jpg"
+            },
+            {
+              "name": "Processors",
+              "url": "https://img.freepik.com/free-photo/cpu-chip-circuit-board-surface-technology-background_90220-1361.jpg"
+            },
+            {
+              "name": "Motherboards",
+              "url": "https://img.freepik.com/free-photo/computer-motherboard-repair-shop_23-2149862008.jpg"
+            },
+            {
+              "name": "RAM",
+              "url": "https://img.freepik.com/free-photo/ram-memory-chip-circuit-board-isolated-white-background-random-access-memory-modules-pc-computer-hardware-component_90220-1282.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Furniture",
+      "subCategories": [
+        {
+          "name": "Living Room",
+          "url": "https://img.freepik.com/free-photo/pillow-sofa-decoration-interior-living-room-area_74190-11567.jpg",
+          "subCategories": [
+            {
+              "name": "Sofas",
+              "url": "https://img.freepik.com/free-psd/armchair-pillow_176382-861.jpg"
+            },
+            {
+              "name": "Coffee Tables",
+              "url": "https://img.freepik.com/free-photo/white-table-top-with-vases-various-plants_53876-145505.jpg"
+            },
+            {
+              "name": "TV Units",
+              "url": "https://img.freepik.com/free-photo/3d-rendering-loft-luxury-living-room-with-shelf-near-dining-table_105762-2053.jpg"
+            }
+          ]
+        },
+        {
+          "name": "Bedroom",
+          "url": "https://img.freepik.com/free-photo/king-size-bed-comfortable-pillow-bedroom-interior_1150-12343.jpg",
+          "subCategories": [
+            {
+              "name": "Beds",
+              "url": "https://img.freepik.com/free-photo/bedroom-interior_1150-17925.jpg"
+            },
+            {
+              "name": "Wardrobes",
+              "url": "https://img.freepik.com/free-photo/wardrobe-interior-design_23-2148943556.jpg"
+            },
+            {
+              "name": "Mattresses",
+              "url": "https://img.freepik.com/free-photo/orthopedic-mattress-advertisement-banner_185193-109204.jpg"
+            }
+          ]
+        },
+        {
+          "name": "Office Furniture",
+          "url": "https://img.freepik.com/free-photo/modern-business-office-with-desk-chair_23-2149345502.jpg",
+          "subCategories": [
+            {
+              "name": "Office Chairs",
+              "url": "https://img.freepik.com/free-psd/office-chair-3d-rendering-transparent_35913-2353.jpg"
+            },
+            {
+              "name": "Office Tables",
+              "url": "https://img.freepik.com/free-psd/3d-rendering-workspace-with-laptop-chair_35913-2328.jpg"
+            },
+            {
+              "name": "Bookshelves",
+              "url": "https://img.freepik.com/free-photo/office-bookshelf-with-plant-books_23-2149437290.jpg"
+            }
+          ]
         }
       ]
     }
@@ -441,6 +662,76 @@
           "https://www.lg.com/in/images/air-conditioners/md07529563/gallery/RS-Q19WNZE-Air-Conditioners-Front-View-D-2.jpg",
           "https://www.lg.com/in/images/air-conditioners/md07529563/gallery/RS-Q19WNZE-Air-Conditioners-Front-View-D-3.jpg"
         ]
+      },
+      {
+        "id": "APPLE-IPHONE-15",
+        "name": "Apple iPhone 15 Pro Max",
+        "description": "6.7-inch Super Retina XDR display, A17 Pro chip, Pro camera system, Titanium design",
+        "category": "Smartphones",
+        "brand": "Apple",
+        "rating": 4.9,
+        "reviewCount": 2100,
+        "warranty": "1 Year Manufacturer Warranty",
+        "seller": "Apple Store",
+        "price": {
+          "price": 139900,
+          "originalPrice": 149900,
+          "discount": 10000
+        },
+        "colors": [
+          "Natural Titanium",
+          "Blue Titanium"
+        ],
+        "images": [
+          "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-finish-select-202309-6-7inch-natural?wid=512&hei=512&fmt=jpeg&qlt=95&.v=1692923768186"
+        ]
+      },
+      {
+        "id": "DELL-XPS-13",
+        "name": "Dell XPS 13 Laptop",
+        "description": "13.4-inch FHD+ Display, Intel Core i7, 16GB RAM, 512GB SSD, Windows 11",
+        "category": "Laptops",
+        "brand": "Dell",
+        "rating": 4.7,
+        "reviewCount": 980,
+        "warranty": "1 Year Premium Support",
+        "seller": "Dell Official",
+        "price": {
+          "price": 99990,
+          "originalPrice": 119990,
+          "discount": 20000
+        },
+        "colors": [
+          "Silver",
+          "Black"
+        ],
+        "images": [
+          "https://i.dell.com/sites/imagecontent/products/PublishingImages/xps-13-9310-laptop/spi/ng/xps-13-9310-laptop-campaign-hero-504x350-ng.psd"
+        ]
+      },
+      {
+        "id": "NIKE-AIR-MAX",
+        "name": "Nike Air Max 270",
+        "description": "Breathable mesh upper, Max Air unit for comfort, Stylish design for everyday wear",
+        "category": "Footwear",
+        "brand": "Nike",
+        "rating": 4.6,
+        "reviewCount": 1500,
+        "warranty": "6 Months Manufacturer Warranty",
+        "seller": "Nike Store",
+        "price": {
+          "price": 12999,
+          "originalPrice": 15999,
+          "discount": 3000
+        },
+        "colors": [
+          "White",
+          "Black",
+          "Red"
+        ],
+        "images": [
+          "https://static.nike.com/a/images/t_PDP_864_v1/f_auto,q_auto:eco/4b2e2e2e-2e2e-4b2e-8e2e-2e2e2e2e2ee/air-max-270-mens-shoes-KkLcGR.png"
+        ]
       }
     ]
   },
@@ -454,6 +745,61 @@
       "productId": "SONY-BRAVIA-1",
       "quantity": 1,
       "id": 2
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 3
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 4
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 5
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 6
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 7
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 8
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 9
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 10
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 11
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 12
+    },
+    {
+      "productId": "SAMSUNG-TV-1",
+      "quantity": 1,
+      "id": 13
     }
   ],
   "categories": [
@@ -735,5 +1081,77 @@
       "https://img.freepik.com/free-psd/smartphone-clay-mockup_439185-800.jpg",
       "https://img.freepik.com/free-photo/new-smartphone-balancing-with-blurry-phones_23-2150170121.jpg"
     ]
-  }
+  },
+  "addresses": [
+    {
+      "id": "addr-001",
+      "firstName": "Rahul",
+      "lastName": "Sharma",
+      "addressLine1": "A-42, Harmony Apartments",
+      "addressLine2": "MG Road, Viman Nagar",
+      "landmark": "Near Apollo Hospital",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "pincode": "411014",
+      "mobile": "9876543210",
+      "type": "Home (9AM-10PM)",
+      "defaultAddress": true
+    },
+    {
+      "id": "addr-002",
+      "firstName": "Rahul",
+      "lastName": "Sharma",
+      "addressLine1": "B-101, Tech Park",
+      "addressLine2": "Hinjewadi Phase 1",
+      "landmark": "Opposite McDonald's",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "pincode": "411057",
+      "mobile": "9876543210",
+      "type": "Office (10AM-7PM)",
+      "defaultAddress": false
+    },
+    {
+      "id": "addr-003",
+      "firstName": "Priya",
+      "lastName": "Patel",
+      "addressLine1": "C-15, Sea View Apartments",
+      "addressLine2": "Carter Road, Bandra West",
+      "landmark": "Near Starbucks",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "pincode": "400050",
+      "mobile": "8765432109",
+      "type": "Home (9AM-10PM)",
+      "defaultAddress": true
+    },
+    {
+      "id": "addr-004",
+      "firstName": "Amit",
+      "lastName": "Singh",
+      "addressLine1": "D-203, Green Valley",
+      "addressLine2": "Whitefield Main Road",
+      "landmark": "Opposite Phoenix Mall",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "pincode": "560066",
+      "mobile": "7654321098",
+      "type": "Home (9AM-10PM)",
+      "defaultAddress": true
+    },
+    {
+      "id": "addr-005",
+      "firstName": "Sneha",
+      "lastName": "Reddy",
+      "addressLine1": "E-78, Rainbow Residency",
+      "addressLine2": "Gachibowli",
+      "landmark": "Near Microsoft Office",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500032",
+      "mobile": "6543210987",
+      "type": "Office (10AM-7PM)",
+      "defaultAddress": false
+    }
+  ]
 }

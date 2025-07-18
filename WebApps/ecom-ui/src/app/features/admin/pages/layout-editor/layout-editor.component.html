@@ -1,0 +1,318 @@
+<div class="layout-editor">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Layout Manager</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <button type="button" class="btn btn-sm btn-outline-primary" (click)="createNewLayout()">
+        <i class="bi bi-plus"></i> New Layout
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          Available Layouts
+        </div>
+        <div class="list-group list-group-flush">
+          <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
+               *ngFor="let layout of layouts"
+               [class.active]="selectedLayout && selectedLayout.id === layout.id"
+               [class.text-muted]="!layout.active">
+            <div class="layout-info" (click)="editLayout(layout)">
+              <div class="layout-name">
+                {{ layout.displayName }}
+                <span class="badge bg-secondary ms-1" *ngIf="!layout.active">Inactive</span>
+              </div>
+              <div class="layout-route">Route: {{ layout.route }}</div>
+            </div>
+            <div class="layout-actions">
+              <button class="btn btn-sm" 
+                      [class.btn-success]="layout.active" 
+                      [class.btn-secondary]="!layout.active" 
+                      (click)="toggleLayoutActive(layout)" 
+                      [title]="layout.active ? 'Deactivate' : 'Activate'">
+                <i class="bi" [class.bi-toggle-on]="layout.active" [class.bi-toggle-off]="!layout.active"></i>
+              </button>
+              <button class="btn btn-sm btn-danger ms-1" (click)="deleteLayout(layout)" title="Delete Layout">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="layouts.length === 0" class="list-group-item text-center py-3">
+            No layouts available. Create one now!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8" *ngIf="isEditing || isCreating">
+      <div class="card">
+        <div class="card-header">
+          {{ isCreating ? 'Create New Layout' : 'Edit Layout: ' + selectedLayout?.displayName }}
+        </div>
+        <div class="card-body">
+          <form [formGroup]="layoutForm" (ngSubmit)="saveLayout()">
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label for="layoutName" class="form-label">Layout Name (ID)</label>
+                <input type="text" class="form-control" id="layoutName" formControlName="name" 
+                       placeholder="e.g., homepage-layout">
+                <div class="invalid-feedback" *ngIf="layoutForm.get('name')?.invalid && layoutForm.get('name')?.touched">
+                  Layout name is required and must be at least 3 characters.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="displayName" class="form-label">Display Name</label>
+                <input type="text" class="form-control" id="displayName" formControlName="displayName" 
+                       placeholder="e.g., Homepage Layout">
+                <div class="invalid-feedback" *ngIf="layoutForm.get('displayName')?.invalid && layoutForm.get('displayName')?.touched">
+                  Display name is required.
+                </div>
+              </div>
+              <div class="col-md-4">
+                <label for="route" class="form-label">Route Path</label>
+                <input type="text" class="form-control" id="route" formControlName="route" 
+                       placeholder="e.g., / or /products">
+                <div class="invalid-feedback" *ngIf="layoutForm.get('route')?.invalid && layoutForm.get('route')?.touched">
+                  Route is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="theme" class="form-label">Theme</label>
+                <select class="form-select" id="theme" formControlName="theme">
+                  <option value="">Select Theme</option>
+                  <option *ngFor="let theme of themes" [value]="theme.id">{{ theme.name }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="layoutForm.get('theme')?.invalid && layoutForm.get('theme')?.touched">
+                  Theme is required.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label d-block">Status</label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="layoutActiveStatus" formControlName="active">
+                  <label class="form-check-label" for="layoutActiveStatus">
+                    {{ layoutForm.get('active')?.value ? 'Active' : 'Inactive' }}
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <ul class="nav nav-tabs mb-3">
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="activeTab === 'components'" href="#" 
+                   (click)="$event.preventDefault(); setActiveTab('components')">Components</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="activeTab === 'sections'" href="#" 
+                   (click)="$event.preventDefault(); setActiveTab('sections')">Sections</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [class.active]="activeTab === 'style'" href="#" 
+                   (click)="$event.preventDefault(); setActiveTab('style')">Styles</a>
+              </li>
+            </ul>
+
+            <div [ngSwitch]="activeTab">
+              <div *ngSwitchCase="'components'">
+                <div class="components-container">
+                  <div class="form-text mb-3">
+                    Select components to include in this layout. Components will be displayed in order.
+                  </div>
+                  <div class="component-selection mb-3">
+                    <label class="form-label">Components</label>
+                    <select multiple class="form-select" formControlName="components" size="10" 
+                           (change)="onComponentSelectionChange($event)">
+                      <option *ngFor="let component of components" [value]="component.id">
+                        {{ component.displayName }} ({{ component.componentType }})
+                      </option>
+                    </select>
+                  </div>
+                  <div class="selected-components mt-3">
+                    <h6>Selected Components</h6>
+                    <div class="list-group">
+                      <div class="list-group-item" *ngFor="let componentId of layoutForm.get('components')?.value">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <span>{{ getComponentById(componentId)?.displayName }}</span>
+                          <small class="text-muted">{{ getComponentById(componentId)?.componentType }}</small>
+                        </div>
+                      </div>
+                      <div *ngIf="!layoutForm.get('components')?.value?.length" class="list-group-item text-center py-3">
+                        <span class="text-muted">No components selected</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngSwitchCase="'sections'">
+                <div class="sections-container">
+                  <div class="form-text mb-3">
+                    Sections allow you to organize components into different areas of the page.
+                  </div>
+                  
+                  <div class="d-flex justify-content-end mb-3">
+                    <button type="button" class="btn btn-sm btn-outline-primary" (click)="addSection()">
+                      <i class="bi bi-plus"></i> Add Section
+                    </button>
+                  </div>
+                  
+                  <div *ngIf="sectionsArray.controls.length === 0" class="text-center py-4 border rounded mb-3">
+                    <p class="text-muted">No sections defined yet. Click "Add Section" to create one.</p>
+                  </div>
+                  
+                  <div class="accordion" id="sectionsAccordion">
+                    <div class="accordion-item mb-3" *ngFor="let section of sectionsArray.controls; let i = index" [formGroup]="section">
+                      <h2 class="accordion-header" [id]="'heading-' + i">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                [attr.data-bs-target]="'#collapse-' + i" aria-expanded="false" [attr.aria-controls]="'collapse-' + i">
+                          <span *ngIf="section.get('displayName')?.value">{{ section.get('displayName')?.value }}</span>
+                          <span *ngIf="!section.get('displayName')?.value" class="text-muted">Unnamed Section</span>
+                        </button>
+                      </h2>
+                      <div [id]="'collapse-' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'heading-' + i" data-bs-parent="#sectionsAccordion">
+                        <div class="accordion-body">
+                          <div class="row mb-3">
+                            <div class="col-md-4">
+                              <label class="form-label">Section Name (ID)</label>
+                              <input type="text" class="form-control" formControlName="name" placeholder="e.g., main-content">
+                            </div>
+                            <div class="col-md-4">
+                              <label class="form-label">Display Name</label>
+                              <input type="text" class="form-control" formControlName="displayName" placeholder="e.g., Main Content">
+                            </div>
+                            <div class="col-md-2">
+                              <label class="form-label">Order</label>
+                              <input type="number" class="form-control" formControlName="orderIndex" min="0">
+                            </div>
+                            <div class="col-md-2">
+                              <label class="form-label">Width</label>
+                              <div class="form-check form-switch mt-2" formGroupName="properties">
+                                <input class="form-check-input" type="checkbox" formControlName="fullWidth" id="fullWidth">
+                                <label class="form-check-label" for="fullWidth">
+                                  {{ section.get('properties.fullWidth')?.value ? 'Full Width' : 'Container' }}
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="row mb-3">
+                            <div class="col-12">
+                              <label class="form-label">Components in Section</label>
+                              <select multiple class="form-select" formControlName="componentIds" size="5" 
+                                    (change)="onSectionComponentSelectionChange(i, $event)">
+                                <option *ngFor="let component of components" [value]="component.id">
+                                  {{ component.displayName }} ({{ component.componentType }})
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          
+                          <div formGroupName="style">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                              <h6 class="mb-0">Section Styles</h6>
+                              <button type="button" class="btn btn-sm btn-outline-primary" (click)="addSectionStyle(i)">
+                                <i class="bi bi-plus"></i> Add Style
+                              </button>
+                            </div>
+                            
+                            <div class="styles-list">
+                              <div class="row mb-2" *ngFor="let style of getSectionStyleControls(i)">
+                                <div class="col-md-4">
+                                  <label class="form-label">{{ style.key }}</label>
+                                </div>
+                                <div class="col-md-7">
+                                  <input type="text" class="form-control" [formControlName]="style.key">
+                                </div>
+                                <div class="col-md-1">
+                                  <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeSectionStyle(i, style.key)">
+                                    <i class="bi bi-x"></i>
+                                  </button>
+                                </div>
+                              </div>
+                              <div *ngIf="getSectionStyleControls(i).length === 0" class="text-center py-2 text-muted">
+                                No styles defined
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="d-flex justify-content-between mt-3">
+                            <div>
+                              <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeSection(i)">
+                                <i class="bi bi-trash"></i> Remove Section
+                              </button>
+                            </div>
+                            <div>
+                              <button type="button" class="btn btn-sm btn-outline-secondary me-1" (click)="moveUpSection(i)"
+                                      [disabled]="i === 0">
+                                <i class="bi bi-arrow-up"></i>
+                              </button>
+                              <button type="button" class="btn btn-sm btn-outline-secondary" (click)="moveDownSection(i)"
+                                      [disabled]="i === sectionsArray.length - 1">
+                                <i class="bi bi-arrow-down"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngSwitchCase="'style'">
+                <div class="styles-container" formGroupName="style">
+                  <div class="d-flex justify-content-end mb-3">
+                    <button type="button" class="btn btn-sm btn-outline-primary" (click)="addStyle()">
+                      <i class="bi bi-plus"></i> Add CSS Property
+                    </button>
+                  </div>
+                  
+                  <div class="row mb-2" *ngFor="let style of getStyleControls()">
+                    <div class="col-md-4">
+                      <label [for]="'style_' + style.key" class="form-label">{{ style.key }}</label>
+                    </div>
+                    <div class="col-md-7">
+                      <input type="text" class="form-control" [id]="'style_' + style.key" [formControlName]="style.key">
+                    </div>
+                    <div class="col-md-1">
+                      <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeStyle(style.key)">
+                        <i class="bi bi-x"></i>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class="text-center py-3" *ngIf="getStyleControls().length === 0">
+                    <p class="text-muted">No styles defined yet.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+              <button type="button" class="btn btn-secondary me-2" (click)="cancelEdit()">Cancel</button>
+              <button type="submit" class="btn btn-primary" [disabled]="layoutForm.invalid">Save Layout</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8" *ngIf="!isEditing && !isCreating">
+      <div class="card">
+        <div class="card-body text-center py-5">
+          <i class="bi bi-layout-text-window display-1 text-muted"></i>
+          <h3 class="mt-3">Layout Editor</h3>
+          <p class="text-muted">Select a layout to edit or create a new one</p>
+          <button type="button" class="btn btn-primary mt-2" (click)="createNewLayout()">
+            <i class="bi bi-plus"></i> Create New Layout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,13 +1,13 @@
 export class SubMenu {
-
-    subCategory: string
+    name: string
     url: string
+    imageUrl?: string
     subCategories: SubMenu[]
-    constructor(subCategory: string,
-        url: string, subCategories: SubMenu[]) {
-        this.subCategory = subCategory
+    
+    constructor(name: string, url: string, subCategories: SubMenu[] = [], imageUrl?: string) {
+        this.name = name
         this.url = url
         this.subCategories = subCategories
-
+        this.imageUrl = imageUrl
     }
 }

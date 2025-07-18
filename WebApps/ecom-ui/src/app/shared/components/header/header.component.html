@@ -11,14 +11,51 @@
       <!-- Search bar -->
       <div class="col-md-5 col-sm-12">
         <div class="search-container">
-          <div class="input-group"> 
-            <input class="form-control search-input" type="search" placeholder="Search for products, brands and more" aria-label="Search">
-            <div class="input-group-append">
-              <button class="btn search-btn" type="submit">
-                <i class="bi bi-search"></i> <span>Search</span>
-              </button>
+          <form (ngSubmit)="onSearch($event)" class="search-form">
+            <div class="input-group"> 
+              <input class="form-control search-input" 
+                     type="search" 
+                     placeholder="Search for products, brands and more" 
+                     aria-label="Search"
+                     [formControl]="searchControl"
+                     (focus)="showDropdown = true"
+                     autocomplete="off">
+              <div class="input-group-append">
+                <button class="btn search-btn" type="submit">
+                  <i class="bi bi-search"></i> <span>Search</span>
+                </button>
+              </div>
             </div>
-          </div>
+            <!-- Search Results Dropdown -->
+            <div class="search-results-dropdown" *ngIf="showDropdown && searchControl.value">
+              <ng-container *ngTemplateOutlet="searchResultsTemplate; context: { $implicit: searchResults$ | async }">
+              </ng-container>
+            </div>
+
+            <!-- Search Results Template -->
+            <ng-template #searchResultsTemplate let-results>
+              <div class="search-results-container" *ngIf="results?.length > 0; else noResults">
+                <div class="search-result-item" *ngFor="let product of results" 
+                     (mousedown)="$event.preventDefault()"
+                     (click)="selectProduct(product)">
+                  <div class="product-image">
+                    <img [src]="product.image || 'assets/images/placeholder.jpg'" 
+                         [alt]="product.name">
+                  </div>
+                  <div class="product-info">
+                    <div class="product-name">{{ product.name }}</div>
+                    <div class="product-price">₹{{ product.price }}</div>
+                    <div class="product-category" *ngIf="product.category">{{ product.category }}</div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noResults>
+                <div class="no-results">
+                  <p>No products found for "{{ searchControl.value }}"</p>
+                </div>
+              </ng-template>
+            </ng-template>
+          </form>
         </div>
       </div>
 
@@ -32,16 +69,14 @@
       <!-- Authenticated user menu -->
       <div class="col-md-2 col-sm-12 user-menu" *ngIf="isAuthenticated">
         <div class="dropdown">
-          <a class="user-menu-link" appRoles [hasRole]='["user,seller"]' id="dropdownMenuButton2"
-            data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="user-menu-link dropdown-toggle" id="profileDropdown" (click)="toggleProfileDropdown($event)">
             <i class="bi bi-person"></i>
             <span class="user-name">Pranay</span>
-            <i class="bi bi-chevron-down"></i>
-          </a>
+          </button>
 
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+          <ul class="dropdown-menu profile-dropdown" [class.show]="isProfileDropdownOpen">
             <li>
-              <a routerLink="user-profile/my-profile" class="dropdown-item">
+              <a routerLink="/user/profile/my-profile" class="dropdown-item" (click)="closeProfileDropdown()">
                 <i class="bi bi-person-fill"></i> My Profile
               </a>
             </li>
@@ -49,7 +84,7 @@
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item" routerLink="user-profile/notification">
+              <a class="dropdown-item" routerLink="/user/profile/notification" (click)="closeProfileDropdown()">
                 <i class="bi bi-bell"></i> Notifications
               </a>
             </li>
@@ -57,7 +92,7 @@
               <hr class="dropdown-divider">
             </li>
             <li>
-              <a class="dropdown-item">
+              <a class="dropdown-item" (click)="closeProfileDropdown()">
                 <form>
                   <app-login></app-login>
                 </form>
@@ -69,15 +104,12 @@
 
       <!-- Cart -->
       <div class="col-md-1 col-sm-6 text-center">
-        <a class="user-menu-link" routerLink="cart/products">
-          <i class="bi bi-cart"></i> Cart
-        </a>
-      </div>
-
-      <!-- Become a Seller -->
-      <div class="col-md-2 col-sm-6 text-center">
-        <a class="user-menu-link">
-          <i class="bi bi-bank"></i> Become a Seller
+        <a class="user-menu-link cart-link" routerLink="/user/cart/products">
+          <div class="cart-icon-container">
+            <i class="bi bi-cart"></i>
+            <span class="cart-badge" *ngIf="cartItemCount > 0">{{cartItemCount}}</span>
+          </div>
+          <span class="ms-1">Cart</span>
         </a>
       </div>
     </div>

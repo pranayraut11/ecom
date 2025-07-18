@@ -1,57 +1,116 @@
-<div class="block p-4">
-  <div class="card-body">
+<div class="profile-container">
+  <div class="profile-header">
+    <h4>My Profile</h4>
+    <p class="text-muted">Manage your personal information and preferences</p>
+    <hr>
+  </div>
 
-    <form class="row">
-      <div class="row">
-        <div class="row">
-          <h5 class="card-title"></h5>
-          <div class="row">
-            <div class="col-4 fs-5">Personal Information </div>
-            <a id="personalInfoEdit" class="col-5 fs-6 pt-1 link-primary links" (click)="personalInfoEdit()" >{{editInfoText}} </a>
-          </div>
-        </div>
-        <div class="row pt-3">
-          <div class="col-md-4">
-            <input type="text" class="form-control" id="inputEmail4" placeholder="First Name">
-          </div>
-          <div class="col-md-4">
-            <input type="text" class="form-control" id="inputPassword4" placeholder="Last Name">
-          </div>
-          <div class="col-md-2" *ngIf="saveInfoButton">
-            <button type="submit" class="btn btn-primary rounded-1">Save</button>
-          </div>
+  <div class="profile-section">
+    <div class="profile-picture-section">
+      <div class="profile-picture-container">
+        <img [src]="profileImageUrl" alt="Profile Picture" class="profile-picture">
+        <div class="profile-picture-overlay">
+          <button class="change-photo-btn" (click)="triggerFileInput()">
+            <i class="bi bi-camera"></i>
+          </button>
         </div>
       </div>
-      <div class="row pt-3">
-        <div class="row">
-          <div class="col-3 fs-5">Email Address</div>
-          <a class="col-5 fs-6 pt-1 link-primary links" (click)="emailEdit()">{{editEmailText}} </a>
-        </div>
-        <div class="row col-5 pt-3">
-          <div class="col-10">
-            <input type="email" class="form-control" id="inputEmail4">
-          </div>
-          <div class="col-md-2" *ngIf="saveEmailButton">
-            <button type="submit" class="btn btn-primary rounded-1">Save</button>
-          </div>
-        </div>
+      <input type="file" #fileInput style="display: none" accept="image/*" (change)="onFileSelected($event)">
+      <p class="text-center mt-2">Upload a new photo</p>
+    </div>
 
-      </div>
-      <div class="row pt-3">
-        <div class="row">
-          <div class="col-3 fs-5">Mobile Number</div>
-          <a class="col-5 fs-6 pt-1 link-primary links" (click)="mobileNumberEdit()">{{editMobileText}} </a>
-        </div>
-        <div class="row col-5 pt-3">
-          <div class="col-10">
-            <input type="text" class="form-control" id="inputCity">
-          </div>
-          <div class="col-md-2" *ngIf="saveMobileButton">
-            <button type="submit" class="btn btn-primary rounded-1">Save</button>
-          </div>
-        </div>
+    <div class="personal-info-section">
+      <div class="section-header">
+        <h5>Personal Information</h5>
+        <button class="edit-btn" (click)="personalInfoEdit()">
+          <i class="bi" [ngClass]="editInfoText === 'Edit' ? 'bi-pencil' : 'bi-x-lg'"></i>
+          {{editInfoText}}
+        </button>
       </div>
 
-    </form>
+      <form class="profile-form" [ngClass]="{'form-disabled': editInfoText === 'Edit'}">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" [disabled]="editInfoText === 'Edit'" 
+                  placeholder="Enter first name" [(ngModel)]="userProfile.firstName" name="firstName">
+          </div>
+          <div class="col-md-6">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" [disabled]="editInfoText === 'Edit'" 
+                  placeholder="Enter last name" [(ngModel)]="userProfile.lastName" name="lastName">
+          </div>
+        </div>
+        <div class="form-actions" *ngIf="saveInfoButton">
+          <button type="button" class="btn btn-primary save-btn" (click)="savePersonalInfo()">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <div class="section-header">
+      <h5>Contact Information</h5>
+    </div>
+
+    <div class="contact-item">
+      <div class="contact-header">
+        <div>
+          <i class="bi bi-envelope"></i>
+          <label>Email Address</label>
+        </div>
+        <button class="edit-btn" (click)="emailEdit()">
+          <i class="bi" [ngClass]="editEmailText === 'Edit' ? 'bi-pencil' : 'bi-x-lg'"></i>
+          {{editEmailText}}
+        </button>
+      </div>
+      <div class="contact-content">
+        <input type="email" class="form-control" [disabled]="editEmailText === 'Edit'" 
+              placeholder="Enter email address" [(ngModel)]="userProfile.email" name="email">
+        <div class="form-actions" *ngIf="saveEmailButton">
+          <button type="button" class="btn btn-primary save-btn" (click)="saveEmail()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-item">
+      <div class="contact-header">
+        <div>
+          <i class="bi bi-phone"></i>
+          <label>Mobile Number</label>
+        </div>
+        <button class="edit-btn" (click)="mobileNumberEdit()">
+          <i class="bi" [ngClass]="editMobileText === 'Edit' ? 'bi-pencil' : 'bi-x-lg'"></i>
+          {{editMobileText}}
+        </button>
+      </div>
+      <div class="contact-content">
+        <input type="text" class="form-control" [disabled]="editMobileText === 'Edit'" 
+              placeholder="Enter mobile number" [(ngModel)]="userProfile.mobileNumber" name="mobileNumber">
+        <div class="form-actions" *ngIf="saveMobileButton">
+          <button type="button" class="btn btn-primary save-btn" (click)="saveMobile()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-section">
+    <div class="section-header">
+      <h5>Account Preferences</h5>
+    </div>
+    
+    <div class="preferences-content">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="emailNotifications" [(ngModel)]="userProfile.emailNotifications">
+        <label class="form-check-label" for="emailNotifications">Email Notifications</label>
+      </div>
+      <div class="form-text text-muted">Receive email notifications about your orders, account activity and promotions</div>
+
+      <div class="form-check form-switch mt-3">
+        <input class="form-check-input" type="checkbox" id="smsNotifications" [(ngModel)]="userProfile.smsNotifications">
+        <label class="form-check-label" for="smsNotifications">SMS Notifications</label>
+      </div>
+      <div class="form-text text-muted">Receive SMS notifications about your orders and delivery updates</div>
+    </div>
   </div>
 </div>

@@ -1,70 +1,86 @@
-<!-- Only show title with back button when in checkout mode (direct route) -->
-<div class="p-3" *ngIf="isCheckout">
-    <div class="row">
-        <div class="col-8">
-            <h2>{{pageTitle}}</h2>
-        </div>
-        <div class="col-4 text-end">
-            <button class="btn btn-secondary" (click)="router.navigate(['/user/cart'])">
-                <i class="bi bi-arrow-left"></i> Back to Cart
-            </button>
-        </div>
-    </div>
-    <hr>
-</div>
+<!-- Main wrapper with consistent side spacing -->
+<div class="address-page-wrapper" [class.checkout-mode-container]="isCheckout">
+  <!-- Header with title for non-checkout mode -->
+  <div class="p-1 px-3" *ngIf="!isCheckout">
+      <div class="row align-items-center">
+          <div class="col-12">
+              <h2 class="page-title">{{pageTitle}}</h2>
+          </div>
+      </div>
+      <hr class="my-1">
+  </div>
+
+  <!-- Header for checkout mode -->
+  <div class="p-1 px-3" *ngIf="isCheckout">
+      <div class="row align-items-center">
+          <div class="col-md-6">
+              <h2 class="page-title">{{pageTitle}}</h2>
+          </div>
+          <div class="col-md-6 text-end">
+              <button class="btn btn-primary btn-sm me-2" (click)="router.navigate(['/user/checkout-add-address'])">
+                  <i class="bi bi-plus-circle"></i> Add Address
+              </button>
+              <button class="btn btn-secondary btn-sm" (click)="router.navigate(['/user/cart'])">
+                  <i class="bi bi-arrow-left"></i> Back
+              </button>
+          </div>
+      </div>
+      <hr class="my-1">
+  </div>
 
 <!-- Addresses list -->
-<div class="p-3">
-    <div *ngFor="let address of addresses" class="mb-3">
-        <div class="block" [class.address-selectable]="isCheckout" (click)="isCheckout ? selectAddressAndProceed(address.id) : null">
-            <div class="p-3">
-                <div class="row">
-                    <div class="col-2">
+<div class="address-container">
+    <div class="address-grid">
+        <div *ngFor="let address of addresses" class="address-card" 
+            [class.address-selectable]="isCheckout" 
+            [class.address-selected]="isAddressSelected(address.id)" 
+            (click)="isCheckout ? selectAddress(address.id) : null">
+            <div class="address-content">
+                <div class="address-header">
+                    <div class="badge-container">
                         <span class="badge bg-secondary">{{address.type}}</span>
                         <span *ngIf="address.defaultAddress" class="badge bg-primary ms-1">Default</span>
+                        <span *ngIf="isAddressSelected(address.id)" class="badge bg-success ms-1">Selected</span>
                     </div>
-                    <div class="col-8"></div>
-                    <div class="col-2 text-end">
-                        <i class="bi bi-pencil-square me-2" role="button" (click)="$event.stopPropagation(); updateAddress(address.id)"></i>
+                    <div class="address-actions">
+                        <i class="bi bi-pencil-square me-1" role="button" (click)="$event.stopPropagation(); updateAddress(address.id)"></i>
                         <i class="bi bi-trash3" (click)="$event.stopPropagation(); deleteAddress(address.id)" role="button"></i>
                     </div>
                 </div>
                 
-                <div class="row mt-2">
-                    <div class="col-12 fs-5">
-                        {{address.firstName}} {{address.lastName}}
-                    </div>
+                <div class="address-name">
+                    {{address.firstName}} {{address.lastName}}
                 </div>
                 
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <div style="font-size: small;font-weight: 400;">
-                            {{address.addressLine1}}, 
-                            {{address.addressLine2}}, 
-                            {{address.city}}, {{address.state}}
-                        </div>
-                    </div>
+                <div class="address-details">
+                    {{address.addressLine1}}<span *ngIf="address.addressLine2">, {{address.addressLine2}}</span>, 
+                    {{address.city}}, {{address.state}} - {{address.pincode}}
                 </div>
                 
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <div style="font-weight: 500;">Pincode: {{address.pincode}}, Mobile: {{address.mobile}}</div>
-                    </div>
+                <div class="address-contact">
+                    <i class="bi bi-telephone"></i> {{address.mobile}}
+                </div>
+
+                <!-- Only show this button when in checkout mode and this address is selected -->
+                <div class="address-action-btn" *ngIf="isCheckout && isAddressSelected(address.id)">
+                    <button class="btn btn-primary btn-sm" (click)="$event.stopPropagation(); router.navigate(['/user/payment'])">
+                        Deliver here <i class="bi bi-arrow-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Show a message when there are no addresses -->
-    <div *ngIf="!addresses || addresses.length === 0" class="text-center p-4">
+    <div *ngIf="!addresses || addresses.length === 0" class="text-center p-2">
         <p>No addresses found. Please add an address.</p>
     </div>
 
-    <!-- Add new address button when in checkout flow -->
-    <div class="mt-3" *ngIf="isCheckout && addresses && addresses.length > 0">
-        <div class="d-flex justify-content-between align-items-center">
-            <button class="btn btn-primary" (click)="router.navigate(['/user/checkout-add-address'])">Add New Address</button>
-            <button class="btn btn-success" (click)="proceedWithDefaultAddress()">Proceed with Default Address</button>
-        </div>
+    <!-- Proceed with default address button when in checkout flow -->
+    <div class="default-action" *ngIf="isCheckout && addresses && addresses.length > 0">
+        <button class="btn btn-success btn-sm" (click)="proceedWithDefaultAddress()">
+            Proceed with Default Address
+        </button>
     </div>
 </div>
+</div> <!-- End of address-page-wrapper -->

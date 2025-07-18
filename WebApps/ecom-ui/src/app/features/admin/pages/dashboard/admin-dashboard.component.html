@@ -1,0 +1,76 @@
+<div class="admin-dashboard">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Themes</h5>
+          <p class="card-text display-4">{{ themeCount }}</p>
+          <a routerLink="/admin/themes" class="btn btn-primary btn-sm">Manage Themes</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Components</h5>
+          <p class="card-text display-4">{{ componentCount }}</p>
+          <p class="card-text text-muted">{{ activeComponentCount }} active</p>
+          <a routerLink="/admin/components" class="btn btn-primary btn-sm">Manage Components</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Layouts</h5>
+          <p class="card-text display-4">{{ layoutCount }}</p>
+          <a routerLink="/admin/layouts" class="btn btn-primary btn-sm">Manage Layouts</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Quick Actions
+        </div>
+        <div class="card-body">
+          <div class="list-group">
+            <a routerLink="/admin/themes" class="list-group-item list-group-item-action">
+              <i class="bi bi-palette me-2"></i> Create New Theme
+            </a>
+            <a routerLink="/admin/components" class="list-group-item list-group-item-action">
+              <i class="bi bi-grid me-2"></i> Configure Components
+            </a>
+            <a routerLink="/admin/layouts" class="list-group-item list-group-item-action">
+              <i class="bi bi-layout-text-window me-2"></i> Manage Page Layouts
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          Getting Started
+        </div>
+        <div class="card-body">
+          <p>This admin interface allows you to manage your store's visual appearance and layout configuration:</p>
+          <ul>
+            <li><strong>Themes:</strong> Define color schemes for your store</li>
+            <li><strong>Components:</strong> Configure individual UI elements like headers, footers, etc.</li>
+            <li><strong>Layouts:</strong> Arrange components into complete page layouts</li>
+          </ul>
+          <p>All changes are reflected immediately on your store front-end.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

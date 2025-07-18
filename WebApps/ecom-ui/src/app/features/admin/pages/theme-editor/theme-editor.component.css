@@ -1,0 +1,70 @@
+.theme-info {
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.theme-name {
+  font-weight: 500;
+}
+
+.theme-colors {
+  display: flex;
+  margin-top: 5px;
+}
+
+.color-preview {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  margin-right: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.theme-preview {
+  margin-top: 10px;
+}
+
+.preview-container {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.preview-header {
+  padding: 10px 15px;
+  font-weight: 500;
+}
+
+.preview-body {
+  padding: 15px;
+  min-height: 120px;
+}
+
+.preview-footer {
+  padding: 10px 15px;
+  font-size: 0.9rem;
+}
+
+.preview-btn {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  margin-right: 5px;
+  font-size: 0.85rem;
+}
+
+input[type="color"] {
+  width: 40px;
+  height: 38px;
+  padding: 0;
+}
+
+.form-control-color {
+  max-width: 40px;
+}
+
+.invalid-feedback {
+  display: block;
+}

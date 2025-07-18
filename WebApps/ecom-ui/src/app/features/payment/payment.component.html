@@ -1,33 +1,80 @@
-<div class="row">
-    <div class="col-3">
-        <div class="block">
-
-            <div class="row"> <a class="link borderhr" routerLink="savedcards">
-                    Saved Cards
-                </a></div>
-            <div class="row"> <a class="link borderhr" routerLink="upi">
-                    UPI
-                </a></div>
-            <div class="row"> <a routerLink="cards" class="link borderhr">
-                    Credit/Debit Card
-                </a></div>
-            <div class="row"><a routerLink="net-banking" class="link borderhr">
-                    Internet Banking <span class="badge">14</span>
-                </a></div>
-            <div class="row"><a routerLink="wallets" class="link borderhr">
-                     Wallets <span class="badge">14</span>
-                </a></div>
-            <div class="row"><a routerLink="cash-on-delivery" class="link">
-                    Cash On Delivery
-                </a></div>
+<div class="container mt-4">
+    <!-- Delivery Address Summary -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Delivery Address</h5>
+            <button class="btn btn-outline-primary btn-sm" (click)="changeAddress()">Change</button>
+        </div>
+        <div class="card-body">
+            <div *ngIf="isLoading" class="text-center p-3">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            
+            <div *ngIf="!isLoading && selectedAddress" class="row">
+                <div class="col-md-6">
+                    <h6 class="card-subtitle mb-2 text-muted">Shipping to:</h6>
+                    <p class="card-text">
+                        <strong>{{selectedAddress.firstName}} {{selectedAddress.lastName}}</strong><br>
+                        {{selectedAddress.addressLine1}},<br>
+                        {{selectedAddress.addressLine2 ? selectedAddress.addressLine2 + ',' : ''}}<br>
+                        {{selectedAddress.city}}, {{selectedAddress.state}} - {{selectedAddress.pincode}}<br>
+                        <strong>Phone:</strong> {{selectedAddress.mobile}}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-md-end">
+                        <span class="badge bg-secondary">{{selectedAddress.type}}</span>
+                        <span *ngIf="selectedAddress.defaultAddress" class="badge bg-primary ms-1">Default</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div *ngIf="!isLoading && !selectedAddress" class="alert alert-warning">
+                No delivery address selected. Please select an address to continue.
+            </div>
         </div>
     </div>
-    <div class="col-9">
-        <router-outlet></router-outlet>
-        <div class="row mt-4">
-            <div class="col">
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary" (click)="placeOrder()">Place Order</button>
+
+    <!-- Payment Methods -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group mb-4">
+                <a routerLink="savedcards" class="list-group-item list-group-item-action">
+                    Saved Cards
+                </a>
+                <a routerLink="upi" class="list-group-item list-group-item-action">
+                    UPI
+                </a>
+                <a routerLink="cards" class="list-group-item list-group-item-action">
+                    Credit/Debit Card
+                </a>
+                <a routerLink="net-banking" class="list-group-item list-group-item-action">
+                    Internet Banking
+                </a>
+                <a routerLink="wallets" class="list-group-item list-group-item-action">
+                    Wallets
+                </a>
+                <a routerLink="cash-on-delivery" class="list-group-item list-group-item-action">
+                    Cash On Delivery
+                </a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-body">
+                    <router-outlet></router-outlet>
+                    
+                    <div class="row mt-4">
+                        <div class="col">
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-primary" [disabled]="!selectedAddress" (click)="placeOrder()">
+                                    Place Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

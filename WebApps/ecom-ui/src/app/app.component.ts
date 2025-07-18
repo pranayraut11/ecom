@@ -17,12 +17,14 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
   ]
 })
 export class AppComponent implements OnInit {
-  constructor(private authService : AuthService, public spinnerService: SpinnerService){
-
-  }
+  constructor(
+    private authService: AuthService, 
+    public spinnerService: SpinnerService
+  ) {}
+  
   title = 'ecom-ui';
+  
   ngOnInit(): void {
-      this.authService.autoLogin();
+    this.authService.autoLogin();
   }
- 
 }
