@@ -33,7 +33,8 @@ server.use((req, res, next) => {
 // Add routing url 
 server.use(jsonServer.rewriter({
   '/product-service/products*': '/products$1',
-  '/product-service/search/:id': '/data/?q=:id',
+  '/product-service/search/:id': '/data/?category_like=:id',
+  '/product-service/searchbyname/:id': '/data/?name_like=:id',
   '/cart-service/cart': '/cart',
   '/cart-service/cart/:id': '/cart/:id',
   '/user-service/auth/login': '/login',
@@ -41,7 +42,8 @@ server.use(jsonServer.rewriter({
   '/user-service/address/:id': '/address/:id',
   '/category-service/': '/categories',
   '/menus': '/menus',
-  
+  '/product-service/search/filtered/:id': '/data/?name_like=:id'
+
 }));
 
 server.use(router);

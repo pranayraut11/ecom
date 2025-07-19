@@ -16,6 +16,8 @@ import { DetailsComponent } from './features/catalog/pages/details/details.compo
 import { OrderSuccessComponent } from './features/order/order-success/order-success.component';
 import { LoginComponent } from './shared/components/login/login.component';
 import { LoginPopupComponent } from './shared/components/login/login-popup/login-popup.component';
+
+import { ProductListComponent } from './features/product-list/product-list.component';
 import { CategoryComponent } from './features/catalog/pages/category/category.component';
 
 
@@ -25,12 +27,15 @@ const appsRoutes: Routes = [
   { path: 'home', redirectTo: 'user/list', pathMatch: 'prefix' },
   { path: 'usergome', component: HomeComponent },
   { path: 'debug', loadComponent: () => import('./features/debug/debug.component').then(c => c.DebugComponent) },
-  { path: 'bynow', redirectTo: 'user/cart', pathMatch: 'prefix' },
   {
     path: 'user', component: HomeComponent, children: [
       {
         path: 'list',
         component: CategoryComponent,
+      },
+      {
+        path: 'search/:searchTerm',
+        component: ProductListComponent
       },
       {
         path: 'list/:id',

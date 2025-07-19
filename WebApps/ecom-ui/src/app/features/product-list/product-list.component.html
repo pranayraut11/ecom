@@ -1,0 +1,56 @@
+
+<div class="product-list-container">
+  <h2>Products matching: "{{ searchTerm }}"</h2>
+
+  <div class="row">
+    <div class="col-3">
+      <app-product-filter
+        [categories]="categories"
+        [selectedCategory]="selectedCategory"
+        [minPrice]="minPrice"
+        [maxPrice]="maxPrice"
+        [brands]="brands"
+        [selectedBrands]="selectedBrands"
+        (categoryChange)="onCategoryChange($event)"
+        (priceChange)="onPriceChange($event)"
+        (brandsChange)="onBrandsChange($event)">
+      </app-product-filter>
+    </div>
+    <div class="col-9">
+      <ng-container *ngIf="products$ | async as products">
+        <div *ngIf="products.length > 0; else noResults">
+          <ul class="product-list">
+            <li *ngFor="let product of products" class="product-item" style="display: flex; align-items: center; gap: 1.5rem; padding: 1rem 0; border-bottom: 1px solid #eee;">
+              <img 
+                [src]="product.images?.[0] || 'assets/images/placeholder.jpg'" 
+                [alt]="product.name" 
+                class="product-image"
+                style="max-width: 140px; max-height: 140px; border-radius: 10px; object-fit: cover;"
+              >
+              <div class="product-info" style="flex: 1;">
+                <h3 style="margin: 0 0 0.5rem 0; font-size: 1.1rem;">{{ product.name }}</h3>
+                <p style="margin: 0 0 0.5rem 0; color: #555;">{{ product.description }}</p>
+                 <span *ngIf="product.rating" style="display: flex; align-items: center; gap: 0.3rem; color: #ff6101; font-weight: 600;">
+                    <i class="bi bi-star-fill"></i> {{ product.rating }}
+                  </span>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                  <span style="font-size: medium; font-weight:600; color: #2a7ae2;">Price: {{ product.price.price | currency }}</span>
+                  <span *ngIf="product.price.originalPrice && product.price.originalPrice > product.price.price" style="margin-left: 0.5rem; color: #888; text-decoration: line-through; font-size:small;">
+                    {{ product.price.originalPrice | currency }}
+                  </span>
+                  <span *ngIf="product.price.discount" style="margin-left: 0.5rem; color: #25a541; font-weight: 600; font-size: small;">
+                    {{ product.price.discount }}% OFF
+                  </span>
+                 
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <ng-template #noResults>
+          <p>No products found for this search.</p>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div>

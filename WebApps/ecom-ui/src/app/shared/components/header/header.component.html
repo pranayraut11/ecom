@@ -39,21 +39,16 @@
                      (mousedown)="$event.preventDefault()"
                      (click)="selectProduct(product)">
                   <div class="product-image">
-                    <img [src]="product.image || 'assets/images/placeholder.jpg'" 
+                    <img [src]="product.images[0] || 'assets/images/placeholder.jpg'" 
                          [alt]="product.name">
                   </div>
                   <div class="product-info">
                     <div class="product-name">{{ product.name }}</div>
-                    <div class="product-price">₹{{ product.price }}</div>
                     <div class="product-category" *ngIf="product.category">{{ product.category }}</div>
                   </div>
                 </div>
               </div>
-              <ng-template #noResults>
-                <div class="no-results">
-                  <p>No products found for "{{ searchControl.value }}"</p>
-                </div>
-              </ng-template>
+            
             </ng-template>
           </div>
         </div>

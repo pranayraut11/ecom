@@ -142,12 +142,14 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     
     selectProduct(product: Product): void {
         this.showDropdown = false;
-        this.searchControl.setValue('');
-        this.router.navigate(['/product', product.id]);
+        const term = this.searchControl.value?.trim();
+        this.router.navigate(['/user/search', term]);
     }
 
     onSearch(): void {
-        console.log('Search initiated:', this.searchControl.value);
-        this.searchResults$ = this.searchService.getSearchResults(this.searchControl.value);
+        const term = this.searchControl.value?.trim();
+        if (term) {
+            this.router.navigate(['/user/search', term]);
+        }
     }
 }

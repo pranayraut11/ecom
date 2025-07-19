@@ -1,0 +1,57 @@
+
+<div class="filter-panel">
+  <div class="filters-header">
+    <h3>Filters</h3>
+    <button class="clear-filters-btn" (click)="clearFilters()">
+      <i class="bi bi-x-circle"></i> Clear
+    </button>
+  </div>
+
+  <div class="filter-section">
+    <h4 class="filter-title">Category</h4>
+    <div class="category-chips">
+      <span 
+        *ngFor="let cat of categories" 
+        class="chip" 
+        [class.selected]="selectedCategory === cat"
+        (click)="onCategoryChange(cat)">
+        {{cat}}
+      </span>
+      <span 
+        class="chip" 
+        [class.selected]="selectedCategory === ''"
+        (click)="onCategoryChange('')">
+        All
+      </span>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h4 class="filter-title">Price Range</h4>
+    <div class="price-range-inputs">
+      <div class="range-group">
+        <label>Min</label>
+        <input type="range" [(ngModel)]="minPrice" (change)="onPriceChange()" min="0" max="5000">
+        <span class="range-value">₹{{minPrice}}</span>
+      </div>
+      <div class="range-group">
+        <label>Max</label>
+        <input type="range" [(ngModel)]="maxPrice" (change)="onPriceChange()" min="0" max="5000">
+        <span class="range-value">₹{{maxPrice}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h4 class="filter-title">Brands</h4>
+    <div class="brand-chips">
+      <span 
+        *ngFor="let brand of brands" 
+        class="chip" 
+        [class.selected]="selectedBrands.includes(brand)"
+        (click)="onBrandToggle(brand, !selectedBrands.includes(brand))">
+        {{brand}}
+      </span>
+    </div>
+  </div>
+</div>

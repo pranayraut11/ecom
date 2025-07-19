@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
+import { ProductListComponent } from './features/product-list/product-list.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { ListComponent } from './features/catalog/pages/list/list.component';
 import { CartListComponent } from './features/shopping-cart/pages/cart-page/list.component';
@@ -21,7 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { SellerHomeComponent } from './layout/seller-layout/pages/home/home.component';
 import { OrderListComponent } from './features/order/pages/list/list.component';
-import { ProfileComponent } from './features/user-profile/user-profile.component';
+import { UserProfileComponent } from './features/user-profile/user-profile.component';
 import { ProfileMenuComponent } from './features/user-profile/components/profile-menu/profile-menu.component';
 import { CreateAddressComponent } from './features/user-profile/components/address/create-address/create-address.component';
 import { UpdateProfileComponent } from './features/user-profile/components/update-profile/update-profile.component';
@@ -50,6 +52,7 @@ import { DetailsComponent } from './features/catalog/pages/details/details.compo
 import { OrderSuccessComponent } from './features/order/order-success/order-success.component';
 import { RouterModule } from '@angular/router';
 import { SearchResultsComponent } from './features/search/search-results.component';
+import { TableListComponent } from './features/catalog/pages/table-list/table-list.component';
 
 @NgModule({
   declarations: [
@@ -59,44 +62,31 @@ import { SearchResultsComponent } from './features/search/search-results.compone
     FilterComponent,
     SellerHomeComponent,
     OrderListComponent,
-    UpdateProfileComponent,
 
-    UpiComponent,
-    CardsComponent,
-    WalletsComponent,
-    CashOnDeliveryComponent,
-    NetBankingComponent,
-    SavedCardsComponent,
     SellerHeaderComponent,
     SellerMenuComponent,
     ProductTemplateComponent,
-    ProductCreateComponent,
-    NotificationComponent,
+    
     DashboardComponent,
-    DetailsComponent,
-    OrderSuccessComponent,
-    SearchResultsComponent
-  ],
+    
+
+    // Add all standalone components here
+      ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut: 3000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
-      closeButton: true
-    }),
+
     HttpClientModule, 
     FormsModule, 
     AppRoutingModule,
     ReactiveFormsModule,
     AppSellerRoutingModule,
     RouterModule,
-    
-    // All standalone components must be imported here
+    CommonModule,
+    FooterComponent ,
     AppComponent,
     HeaderComponent,
-    FooterComponent,
+    // FooterComponent is standalone and should be imported, not declared
     LoginComponent,
     UserRegistrationComponent,
     RolesDirective,
@@ -107,19 +97,32 @@ import { SearchResultsComponent } from './features/search/search-results.compone
     LoginPopupComponent,
     ListComponent,
     CartListComponent,
+    UpiComponent,
+    CardsComponent,
+    WalletsComponent,
+    CashOnDeliveryComponent,
+    NetBankingComponent,
+    SavedCardsComponent,
+   
     HomeComponent,
-    ProfileComponent,
+    UpdateProfileComponent,
     ProfileMenuComponent,
     AddressComponent,
     ShoppingCartComponent,
     PaymentComponent,
     TableListComponent,
     CreateAddressComponent,
-    CategoryComponent
+    CategoryComponent,
+    ProductCreateComponent,
+    NotificationComponent,
+    DetailsComponent,
+    OrderSuccessComponent,
+    SearchResultsComponent,
+    ProductListComponent
+// Import the standalone FooterComponent here
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
-    ComponentRegistry
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ]
 })
 export class AppModule { }
