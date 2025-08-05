@@ -1,3 +1,4 @@
+
 import { Component, OnInit, AfterViewInit, OnDestroy, HostListener } from "@angular/core";
 import { AuthRestService } from "src/app/shared/services/rest-services/auth-rest-service";
 import { AUTH_TOKEN } from "../../constants/AuthConst";
@@ -22,7 +23,6 @@ import { Product } from '../../models/product.model';
         CommonModule,
         RouterModule,
         ReactiveFormsModule,
-        LoginComponent
     ]
 })
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -151,5 +151,26 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
         if (term) {
             this.router.navigate(['/user/search', term]);
         }
+    }
+
+    
+    logout():void {
+        console.log('Header logout called');
+        this.authService.logout().subscribe({
+            next: () => {
+                this.isAuthenticated = false;
+                localStorage.removeItem(AUTH_TOKEN);
+                this.router.navigate(["/home"]);
+            },
+            error: () => {
+                this.isAuthenticated = false;
+                localStorage.removeItem(AUTH_TOKEN);
+                this.router.navigate(["/home"]);
+            }
+        });
+    }
+
+    noti():void {
+        console.log('Header notification called');
     }
 }

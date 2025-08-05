@@ -1,12 +1,9 @@
 package com.ecom.user.service.implementation;
 
-import com.ecom.user.dto.AuthClientDetails;
-import com.ecom.user.dto.KeycloakUser;
-import com.ecom.user.dto.Login;
-import com.ecom.user.dto.TokenDetails;
+import com.ecom.user.dto.*;
 import com.ecom.user.entity.UserDetails;
 import com.ecom.user.repository.UserRepository;
-import com.ecom.user.rest.KeycloakAuthService;
+import com.ecom.user.rest.AuthRestService;
 import com.ecom.user.service.specification.UserService;
 import com.ecom.user.utils.UserUtils;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
 
-    private KeycloakAuthService keycloakAuthService;
+    private AuthRestService keycloakAuthService;
 
     private AuthClientDetails adminClientCredentials;
 
@@ -29,10 +26,10 @@ public class UserServiceImpl implements UserService {
 
     private AuthClientDetails userClientCredentials;
 
-    @Value("${auth.realm}")
+    @Value("${auth-server.realm}")
     private String realm;
 
-    UserServiceImpl(KeycloakAuthService keycloakAuthService, @Qualifier("adminClientCredentials") AuthClientDetails adminClientCredentials,
+    UserServiceImpl(AuthRestService keycloakAuthService, @Qualifier("adminClientCredentials") AuthClientDetails adminClientCredentials,
                     UserRepository userRepository, AuthClientDetails userClientCredentials) {
         this.keycloakAuthService = keycloakAuthService;
         this.userRepository = userRepository;
@@ -43,27 +40,37 @@ public class UserServiceImpl implements UserService {
     @Override
     public void create(@NotNull UserDetails user)  {
         log.info("Creating user {} ... ",user.getEmail());
-        TokenDetails tokenDetails = keycloakAuthService.login(adminClientCredentials, realm);
+       // TokenDetails tokenDetails = keycloakAuthService.login(adminClientCredentials, realm);
         KeycloakUser keycloakUser = new KeycloakUser();
-        keycloakUser.setUsername(user.getEmail());
         keycloakUser.setFirstName(user.getFirstName());
         keycloakUser.setLastName(user.getLastName());
         keycloakUser.setCredentials(user.getCredentials());
         keycloakUser.setEnabled(user.isEnabled());
         keycloakUser.setEmail(user.getEmail());
-        keycloakAuthService.createUser(keycloakUser, realm, tokenDetails.getAccess_token());
-        userClientCredentials.setUsername(user.getUsername());
-        userClientCredentials.setPassword(UserUtils.getPassword(user.getCredentials()));
-        TokenDetails newlyCreatedUserToken = keycloakAuthService.login(userClientCredentials, realm);
-        try {
-            com.ecom.shared.common.dto.UserDetails.setUserInfo(newlyCreatedUserToken.getAccess_token());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        keycloakUser.setPassword(user.getPassword());
+        keycloakUser.setUsername(user.getEmail());
+
+        // Get the user ID from the createUser call
+        String userId = keycloakAuthService.createUser(keycloakUser, realm, null);
+
+        // Set the user ID from Keycloak response
+        if (userId != null && !userId.isEmpty()) {
+            user.setUserId(userId);
+            log.info("Set user ID from Keycloak: {}", userId);
+        } else {
+            log.warn("Failed to get user ID from Keycloak, using default ID");
+            user.setUserId(com.ecom.shared.contract.dto.UserDetails.getUserId());
         }
-        user.setUserId(com.ecom.shared.common.dto.UserDetails.getUserId());
+
+        userClientCredentials.setUsername(user.getEmail());
         user.setCredentials(null);
         userRepository.save(user);
         log.info("User {} Created successfully!",user.getEmail());
+    }
+
+    @Override
+    public User getUserDetails() {
+        return null;
     }
 
 }

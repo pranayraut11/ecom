@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
 
+import static com.ecom.shared.contract.dto.UserDetails.getUserId;
+
 @Slf4j
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -42,7 +44,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     private UserDetails getUser(){
-        String userId = com.ecom.shared.common.dto.UserDetails.getUserId();
+        String userId = com.ecom.shared.contract.dto.UserDetails.getUserId();
         log.info("Saving address for user {} ... ",userId);
         return userRepository.findByUserId(userId).orElseThrow(() -> new EcomException(HttpStatus.NOT_FOUND, "404"));
     }

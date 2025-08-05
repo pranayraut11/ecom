@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   showErrorMessage: boolean = false;
   hasRole: string;
   ngOnInit(): void {
-    console.log("is " + this.isAuthenticated);
+    console.log("isssssssss " + this.isAuthenticated);
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = !!user;
     });

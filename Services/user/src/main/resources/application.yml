@@ -1,6 +1,11 @@
 server:
   port: 8087
 
+auth-server:
+  host: localhost
+  port: 8082
+  realm: ecom-dev
+
 auth:
   grantType: password
   realm: ecom
@@ -24,6 +29,7 @@ spring:
       authentication-database: admin
       uri: mongodb://127.0.0.1:27017/?compressors=zlib&readPreference=primary&gssapiServiceName=mongodb&appname=MongoDB%20Compass&ssl=false
       database: user_db
+      auto-index-creation: true
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   jpa:
@@ -35,15 +41,18 @@ spring:
     hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       ddl-auto: update
+  cloud.discovery:
+    enabled: false
 
 # Hibernate ddl auto (create, create-drop, validate, update)
 logging:
   level:
-    org.springframework: info
+    org.springframework: debug
+    com.ecom.*: info
 
 ####### Enable/Disable API security
 security:
-  enabled: true
+  enabled: false
 ########################### security details ##################
 #auth.client-id = user-service
 #auth.client-secret = 9V0zChkiOPngT4hphaWZ8QRXlLE6m3d8
@@ -59,7 +68,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
-  fetch-registry: true
-  register-with-eureka: true
+  fetch-registry: false
+  register-with-eureka: false
   instance:
     preferIpAddress: true
+

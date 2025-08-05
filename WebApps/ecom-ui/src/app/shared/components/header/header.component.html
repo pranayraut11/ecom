@@ -55,11 +55,11 @@
       </div>
 
       <!-- Not authenticated -->
-      <div class="col-md-2 col-sm-12 text-center" *ngIf="!isAuthenticated">
+      <!-- <div class="col-md-2 col-sm-12 text-center" *ngIf="!isAuthenticated">
         <form>
           <app-login></app-login>
         </form>
-      </div>
+      </div> -->
 
       <!-- Authenticated user menu -->
       <div class="col-md-2 col-sm-12 user-menu" *ngIf="isAuthenticated">
@@ -69,31 +69,25 @@
             <span class="user-name">Pranay</span>
           </button>
 
-          <ul class="dropdown-menu profile-dropdown" [class.show]="isProfileDropdownOpen">
-            <li>
-              <a routerLink="/user/profile/my-profile" class="dropdown-item" (click)="closeProfileDropdown()">
+          <div class="dropdown-menu profile-dropdown" [class.show]="isProfileDropdownOpen" tabindex="0" style="pointer-events: auto; z-index: 1050; min-width: 200px;">
+            <div>
+              <a routerLink="/user/profile/my-profile" (click)="closeProfileDropdown()">
                 <i class="bi bi-person-fill"></i> My Profile
               </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="/user/profile/notification" (click)="closeProfileDropdown()">
+            </div>
+            <div><hr class="dropdown-divider"></div>
+            <div>
+              <a routerLink="/user/profile/notification" (click)="closeProfileDropdown()">
                 <i class="bi bi-bell"></i> Notifications
               </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <a class="dropdown-item" (click)="closeProfileDropdown()">
-                <form>
-                  <app-login></app-login>
-                </form>
+            </div>
+            <div><hr class="dropdown-divider"></div>
+            <div>
+              <a (click)="logout()">
+                <i class="bi bi-power"></i> Logout
               </a>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
 
