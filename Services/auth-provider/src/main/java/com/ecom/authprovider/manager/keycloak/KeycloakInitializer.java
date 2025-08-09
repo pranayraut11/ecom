@@ -68,7 +68,7 @@ public class KeycloakInitializer {
             RealmResource realmResource = keycloak.realm(REALM_NAME);
 
             // Create clients
-            ClientManager clientManager = new KeycloakClientManager(realmResource,keycloak);
+            ClientManager clientManager = null;//new KeycloakClientManager(realmResource,keycloak);
             boolean frontendClientCreated = clientManager.createPublicClient(
                     FRONTEND_CLIENT_ID, FRONTEND_REDIRECT_URI);
             boolean backendClientCreated = clientManager.createConfidentialClient(

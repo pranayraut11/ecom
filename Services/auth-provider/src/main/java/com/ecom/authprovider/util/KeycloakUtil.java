@@ -78,20 +78,4 @@ public class KeycloakUtil {
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .build();
     }
-
-    /**
-     * Safely closes a Keycloak client if it implements AutoCloseable.
-     *
-     * @param keycloak The Keycloak client to close
-     */
-    public void closeKeycloakClient(Keycloak keycloak) {
-        if (keycloak != null && keycloak instanceof AutoCloseable) {
-            try {
-                ((AutoCloseable) keycloak).close();
-                log.debug("Keycloak client closed successfully");
-            } catch (Exception e) {
-                log.warn("Error closing Keycloak client", e);
-            }
-        }
-    }
 }
