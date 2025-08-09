@@ -6,7 +6,7 @@ public final class APIEndPoints {
     }
 
     public static final String KEYCLOAK_TOKEN_URL = "realms/{realms}/protocol/openid-connect/token";
-    public static final String KEYCLOAK_CREATE_USER_URL = "auth/realms/{realms}/users";
+    public static final String KEYCLOAK_CREATE_USER_URL = "auth/users";
 
     public static final String KEYCLOAK_LOGOUT = "/realms/{realms}/protocol/openid-connect/logout";
 }

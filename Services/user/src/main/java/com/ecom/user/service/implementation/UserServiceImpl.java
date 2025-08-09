@@ -5,7 +5,6 @@ import com.ecom.user.entity.UserDetails;
 import com.ecom.user.repository.UserRepository;
 import com.ecom.user.rest.AuthRestService;
 import com.ecom.user.service.specification.UserService;
-import com.ecom.user.utils.UserUtils;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,7 +50,7 @@ public class UserServiceImpl implements UserService {
         keycloakUser.setUsername(user.getEmail());
 
         // Get the user ID from the createUser call
-        String userId = keycloakAuthService.createUser(keycloakUser, realm, null);
+        String userId = keycloakAuthService.createUser(keycloakUser);
 
         // Set the user ID from Keycloak response
         if (userId != null && !userId.isEmpty()) {

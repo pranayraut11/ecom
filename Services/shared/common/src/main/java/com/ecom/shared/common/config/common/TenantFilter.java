@@ -1,0 +1,44 @@
+package com.ecom.shared.common.config.common;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import java.io.IOException;
+
+/**
+ * Filter to extract the tenant ID from the request headers
+ * and set it in the TenantContext for the current thread.
+ */
+@Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
+@Slf4j
+public class TenantFilter implements Filter {
+
+    public static final String TENANT_HEADER = "X-Tenant-ID";
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        try {
+            HttpServletRequest req = (HttpServletRequest) request;
+            String tenantId = req.getHeader(TENANT_HEADER);
+
+            if (StringUtils.hasText(tenantId)) {
+                log.debug("Setting tenant ID: {}", tenantId);
+                TenantContext.setTenantId(tenantId);
+            } else {
+                log.debug("No tenant ID found in request headers");
+            }
+
+            chain.doFilter(request, response);
+        } finally {
+            // Always clear the tenant context after the request is processed
+            TenantContext.clear();
+        }
+    }
+}

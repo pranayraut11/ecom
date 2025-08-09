@@ -6,18 +6,19 @@ import com.ecom.user.dto.TokenDetails;
 import com.ecom.user.exception.custom.UserServiceException;
 import com.ecom.user.repository.UserRepository;
 import com.ecom.user.rest.AuthRestService;
+import com.ecom.user.service.specification.UserAuthService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthServiceImpl implements com.ecom.user.service.specification.UserAuthService {
+public class AuthServiceImpl implements UserAuthService {
 
-    private AuthRestService keycloakAuthService;
+    private final AuthRestService keycloakAuthService;
 
-    private AuthClientDetails userCredentials;
+    private final AuthClientDetails userCredentials;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Value("${auth.realm}")
     private String realm;

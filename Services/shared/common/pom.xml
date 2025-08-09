@@ -50,5 +50,11 @@
             <artifactId>keycloak-spring-boot-starter</artifactId>
             <version>24.0.3</version>
         </dependency>
+        <!-- Jakarta REST API dependency -->
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
     </dependencies>
   </project>
