@@ -24,7 +24,7 @@ public interface RealmManager {
      * @return true if realm was deleted or didn't exist, false if deletion failed
      */
     boolean deleteRealm(String realmName);
-
+    
     /**
      * Checks if a realm exists.
      *

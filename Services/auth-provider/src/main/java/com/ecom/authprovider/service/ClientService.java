@@ -33,10 +33,6 @@ public class ClientService {
                 throw new IllegalArgumentException("Client ID cannot be empty");
             }
 
-            if (request.getRedirectUri() == null || request.getRedirectUri().trim().isEmpty()) {
-                throw new IllegalArgumentException("Redirect URI cannot be empty");
-            }
-
             // For confidential clients, secret is required
             if (!request.isPublicClient() &&
                 (request.getClientSecret() == null || request.getClientSecret().trim().isEmpty())) {

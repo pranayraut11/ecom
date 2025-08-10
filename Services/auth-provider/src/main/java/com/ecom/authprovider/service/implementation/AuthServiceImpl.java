@@ -51,8 +51,6 @@ public class AuthServiceImpl implements AuthService {
             } catch (Exception e) {
                 log.error("Authentication failed for user: {}", loginRequest.getUsername(), e);
                 throw new KeycloakServiceException("Authentication failed: " + e.getMessage(), e);
-            } finally {
-
             }
         }
     }
@@ -67,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
             keycloakForAuthentication.realm(TenantContext.getTenantId()).users().get(userId).logout();
             return true;
         } catch (VerificationException e) {
-            throw new RuntimeException(e);
+            throw new KeycloakServiceException(e.getMessage());
         }
     }
 }

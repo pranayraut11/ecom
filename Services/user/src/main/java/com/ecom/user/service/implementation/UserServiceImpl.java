@@ -2,6 +2,7 @@ package com.ecom.user.service.implementation;
 
 import com.ecom.user.dto.*;
 import com.ecom.user.entity.UserDetails;
+import com.ecom.user.mapper.UserMapper;
 import com.ecom.user.repository.UserRepository;
 import com.ecom.user.rest.AuthRestService;
 import com.ecom.user.service.specification.UserService;
@@ -16,38 +17,34 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-
-    private AuthRestService keycloakAuthService;
-
-    private AuthClientDetails adminClientCredentials;
-
-    private UserRepository userRepository;
-
-    private AuthClientDetails userClientCredentials;
+    private final AuthRestService keycloakAuthService;
+    private final UserRepository userRepository;
+    private final AuthClientDetails userClientCredentials;
+    private final UserMapper userMapper;
 
     @Value("${auth-server.realm}")
     private String realm;
 
-    UserServiceImpl(AuthRestService keycloakAuthService, @Qualifier("adminClientCredentials") AuthClientDetails adminClientCredentials,
-                    UserRepository userRepository, AuthClientDetails userClientCredentials) {
+    UserServiceImpl(AuthRestService keycloakAuthService,
+                   @Qualifier("adminClientCredentials") AuthClientDetails adminClientCredentials,
+                   UserRepository userRepository,
+                   AuthClientDetails userClientCredentials,
+                   UserMapper userMapper) {
         this.keycloakAuthService = keycloakAuthService;
         this.userRepository = userRepository;
-        this.adminClientCredentials = adminClientCredentials;
         this.userClientCredentials = userClientCredentials;
+        this.userMapper = userMapper;
     }
 
     @Override
-    public void create(@NotNull UserDetails user)  {
-        log.info("Creating user {} ... ",user.getEmail());
-       // TokenDetails tokenDetails = keycloakAuthService.login(adminClientCredentials, realm);
-        KeycloakUser keycloakUser = new KeycloakUser();
-        keycloakUser.setFirstName(user.getFirstName());
-        keycloakUser.setLastName(user.getLastName());
-        keycloakUser.setCredentials(user.getCredentials());
-        keycloakUser.setEnabled(user.isEnabled());
-        keycloakUser.setEmail(user.getEmail());
-        keycloakUser.setPassword(user.getPassword());
-        keycloakUser.setUsername(user.getEmail());
+    public void create(@NotNull UserCreationDTO userDTO) {
+        log.info("Creating user {} ... ", userDTO.getEmail());
+
+        // Convert DTO to entity using mapper
+        UserDetails user = userMapper.toEntity(userDTO);
+
+        // Convert to KeycloakUser using mapper
+        KeycloakUser keycloakUser = userMapper.toKeycloakUser(userDTO);
 
         // Get the user ID from the createUser call
         String userId = keycloakAuthService.createUser(keycloakUser);
@@ -64,7 +61,7 @@ public class UserServiceImpl implements UserService {
         userClientCredentials.setUsername(user.getEmail());
         user.setCredentials(null);
         userRepository.save(user);
-        log.info("User {} Created successfully!",user.getEmail());
+        log.info("User {} Created successfully!", user.getEmail());
     }
 
     @Override
