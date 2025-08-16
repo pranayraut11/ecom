@@ -16,8 +16,7 @@ declare var $: any;
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    UserRegistrationComponent
+    FormsModule
   ]
 })
 

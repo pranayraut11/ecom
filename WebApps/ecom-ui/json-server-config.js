@@ -38,6 +38,7 @@ server.use(jsonServer.rewriter({
   '/cart-service/cart': '/cart',
   '/cart-service/cart/:id': '/cart/:id',
   '/user-service/auth/login': '/login',
+  '/user-service/auth/logout':'/login',
   '/user-service/address': '/address',
   '/user-service/address/:id': '/address/:id',
   '/category-service/': '/categories',

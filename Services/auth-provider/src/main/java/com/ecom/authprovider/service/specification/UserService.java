@@ -14,7 +14,7 @@ public interface UserService {
      * @param requestDto the user creation request data
      * @return response containing the created user details or error information
      */
-    UserResponseDto createUser(UserCreateRequestDto requestDto);
+    String createUser(UserCreateRequestDto requestDto);
 
     /**
      * Retrieves a user by ID

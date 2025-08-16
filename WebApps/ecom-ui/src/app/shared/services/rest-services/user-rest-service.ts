@@ -16,7 +16,7 @@ export class UserRestService {
     registerUser(userDetails: CreateUser){
         const headers = new HttpHeaders()
         .set("X-CustomHeader", "none");
-       return this.rest.post(environment.baseURL+USER_SERVICE+'/'+USER_CREATE,userDetails,{headers});
+       return this.rest.post(environment.baseURL+''+USER_CREATE,userDetails,{headers});
     }
 
    

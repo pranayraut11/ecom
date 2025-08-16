@@ -1,6 +1,9 @@
 <div class="col-12" style="text-align: center;">
-    <a class="" *ngIf="!isAuthenticated" style="font-size: large" role="button" data-bs-toggle="modal"
-        data-bs-target="#loginModel">
+    <a class="" *ngIf="!isAuthenticated" style="font-size: large" role="button" data-bs-toggle="modal" data-bs-target="#loginModal">
         <i class="bi bi-person-fill"></i> Login</a>
+       <!-- Trigger Button -->
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+    Login
+</button>
 </div>
 <app-login-popup></app-login-popup>

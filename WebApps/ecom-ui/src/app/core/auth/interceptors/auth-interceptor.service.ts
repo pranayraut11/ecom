@@ -35,7 +35,10 @@ export class AuthInterceptorService implements HttpInterceptor {
                     'expires_in': number
                 } = JSON.parse(tokenDetailsJson);
                 const modifiedReq = req.clone({
-                    headers: req.headers.set('Authorization', 'Bearer ' + tokenDetails.access_token)
+                    setHeaders:{
+                        'Authorization': 'Bearer ' + tokenDetails.access_token,
+                        'X-Tenant-ID':'demo22'
+                    }
                 });
                 return next.handle(modifiedReq).pipe(tap((event: HttpEvent<any>) => {
                     if (event instanceof HttpResponse) {
@@ -47,7 +50,12 @@ export class AuthInterceptorService implements HttpInterceptor {
             }
         } else {
             console.log("Auth header is not null "+header);
-            return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
+            const modifiedReq = req.clone({
+                    setHeaders:{
+                        'X-Tenant-ID':'demo22'
+                    }
+                });
+            return next.handle(modifiedReq).pipe(tap((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     this.spinnerService.hide();
                 }
@@ -56,7 +64,12 @@ export class AuthInterceptorService implements HttpInterceptor {
             }));
         }
         }
-
-        return next.handle(req);
+    this.spinnerService.hide();
+    const modifiedReq = req.clone({
+                    setHeaders:{
+                        'X-Tenant-ID':'demo22'
+                    }
+                });
+        return next.handle(modifiedReq);
     }
 }

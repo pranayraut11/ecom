@@ -23,6 +23,7 @@ import { Product } from '../../models/product.model';
         CommonModule,
         RouterModule,
         ReactiveFormsModule,
+        LoginComponent
     ]
 })
 export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -160,7 +161,8 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
             next: () => {
                 this.isAuthenticated = false;
                 localStorage.removeItem(AUTH_TOKEN);
-                this.router.navigate(["/home"]);
+                console.log("Logout called...")
+                
             },
             error: () => {
                 this.isAuthenticated = false;

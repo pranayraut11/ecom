@@ -51,7 +51,7 @@ export class ProductCreateComponent implements OnInit {
         formValue.brand,
         0, // initial rating
         formValue.originalPrice,
-        discount,
+        
       );
 
       this.productRest.createProduct(product, this.imageFile).subscribe({
@@ -83,5 +83,3 @@ export class ProductCreateComponent implements OnInit {
 
   }
 
-
-}

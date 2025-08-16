@@ -5,6 +5,7 @@ import jakarta.ws.rs.NotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -13,7 +14,6 @@ import org.springframework.web.context.request.WebRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mongodb.MongoTimeoutException;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @ControllerAdvice
-public class EcomExceptionHandler extends ResponseEntityExceptionHandler {
+public class EcomExceptionHandler {
 
     @ExceptionHandler(value = EcomException.class)
     public ResponseEntity<ErrorResponse> handleException(EcomException exception, WebRequest request) {
@@ -183,5 +183,20 @@ public class EcomExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(
                 errorResponse
         );
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public ResponseEntity<ErrorResponse> handleInvalidDataException(MethodArgumentNotValidException e,WebRequest webRequest){
+        ErrorResponse errorResponse = new  ErrorResponse(
+                HttpStatus.BAD_REQUEST,
+                "Invalid data provided "+e.getBindingResult().getFieldError().getField(),
+                ((ServletWebRequest) webRequest).getRequest().getRequestURI());
+        errorResponse.addValidationError(e.getParameter().getParameterName(),e.getObjectName());
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(
+                        HttpStatus.BAD_REQUEST,
+                        "Invalid data provided "+e.getParameter().getParameterName(),
+                        ((ServletWebRequest) webRequest).getRequest().getRequestURI()));
     }
 }

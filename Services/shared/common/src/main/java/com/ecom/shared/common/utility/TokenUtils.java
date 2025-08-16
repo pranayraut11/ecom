@@ -1,6 +1,5 @@
 package com.ecom.shared.common.utility;
 
-import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.TokenVerifier;
 import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;

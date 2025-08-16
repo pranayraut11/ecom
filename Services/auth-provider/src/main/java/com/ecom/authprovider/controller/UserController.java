@@ -1,6 +1,7 @@
 package com.ecom.authprovider.controller;
 
 import com.ecom.authprovider.dto.request.UserCreateRequestDto;
+import com.ecom.authprovider.dto.response.ApiGenericResponse;
 import com.ecom.authprovider.dto.response.UserResponseDto;
 import com.ecom.authprovider.service.specification.UserService;
 import com.ecom.shared.common.config.common.TenantContext;
@@ -45,36 +46,15 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Realm not found"),
             @ApiResponse(responseCode = "500", description = "Server error during user creation")
     })
-    public ResponseEntity<UserResponseDto> createUser(
+    public ResponseEntity<ApiGenericResponse<String>> createUser(
             @Valid @RequestBody UserCreateRequestDto requestDto) {
 
         log.info("Received request to create user '{}' ", requestDto.username());
-
         // Set the tenant context for this request
-
-        try {
-            UserResponseDto response = userService.createUser(requestDto);
-
+        String response = userService.createUser(requestDto);
             // Determine status code based on response
-            if (response.id() != null) {
-                return ResponseEntity.status(HttpStatus.CREATED).body(response);
-            } else {
-                // Check if message indicates an existing user
-                if (response.message() != null && response.message().contains("already exists")) {
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-                }
-                // Check if message indicates realm not found
-                else if (response.message() != null && response.message().contains("Realm not found")) {
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-                }
-                // Default to internal server error for other issues
-                else {
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-                }
-            }
-        } finally {
-
-        }
+        log.info("User created successfully {}",response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiGenericResponse.success("User created successfully",response));
     }
 
     /**

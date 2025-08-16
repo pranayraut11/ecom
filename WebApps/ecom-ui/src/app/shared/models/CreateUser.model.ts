@@ -4,9 +4,10 @@ export class CreateUser {
 
     username: string;
     email: string;
+    mobile:string;
     firstName: string;
     lastName: string;
-    credentials: UserCredential[];
+    password: string
     enabled: boolean;
 
     constructor(
@@ -14,14 +15,18 @@ export class CreateUser {
         email: string,
         firstName: string,
         lastName: string,
-        credentials: UserCredential[],enabled: boolean
+        password:string,
+        enabled: boolean,
+        mobile:string
+
     ) {
         this.username = username
         this.email = email
         this.firstName = firstName
         this.lastName = lastName
-        this.credentials = credentials
+        this.password = password
         this.enabled = enabled;
+        this.mobile = mobile;
     }
 
 }

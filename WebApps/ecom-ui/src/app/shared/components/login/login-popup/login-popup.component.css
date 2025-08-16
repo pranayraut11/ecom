@@ -1,0 +1,74 @@
+/* Dark glassmorphism modal */
+.modern-login-dark {
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    background: rgba(20, 20, 20, 0.85);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    animation: fadeInUp 0.35s ease;
+}
+
+/* Labels */
+.col-form-label {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+/* Dark glass inputs */
+.glass-input-dark {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 0.6rem 1rem;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.glass-input-dark::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.glass-input-dark:focus {
+    border-color: rgba(0, 242, 254, 0.8);
+    box-shadow: 0 0 8px rgba(0, 242, 254, 0.6);
+    outline: none;
+}
+
+/* Gradient login button */
+.btn-login-modern {
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    border: none;
+    font-weight: 600;
+    padding: 0.7rem;
+    border-radius: 12px;
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    color: #fff;
+}
+
+.btn-login-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 242, 254, 0.5);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+    .col-form-label {
+        text-align: left;
+        margin-bottom: 0.3rem;
+    }
+    .modern-login-dark {
+        padding: 1.5rem;
+    }
+}

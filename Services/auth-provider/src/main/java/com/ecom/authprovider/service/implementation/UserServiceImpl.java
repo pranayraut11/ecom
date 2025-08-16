@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
      * @return response containing the created user details or error information
      */
     @Override
-    public UserResponseDto createUser(UserCreateRequestDto requestDto) {
+    public String createUser(UserCreateRequestDto requestDto) {
         log.info("Creating user with username: {}", requestDto.username());
 
         try {
@@ -50,29 +50,28 @@ public class UserServiceImpl implements UserService {
             if (userId == null || userId.isEmpty()) {
                 String errorMessage = String.format("Failed to create user '%s'", requestDto.username());
                 log.error(errorMessage);
-                return UserResponseDto.error(errorMessage);
+                return errorMessage;
             }
 
             // Return success response
-            return userMapper.createSuccessResponse(userId,
-                    String.format("User '%s' created successfully", requestDto.username()));
+            return userId;
 
         } catch (IllegalArgumentException e) {
             log.error("Invalid user request: {}", e.getMessage());
-            return UserResponseDto.error("Invalid user request: " + e.getMessage());
+            return "Invalid user request: " + e.getMessage();
         } catch (KeycloakServiceException e) {
             // Already formatted exception, just return error response
             log.error("Keycloak service error: {}", e.getMessage());
-            return UserResponseDto.error(e.getMessage());
+            return e.getMessage();
         } catch (NotFoundException e) {
             String errorMessage = String.format("Realm not found for user '%s'", requestDto.username());
             log.error(errorMessage, e);
-            return UserResponseDto.error(errorMessage);
+            return errorMessage;
         } catch (Exception e) {
             String errorMessage = String.format("Error creating user '%s': %s",
                     requestDto.username(), e.getMessage());
             log.error(errorMessage, e);
-            return UserResponseDto.error(errorMessage);
+            return errorMessage;
         }
     }
 
