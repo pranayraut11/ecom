@@ -54,8 +54,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     
     ngOnInit() {
         // For testing, set isAuthenticated to true
-        this.isAuthenticated = true;
-        
+       
         if(localStorage.getItem(AUTH_TOKEN)){
             console.log("User is authenticated");
             this.isAuthenticated = true;
@@ -138,7 +137,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     updateCartCount(): void {
         // In a real application, this would fetch from a cart service
         // For demo purposes, let's set a random number between 0 and 5
-        this.cartItemCount = Math.floor(Math.random() * 6);
+        this.cartItemCount = 0;
     }
     
     selectProduct(product: Product): void {

@@ -3,7 +3,9 @@
 
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
             <!-- First Name -->
-
+            <div *ngIf="showAlter" [ngClass]="validationAlter" role="alert">
+                {{alterMessage}}
+            </div>
             <div class="row">
                 <div class="col-2"><label class="form-label">First Name</label></div>
                 <div class="col-4">
@@ -23,10 +25,10 @@
 
                 <div class="col-2"> <label class="form-label">Last Name</label></div>
                 <div class="col-4">
-                    <input type="text" class="form-control" formControlName="secondName"
-                        [ngClass]="{ 'is-invalid': submitted && f['secondName'].errors }" />
-                    <div *ngIf="submitted && f['secondName'].errors" class="invalid-feedback">
-                        <div *ngIf="f['secondName'].errors['required']">Second name is required</div>
+                    <input type="text" class="form-control" formControlName="lastName"
+                        [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" />
+                    <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+                        <div *ngIf="f['lastName'].errors['required']">Last name is required</div>
                     </div>
                 </div>
             </div>
@@ -82,10 +84,8 @@
 
                 <div class="col-2"><label class="form-label">Confirm Password</label></div>
                 <div class="col-4">
-                    <input type="password" class="form-control" formControlName="confirmPassword" [ngClass]="{
-        'is-invalid':
-          submitted && (f['confirmPassword'].errors || userForm.errors?.['mismatch'])
-      }" />
+                    <input type="password" class="form-control" formControlName="confirmPassword"
+                        [ngClass]="{'is-invalid':submitted && (f['confirmPassword'].errors || userForm.errors?.['mismatch'])}" />
                     <div *ngIf="submitted && (f['confirmPassword'].errors || userForm.errors?.['mismatch'])"
                         class="invalid-feedback">
                         <div *ngIf="f['confirmPassword'].errors?.['required']">
@@ -94,10 +94,13 @@
                         <div *ngIf="userForm.errors?.['mismatch']">Passwords do not match</div>
                     </div>
                 </div>
+
             </div>
+
             <!-- Submit -->
-             <div class="pt-5">
-            <button type="submit" class="btn btn-success w-100">Create User</button>
+            <div class="pt-5">
+
+                <button type="submit" class="btn btn-success w-100">Create User</button>
             </div>
         </form>
     </div>

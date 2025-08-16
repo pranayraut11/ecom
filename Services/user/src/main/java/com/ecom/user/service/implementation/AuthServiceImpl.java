@@ -31,9 +31,7 @@ public class AuthServiceImpl implements UserAuthService {
 
     @Override
     public TokenDetails login(Login login) {
-        userCredentials.setUsername(login.getUsername());
-        userCredentials.setPassword(login.getPassword());
-        return keycloakAuthService.login(userCredentials,realm);
+        return keycloakAuthService.login(login);
     }
 
     @Override

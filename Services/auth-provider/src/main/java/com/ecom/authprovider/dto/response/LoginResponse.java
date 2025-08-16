@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -13,18 +15,15 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Response object containing authentication tokens")
 public class LoginResponse {
 
-    @Schema(description = "Access token for authenticated requests")
-    private String accessToken;
+    private String access_token;
+    private int expires_in;
+    private int refresh_expires_in;
+    private String refresh_token;
+    private String token_type;
 
-    @Schema(description = "Refresh token for obtaining a new access token")
-    private String refreshToken;
+    private String session_state;
 
-    @Schema(description = "Token type, typically 'Bearer'")
-    private String tokenType;
+    private String scope;
 
-    @Schema(description = "Expiration time in seconds")
-    private Long expiresIn;
-
-    @Schema(description = "Refresh token expiration time in seconds")
-    private Long refreshExpiresIn;
+    private Set<String> roles;
 }

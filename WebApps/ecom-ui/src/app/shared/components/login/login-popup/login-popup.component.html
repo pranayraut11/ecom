@@ -1,5 +1,3 @@
-
-
 <!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="false">
     <div class="modal-dialog modal-dialog-centered">
@@ -13,33 +11,49 @@
 
             <!-- Body -->
             <div class="modal-body">
-                <form>
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
                     <!-- Email -->
-                    <div class="row mb-4 align-items-center">
-                        <label class="col-sm-4 col-form-label">Email</label>
-                        <div class="col-sm-8">
-                            <input type="email" class="form-control glass-input" placeholder="you@example.com">
+                    <div class="row mb-4 align-items-left">
+                        <div class="col-3 text-start">
+                            <label class="col-form-label">Email</label>
                         </div>
+                        <div class="col-9">
+                            <input type="text" id="username" class="form-control" formControlName="username"
+                                [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"
+                                placeholder="you@example.com">
+                            <div *ngIf="submitted && f['username'].errors" class="text-start invalid-feedback">
+                                Username is required
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Password -->
                     <div class="row mb-4 align-items-center">
-                        <label class="col-sm-4 col-form-label">Password</label>
-                        <div class="col-sm-8">
-                            <input type="password" class="form-control glass-input" placeholder="••••••••">
+                        <div class="col-3 text-start">
+                            <label class="col-form-label">Password</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="password" id="password" class="form-control" formControlName="password"
+                                [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" placeholder="••••••••">
+                            <div *ngIf="submitted && f['password'].errors" class="text-start invalid-feedback">
+                                Password is required
+                            </div>
                         </div>
                     </div>
 
                     <!-- Remember + Forgot -->
                     <div class="row mb-4">
                         <div class="col-sm-6">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="rememberMe">
-                                <label class="form-check-label small" for="rememberMe">Remember Me</label>
+                            <div class="form-check ">
+                                <div class="col-1"><input class="form-check-input" type="checkbox" id="rememberMe">
+                                </div>
+                                <div class="col-6"> <label class="form-check-label small link-info"
+                                        style="text-align: left;" for="rememberMe">Remember Me</label></div>
                             </div>
                         </div>
                         <div class="col-sm-6 text-end">
-                            <a href="#" class="small text-decoration-none">Forgot Password?</a>
+                            <a href="#" class="small text-decoration-none link-info">Forgot Password?</a>
                         </div>
                     </div>
 
@@ -50,7 +64,7 @@
 
             <!-- Footer -->
             <div class="modal-footer border-0 justify-content-center pt-3">
-                <small>Don't have an account? <a href="user/register">Sign Up</a></small>
+                <small>Don't have an account? <a class="link-info" href="user/register">Sign Up</a></small>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
@@ -16,25 +16,40 @@ declare var $: any;
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 
 export class LoginPopupComponent implements OnInit {
+  loginForm: FormGroup;
+  submitted = false;
   isAuthenticated: boolean = false;
   private userSub: Subscription;
   public show: boolean = true;
   errorMessage: string;
   showErrorMessage: boolean = false;
   hasRole: string;
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
   }
 
-  login(form: NgForm) {
-
-    const value = form.value;
+  get f() {
+    return this.loginForm.controls;
+  }
+  login() {
+    console.log("Login called")
+    this.submitted = true;
+    if (this.loginForm.invalid) {
+      return;
+    }
+    const value = this.loginForm.value;
     const login = new Login(value.username, value.password);
 
     this.authService.login(login).subscribe({

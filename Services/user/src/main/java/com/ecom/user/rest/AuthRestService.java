@@ -3,10 +3,7 @@ package com.ecom.user.rest;
 import com.ecom.shared.common.exception.EcomException;
 import com.ecom.shared.common.exception.ErrorResponse;
 import com.ecom.user.constant.enums.APIEndPoints;
-import com.ecom.user.dto.ApiGenericResponse;
-import com.ecom.user.dto.AuthClientDetails;
-import com.ecom.user.dto.KeycloakUser;
-import com.ecom.user.dto.TokenDetails;
+import com.ecom.user.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -44,25 +41,19 @@ public class AuthRestService {
         this.webClient = webClient;
     }
 
-    public TokenDetails login(AuthClientDetails authClientDetails, String realms) {
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.set(USERNAME, authClientDetails.getUsername());
-        parameters.set(PASSWORD, authClientDetails.getPassword());
-        parameters.set(CLIENT_ID, authClientDetails.getClientId());
-        parameters.set(CLIENT_SECRET, authClientDetails.getClientSecret());
-        parameters.set(GRANT_TYPE, PASSWORD);
+    public TokenDetails login(Login authClientDetails) {
 
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("http")
-                .host(host)
-                .path(APIEndPoints.KEYCLOAK_TOKEN_URL)
-                .buildAndExpand(realms);
+                .host(host).port(8082)
+                .path(APIEndPoints.KEYCLOAK_USER_LOGIN)
+                .build();
 
         try {
             TokenDetails details = webClient.post()
                     .uri(uriComponents.toUriString())
-                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                    .body(BodyInserters.fromFormData(parameters))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .bodyValue(authClientDetails)
                     .retrieve()
                     .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(), response -> {
                         log.error("Login failed with status code: {}", response.statusCode());
@@ -143,8 +134,7 @@ public class AuthRestService {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https")
                 .host(host)
-                .path(APIEndPoints.KEYCLOAK_LOGOUT)
-                .queryParam(CLIENT_ID, "user-service")
+                .path(APIEndPoints.KEYCLOAK_USER_LOGOUT)
                 .queryParam("access_token", token)
                 .buildAndExpand(realms);
 

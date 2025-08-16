@@ -14,7 +14,18 @@ import org.keycloak.admin.client.Keycloak;
 import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;
 import org.keycloak.representations.AccessTokenResponse;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.BodyExtractor;
+import org.springframework.web.reactive.function.BodyInserter;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.HashMap;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +33,9 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
 
     private final KeycloakUtil keycloakUtil;
-
+    private final WebClient webClient;
+    private static final String TOKEN_URL =
+            "realms/demo22/protocol/openid-connect/token";
     /**
      * Authenticates a user with Keycloak and returns access tokens
      *
@@ -32,27 +45,25 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
         log.info("Authenticating user: {}", loginRequest.getUsername());
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+                .scheme("http")
+                .host("localhost").port(8080)
+                .path(TOKEN_URL)
+                .build();
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
+        formData.add("client_id", "user-app"); // your client id
+        formData.add("username", loginRequest.getUsername());
+        formData.add("password", loginRequest.getPassword());
+        formData.add("grant_type", "password");
+        formData.add("client_secret", "J5gGIiYRq2EcH0cqNiWCdz5HS7UCpOLJ"); // only if client is confidential
 
-        try (Keycloak keycloakForAuthentication = keycloakUtil.createUserClient(TenantContext.getTenantId(),loginRequest.getUsername(),loginRequest.getPassword(),"admin-cli")) {
+        return webClient.post().uri(uriComponents.toUri())
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .body(BodyInserters.fromFormData(formData))
+                .retrieve()
+                .bodyToMono(LoginResponse.class)   // or a DTO (see below)
+                .block(); // contains access_token, refresh_token
 
-            try {
-                // Create a direct user authentication client (not admin)
-                // Perform authentication
-                AccessTokenResponse tokenResponse = keycloakForAuthentication.tokenManager().getAccessToken();
-
-                // Build response
-                return LoginResponse.builder()
-                        .accessToken(tokenResponse.getToken())
-                        .refreshToken(tokenResponse.getRefreshToken())
-                        .tokenType(tokenResponse.getTokenType())
-                        .expiresIn(tokenResponse.getExpiresIn())
-                        .refreshExpiresIn(tokenResponse.getRefreshExpiresIn())
-                        .build();
-            } catch (Exception e) {
-                log.error("Authentication failed for user: {}", loginRequest.getUsername(), e);
-                throw new KeycloakServiceException("Authentication failed: " + e.getMessage(), e);
-            }
-        }
     }
 
     @Override
