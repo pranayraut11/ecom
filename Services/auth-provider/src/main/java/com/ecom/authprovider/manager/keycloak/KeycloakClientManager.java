@@ -13,13 +13,12 @@ import org.keycloak.admin.client.resource.ClientResource;
 import org.keycloak.admin.client.resource.ClientsResource;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.ClientRepresentation;
+import org.keycloak.representations.idm.ProtocolMapperRepresentation;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+
 /**
  * Implementation of ClientManager for handling Keycloak client operations.
  * This class provides methods to create, retrieve, update, and delete Keycloak clients.
@@ -394,6 +393,7 @@ public class KeycloakClientManager implements ClientManager {
 
             // Update the client
             clientsResource.get(id).update(existingClient);
+            addTenantIdMapper(clientsResource, request.getClientId(), id);
             log.info("Successfully updated client '{}'", request.getClientId());
             return true;
 
@@ -418,6 +418,9 @@ public class KeycloakClientManager implements ClientManager {
             if (response.getStatus() == CREATED_STATUS) {
                 log.info("Successfully created {} client '{}'",
                         client.isPublicClient() ? "public" : "confidential", clientId);
+                // Fetch created client ID from Keycloak
+                String clientDbId = clientsResource.findByClientId(clientId).get(0).getId();
+                addTenantIdMapper(clientsResource, clientId, clientDbId);
                 return true;
             } else {
                 String errorBody = response.readEntity(String.class);
@@ -444,4 +447,44 @@ public class KeycloakClientManager implements ClientManager {
             return false;
         }
     }
+
+
+    private void addTenantIdMapper(ClientsResource clientsResource, String clientId, String clientDbId) {
+        ClientResource clientResource = clientsResource.get(clientDbId);
+
+        // Check if mapper already exists to avoid duplicates
+        List<ProtocolMapperRepresentation> existingMappers = clientResource.getProtocolMappers().getMappers();
+        boolean alreadyExists = existingMappers.stream()
+                .anyMatch(mapper -> "tenantId".equals(mapper.getName()));
+
+        if (alreadyExists) {
+            log.info("TenantId mapper already exists for client '{}'", clientId);
+            return;
+        }
+
+        // Create mapper
+        ProtocolMapperRepresentation mapper = getProtocolMapperRepresentation();
+
+        try(Response response = clientResource.getProtocolMappers().createMapper(mapper)) {
+            log.info("TenantId mapper added for client '{}'", clientId);
+            log.info("Tenant Id mapped to client {} ",response.getStatus());
+        }
+    }
+
+    private static ProtocolMapperRepresentation getProtocolMapperRepresentation() {
+        ProtocolMapperRepresentation mapper = new ProtocolMapperRepresentation();
+        mapper.setName("tenantId");
+        mapper.setProtocol("openid-connect");
+        mapper.setProtocolMapper("oidc-usermodel-attribute-mapper");
+
+        Map<String, String> config = new HashMap<>();
+        config.put("user.attribute", "tenantId");
+        config.put("claim.name", "tenantId");
+        config.put("id.token.claim", "true");
+        config.put("access.token.claim", "true");
+        config.put("userinfo.token.claim", "true");
+        mapper.setConfig(config);
+        return mapper;
+    }
+
 }

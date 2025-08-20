@@ -19,9 +19,7 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Implementation of UserManager for handling Keycloak user operations.
@@ -140,7 +138,7 @@ public class KeycloakUserManager implements UserManager {
                 isAdmin ? "admin" : "regular", username, realm, request.getRoles());
 
         try (Keycloak keycloak = keycloakUtil.createAdminClient()) {
-            RealmResource realmResource = keycloak.realm(realm);
+            RealmResource realmResource = keycloak.realm(TenantContext.getTenantId());
             UsersResource usersResource = realmResource.users();
 
             // Check if user already exists by username (more reliable than email)
@@ -202,6 +200,9 @@ public class KeycloakUserManager implements UserManager {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
+        Map<String, List<String>> attributes = new HashMap<>();
+        attributes.put("tenantId", Collections.singletonList(TenantContext.getTenantId()));
+        user.setAttributes(attributes);
         return user;
     }
 

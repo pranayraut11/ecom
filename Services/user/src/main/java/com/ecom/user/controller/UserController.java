@@ -27,4 +27,9 @@ public class UserController  {
         return ResponseEntity.created(URI.create("user")).body(ApiGenericResponse.success("User created successfully"));
     }
 
+    @DeleteMapping()
+    public ResponseEntity<ApiGenericResponse<String>> deleteUser()  {
+        return ResponseEntity.created(URI.create("user")).body(ApiGenericResponse.success("User created successfully"));
+    }
+
 }

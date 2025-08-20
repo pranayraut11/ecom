@@ -4,8 +4,8 @@ keycloak:
   server-url: http://localhost:8080
   master-realm: master
   realm: ecom
-  client-id: your-client-id
-  client-secret: your-client-secret
+  client-id: demo22
+  client-secret: abc
   admin:
     username: admin
     password: admin
@@ -16,3 +16,7 @@ spring:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   cloud.discovery:
     enabled: false
+  threads:
+    virtual:
+      enabled: true
+

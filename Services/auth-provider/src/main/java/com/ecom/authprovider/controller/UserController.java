@@ -9,6 +9,7 @@ import com.ecom.authprovider.dto.response.UserResponseDto;
 import com.ecom.authprovider.service.specification.AuthService;
 import com.ecom.authprovider.service.specification.UserService;
 import com.ecom.shared.common.config.common.TenantContext;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -120,7 +121,12 @@ public class UserController {
     })
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         log.info("Login request received for user: {}", loginRequest.getUsername());
-        LoginResponse response = authService.login(loginRequest);
+        LoginResponse response = null;
+        try {
+            response = authService.login(loginRequest);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
         log.info("Login Success {}",response);
         return ResponseEntity.ok(response);
     }

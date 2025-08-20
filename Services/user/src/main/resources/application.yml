@@ -43,6 +43,9 @@ spring:
       ddl-auto: update
   cloud.discovery:
     enabled: false
+  threads:
+    virtual:
+      enabled: true
 
 # Hibernate ddl auto (create, create-drop, validate, update)
 logging:
@@ -72,4 +75,13 @@ eureka:
   register-with-eureka: false
   instance:
     preferIpAddress: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    prometheus:
+      enabled: true
 

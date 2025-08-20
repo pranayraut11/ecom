@@ -1,10 +1,13 @@
 package com.ecom.shared.common.config.common;
 
+import com.ecom.shared.common.utility.TokenUtils;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -32,7 +35,13 @@ public class TenantFilter implements Filter {
                 log.debug("Setting tenant ID: {}", tenantId);
                 TenantContext.setTenantId(tenantId);
             } else {
-                log.debug("No tenant ID found in request headers");
+                String authHeader = req.getHeader(HttpHeaders.AUTHORIZATION);
+                if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                    // remove "Bearer " prefix (7 characters)
+                    String token = authHeader.substring(7);
+                    TenantContext.setTenantId(TokenUtils.extractTenantId(token));
+                    log.info("Tenant Id extracted from token");
+                }
             }
 
             chain.doFilter(request, response);

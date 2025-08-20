@@ -1,5 +1,7 @@
 package com.ecom.shared.common.utility;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.keycloak.TokenVerifier;
 import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;
@@ -22,4 +24,11 @@ public class TokenUtils {
         return TokenVerifier.create(token, AccessToken.class).getToken();
     }
 
+    public static String extractTenantId(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("tenantId").toString();
+    }
 }

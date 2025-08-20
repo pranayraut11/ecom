@@ -10,4 +10,5 @@ public interface UserService{
 
     void create(UserCreationDTO userDTO) throws VerificationException;
     User getUserDetails();
+    void deleteUser();
 }

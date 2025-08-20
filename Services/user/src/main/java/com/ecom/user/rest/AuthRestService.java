@@ -1,27 +1,33 @@
 package com.ecom.user.rest;
 
+import com.ecom.shared.common.config.httpclient.FilterableHttpClient;
 import com.ecom.shared.common.exception.EcomException;
 import com.ecom.shared.common.exception.ErrorResponse;
 import com.ecom.user.constant.enums.APIEndPoints;
 import com.ecom.user.dto.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.Objects;
 
 import static com.ecom.user.constant.enums.AuthConstants.*;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class AuthRestService {
 
     // Error codes
@@ -32,57 +38,52 @@ public class AuthRestService {
     private static final String GENERIC_AUTH_ERROR = "Authentication service communication error";
     private static final String HTTP_STATUS_PREFIX = " (HTTP ";
 
-    private final WebClient webClient;
+    private final ObjectMapper objectMapper;
+    private final FilterableHttpClient httpClient;
 
     @Value("${auth-server.host}")
     private String host;
 
-    AuthRestService(WebClient webClient) {
-        this.webClient = webClient;
-    }
 
     public TokenDetails login(Login authClientDetails) {
-
-        UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("http")
-                .host(host).port(8082)
-                .path(APIEndPoints.KEYCLOAK_USER_LOGIN)
-                .build();
-
         try {
-            TokenDetails details = webClient.post()
-                    .uri(uriComponents.toUriString())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(authClientDetails)
-                    .retrieve()
-                    .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(), response -> {
-                        log.error("Login failed with status code: {}", response.statusCode());
-                        final String errorMsg = LOGIN_FAILED + HTTP_STATUS_PREFIX + response.statusCode().value() + ")";
-                        return response.bodyToMono(String.class)
-                                .defaultIfEmpty("")
-                                .flatMap(body -> {
-                                    String fullErrorMsg = errorMsg;
-                                    if (!body.isEmpty()) {
-                                        fullErrorMsg = fullErrorMsg + ": " + body;
-                                    }
-                                    return reactor.core.publisher.Mono.error(
-                                            new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, AUTH_ERR_001, fullErrorMsg));
-                                });
-                    })
-                    .bodyToMono(TokenDetails.class)
-                    .block();
+            String uri = "http://" + host + ":8082/" + APIEndPoints.KEYCLOAK_USER_LOGIN;
 
+            // Convert request body to JSON
+            String requestBody = objectMapper.writeValueAsString(authClientDetails);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(uri))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(request);
+
+            int statusCode = response.statusCode();
+            if (statusCode >= 400) {
+                log.error("Login failed with status code: {}", statusCode);
+                String errorMsg = LOGIN_FAILED + HTTP_STATUS_PREFIX + statusCode + ")";
+                String responseBody = response.body();
+                if (responseBody != null && !responseBody.isEmpty()) {
+                    errorMsg = errorMsg + ": " + responseBody;
+                }
+                throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, AUTH_ERR_001, errorMsg);
+            }
+
+            // Parse response into TokenDetails
+            TokenDetails details = objectMapper.readValue(response.body(), TokenDetails.class);
             if (Objects.nonNull(details)) {
                 log.debug("Login successful");
             }
             return details;
+
         } catch (Exception e) {
             log.error("Error during login", e);
             throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, AUTH_ERR_001,
                     GENERIC_AUTH_ERROR + ": " + e.getMessage());
         }
     }
-
     public String createUser(KeycloakUser user) {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .host(host)
@@ -90,39 +91,22 @@ public class AuthRestService {
                 .port("8082")
                 .path(APIEndPoints.KEYCLOAK_CREATE_USER_URL)
                 .build();
-
+        String requestBody = null;
+        try {
+            requestBody = objectMapper.writeValueAsString(user);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uriComponents.toUri())
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
         try {
             // First create the user and extract userId from Location header
-            return webClient.post()
-                    .uri(uriComponents.toUri())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(user)
-                    .retrieve()
-                    .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(), response -> {
-                        log.error("Create user failed with status code: {}", response.statusCode());
-                        return response.bodyToMono(ErrorResponse.class)
-                                .flatMap(body -> {
-                                    String errorMessage =  body.getMessage();
+            HttpResponse<String> response =  httpClient.send(request);
+            return response.body();
 
-                                    log.error("Error response: {}", body);
-                                    return Mono.error(
-                                            new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, AUTH_ERR_001, errorMessage));
-                                });
-                    })
-                    .bodyToMono(ApiGenericResponse.class)
-                    .map(response -> {
-                        Object locationHeader = response.getData();
-                        if (locationHeader != null) {
-                            // Extract user ID from location header which typically looks like "/users/{userId}"
-                           // String userId = locationHeader.substring(locationHeader.lastIndexOf('/') + 1);
-                            //log.info("User created successfully with ID: {}", userId);
-                            return locationHeader.toString();
-                        }
-                        log.warn("User created but no Location header returned");
-                        throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, AUTH_ERR_001,
-                                "User created but couldn't extract user ID from response");
-                    })
-                    .block();
         } catch (Exception e) {
             log.error("Error creating user", e);
             throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, AUTH_ERR_001,
@@ -138,31 +122,19 @@ public class AuthRestService {
                 .queryParam("access_token", token)
                 .buildAndExpand(realms);
 
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(uriComponents.toUri())
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
         try {
-            webClient.post()
-                    .uri(uriComponents.toUriString())
-                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                    .retrieve()
-                    .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(), response -> {
-                        log.error("Logout failed with status code: {}", response.statusCode());
-                        return response.bodyToMono(ErrorResponse.class)
-                                .defaultIfEmpty(null)
-                                .flatMap(body -> {
-                                    String errorMessage = LOGOUT_FAILED +
-                                            HTTP_STATUS_PREFIX + response.statusCode().value() + ")";
+            // First create the user and extract userId from Location header
+            HttpResponse<String> response =  httpClient.send(request);
 
-                                    return reactor.core.publisher.Mono.error(
-                                            new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, AUTH_ERR_001, errorMessage));
-                                });
-                    })
-                    .bodyToMono(String.class)
-                    .block();
-
-            log.info("Successfully logged out from Keycloak");
         } catch (Exception e) {
-            log.error("Error during logout", e);
+            log.error("Error creating user", e);
             throw new EcomException(HttpStatus.INTERNAL_SERVER_ERROR, AUTH_ERR_001,
-                    LOGOUT_FAILED + ": " + e.getMessage());
+                    USER_CREATION_FAILED + ": " + e.getMessage());
         }
     }
 }

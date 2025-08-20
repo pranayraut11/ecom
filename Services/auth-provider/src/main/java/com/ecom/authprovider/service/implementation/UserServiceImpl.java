@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
             if (userId == null || userId.isEmpty()) {
                 String errorMessage = String.format("Failed to create user '%s'", requestDto.username());
                 log.error(errorMessage);
-                return errorMessage;
+                throw new KeycloakServiceException(errorMessage);
             }
 
             // Return success response
@@ -58,20 +58,20 @@ public class UserServiceImpl implements UserService {
 
         } catch (IllegalArgumentException e) {
             log.error("Invalid user request: {}", e.getMessage());
-            return "Invalid user request: " + e.getMessage();
+            throw new KeycloakServiceException("Invalid user request: " + e.getMessage());
         } catch (KeycloakServiceException e) {
             // Already formatted exception, just return error response
             log.error("Keycloak service error: {}", e.getMessage());
-            return e.getMessage();
+            throw new KeycloakServiceException("Keycloak service error: "+e.getMessage());
         } catch (NotFoundException e) {
             String errorMessage = String.format("Realm not found for user '%s'", requestDto.username());
             log.error(errorMessage, e);
-            return errorMessage;
+            throw  new KeycloakServiceException(errorMessage);
         } catch (Exception e) {
             String errorMessage = String.format("Error creating user '%s': %s",
                     requestDto.username(), e.getMessage());
             log.error(errorMessage, e);
-            return errorMessage;
+            throw new KeycloakServiceException(errorMessage);
         }
     }
 

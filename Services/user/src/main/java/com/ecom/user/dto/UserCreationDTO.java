@@ -33,7 +33,6 @@ public class UserCreationDTO {
     private String password;
     private boolean emailVerified;
     private boolean enabled;
-    @NotBlank(message = "Mobile is required")
     @Size(min = 10, max = 10, message = "Mobile must be 10 characters")
     private String mobile;
     private boolean phoneNumberVerified;
