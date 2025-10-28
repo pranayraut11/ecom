@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrchestrationStepTemplate {
+    public class OrchestrationStepTemplate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

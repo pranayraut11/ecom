@@ -8,12 +8,7 @@ import com.ecom.orchestrator.entity.*;
 import com.ecom.orchestrator.repository.*;
 import com.ecom.orchestrator.messaging.interfaces.MessagePublisher;
 import com.ecom.orchestrator.messaging.interfaces.TopicManager;
-import com.ecom.orchestrator.serialization.Serializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -212,6 +207,46 @@ public class OrchestrationRegistryService {
                 log.warn("Orchestration template not found: {}", registrationDto.getOrchestrationName());
                 failedSteps.add("Orchestration not found: " + registrationDto.getOrchestrationName());
                 status = RegistrationStatusEnum.FAILED;
+                List<String> requestStepNames = registrationDto.getSteps().stream()
+                        .map(StepDefinitionDto::getName)
+                        .collect(Collectors.toList());
+                List<WorkerRegistration> existingRegistrations = workerRegistrationRepository
+                        .findByOrchNameAndWorkerServiceAndStepNameIn(
+                                registrationDto.getOrchestrationName(), serviceName, requestStepNames);
+
+                if (!existingRegistrations.isEmpty()) {
+                    log.info("Found {} existing worker registrations for service: {} in orchestration: {}, deleting them",
+                            existingRegistrations.size(), serviceName, registrationDto.getOrchestrationName());
+
+                    // Log each registration being deleted
+                    for (WorkerRegistration reg : existingRegistrations) {
+                        log.info("Deleting existing worker registration ID: {} for step: {} service: {}",
+                                reg.getId(), reg.getStepName(), reg.getWorkerService());
+                    }
+
+                    // Delete existing registrations for this service and these steps
+                    workerRegistrationRepository.deleteAll(existingRegistrations);
+                    log.info("Deleted {} existing worker registrations for service: {} in orchestration: {}",
+                            existingRegistrations.size(), serviceName, registrationDto.getOrchestrationName());
+                }
+                for (StepDefinitionDto stepDto : registrationDto.getSteps()) {
+                    log.info("Processing step registration: {} for orchestration: {}",
+                            stepDto.getName(), registrationDto.getOrchestrationName());
+
+
+                    // Register worker for step
+                    WorkerRegistration registration = WorkerRegistration.builder()
+                            .orchName(registrationDto.getOrchestrationName())
+                            .stepName(stepDto.getName())
+                            .workerService(serviceName)
+                            .topicName(stepDto.getName())
+                            .build();
+
+                    workerRegistrationRepository.save(registration);
+                    log.info("Successfully registered worker: {} for step: {} in orchestration: {} with topic: {} and ID: {}",
+                            serviceName, stepDto.getName(), registrationDto.getOrchestrationName(),
+                            stepDto.getName(), registration.getId());
+                }
             } else {
                 OrchestrationTemplate template = templateOpt.get();
                 log.info("Found orchestration template: {} with {} defined steps",

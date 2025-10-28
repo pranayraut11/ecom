@@ -4,6 +4,7 @@ import com.ecom.orchestrator.client.config.OrchestrationConfig;
 import com.ecom.orchestrator.client.config.OrchestrationLoader;
 import com.ecom.orchestrator.client.dto.ExecutionMessage;
 import com.ecom.orchestrator.client.service.OrchestrationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
@@ -20,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 @Component
+@Slf4j
 public class DynamicWorkerRegistrar {
 
     private final OrchestrationLoader loader;
@@ -45,7 +47,7 @@ public class DynamicWorkerRegistrar {
         loader.getConfig().getOrchestrations().forEach(orc -> {
             if ("worker".equalsIgnoreCase(orc.getAs())) {
                 orchestrationService.register(orc);
-                System.out.println("✅ Detected Worker YAML");
+               log.info(" Detected Worker YAML");
                 orc.getSteps().forEach(step->createKafkaListener(orc.getOrchestrationName(),step));
             }
         });
@@ -54,7 +56,7 @@ public class DynamicWorkerRegistrar {
     private void createKafkaListener(String orchestrationName, OrchestrationConfig.Step step) {
         String topic = "orchestrator." + orchestrationName + "." + step.getName();
         MethodKafkaListenerEndpoint<String, String> endpoint = new MethodKafkaListenerEndpoint<>();
-        endpoint.setId(step.getName() + "-listener");
+        endpoint.setId(String.join("-",orchestrationName,step.getName(),"listener"));
         endpoint.setGroupId("dynamic-group");
         endpoint.setTopics(topic);
 
@@ -82,20 +84,19 @@ public class DynamicWorkerRegistrar {
             }
 
         } catch (Exception e) {
-            System.err.println("❌ Error configuring handler for topic " + topic + ": " + e.getMessage());
+            log.error("❌ Error configuring handler for topic {} error {}" , topic , e.getMessage());
             return;
         }
 
         registry.registerListenerContainer(endpoint, kafkaListenerContainerFactory, true);
-        System.out.println("Kafka listener registered for topic: " + topic +
-                " → " + step.getHandlerClass() + "#" + step.getHandlerMethod());
+        log.info("Kafka listener registered for topic: {} {} {}",topic, step.getHandlerClass() ,step.getHandlerMethod());
     }
 
     public void handleMessage(@Payload String message, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
         try {
             HandlerInfo handlerInfo = handlerMap.get(topic);
             if (handlerInfo == null) {
-                System.err.println("❌ No handler found for topic: " + topic);
+               log.error("❌ No handler found for topic: {}", topic);
                 return;
             }
 
@@ -108,8 +109,7 @@ public class DynamicWorkerRegistrar {
             method.invoke(handlerInfo.bean, executionMessage);
 
         } catch (Exception e) {
-            System.err.println("❌ Error processing message: " + e.getMessage());
-            e.printStackTrace();
+           log.error("❌ Error processing message: {}" , e.getMessage());
         }
     }
 
