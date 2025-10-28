@@ -5,6 +5,7 @@ import { Cart } from 'src/app/shared/models/cart';
 import { CartProduct } from 'src/app/shared/models/cart.product.model';
 import { CartRestService } from 'src/app/shared/services/rest-services/cart-rest-service';
 import { CommonModule } from '@angular/common';
+import { TokenUtil } from 'src/app/utils/TokenUtil';
 
 @Component({
   selector: 'shopping-cart',
@@ -38,7 +39,7 @@ export class ShoppingCartComponent implements OnInit {
       this.btnText = "Place Order";
     }
     
-    this.isAuthenticated = !this.authService.isTokenExpired();
+    this.isAuthenticated = TokenUtil.isTokenValid();
   }
 
   loadCartData(): void {

@@ -15,8 +15,9 @@ export class AuthRestService {
   
 
   login(login: Login) {
+    console.log("In rest service")
     const headers = new HttpHeaders()
-     .set("X-CustomHeader", "none");
+     .set("X-Tenant-ID", "ecom");
     return this.rest.post<Token>(environment.baseURL +'auth/'+USER_LOGIN, login,{headers});
       
   }

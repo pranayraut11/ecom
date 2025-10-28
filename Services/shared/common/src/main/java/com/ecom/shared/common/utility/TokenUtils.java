@@ -6,6 +6,8 @@ import org.keycloak.TokenVerifier;
 import org.keycloak.common.VerificationException;
 import org.keycloak.representations.AccessToken;
 
+import java.util.Map;
+
 public class TokenUtils {
     private TokenUtils(){
     }
@@ -24,11 +26,8 @@ public class TokenUtils {
         return TokenVerifier.create(token, AccessToken.class).getToken();
     }
 
-    public static String extractTenantId(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-        return claims.get("tenantId").toString();
+    public static String extractTenantId(String token) throws VerificationException {
+        AccessToken map = TokenVerifier.create(token, AccessToken.class).getToken();
+        return "ss";
     }
 }

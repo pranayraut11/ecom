@@ -3,6 +3,8 @@ package com.ecom.authprovider.service;
 import com.ecom.authprovider.dto.request.ClientRequest;
 import com.ecom.authprovider.exception.KeycloakServiceException;
 import com.ecom.authprovider.manager.api.ClientManager;
+import com.ecom.orchestrator.client.dto.ExecutionMessage;
+import com.ecom.orchestrator.client.service.OrchestrationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,12 @@ import org.springframework.stereotype.Service;
 public class ClientService {
 
     private final ClientManager clientManager;
+    private final OrchestrationService orchestrationService;
 
+    public void createClientByEvent(ExecutionMessage executionMessage){
+        log.info("Received event to create client: {}", executionMessage);
+        orchestrationService.sendSuccessResponse(executionMessage);
+    }
     /**
      * Creates a new client in the specified realm.
      *
@@ -22,7 +29,7 @@ public class ClientService {
      * @throws KeycloakServiceException if client creation fails
      * @throws IllegalArgumentException if the request parameters are invalid
      */
-    public boolean createClient(ClientRequest request) {
+    public boolean createClient(ClientRequest request,String realm) {
         try {
             // Validate request
             if (request == null) {
@@ -49,12 +56,12 @@ public class ClientService {
             if (request.isPublicClient()) {
                 created = clientManager.createPublicClient(
                         request.getClientId(),
-                        request.getRedirectUri());
+                        request.getRedirectUri(),realm);
             } else {
                 created = clientManager.createConfidentialClient(
                         request.getClientId(),
                         request.getRedirectUri(),
-                        request.getClientSecret());
+                        request.getClientSecret(),realm);
             }
 
             if (created) {

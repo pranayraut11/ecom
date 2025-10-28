@@ -20,7 +20,7 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) throws Exception {
         http.authorizeExchange(authorizationManagerRequestMatcherRegistry -> authorizationManagerRequestMatcherRegistry
-                        .pathMatchers(HttpMethod.POST, "/auth/login", "/users/addUser").permitAll()
+                        .pathMatchers(HttpMethod.POST, "/ecom/user/auth/login", "/ecom/user/users").permitAll()
                         .pathMatchers(HttpMethod.GET, "/files/**", "/product", "/app/started").permitAll()
                         .pathMatchers("/cart/**").hasRole("CART")
                         .pathMatchers("/order/**").hasRole("ORDER")
@@ -28,6 +28,7 @@ public class SecurityConfig {
                         .anyExchange().authenticated())
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.
                         jwt(jwtSpec -> jwtSpec.jwtAuthenticationConverter(grantedAuthoritiesExtractor())));
+        http.csrf(ServerHttpSecurity.CsrfSpec::disable);
         return http.build();
     }
 

@@ -1,0 +1,13 @@
+orchestrations:
+  - orchestrationName: tenantCreation
+    as: worker
+    steps:
+      - name: createRealm
+        objectType: String
+        handlerClass: realmService
+        handlerMethod: createRealmByEvent
+      - name: createClient
+        objectType: String
+        handlerClass: clientService
+        handlerMethod: createClientByEvent
+

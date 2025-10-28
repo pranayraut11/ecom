@@ -51,9 +51,9 @@ public class ClientController {
     @PostMapping
     public ResponseEntity<ApiGenericResponse<String>> createClient(
             @Parameter(description = "Name of the realm where the client will be created", required = true)
-            @Valid @RequestBody ClientRequest request) {
+            @Valid @RequestBody ClientRequest request,@PathVariable String realm) {
 
-        boolean created = clientService.createClient(request);
+        boolean created = clientService.createClient(request,realm);
 
         if (created) {
             return ResponseEntity

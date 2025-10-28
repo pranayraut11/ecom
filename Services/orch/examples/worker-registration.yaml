@@ -1,0 +1,9 @@
+# Example Worker Registration YAML
+orchName: tenantCreation
+as: worker
+steps:
+  - name: createRealm
+    objectType: String
+  - name: createClient
+    objectType: String
+

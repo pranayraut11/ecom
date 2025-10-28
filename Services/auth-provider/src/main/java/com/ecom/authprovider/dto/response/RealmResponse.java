@@ -12,19 +12,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Schema(description = "Response object after creating a realm")
 public class RealmResponse {
-
+    
     @Schema(description = "ID of the created realm")
     private String id;
-
+    
     @Schema(description = "Name of the realm")
     private String name;
-
+    
     @Schema(description = "Display name of the realm")
     private String displayName;
-
+    
     @Schema(description = "Whether the realm is enabled")
     private Boolean enabled;
-
+    
     @Schema(description = "Creation status message")
     private String message;
 }

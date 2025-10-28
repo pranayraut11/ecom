@@ -1,0 +1,15 @@
+# Example Initiator Registration YAML
+orchName: tenantCreation
+as: initiator
+type: sequential
+steps:
+  - seq: 1
+    name: createRealm
+    objectType: String
+  - seq: 2
+    name: createClient
+    objectType: String
+  - seq: 3
+    name: assignRoles
+    objectType: UserRoleAssignment
+

@@ -13,6 +13,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, switchMap, catchError, startWith, take } from 'rxjs/operators';
 import { ProductSearchService } from '../../services/product-search.service';
 import { Product } from '../../models/product.model';
+import { TokenUtil } from "src/app/utils/TokenUtil";
 
 @Component({
     selector: "app-header",
@@ -55,7 +56,7 @@ export class HeaderComponent implements OnInit, AfterViewInit, OnDestroy {
     ngOnInit() {
         // For testing, set isAuthenticated to true
        
-        if(localStorage.getItem(AUTH_TOKEN)){
+        if(TokenUtil.isTokenValid()){
             console.log("User is authenticated");
             this.isAuthenticated = true;
         }

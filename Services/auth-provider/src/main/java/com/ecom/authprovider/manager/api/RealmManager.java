@@ -32,7 +32,7 @@ public interface RealmManager {
      * @return true if the realm exists, false otherwise
      */
     boolean realmExists(String realmName);
-
+    
     /**
      * Gets a realm representation by name.
      *
@@ -41,14 +41,14 @@ public interface RealmManager {
      * @throws jakarta.ws.rs.NotFoundException if realm doesn't exist
      */
     RealmRepresentation getRealmByName(String realmName);
-
+    
     /**
      * Gets all realms.
      *
      * @return List of all realm representations
      */
     List<RealmRepresentation> getAllRealms();
-
+    
     /**
      * Updates a realm.
      *
@@ -57,7 +57,7 @@ public interface RealmManager {
      * @return true if realm was updated successfully, false otherwise
      */
     boolean updateRealm(String realmName, RealmRepresentation representation);
-
+    
     /**
      * Enables or disables a realm.
      *

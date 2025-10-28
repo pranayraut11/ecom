@@ -7,24 +7,24 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:6080/realms/master
-          jwk-set-uri: http://localhost:6080/realms/master/protocol/openid-connect/certs
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lowerCaseServiceId: true
-      httpclient:
-        connect-timeout: 5000
-        response-timeout: 5s
+          issuer-uri: http://localhost:8080/realms/ecom
+          jwk-set-uri: http://localhost:8080/realms/ecom/protocol/openid-connect/certs
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#          lowerCaseServiceId: true
+#      httpclient:
+#        connect-timeout: 5000
+#        response-timeout: 5s
 
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-  fetch-registry: true
-  register-with-eureka: true
-  instance:
-    preferIpAddress: true
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+#  fetch-registry: true
+#  register-with-eureka: true
+#  instance:
+#    preferIpAddress: true

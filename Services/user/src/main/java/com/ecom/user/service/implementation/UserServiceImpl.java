@@ -1,5 +1,7 @@
 package com.ecom.user.service.implementation;
 
+import com.ecom.shared.common.annotation.AppendTenantId;
+import com.ecom.shared.common.utility.TokenUtils;
 import com.ecom.user.dto.*;
 import com.ecom.user.entity.UserDetails;
 import com.ecom.user.mapper.UserMapper;
@@ -7,6 +9,7 @@ import com.ecom.user.repository.UserRepository;
 import com.ecom.user.rest.AuthRestService;
 import com.ecom.user.service.specification.UserService;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final AuthRestService keycloakAuthService;
@@ -24,17 +28,6 @@ public class UserServiceImpl implements UserService {
 
     @Value("${auth-server.realm}")
     private String realm;
-
-    UserServiceImpl(AuthRestService keycloakAuthService,
-                   @Qualifier("adminClientCredentials") AuthClientDetails adminClientCredentials,
-                   UserRepository userRepository,
-                   AuthClientDetails userClientCredentials,
-                   UserMapper userMapper) {
-        this.keycloakAuthService = keycloakAuthService;
-        this.userRepository = userRepository;
-        this.userClientCredentials = userClientCredentials;
-        this.userMapper = userMapper;
-    }
 
     @Override
     public void create(@NotNull UserCreationDTO userDTO) {
@@ -64,9 +57,10 @@ public class UserServiceImpl implements UserService {
         log.info("User {} Created successfully!", user.getEmail());
     }
 
+    @AppendTenantId
     @Override
     public User getUserDetails() {
-        return null;
+        return null;//userRepository.findByUserId();
     }
 
     @Override

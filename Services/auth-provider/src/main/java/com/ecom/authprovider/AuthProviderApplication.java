@@ -4,6 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 
 /**
  * Main application class that serves as the entry point for the Keycloak Admin REST API.
@@ -12,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootApplication
 @OpenAPIDefinition
 @Slf4j
+@ComponentScan(basePackages = {"com.ecom.*"})
 public class AuthProviderApplication {
 
     /**

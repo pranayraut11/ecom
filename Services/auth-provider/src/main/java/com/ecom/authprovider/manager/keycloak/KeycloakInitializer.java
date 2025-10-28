@@ -70,9 +70,9 @@ public class KeycloakInitializer {
             // Create clients
             ClientManager clientManager = null;//new KeycloakClientManager(realmResource,keycloak);
             boolean frontendClientCreated = clientManager.createPublicClient(
-                    FRONTEND_CLIENT_ID, FRONTEND_REDIRECT_URI);
+                    FRONTEND_CLIENT_ID, FRONTEND_REDIRECT_URI,REALM_NAME);
             boolean backendClientCreated = clientManager.createConfidentialClient(
-                    BACKEND_CLIENT_ID, null, BACKEND_SECRET);
+                    BACKEND_CLIENT_ID, null, BACKEND_SECRET,REALM_NAME);
 
             if (!frontendClientCreated || !backendClientCreated) {
                 log.error("Failed to create one or more clients, but will continue with initialization");

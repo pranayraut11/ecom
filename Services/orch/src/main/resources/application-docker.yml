@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/orchestrator_db
+    username: orchestrator_user
+    password: orchestrator_pass
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+  kafka:
+    bootstrap-servers: kafka:9092

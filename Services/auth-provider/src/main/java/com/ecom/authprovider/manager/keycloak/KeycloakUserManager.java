@@ -201,7 +201,7 @@ public class KeycloakUserManager implements UserManager {
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
         Map<String, List<String>> attributes = new HashMap<>();
-        attributes.put("tenantId", Collections.singletonList(TenantContext.getTenantId()));
+        attributes.put("tenantid", Collections.singletonList(TenantContext.getTenantId()));
         user.setAttributes(attributes);
         return user;
     }
@@ -241,7 +241,17 @@ public class KeycloakUserManager implements UserManager {
             log.error("Failed to assign roles to user '{}'", username);
             return null;
         }
+        UserResource userResource = usersResource.get(userId);
+        UserRepresentation existingUser = userResource.toRepresentation();
+        Map<String, List<String>> attributes = existingUser.getAttributes();
+        if (attributes == null) {
+            attributes = new HashMap<>();
+        }
+        attributes.put("tenantid", Collections.singletonList(TenantContext.getTenantId()));
+        existingUser.setAttributes(attributes);
 
+        // 7. Update user with attributes
+        userResource.update(existingUser);
         log.info("Successfully created user '{}' with password and roles", username);
         return userId;
     }

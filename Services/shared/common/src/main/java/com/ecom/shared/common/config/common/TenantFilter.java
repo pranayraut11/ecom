@@ -4,6 +4,7 @@ import com.ecom.shared.common.utility.TokenUtils;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.keycloak.common.VerificationException;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -39,8 +40,21 @@ public class TenantFilter implements Filter {
                 if (authHeader != null && authHeader.startsWith("Bearer ")) {
                     // remove "Bearer " prefix (7 characters)
                     String token = authHeader.substring(7);
-                    TenantContext.setTenantId(TokenUtils.extractTenantId(token));
+                    try {
+                        TenantContext.setTenantId(TokenUtils.extractTenantId(token));
+                    } catch (VerificationException e) {
+                        throw new RuntimeException(e);
+                    }
                     log.info("Tenant Id extracted from token");
+                    String userId = null; // Implement this method in TokenUtils
+                    try {
+                        userId = TokenUtils.getUserId(token);
+                    } catch (VerificationException e) {
+                        throw new RuntimeException(e);
+                    }
+                    UserContext.setUserId(userId);
+                    log.info("User Id extracted from token and set to UserContext");
+
                 }
             }
 
@@ -48,6 +62,7 @@ public class TenantFilter implements Filter {
         } finally {
             // Always clear the tenant context after the request is processed
             TenantContext.clear();
+            UserContext.clear();
         }
     }
 }

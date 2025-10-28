@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     console.log("isssssssss " + this.isAuthenticated);
     this.userSub = this.authService.user.subscribe(user => {
+      console.log("Logg User "+user)
       this.isAuthenticated = !!user;
     });
   }

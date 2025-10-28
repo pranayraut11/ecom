@@ -7,6 +7,9 @@ import com.ecom.authprovider.exception.KeycloakServiceException;
 import com.ecom.authprovider.manager.api.RealmManager;
 import com.ecom.authprovider.manager.api.RoleManager;
 import com.ecom.authprovider.manager.api.UserManager;
+import com.ecom.authprovider.service.specification.AdminService;
+import com.ecom.orchestrator.client.dto.ExecutionMessage;
+import com.ecom.orchestrator.client.service.OrchestrationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,11 +26,12 @@ import java.util.concurrent.CompletableFuture;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class RealmService {
+public class RealmService implements AdminService {
 
     private final RealmManager realmManager;
     private final RoleManager roleManager;
     private final UserManager userManager;
+    private final OrchestrationService orchestrationService;
 
     @Value("${keycloak.default-admin-username:admin}")
     private String defaultAdminUsername;
@@ -44,6 +48,12 @@ public class RealmService {
     @Value("${keycloak.default-admin-email:admin@example.com}")
     private String defaultAdminEmail;
 
+    public boolean createRealmByEvent(ExecutionMessage request) {
+        // TODO: Replace eventId usage with flowId - need to identify correct method name in ExecutionMessage
+        log.info("Creating realm with execution message: {}", request);
+        orchestrationService.sendSuccessResponse(request);
+        return true;
+    }
     /**
      * Creates a new realm in Keycloak based on the provided request.
      *
@@ -57,7 +67,6 @@ public class RealmService {
         String realmName = request.getName();
 
         log.info("Creating realm with name: {}", realmName);
-
         try {
             boolean created = realmManager.createRealm(realmName);
 
@@ -90,10 +99,6 @@ public class RealmService {
      * @return true if the realm exists, false otherwise
      */
     public boolean realmExists(String realmName) {
-        if (!StringUtils.hasText(realmName)) {
-            throw new IllegalArgumentException("Realm name cannot be empty");
-        }
-
         try {
             return realmManager.realmExists(realmName);
         } catch (Exception e) {
@@ -140,18 +145,9 @@ public class RealmService {
      * @throws IllegalArgumentException if validation fails
      */
     private void validateRealmRequest(RealmRequest request) {
-        if (request == null) {
-            throw new IllegalArgumentException("Realm request cannot be null");
-        }
-
-        String realmName = request.getName();
-        if (!StringUtils.hasText(realmName)) {
-            throw new IllegalArgumentException("Realm name cannot be empty");
-        }
-
         // Check if realm already exists
-        if (realmExists(realmName)) {
-            throw new KeycloakServiceException(String.format("Realm '%s' already exists", realmName));
+        if (realmExists(request.getName())) {
+            throw new KeycloakServiceException(String.format("Realm '%s' already exists", request.getName()));
         }
     }
 
@@ -235,5 +231,44 @@ public class RealmService {
         adminUserRequest.setRoles(List.of("Admin"));
         adminUserRequest.setRealmName(realmName);
         return adminUserRequest;
+    }
+
+    // Delete realm
+    public boolean deleteRealm(String realmName) {
+        if (!StringUtils.hasText(realmName)) {
+            throw new IllegalArgumentException("Realm name cannot be empty");
+        }
+
+        try {
+            if (!realmManager.realmExists(realmName)) {
+                throw new KeycloakServiceException(String.format("Realm '%s' not found", realmName));
+            }
+
+            boolean deleted = realmManager.deleteRealm(realmName);
+            if (deleted) {
+                log.info("Realm '{}' deleted successfully", realmName);
+                return true;
+            } else {
+                String errorMessage = String.format("Failed to delete realm '%s'", realmName);
+                log.error(errorMessage);
+                throw new KeycloakServiceException(errorMessage);
+            }
+        } catch (KeycloakServiceException e) {
+            throw e;
+        } catch (Exception e) {
+            String errorMessage = String.format("Error deleting realm '%s': %s", realmName, e.getMessage());
+            log.error(errorMessage, e);
+            throw new KeycloakServiceException(errorMessage, e);
+        }
+    }
+
+    @Override
+    public void updateRealm(String realmName, Object realmConfig) {
+
+    }
+
+    @Override
+    public Object getRealm(String realmName) {
+        return null;
     }
 }

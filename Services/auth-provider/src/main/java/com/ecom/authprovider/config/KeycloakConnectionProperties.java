@@ -14,37 +14,37 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class KeycloakConnectionProperties {
-
+    
     /**
      * Keycloak server URL
      */
     private String serverUrl;
-
+    
     /**
      * Master realm name
      */
     private String masterRealm = "master";
-
+    
     /**
      * Default realm for application
      */
     private String realm;
-
+    
     /**
      * Default client ID for application
      */
     private String clientId;
-
+    
     /**
      * Default client secret
      */
     private String clientSecret;
-
+    
     /**
      * Admin user properties
      */
     private Admin admin = new Admin();
-
+    
     /**
      * Nested class for admin properties
      */
@@ -55,12 +55,12 @@ public class KeycloakConnectionProperties {
          * Admin username
          */
         private String username = "admin";
-
+        
         /**
          * Admin password
          */
         private String password = "admin";
-
+        
         /**
          * Admin client ID
          */

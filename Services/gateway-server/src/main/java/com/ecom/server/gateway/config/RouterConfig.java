@@ -17,7 +17,7 @@ public class RouterConfig {
                 route(p -> p.path("/ecom/order/**").
                         filters(f -> f.rewritePath("/ecom/order/(?<segment>.*)", SEGMENT)).uri("lb://ORDER")).
                 route(p -> p.path("/ecom/user/**").
-                        filters(f -> f.rewritePath("/ecom/user/(?<segment>.*)", SEGMENT)).uri("lb://USER")).
+                        filters(f -> f.rewritePath("/ecom/user/(?<segment>.*)", SEGMENT)).uri("http://localhost:8088")).
                 route(p -> p.path("/ecom/inventory/**").
                         filters(f -> f.rewritePath("/ecom/inventory/(?<segment>.*)", SEGMENT)).uri("lb://INVENTORY")).
                 route(p -> p.path("/ecom/filemanager/**").

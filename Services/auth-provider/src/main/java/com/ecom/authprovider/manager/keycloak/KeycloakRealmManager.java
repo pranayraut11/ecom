@@ -7,7 +7,10 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.RealmRepresentation;
+import org.keycloak.representations.userprofile.config.UPAttribute;
+import org.keycloak.representations.userprofile.config.UPConfig;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -61,6 +64,17 @@ public class KeycloakRealmManager implements RealmManager {
 
             try {
                 keycloak.realms().create(realm);
+                RealmResource realmResource = keycloak.realms().realm(realmName);
+                UPConfig upConfig = realmResource.users().userProfile().getConfiguration();
+                UPAttribute tenantIdAttribute = new UPAttribute();
+                tenantIdAttribute.setName("tenantid");
+                tenantIdAttribute.setAnnotations(Collections.emptyMap());
+                tenantIdAttribute.setGroup("user-metadata");
+                tenantIdAttribute.setDisplayName("Tenant ID");
+                List<UPAttribute> upAttributes =  upConfig.getAttributes();
+                upAttributes.add(tenantIdAttribute);
+                upConfig.setAttributes(upAttributes);
+                keycloak.realm(realmName).users().userProfile().update(upConfig);
                 log.info("Successfully created realm '{}'", realmName);
                 return true;
             } catch (WebApplicationException e) {
@@ -118,7 +132,7 @@ public class KeycloakRealmManager implements RealmManager {
         try (Keycloak keycloak = keycloakUtil.createAdminClient()) {
             return keycloak.realms().findAll().stream()
                     .anyMatch(r -> r.getRealm().equals(realmName));
-        } catch (Exception e) {
+        } catch ( Exception e) {
             log.error("Error checking if realm '{}' exists", realmName, e);
             return false;
         }

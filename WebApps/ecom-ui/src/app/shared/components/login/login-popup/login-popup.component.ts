@@ -54,16 +54,19 @@ export class LoginPopupComponent implements OnInit {
 
     this.authService.login(login).subscribe({
       next: (response) => {
-        if (response.roles.includes("seller")) {
           $('#loginModel').modal('hide');
-          this.show = false;
-          window.location.href = "/seller/dashboard"
-        } else {
-          console.log(localStorage.getItem(AUTH_TOKEN));
-          $('#loginModel').modal('hide');
-          this.show = false;
+           this.show = false;
           window.location.href = this.router.url
-        }
+        // if (response.roles.includes("seller")) {
+        //   $('#loginModel').modal('hide');
+        //   this.show = false;
+        //   window.location.href = "/seller/dashboard"
+        // } else {
+        //   console.log(localStorage.getItem(AUTH_TOKEN));
+        //   $('#loginModel').modal('hide');
+        //   this.show = false;
+        //   window.location.href = this.router.url
+        // }
       },
       complete: () => {
 

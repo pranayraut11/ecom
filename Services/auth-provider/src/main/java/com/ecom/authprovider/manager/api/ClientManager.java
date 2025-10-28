@@ -17,7 +17,7 @@ public interface ClientManager {
      * @param redirectUri Redirect URI for the client
      * @return true if client was created or already exists, false otherwise
      */
-    boolean createPublicClient(String clientId, String redirectUri);
+    boolean createPublicClient(String clientId, String redirectUri, String realmName);
 
     /**
      * Creates a confidential client in the realm.
@@ -27,9 +27,9 @@ public interface ClientManager {
      * @param clientSecret Secret for the confidential client
      * @return true if client was created or already exists, false otherwise
      */
-    boolean createConfidentialClient(String clientId, String redirectUri, String clientSecret);
+    boolean createConfidentialClient(String clientId, String redirectUri, String clientSecret, String realmName);
 
-    boolean createClient(ClientRequest request);
+    boolean createClient(ClientRequest request, String realm);
 
     ClientRepresentation getClientByClientId(String clientId);
 

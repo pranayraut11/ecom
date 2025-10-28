@@ -1,6 +1,7 @@
 package com.ecom.user.controller;
 
 import com.ecom.user.dto.ApiGenericResponse;
+import com.ecom.user.dto.User;
 import com.ecom.user.dto.UserCreationDTO;
 import com.ecom.user.service.specification.UserService;
 import jakarta.validation.Valid;
@@ -30,6 +31,11 @@ public class UserController  {
     @DeleteMapping()
     public ResponseEntity<ApiGenericResponse<String>> deleteUser()  {
         return ResponseEntity.created(URI.create("user")).body(ApiGenericResponse.success("User created successfully"));
+    }
+
+    @GetMapping()
+    public User getUserDetails(){
+       return userService.getUserDetails();
     }
 
 }

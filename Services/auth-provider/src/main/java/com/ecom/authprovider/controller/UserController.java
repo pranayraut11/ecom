@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth/users")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin("*")
 @Tag(name = "User Management", description = "APIs for managing users in Keycloak")
 public class UserController {
 

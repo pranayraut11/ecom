@@ -8,11 +8,11 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpStatus;
 import org.keycloak.admin.client.Keycloak;
-import org.keycloak.admin.client.resource.ClientResource;
-import org.keycloak.admin.client.resource.ClientsResource;
-import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.admin.client.resource.*;
 import org.keycloak.representations.idm.ClientRepresentation;
+import org.keycloak.representations.idm.ClientScopeRepresentation;
 import org.keycloak.representations.idm.ProtocolMapperRepresentation;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -53,16 +53,16 @@ public class KeycloakClientManager implements ClientManager {
      * @throws IllegalStateException    if tenant context is not set
      */
     @Override
-    public boolean createPublicClient(String clientId, String redirectUri) {
+    public boolean createPublicClient(String clientId, String redirectUri, String realmName) {
         validateClientId(clientId);
-        validateTenant();
+        //validateTenant();
 
         ClientRequest request = new ClientRequest();
         request.setClientId(clientId);
         request.setRedirectUri(redirectUri);
         request.setPublicClient(true);
 
-        return createClient(request);
+        return createClient(request,realmName);
     }
 
     /**
@@ -76,12 +76,12 @@ public class KeycloakClientManager implements ClientManager {
      * @throws IllegalStateException    if tenant context is not set
      */
     @Override
-    public boolean createConfidentialClient(String clientId, String redirectUri, String clientSecret) {
+    public boolean createConfidentialClient(String clientId, String redirectUri, String clientSecret, String realmName) {
         validateClientId(clientId);
         if (!StringUtils.hasText(clientSecret)) {
             throw new IllegalArgumentException("Client secret is required for confidential clients");
         }
-        validateTenant();
+        //validateTenant();
 
         ClientRequest request = new ClientRequest();
         request.setClientId(clientId);
@@ -89,7 +89,7 @@ public class KeycloakClientManager implements ClientManager {
         request.setPublicClient(false);
         request.setClientSecret(clientSecret);
 
-        return createClient(request);
+        return createClient(request,realmName);
     }
 
     /**
@@ -101,20 +101,18 @@ public class KeycloakClientManager implements ClientManager {
      * @throws IllegalStateException    if tenant context is not set
      */
     @Override
-    public boolean createClient(ClientRequest request) {
+    public boolean createClient(ClientRequest request,String realmName) {
         validateClientId(request.getClientId());
-        validateTenant();
+        //validateTenant();
 
         String clientId = request.getClientId();
         boolean isPublic = request.isPublicClient();
         String redirectUri = request.getRedirectUri();
-        String clientSecret = request.getClientSecret();
 
         log.info("Creating {} client '{}' with redirect URI: {}",
                 isPublic ? "public" : "confidential", clientId, redirectUri);
 
         try (Keycloak keycloak = keycloakUtil.createAdminClient()) {
-            String realmName = TenantContext.getTenantId();
             ClientsResource clientsResource = keycloak.realm(realmName).clients();
 
             // Check if client already exists
@@ -126,7 +124,8 @@ public class KeycloakClientManager implements ClientManager {
                 log.info("Updating existing client '{}' in realm '{}'", clientId, realmName);
                 ClientRepresentation existingClient = existingClients.get(0);
                 updateExistingClient(existingClient, request, clientsResource);
-
+                createClientScope(keycloak, realmName);
+                existingClient.getDefaultClientScopes().add("tenant-scope");
                 return true;
             }
 
@@ -134,13 +133,71 @@ public class KeycloakClientManager implements ClientManager {
             ClientRepresentation client = buildClientRepresentation(request);
 
             // Create the client in Keycloak
-            return createClientInKeycloak(clientsResource, client, clientId);
+            boolean isClientCreated = createClientInKeycloak(clientsResource, client, clientId);
+            if (isClientCreated) {
+                String clientDbId = clientsResource.findByClientId(clientId).get(0).getId();
+                String scopeId = createClientScope(keycloak, realmName);
+                clientsResource.get(clientDbId).addDefaultClientScope(scopeId);
+            } else {
+                log.error("Failed to create client '{}'", clientId);
+                return false;
+            }
         } catch (IllegalArgumentException | IllegalStateException e) {
             // Rethrow validation exceptions
             throw e;
         } catch (Exception e) {
             log.error("Unexpected error creating client '{}': {}", clientId, e.getMessage(), e);
             return false;
+        }
+        return true;
+    }
+
+    private String createClientScope(Keycloak keycloak, String realmName) {
+        String scopeName = "tenant-scope";
+        ClientScopeRepresentation scope = new ClientScopeRepresentation();
+        scope.setName(scopeName);
+        scope.setDescription("Adds tenantId claim to tokens");
+        scope.setProtocol("openid-connect");
+
+        // 3. Create the client scope in Keycloak
+        try (Response response = keycloak.realm(realmName).clientScopes().create(scope)) {
+            if (response.getStatus() == 201) {
+                log.info("Client scope created successfully");
+                // 2. Get client scope resource
+                ClientScopesResource clientScopesResource = keycloak.realm(realmName).clientScopes();
+                String scopeId = clientScopesResource.findAll().stream()
+                        .filter(cs -> cs.getName().equals(scopeName))
+                        .findFirst()
+                        .orElseThrow(() -> new RuntimeException("Scope not found: " + scopeName))
+                        .getId();
+
+                ClientScopeResource clientScopeResource = clientScopesResource.get(scopeId);
+
+                // 3. Create tenantId mapper
+                ProtocolMapperRepresentation tenantMapper = new ProtocolMapperRepresentation();
+                tenantMapper.setName("tenantId-mapper");
+                tenantMapper.setProtocol("openid-connect");
+                tenantMapper.setProtocolMapper("oidc-usermodel-attribute-mapper");
+
+                Map<String, String> config = new HashMap<>();
+                config.put("user.attribute", "tenantid");   // User attribute in Keycloak
+                config.put("claim.name", "tenantid");      // Claim name in token
+                config.put("jsonType.label", "String");     // Claim type
+                config.put("id.token.claim", "true");       // Add to ID token
+                config.put("access.token.claim", "true");   // Add to Access token
+
+                tenantMapper.setConfig(config);
+
+                // 4. Add mapper to client scope
+                try (Response mapperResponse = clientScopeResource.getProtocolMappers().createMapper(tenantMapper)) {
+                    if (mapperResponse.getStatus() == HttpStatus.SC_CREATED) {
+                        log.info("Mapper added");
+                        return scopeId;
+                    }
+                }
+
+            }
+            return null;
         }
     }
 
@@ -318,7 +375,6 @@ public class KeycloakClientManager implements ClientManager {
         client.setClientId(request.getClientId());
         client.setName(request.getClientId());
         client.setEnabled(request.isEnabled());
-
         // Configure access type (public/confidential)
         boolean isPublic = request.isPublicClient();
         if (isPublic) {
@@ -331,14 +387,13 @@ public class KeycloakClientManager implements ClientManager {
             client.setSecret(request.getClientSecret());
 
             // Enable service accounts for confidential clients if requested
-            client.setServiceAccountsEnabled( DEFAULT_SERVICE_ACCOUNTS_ENABLED);
+            client.setServiceAccountsEnabled(DEFAULT_SERVICE_ACCOUNTS_ENABLED);
         }
 
         // Configure redirect URIs
         if (StringUtils.hasText(request.getRedirectUri())) {
             List<String> redirectUris = new ArrayList<>();
             redirectUris.add(request.getRedirectUri());
-
 
 
             client.setRedirectUris(redirectUris);
@@ -348,12 +403,11 @@ public class KeycloakClientManager implements ClientManager {
         }
 
         // Configure authentication flows
-        client.setStandardFlowEnabled( DEFAULT_STANDARD_FLOW_ENABLED);
+        client.setStandardFlowEnabled(DEFAULT_STANDARD_FLOW_ENABLED);
 
-        client.setImplicitFlowEnabled( DEFAULT_IMPLICIT_FLOW_ENABLED);
+        client.setImplicitFlowEnabled(DEFAULT_IMPLICIT_FLOW_ENABLED);
 
-        client.setDirectAccessGrantsEnabled( DEFAULT_DIRECT_ACCESS_GRANTS_ENABLED);
-
+        client.setDirectAccessGrantsEnabled(DEFAULT_DIRECT_ACCESS_GRANTS_ENABLED);
 
 
         return client;
@@ -374,7 +428,6 @@ public class KeycloakClientManager implements ClientManager {
             String id = existingClient.getId();
 
 
-
             if (request.isEnabled() != existingClient.isEnabled()) {
                 existingClient.setEnabled(request.isEnabled());
             }
@@ -389,11 +442,11 @@ public class KeycloakClientManager implements ClientManager {
             }
 
             // Update web origins if provided
-               existingClient.setSecret(request.getClientSecret());
+            existingClient.setSecret(request.getClientSecret());
 
             // Update the client
             clientsResource.get(id).update(existingClient);
-            addTenantIdMapper(clientsResource, request.getClientId(), id);
+            //addTenantIdMapper(clientsResource, request.getClientId(), id);
             log.info("Successfully updated client '{}'", request.getClientId());
             return true;
 
@@ -419,8 +472,7 @@ public class KeycloakClientManager implements ClientManager {
                 log.info("Successfully created {} client '{}'",
                         client.isPublicClient() ? "public" : "confidential", clientId);
                 // Fetch created client ID from Keycloak
-                String clientDbId = clientsResource.findByClientId(clientId).get(0).getId();
-                addTenantIdMapper(clientsResource, clientId, clientDbId);
+                //addTenantIdMapper(clientsResource, clientId, clientDbId);
                 return true;
             } else {
                 String errorBody = response.readEntity(String.class);
@@ -455,7 +507,7 @@ public class KeycloakClientManager implements ClientManager {
         // Check if mapper already exists to avoid duplicates
         List<ProtocolMapperRepresentation> existingMappers = clientResource.getProtocolMappers().getMappers();
         boolean alreadyExists = existingMappers.stream()
-                .anyMatch(mapper -> "tenantId".equals(mapper.getName()));
+                .anyMatch(mapper -> "tenantid".equals(mapper.getName()));
 
         if (alreadyExists) {
             log.info("TenantId mapper already exists for client '{}'", clientId);
@@ -465,24 +517,24 @@ public class KeycloakClientManager implements ClientManager {
         // Create mapper
         ProtocolMapperRepresentation mapper = getProtocolMapperRepresentation();
 
-        try(Response response = clientResource.getProtocolMappers().createMapper(mapper)) {
+        try (Response response = clientResource.getProtocolMappers().createMapper(mapper)) {
             log.info("TenantId mapper added for client '{}'", clientId);
-            log.info("Tenant Id mapped to client {} ",response.getStatus());
+            log.info("Tenant Id mapped to client {} ", response.getStatus());
         }
     }
 
     private static ProtocolMapperRepresentation getProtocolMapperRepresentation() {
         ProtocolMapperRepresentation mapper = new ProtocolMapperRepresentation();
-        mapper.setName("tenantId");
+        mapper.setName("tenantid");
         mapper.setProtocol("openid-connect");
         mapper.setProtocolMapper("oidc-usermodel-attribute-mapper");
 
         Map<String, String> config = new HashMap<>();
-        config.put("user.attribute", "tenantId");
-        config.put("claim.name", "tenantId");
+        config.put("user.attribute", "tenantid");
+        config.put("claim.name", "tenantid");
+        config.put("jsonType.label", "String");
         config.put("id.token.claim", "true");
         config.put("access.token.claim", "true");
-        config.put("userinfo.token.claim", "true");
         mapper.setConfig(config);
         return mapper;
     }

@@ -4,6 +4,7 @@ import { SpinnerService } from './core/services/spinner-service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
+import { TokenUtil } from './utils/TokenUtil';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,6 @@ export class AppComponent implements OnInit {
   title = 'ecom-ui';
   
   ngOnInit(): void {
-    this.authService.autoLogin();
+    TokenUtil.isTokenValid();
   }
 }

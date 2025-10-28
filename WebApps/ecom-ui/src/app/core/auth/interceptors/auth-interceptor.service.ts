@@ -3,73 +3,57 @@ import { Injectable } from "@angular/core";
 import { tap } from "rxjs";
 import { AuthRestService } from "src/app/shared/services/rest-services/auth-rest-service";
 import { SpinnerService } from "../../services/spinner-service";
+import { AuthService } from "../services/auth.service";
+import { Route, Router } from "@angular/router";
+import { TokenUtil } from "src/app/utils/TokenUtil";
 
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
 
-    constructor(authService: AuthRestService, private spinnerService: SpinnerService) {
+    constructor(private spinnerService: SpinnerService,private router: Router) {
 
     }
     intercept(req: HttpRequest<any>, next: HttpHandler) {
 
         let isSecured = true;
-        if(isSecured){
-        this.spinnerService.show();
-        // return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
-        //     if (event instanceof HttpResponse) {
-        //         this.spinnerService.hide();
-        //     }
-        // }, (error) => {
-        //     this.spinnerService.hide();
-        // }));
-        let header = req.headers.get("X-CustomHeader");
-        console.log("Header in auth" + header);
-        if (header == null) {
-            let tokenDetailsJson = localStorage.getItem("token");
-            console.log("Token in auth" + tokenDetailsJson);
-            if (tokenDetailsJson) {
-                const tokenDetails: {
-                    'access_token': string,
-                    'refresh_token': string,
-                    'expires_in': number
-                } = JSON.parse(tokenDetailsJson);
-                const modifiedReq = req.clone({
-                    setHeaders:{
-                        'Authorization': 'Bearer ' + tokenDetails.access_token,
-                        'X-Tenant-ID':'demo22'
+        if (isSecured) {
+            console.log("In inter");
+            
+            this.spinnerService.show();
+            let header = req.headers.get('X-Tenant-ID');
+            console.log("Header in auth" + header);
+            //Check local storage for token
+            if(TokenUtil.isTokenValid()){
+                let tokenDetailsJson = localStorage.getItem("token");
+                console.log("Token in auth" + tokenDetailsJson);
+                if (tokenDetailsJson) {
+                    const tokenDetails: {
+                        'access_token': string,
+                        'refresh_token': string,
+                        'expires_in': number
+                    } = JSON.parse(tokenDetailsJson);
+                    if (tokenDetails.access_token) {
+                        const modifiedReq = req.clone({
+                            setHeaders: {
+                                'Authorization': 'Bearer ' + tokenDetails.access_token
+                            }
+                        });
+                        return next.handle(modifiedReq).pipe(tap((event: HttpEvent<any>) => {
+                            if (event instanceof HttpResponse) {
+                                this.spinnerService.hide();
+                            }
+                        }, (error) => {
+                            this.spinnerService.hide();
+                        }));
                     }
-                });
-                return next.handle(modifiedReq).pipe(tap((event: HttpEvent<any>) => {
-                    if (event instanceof HttpResponse) {
-                        this.spinnerService.hide();
-                    }
-                }, (error) => {
-                    this.spinnerService.hide();
-                }));
-            }
-        } else {
-            console.log("Auth header is not null "+header);
-            const modifiedReq = req.clone({
-                    setHeaders:{
-                        'X-Tenant-ID':'demo22'
-                    }
-                });
-            return next.handle(modifiedReq).pipe(tap((event: HttpEvent<any>) => {
-                if (event instanceof HttpResponse) {
-                    this.spinnerService.hide();
+
                 }
-            }, (error) => {
-                this.spinnerService.hide();
-            }));
+            }else{
+                this.router.navigate['/']; 
+            }
         }
-        }
-    this.spinnerService.hide();
-    const modifiedReq = req.clone({
-                    setHeaders:{
-                        'X-Tenant-ID':'demo22'
-                    }
-                });
-        return next.handle(modifiedReq);
+        this.spinnerService.hide();
+        return next.handle(req);
     }
 }

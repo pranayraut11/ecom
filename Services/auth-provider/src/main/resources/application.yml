@@ -20,3 +20,6 @@ spring:
     virtual:
       enabled: true
 
+orchestrator:
+  enabled: true
+
