@@ -1,0 +1,89 @@
+<div class="container-fluid">sds
+  <div class="row justify-content-center align-items-center min-vh-100 bg-light">
+    <div class="col-11 col-sm-8 col-md-6 col-lg-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center py-3">
+          <h4 class="mb-0">Super Admin Login</h4>
+        </div>
+        <div class="card-body p-4">
+          <form [formGroup]="form" (ngSubmit)="login()" class="needs-validation" novalidate>
+            <!-- Alert for errors -->
+            <div *ngIf="error" class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              {{ error }}
+              <button type="button" class="btn-close" (click)="error = ''"></button>
+            </div>
+
+            <!-- Username field -->
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-person"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  formControlName="username"
+                  placeholder="Enter your username"
+                  [class.is-invalid]="form.get('username')?.invalid && form.get('username')?.touched"
+                  required
+                >
+                <div class="invalid-feedback">
+                  Username is required
+                </div>
+              </div>
+            </div>
+
+            <!-- Password field -->
+            <div class="mb-4">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-lock"></i>
+                </span>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  formControlName="password"
+                  placeholder="Enter your password"
+                  [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+                  required
+                >
+                <div class="invalid-feedback">
+                  Password is required
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit button -->
+            <div class="d-grid">
+              <button 
+                type="submit" 
+                class="btn btn-primary btn-lg"
+                [disabled]="form.invalid || isLoading"
+              >
+                <span 
+                  class="spinner-border spinner-border-sm me-2" 
+                  *ngIf="isLoading"
+                  role="status"
+                >
+                </span>
+                {{ isLoading ? 'Logging in...' : 'Login' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Additional options -->
+      <div class="text-center mt-3">
+        <a href="#" class="text-muted text-decoration-none">
+          <small>Forgot Password?</small>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <!-- Management Section -->
+  <div class="nav-category">Management</div>
+  <div class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="/dashboard">
+      <span class="menu-icon"><i class="bi bi-grid-1x2-fill"></i></span>
+      <span class="menu-text">Dashboard</span>
+    </a>
+  </div>
+  <div class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="/tenants/create">
+      <span class="menu-icon"><i class="bi bi-building"></i></span>
+      <span class="menu-text">Tenants</span>
+    </a>
+  </div>
+  <div class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="/users">
+      <span class="menu-icon"><i class="bi bi-people-fill"></i></span>
+      <span class="menu-text">Users</span>
+    </a>
+  </div>
+
+  <!-- Finance Section -->
+  <div class="nav-category">Finance</div>
+  <div class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="/billing">
+      <span class="menu-icon"><i class="bi bi-credit-card-2-front"></i></span>
+      <span class="menu-text">Billing</span>
+    </a>
+  </div>
+  <div class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="/analytics">
+      <span class="menu-icon"><i class="bi bi-graph-up"></i></span>
+      <span class="menu-text">Analytics</span>
+      <span class="badge bg-primary rounded-pill ms-auto">New</span>
+    </a>
+  </div>
+
+  <!-- Settings Section -->
+  <div class="nav-category">Settings</div>
+  <div class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="/settings">
+      <span class="menu-icon"><i class="bi bi-gear-fill"></i></span>
+      <span class="menu-text">General</span>
+    </a>
+  </div>
+  <div class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="/security">
+      <span class="menu-icon"><i class="bi bi-shield-lock-fill"></i></span>
+      <span class="menu-text">Security</span>
+    </a>
+  </div>
+
+  <!-- Support Section -->
+  <div class="nav-category">Support</div>
+  <div class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="/support">
+      <span class="menu-icon"><i class="bi bi-headset"></i></span>
+      <span class="menu-text">Help Center</span>
+    </a>
+  </div>
+  <div class="nav-item" routerLinkActive="active">
+    <a class="nav-link" href="https://docs.example.com" target="_blank">
+      <span class="menu-icon"><i class="bi bi-book"></i></span>
+      <span class="menu-text">Documentation</span>
+      <i class="bi bi-box-arrow-up-right ms-auto small"></i>
+    </a>
+  </div>
+</div>

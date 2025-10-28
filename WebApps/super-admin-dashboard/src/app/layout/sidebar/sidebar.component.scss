@@ -1,0 +1,234 @@
+// Variables
+$sidebar-width: 280px;
+$sidebar-collapsed-width: 70px;
+$primary-color: #0d6efd;
+$hover-bg: rgba(13, 110, 253, 0.1);
+$active-color: #0b5ed7;
+$text-muted: #6c757d;
+$border-color: rgba(0, 0, 0, 0.1);
+$transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+// Sidebar Container
+.sidebar {
+  width: $sidebar-width;
+  height: calc(100vh - 64px); // Adjust based on header height
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  border-right: 1px solid $border-color;
+  transition: $transition-smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+
+  // Custom Scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  // Collapsed State
+  &.collapsed {
+    width: $sidebar-collapsed-width;
+
+    .menu-text, .menu-arrow {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .nav-item:hover {
+      .menu-text {
+        opacity: 1;
+        visibility: visible;
+        position: absolute;
+        left: 100%;
+        background: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+    }
+  }
+}
+
+// Navigation Items
+.nav-item {
+  margin: 0.25rem 1rem;
+  border-radius: 0.5rem;
+  transition: $transition-smooth;
+
+  &:hover {
+    background: $hover-bg;
+    transform: translateX(5px);
+  }
+
+  &.active {
+    background: $hover-bg;
+    border-left: 3px solid $primary-color;
+
+    .nav-link {
+      color: $active-color;
+      font-weight: 600;
+    }
+
+    .menu-icon {
+      color: $active-color;
+    }
+  }
+}
+
+// Navigation Links
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: $text-muted;
+  transition: $transition-smooth;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+
+  &:hover {
+    color: $primary-color;
+
+    &::before {
+      transform: scaleX(1);
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $primary-color;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+}
+
+// Menu Icons
+.menu-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $text-muted;
+  transition: $transition-smooth;
+
+  i {
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-item:hover & i {
+    transform: scale(1.1);
+  }
+}
+
+// Menu Text
+.menu-text {
+  transition: $transition-smooth;
+  white-space: nowrap;
+}
+
+// Menu Arrow (for dropdowns)
+.menu-arrow {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+  color: $text-muted;
+
+  &.expanded {
+    transform: rotate(90deg);
+  }
+}
+
+// Nested Navigation
+.nested-nav {
+  margin-left: 2.5rem;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+
+  &.expanded {
+    height: auto;
+  }
+
+  .nav-item {
+    margin: 0.25rem 0;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+      background: rgba($hover-bg, 0.5);
+    }
+  }
+}
+
+// Category Headers
+.nav-category {
+  padding: 1rem 1.5rem 0.5rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $text-muted;
+  font-weight: 600;
+}
+
+// Dark Mode Styles
+:host-context(.dark-mode) {
+  .sidebar {
+    background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+    border-right-color: rgba(255, 255, 255, 0.1);
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.1);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
+  .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .nav-category {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .menu-icon {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .nav-item {
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &.active {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

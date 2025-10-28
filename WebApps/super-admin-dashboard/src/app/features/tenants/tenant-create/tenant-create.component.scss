@@ -1,0 +1,163 @@
+
+// Form Styles
+.form-label {
+  font-weight: 500;
+  color: #2c3345;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-color: #e0e0e0;
+  transition: all 0.2s ease;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+    border-color: #0d6efd;
+  }
+
+  &.is-invalid {
+    border-color: #dc3545;
+    background-image: none;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+    }
+  }
+}
+
+// Input Groups
+.input-group {
+  .input-group-text {
+    background-color: #f8f9fa;
+    border-color: #e0e0e0;
+    color: #6c757d;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .form-control {
+    border-left: 0;
+
+    &:focus {
+      border-left: 1px solid #0d6efd;
+      margin-left: -1px;
+    }
+  }
+}
+
+// Section Headers
+h6.text-muted {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+// Buttons
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+
+  &.btn-primary {
+    background: linear-gradient(45deg, #0d6efd, #0099ff);
+    border: none;
+    box-shadow: 0 2px 4px rgba(13, 110, 253, 0.2);
+
+    &:hover {
+      background: linear-gradient(45deg, #0b5ed7, #0077cc);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(13, 110, 253, 0.2);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      background: linear-gradient(45deg, #84b7ff, #99d6ff);
+    }
+  }
+
+  &.btn-light {
+    background: #f8f9fa;
+    border-color: #e0e0e0;
+
+    &:hover {
+      background: #e9ecef;
+    }
+  }
+}
+
+// Invalid Feedback
+.invalid-feedback {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  color: #dc3545;
+}
+
+// Success Alert
+.alert-success {
+  background: linear-gradient(45deg, #198754, #20c997);
+  color: white;
+  border: none;
+  box-shadow: 0 2px 4px rgba(25, 135, 84, 0.2);
+
+  .btn-close {
+    filter: brightness(0) invert(1);
+  }
+}
+
+// Breadcrumb
+.breadcrumb {
+  background: transparent;
+  padding: 0;
+  margin-bottom: 1.5rem;
+
+  .breadcrumb-item {
+    font-size: 0.875rem;
+
+    a {
+      color: #6c757d;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #0d6efd;
+      }
+    }
+
+    &.active {
+      color: #2c3345;
+    }
+  }
+}
+
+// Responsive Adjustments
+@media (max-width: 768px) {
+  .card {
+    border-radius: 0;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .d-flex.justify-content-end {
+    flex-direction: column-reverse;
+  }
+}
+
+// Read-only Input Styling
+input[readonly] {
+  background-color: #f8f9fa !important;
+  cursor: default;
+
+  &:focus {
+    box-shadow: none;
+    border-color: #e0e0e0;
+  }
+}
