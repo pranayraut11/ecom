@@ -141,7 +141,7 @@ public class OrchestrationServiceImpl implements OrchestrationService {
 
     @Override
     public void sendFailureResponse(ExecutionMessage message) {
-        sendFailureResponse(message, "orchestrator.execution.failure");
+        sendFailureResponse(message, "orchestrator.response.result");
     }
 
 
@@ -242,6 +242,7 @@ public class OrchestrationServiceImpl implements OrchestrationService {
             headers.put("topic", topicName);
             headers.put("contentType", "application/json");
             headers.put("X-Service-Name", applicationName);
+            headers.put("action","UNDO");
 
             // Preserve original orchestration context if present
             if (originalMessage.getHeaders().containsKey("orchestrationName")) {

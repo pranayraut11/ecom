@@ -20,7 +20,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +53,7 @@ public class ExecutionHistoryService {
         List<ExecutionSummaryDto> content = executionPage.getContent()
                 .stream()
                 .map(this::convertToExecutionSummary)
-                .collect(Collectors.toList());
+                .toList();
 
         log.info("Retrieved {} executions out of {} total for orchestration: {}",
                 content.size(), executionPage.getTotalElements(), orchName);

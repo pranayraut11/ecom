@@ -1,22 +1,18 @@
 import axios from 'axios';
+import type { Orchestration, PaginatedResponse, PaginationParams, FilterParams } from '@types';
 
 const API_BASE_URL = '/api/orchestrations';
 
-export const fetchOrchestrations = async (params: {
-  page: number;
-  size: number;
-  sortBy: string;
-  direction: string;
-  status?: string;
-  type?: string;
-  orchName?: string;
-  registeredFrom?: string;
-  registeredTo?: string;
-}) => {
+interface FetchOrchestrationsParams extends PaginationParams, FilterParams {}
+
+export const fetchOrchestrations = async (
+  params: FetchOrchestrationsParams
+): Promise<PaginatedResponse<Orchestration>> => {
   try {
-    const response = await axios.get(API_BASE_URL, { params });
+    const response = await axios.get<PaginatedResponse<Orchestration>>(API_BASE_URL, { params });
     return response.data;
-  } catch (error: any) {
-    throw new Error(error.response?.data?.message || 'Failed to fetch orchestrations');
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to fetch orchestrations';
+    throw new Error(message);
   }
 };

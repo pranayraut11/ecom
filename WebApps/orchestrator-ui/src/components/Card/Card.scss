@@ -1,0 +1,50 @@
+@import '../../styles/variables';
+
+.modern-card {
+  @include card;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+
+  .card-header {
+    padding: 1.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba($light, 0.5);
+
+    .card-title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $dark;
+    }
+
+    .card-subtitle {
+      margin: 0.5rem 0 0;
+      font-size: 0.875rem;
+      color: $secondary;
+    }
+  }
+
+  .card-content {
+    padding: 1.25rem;
+  }
+}
+
+// Dark theme styles
+body.dark-theme {
+  .modern-card {
+    background: lighten($dark, 5%);
+
+    .card-header {
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+      background: rgba($dark, 0.5);
+
+      .card-title {
+        color: $light;
+      }
+
+      .card-subtitle {
+        color: darken($light, 20%);
+      }
+    }
+  }
+}

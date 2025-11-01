@@ -48,10 +48,14 @@ public class RealmService implements AdminService {
     @Value("${keycloak.default-admin-email:admin@example.com}")
     private String defaultAdminEmail;
 
-    public boolean createRealmByEvent(ExecutionMessage request) {
-        // TODO: Replace eventId usage with flowId - need to identify correct method name in ExecutionMessage
-        log.info("Creating realm with execution message: {}", request);
-        orchestrationService.sendSuccessResponse(request);
+    public boolean createRealmByEvent(ExecutionMessage executionMessage) {
+        if(executionMessage.getHeaders().get("action").equals("UNDO")) {
+            log.info("Creating realm with execution message: {}", executionMessage);
+            orchestrationService.sendSuccessResponse(executionMessage);
+        }else {
+                log.info("Received event to create realm: {}", executionMessage);
+                orchestrationService.sendFailureResponse(executionMessage);
+        }
         return true;
     }
     /**

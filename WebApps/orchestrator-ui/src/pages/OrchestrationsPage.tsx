@@ -1,181 +1,274 @@
-import React, { useEffect, useState } from 'react';
-import { fetchOrchestrations } from '../api/orchestrationsApi';
-import { Spinner, Alert, Table, Form, Pagination, Button } from 'react-bootstrap';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-interface Orchestration {
-  orchName: string;
-  type: 'Sequential' | 'Simultaneous';
-  status: string;
-  initiatorName?: string;
-  initiator?: string;
-  registeredWorkersCount?: number;
-  totalWorkersExpected?: number;
-  lastUpdated?: string;
-}
+import { Button, Form } from 'react-bootstrap';
+import { usePagination, useDebounce } from '@hooks';
+import type { Orchestration } from '@types';
+import {
+  PageHeader,
+  FilterPanel,
+  DataTable,
+  LoadingSpinner,
+  ErrorAlert,
+  StatusBadge,
+  PaginationControls,
+  SearchBar,
+} from '@components';
+import { formatDate } from '@utils';
+import { fetchOrchestrations } from '@api/orchestrationsApi';
 
 const OrchestrationsPage: React.FC = () => {
-  const [data, setData] = useState<Orchestration[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [page, setPage] = useState(0);
-  const [size, setSize] = useState(10);
-  const [sortBy, setSortBy] = useState('orchName');
-  const [direction, setDirection] = useState('asc');
-  const [filters, setFilters] = useState({
+  const navigate = useNavigate();
+  const [data, setData] = React.useState<Orchestration[]>([]);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+  const [sortBy, setSortBy] = React.useState('orchName');
+  const [direction, setDirection] = React.useState<'asc' | 'desc'>('asc');
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const [filters, setFilters] = React.useState({
     status: '',
     type: '',
-    orchName: '',
     registeredFrom: '',
     registeredTo: '',
   });
-  const [totalPages, setTotalPages] = useState(0);
-  const [totalElements, setTotalElements] = useState(0);
-  const navigate = useNavigate();
+
+  const { pagination, setPage, setSize, setTotalPages, setTotalElements } = usePagination(0, 10);
+  const debouncedSearch = useDebounce(searchTerm, 300);
 
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
       setError(null);
       try {
-        const orchestrations = await fetchOrchestrations({
-          page,
-          size,
+        const response = await fetchOrchestrations({
+          page: pagination.page,
+          size: pagination.size,
           sortBy,
           direction,
+          orchName: debouncedSearch,
           ...filters,
         });
-        console.log('API Response:', orchestrations);
-        setData(Array.isArray(orchestrations.content) ? orchestrations.content : []);
-        setTotalPages(orchestrations.totalPages || 0);
-        setTotalElements(orchestrations.totalElements || 0);
-      } catch (err: any) {
-        setError(err.message);
+        setData(response.content || []);
+        setTotalPages(response.totalPages || 0);
+        setTotalElements(response.totalElements || 0);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load orchestrations');
+        setData([]);
       } finally {
         setLoading(false);
       }
     };
     loadData();
-  }, [page, size, sortBy, direction, filters]);
+  }, [pagination.page, pagination.size, sortBy, direction, debouncedSearch, filters]);
 
-  const handleFilterChange = (e: React.ChangeEvent<any>) => {
-    const { name, value } = e.target;
+  const handleFilterChange = (name: string, value: string) => {
     setFilters((prev) => ({ ...prev, [name]: value }));
+    setPage(0);
+  };
+
+  const handleClearFilters = () => {
+    setFilters({
+      status: '',
+      type: '',
+      registeredFrom: '',
+      registeredTo: '',
+    });
+    setSearchTerm('');
   };
 
   const handleSort = (key: string) => {
-    setSortBy(key);
-    setDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+    if (sortBy === key) {
+      setDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortBy(key);
+      setDirection('asc');
+    }
   };
 
-  return (
-    <div className="container mt-4">
-      <h1>Orchestrations</h1>
-      {loading && <Spinner animation="border" />}
-      {error && <Alert variant="danger">{error}</Alert>}
-      <Form className="mb-3">
-        <Form.Group controlId="filterOrchName">
-          <Form.Label>Orchestration Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="orchName"
-            value={filters.orchName}
-            onChange={handleFilterChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="filterType" className="mt-3">
-          <Form.Label>Type</Form.Label>
-          <Form.Select name="type" value={filters.type} onChange={handleFilterChange}>
-            <option value="">All</option>
-            <option value="Sequential">Sequential</option>
-            <option value="Simultaneous">Simultaneous</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group controlId="filterStatus" className="mt-3">
-          <Form.Label>Status</Form.Label>
-          <Form.Select name="status" value={filters.status} onChange={handleFilterChange}>
-            <option value="">All</option>
-            <option value="Success">Success</option>
-            <option value="Partial">Partial</option>
-            <option value="Failed">Failed</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group controlId="filterRegisteredFrom" className="mt-3">
-          <Form.Label>Registered From</Form.Label>
-          <Form.Control
-            type="date"
-            name="registeredFrom"
-            value={filters.registeredFrom}
-            onChange={handleFilterChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="filterRegisteredTo" className="mt-3">
-          <Form.Label>Registered To</Form.Label>
-          <Form.Control
-            type="date"
-            name="registeredTo"
-            value={filters.registeredTo}
-            onChange={handleFilterChange}
-          />
-        </Form.Group>
-      </Form>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th onClick={() => handleSort('orchName')}>Name</th>
-            <th>Type</th>
-            <th>Initiator</th>
-            <th>Registered Workers</th>
-            <th>Total Workers</th>
-            <th>Last Updated</th>
-            <th onClick={() => handleSort('status')}>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
-              <td>{item.orchName}</td>
-              <td>{item.type}</td>
-              <td>{item.initiatorName || item.initiator}</td>
-              <td>{item.registeredWorkersCount}</td>
-              <td>{item.totalWorkersExpected}</td>
-              <td>{item.lastUpdated ? new Date(item.lastUpdated).toLocaleString() : '-'}</td>
-              <td>{item.status}</td>
-              <td>
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => navigate(`/orchestrations/${item.orchName}`)}
-                  className="me-2"
-                >
-                  Details
-                </Button>
-                <Button
-                  variant="info"
-                  size="sm"
-                  onClick={() => navigate(`/orchestrations/${item.orchName}/executions`)}
-                >
-                  View Executions
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-      <Pagination>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <Pagination.Item
-            key={i}
-            active={i === page}
-            onClick={() => setPage(i)}
+  const columns = [
+    {
+      key: 'orchName',
+      label: 'Orchestration Name',
+      sortable: true,
+      render: (item: Orchestration) => (
+        <span className="fw-semibold text-primary">{item.orchName}</span>
+      ),
+    },
+    {
+      key: 'type',
+      label: 'Type',
+      render: (item: Orchestration) => (
+        <span className="badge bg-secondary">{item.type}</span>
+      ),
+    },
+    {
+      key: 'initiator',
+      label: 'Initiator',
+      render: (item: Orchestration) => item.initiatorName || item.initiator || '-',
+    },
+    {
+      key: 'workers',
+      label: 'Workers',
+      render: (item: Orchestration) => (
+        <span>
+          {item.registeredWorkersCount || 0} / {item.totalWorkersExpected || 0}
+        </span>
+      ),
+    },
+    {
+      key: 'lastUpdated',
+      label: 'Last Updated',
+      sortable: true,
+      render: (item: Orchestration) => formatDate(item.lastUpdated),
+    },
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: true,
+      render: (item: Orchestration) => <StatusBadge status={item.status} showIcon />,
+    },
+    {
+      key: 'actions',
+      label: 'Actions',
+      render: (item: Orchestration) => (
+        <div className="d-flex gap-2">
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/orchestrations/${item.orchName}`);
+            }}
           >
-            {i + 1}
-          </Pagination.Item>
-        ))}
-      </Pagination>
+            <i className="bi bi-eye me-1"></i>
+            Details
+          </Button>
+          <Button
+            variant="outline-primary"
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/executions?orchName=${encodeURIComponent(item.orchName)}`);
+            }}
+          >
+            <i className="bi bi-list-check me-1"></i>
+            Executions
+          </Button>
+        </div>
+      ),
+    },
+  ];
+
+  const filterConfigs = [
+    {
+      name: 'type',
+      label: 'Type',
+      type: 'select' as const,
+      options: [
+        { value: 'Sequential', label: 'Sequential' },
+        { value: 'Simultaneous', label: 'Simultaneous' },
+      ],
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'select' as const,
+      options: [
+        { value: 'ACTIVE', label: 'Active' },
+        { value: 'INACTIVE', label: 'Inactive' },
+        { value: 'PENDING', label: 'Pending' },
+        { value: 'FAILED', label: 'Failed' },
+      ],
+    },
+    {
+      name: 'registeredFrom',
+      label: 'Registered From',
+      type: 'date' as const,
+    },
+    {
+      name: 'registeredTo',
+      label: 'Registered To',
+      type: 'date' as const,
+    },
+  ];
+
+  return (
+    <div className="container-fluid py-4">
+      <PageHeader
+        title="Orchestrations"
+        subtitle={`Manage and monitor your orchestration workflows (${pagination.totalElements} total)`}
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Orchestrations' },
+        ]}
+      />
+
+      <div className="mb-3">
+        <SearchBar
+          value={searchTerm}
+          onChange={setSearchTerm}
+          placeholder="Search orchestrations by name..."
+        />
+      </div>
+
+      <FilterPanel
+        filters={filters}
+        filterConfigs={filterConfigs}
+        onFilterChange={handleFilterChange}
+        onClearFilters={handleClearFilters}
+        collapsible
+      />
+
+      {error && <ErrorAlert error={error} />}
+
+      {loading ? (
+        <LoadingSpinner fullPage message="Loading orchestrations..." />
+      ) : (
+        <>
+          <DataTable
+            data={data}
+            columns={columns}
+            onSort={handleSort}
+            sortBy={sortBy}
+            sortDirection={direction}
+            onRowClick={(item) => navigate(`/orchestrations/${item.orchName}`)}
+            emptyMessage="No orchestrations found. Try adjusting your filters."
+          />
+
+          {pagination.totalPages > 1 && (
+            <div className="d-flex justify-content-between align-items-center mt-4">
+              <div className="d-flex align-items-center gap-2">
+                <span className="text-muted small">Rows per page:</span>
+                <Form.Select
+                  size="sm"
+                  value={pagination.size}
+                  onChange={(e) => setSize(Number(e.target.value))}
+                  style={{ width: 'auto' }}
+                >
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </Form.Select>
+              </div>
+
+              <PaginationControls
+                currentPage={pagination.page}
+                totalPages={pagination.totalPages}
+                onPageChange={setPage}
+              />
+
+              <div className="text-muted small">
+                Showing {pagination.page * pagination.size + 1} to{' '}
+                {Math.min((pagination.page + 1) * pagination.size, pagination.totalElements)} of{' '}
+                {pagination.totalElements} results
+              </div>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };
 
 export default OrchestrationsPage;
+

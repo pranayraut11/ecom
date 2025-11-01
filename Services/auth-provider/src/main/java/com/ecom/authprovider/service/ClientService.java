@@ -18,8 +18,13 @@ public class ClientService {
     private final OrchestrationService orchestrationService;
 
     public void createClientByEvent(ExecutionMessage executionMessage){
-        log.info("Received event to create client: {}", executionMessage);
-        orchestrationService.sendSuccessResponse(executionMessage);
+        if(executionMessage.getHeaders().get("action").equals("UNDO")){
+            log.info("Received event to create client: {}", executionMessage);
+            orchestrationService.sendFailureResponse(executionMessage);
+        }else {
+             log.info("Received event to create client: {}", executionMessage);
+             orchestrationService.sendSuccessResponse(executionMessage);
+        }
     }
     /**
      * Creates a new client in the specified realm.

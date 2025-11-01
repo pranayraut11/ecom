@@ -1,24 +1,24 @@
 import axios from 'axios';
+import type { Execution, PaginatedResponse, PaginationParams } from '@types';
 
-interface ExecutionParams {
-  page: number;
-  size: number;
-  sortBy: string;
-  direction: string;
+interface ExecutionParams extends PaginationParams {
   status?: string;
   fromDate?: string;
   toDate?: string;
 }
 
-export const fetchExecutions = async (orchName: string, params: ExecutionParams) => {
+export const fetchExecutions = async (
+  orchName: string,
+  params: ExecutionParams
+): Promise<PaginatedResponse<Execution>> => {
   try {
-    const response = await axios.get(`/api/orchestrations/${orchName}/executions`, {
-      params: {
-        ...params,
-      },
-    });
+    const response = await axios.get<PaginatedResponse<Execution>>(
+      `/api/orchestrations/${orchName}/executions`,
+      { params }
+    );
     return response.data;
-  } catch (error: any) {
-    throw new Error(error.response?.data?.message || 'Failed to fetch executions');
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to fetch executions';
+    throw new Error(message);
   }
 };

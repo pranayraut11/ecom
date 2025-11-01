@@ -54,7 +54,7 @@ class UndoServiceTest {
         when(serializer.serialize(any())).thenReturn(new byte[0]);
 
         // When
-        undoService.undoOrchestration("test-flow-id");
+        undoService.undoOrchestration("test-flow-id",null);
 
         // Then
         verify(orchestrationRunRepository).save(any(OrchestrationRun.class));
@@ -71,7 +71,7 @@ class UndoServiceTest {
                 .thenReturn(Optional.of(createMockOrchestrationRun()));
 
         // When
-        undoService.handleUndoResponse("test-flow-id", "createRealm", true, null);
+        undoService.handleUndoResponse("test-flow-id", "createRealm", true, null,null);
 
         // Then
         verify(stepRunRepository).save(any(OrchestrationStepRun.class));

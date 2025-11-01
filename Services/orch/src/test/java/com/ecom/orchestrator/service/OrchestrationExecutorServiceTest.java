@@ -144,7 +144,7 @@ class OrchestrationExecutorServiceTest {
         executorService.handleStepResponse("test-flow-id", "createRealm", false, "Error occurred",null);
 
         // Then
-        verify(undoService).undoOrchestration("test-flow-id");
+        verify(undoService).undoOrchestration("test-flow-id",null);
     }
 
     private OrchestrationTemplate createMockTemplate(OrchestrationTypeEnum type) {

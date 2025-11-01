@@ -25,6 +25,10 @@ public interface WorkerRegistrationRepository extends JpaRepository<WorkerRegist
     // Count registered workers for an orchestration
     int countByOrchName(String orchName);
 
+    // Count distinct registered steps for an orchestration (optimization for N+1 query)
+    @Query("SELECT COUNT(DISTINCT wr.stepName) FROM WorkerRegistration wr WHERE wr.orchName = :orchName")
+    long countDistinctStepsByOrchName(@Param("orchName") String orchName);
+
     // New methods for deletion
     List<WorkerRegistration> findByOrchNameAndWorkerService(String orchName, String workerService);
 

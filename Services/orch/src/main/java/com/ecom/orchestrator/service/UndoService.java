@@ -41,7 +41,7 @@ public class UndoService {
     }
 
     @Transactional
-    public void undoOrchestration(String flowId) {
+    public void undoOrchestration(String flowId,ExecutionMessage executionMessage) {
         log.info("Starting undo for orchestration: flowId: {}", flowId);
 
         Optional<OrchestrationRun> runOpt = orchestrationRunRepository.findByFlowIdWithSteps(flowId);
@@ -70,11 +70,11 @@ public class UndoService {
 
         // Send undo events for all completed steps
         for (OrchestrationStepRun stepRun : completedSteps) {
-            sendUndoEvent(orchestrationRun, stepRun);
+            sendUndoEvent(orchestrationRun, stepRun,executionMessage);
         }
     }
 
-    public void sendUndoEvent(OrchestrationRun orchestrationRun, OrchestrationStepRun stepRun) {
+    public void sendUndoEvent(OrchestrationRun orchestrationRun, OrchestrationStepRun stepRun,ExecutionMessage executionMessage) {
         try {
             // Get step template for topic name
             Optional<OrchestrationStepTemplate> stepTemplateOpt = stepTemplateRepository
@@ -99,40 +99,7 @@ public class UndoService {
             }
 
             WorkerRegistration worker = workerOpt.get();
-
-            // Create metadata
-            Map<String, Object> metadata = Map.of(
-                    "initiator", stepTemplate.getTemplate().getInitiatorService(),
-                    "worker", worker.getWorkerService(),
-                    "timestamp", LocalDateTime.now().toString(),
-                    "originalCompletedAt", stepRun.getCompletedAt().toString()
-            );
-
-            // Create undo event
-            OrchestrationEventDto undoEvent = OrchestrationEventDto.builder()
-                    .flowId(orchestrationRun.getFlowId())
-                    .orchName(orchestrationRun.getOrchName())
-                    .stepName(stepRun.getStepName())
-                    .action("UNDO")
-                    .payload(new byte[0]) // Empty payload for undo
-                    .metadata(metadata)
-                    .build();
-
-            // Serialize and create Message object with headers
-
-            HashMap<String, Object> headers = new HashMap<>();
-            headers.put("flowId", orchestrationRun.getFlowId());
-            headers.put("orchName", orchestrationRun.getOrchName());
-            headers.put("stepName", stepRun.getStepName());
-            headers.put("action", "UNDO");
-            headers.put("initiator", stepTemplate.getTemplate().getInitiatorService());
-            headers.put("worker", worker.getWorkerService());
-            headers.put("timestamp", LocalDateTime.now().toString());
-            headers.put("originalCompletedAt", stepRun.getCompletedAt().toString());
-
-            ExecutionMessage undoMessage = new ExecutionMessage(undoEvent, headers);
-
-            messagePublisher.send(stepTemplate.getTopicName(), undoMessage);
+            messagePublisher.send(stepTemplate.getTopicName(), executionMessage);
 
             log.info("Sent undo event for step: {} flowId: {}", stepRun.getStepName(), orchestrationRun.getFlowId());
 
@@ -143,7 +110,7 @@ public class UndoService {
     }
 
     @Transactional
-    public void handleUndoResponse(String flowId, String stepName, boolean success, String errorMessage) {
+    public void handleUndoResponse(String flowId, String stepName, boolean success, String errorMessage,ExecutionMessage executionMessage) {
         log.info("Handling undo response: flowId: {} step: {} success: {}", flowId, stepName, success);
 
         Optional<OrchestrationStepRun> stepRunOpt = stepRunRepository
@@ -159,11 +126,12 @@ public class UndoService {
         if (success) {
             // Mark step as undone
             stepRun.setUndoneAt(LocalDateTime.now());
+            stepRun.setStatus(ExecutionStatusEnum.UNDONE);
             stepRunRepository.save(stepRun);
 
             log.info("Step successfully undone: flowId: {} step: {}", flowId, stepName);
 
-            triggerUndoForRemainingSteps(flowId, stepName);
+            triggerUndoForRemainingSteps(flowId, stepName,executionMessage);
             // Check if all completed steps have been undone
             checkUndoCompletion(flowId);
         } else {
@@ -205,13 +173,8 @@ public class UndoService {
         }
     }
 
-    @Transactional
-    public void manualUndo(String flowId) {
-        log.info("Manual undo triggered for flowId: {}", flowId);
-        undoOrchestration(flowId);
-    }
 
-    public void triggerUndoForRemainingSteps(String flowId, String completedStepName) {
+    public void triggerUndoForRemainingSteps(String flowId, String completedStepName,ExecutionMessage executionMessage) {
         log.info("Triggering undo for remaining steps after successful undo of step: {} flowId: {}", completedStepName, flowId);
 
         Optional<OrchestrationRun> runOpt = orchestrationRunRepository.findByFlowIdWithSteps(flowId);
@@ -255,7 +218,7 @@ public class UndoService {
                     .max(Comparator.comparing(OrchestrationStepRun::getSeq));
 
             if (nextStepToUndo.isPresent()) {
-                sendUndoEvent(orchestrationRun, nextStepToUndo.get());
+                sendUndoEvent(orchestrationRun, nextStepToUndo.get(),executionMessage);
                 log.info("Sequential: Triggered undo for next step: {} after step: {} flowId: {}",
                         nextStepToUndo.get().getStepName(), completedStepName, flowId);
             } else {
@@ -271,7 +234,7 @@ public class UndoService {
                     .collect(Collectors.toList());
 
             for (OrchestrationStepRun stepRun : remainingSteps) {
-                sendUndoEvent(orchestrationRun, stepRun);
+                sendUndoEvent(orchestrationRun, stepRun,executionMessage);
             }
 
             log.info("Simultaneous: Triggered undo for {} remaining steps after step: {} flowId: {}",

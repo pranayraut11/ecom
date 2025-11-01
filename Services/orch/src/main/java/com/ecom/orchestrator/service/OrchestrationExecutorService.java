@@ -140,7 +140,7 @@ public class OrchestrationExecutorService {
                 .findByOrchNameAndStepName(stepTemplate.getTemplate().getOrchName(), stepTemplate.getStepName());
 
         if (workerOpt.isEmpty()) {
-            handleStepFailure(flowId, stepTemplate.getStepName(), "No worker registered for step");
+            handleStepFailure(flowId, stepTemplate.getStepName(), "No worker registered for step",message);
             return;
         }
 
@@ -157,7 +157,7 @@ public class OrchestrationExecutorService {
         } catch (Exception e) {
             log.error("Failed to send execution event for step: {} flowId: {}",
                     stepTemplate.getStepName(), flowId, e);
-            handleStepFailure(flowId, stepTemplate.getStepName(), "Failed to send execution event: " + e.getMessage());
+            handleStepFailure(flowId, stepTemplate.getStepName(), "Failed to send execution event: " + e.getMessage(),message);
         }
     }
 
@@ -176,7 +176,7 @@ public class OrchestrationExecutorService {
         if (success) {
             handleStepSuccess(orchestrationRun, stepName,message);
         } else {
-            handleStepFailure(flowId, stepName, errorMessage);
+            handleStepFailure(flowId, stepName, errorMessage,message);
         }
     }
 
@@ -240,7 +240,7 @@ public class OrchestrationExecutorService {
         }
     }
 
-    private void handleStepFailure(String flowId, String stepName, String errorMessage) {
+    private void handleStepFailure(String flowId, String stepName, String errorMessage,ExecutionMessage executionMessage) {
         log.error("Step failed: flowId: {} step: {} error: {}", flowId, stepName, errorMessage);
 
         // Update step run status
@@ -250,7 +250,7 @@ public class OrchestrationExecutorService {
         updateOrchestrationRunStatus(flowId, ExecutionStatusEnum.FAILED);
 
         // Trigger undo for completed steps
-        undoService.undoOrchestration(flowId);
+        undoService.undoOrchestration(flowId,executionMessage);
     }
 
     private void completeOrchestration(String flowId) {

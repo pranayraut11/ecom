@@ -1,19 +1,17 @@
 package com.ecom.orchestrator.service;
 
 import com.ecom.orchestrator.dto.ExecutionMessage;
-import com.ecom.orchestrator.dto.OrchestrationEventDto;
 import com.ecom.orchestrator.dto.OrchestrationRegistrationDto;
 import com.ecom.orchestrator.messaging.interfaces.MessageHandler;
+import com.ecom.orchestrator.util.MessageHeaderUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -231,15 +229,20 @@ public class OrchestrationMessageHandler implements MessageHandler {
 
     private void handleStepResponseMessage(ExecutionMessage message) {
         try {
-            String flowId = message.getHeaders().get("flowId").toString();
-            String stepName = message.getHeaders().get("stepName").toString();
-            boolean success = determineSuccessFromEvent(message);
-            String errorMessage = extractErrorMessage(message);
+            if (Objects.nonNull(message.getHeaders())) {
+                Map<String, Object> headers = message.getHeaders();
 
-            if ("UNDO".equals(message.getHeaders().get("action"))) {
-                undoService.handleUndoResponse(flowId, stepName, success, errorMessage);
-            } else {
-                executorService.handleStepResponse(flowId, stepName, success, errorMessage,message);
+                String flowId = MessageHeaderUtils.getString(headers, "flowId");
+                String stepName = MessageHeaderUtils.getString(headers, "stepName");
+                boolean success = determineSuccessFromEvent(message);
+                String errorMessage = extractErrorMessage(message);
+                String action = MessageHeaderUtils.getString(headers, "action");
+
+                if ("UNDO".equalsIgnoreCase(action)) {
+                    undoService.handleUndoResponse(flowId, stepName, success, errorMessage, message);
+                } else {
+                    executorService.handleStepResponse(flowId, stepName, success, errorMessage, message);
+                }
             }
         } catch (Exception e) {
             log.error("Error handling step response message", e);
@@ -247,16 +250,18 @@ public class OrchestrationMessageHandler implements MessageHandler {
     }
 
     private String extractServiceName(ExecutionMessage message, OrchestrationRegistrationDto registration) {
+        Map<String, Object> headers = message.getHeaders();
+
         // Try to get service name from message headers first
-        Object serviceNameHeader = message.getHeaders().get("serviceName");
-        if (serviceNameHeader != null) {
-            return serviceNameHeader.toString();
+        String serviceName = MessageHeaderUtils.getString(headers, "serviceName");
+        if (!serviceName.isEmpty()) {
+            return serviceName;
         }
 
         // Try X-Service-Name header (like the controller does)
-        Object xServiceNameHeader = message.getHeaders().get("X-Service-Name");
-        if (xServiceNameHeader != null) {
-            return xServiceNameHeader.toString();
+        String xServiceName = MessageHeaderUtils.getString(headers, "X-Service-Name");
+        if (!xServiceName.isEmpty()) {
+            return xServiceName;
         }
 
         // Fallback to orchestration name + "-service" (same logic as controller)
@@ -266,24 +271,21 @@ public class OrchestrationMessageHandler implements MessageHandler {
     }
 
     private boolean determineSuccessFromEvent(ExecutionMessage message) {
+        Map<String, Object> headers = message.getHeaders();
+
         // Check headers for success indicator
-        Object successHeader = message.getHeaders().get("status");
-        if (successHeader instanceof Boolean isSuccess) {
-            return isSuccess;
+        if (MessageHeaderUtils.hasValue(headers, "status")) {
+            return MessageHeaderUtils.getBoolean(headers, "status", false);
         }
-        if (successHeader instanceof String isSuccessStr) {
-            return Boolean.parseBoolean(isSuccessStr);
-        }
+
         // Default logic based on event content
         return false;
     }
 
     private String extractErrorMessage(ExecutionMessage message) {
+        Map<String, Object> headers = message.getHeaders();
+
         // Check headers for error message
-        Object errorHeader = message.getHeaders().get("errorMessage");
-        if (errorHeader != null) {
-            return errorHeader.toString();
-        }
-        return null;
+        return MessageHeaderUtils.getString(headers, "errorMessage", null);
     }
 }
