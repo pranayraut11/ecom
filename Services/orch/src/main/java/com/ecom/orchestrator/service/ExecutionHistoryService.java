@@ -142,6 +142,11 @@ public class ExecutionHistoryService {
             case PENDING -> "IN_PROGRESS"; // Map PENDING to IN_PROGRESS for API consistency
             case UNDOING -> "IN_PROGRESS"; // Map UNDOING to IN_PROGRESS for API consistency
             case NOT_REGISTERED -> "NOT_REGISTERED";
+            case DO_SUCCESS -> "SUCCESS";
+            case DO_FAIL -> "FAILED";
+            case UNDO_SUCCESS -> "ROLLED_BACK";
+            case UNDO_FAIL -> "FAILED";
+            case RETRY_EXHAUSTED -> "FAILED";
         };
     }
 

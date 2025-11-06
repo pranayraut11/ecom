@@ -57,6 +57,7 @@ public class OrchestrationDetailsService {
                 .type(template.getType().name())
                 .status(mapStatusToApi(template.getStatus()))
                 .initiator(template.getInitiatorService())
+                .createdAt(template.getCreatedAt())
                 .steps(stepDetails)
                 .build();
     }

@@ -16,15 +16,14 @@ import {
 import { usePagination, useDebounce } from '@hooks';
 import { fetchExecutions } from '@api';
 import type { Execution } from '@types';
-import { formatDate } from '@utils';
+import { formatDate, formatDuration } from '@utils';
+import dayjs from 'dayjs';
 
 interface ExecutionWithDetails extends Execution {
   executionId?: string;
   initiator?: string;
   executedSteps?: number;
   failedSteps?: number;
-  startTime?: string;
-  endTime?: string;
 }
 
 const Executions: React.FC = () => {
@@ -65,7 +64,7 @@ const Executions: React.FC = () => {
         const params = {
           page: currentPage,
           size: pageSize,
-          sortBy: 'startTime',
+          sortBy: 'startedAt',
           direction: 'desc' as const,
           status: filters.status,
           fromDate: filters.fromDate,
@@ -151,6 +150,7 @@ const Executions: React.FC = () => {
         { value: 'RUNNING', label: 'Running' },
         { value: 'SUCCESS', label: 'Success' },
         { value: 'FAILED', label: 'Failed' },
+        { value: 'ROLLED_BACK', label: 'Rolled Back' },
         { value: 'CANCELLED', label: 'Cancelled' },
       ],
     },
@@ -200,21 +200,43 @@ const Executions: React.FC = () => {
       render: (item: ExecutionWithDetails) => item.initiator || '-',
     },
     {
-      key: 'startTime',
+      key: 'startedAt',
       label: 'Started At',
       sortable: true,
       render: (item: ExecutionWithDetails) => {
-        const startTime = item.startTime || item.startedAt;
+        const startTime = item.startedAt;
         return startTime ? formatDate(startTime) : '-';
       },
     },
     {
-      key: 'endTime',
+      key: 'completedAt',
       label: 'Completed At',
       sortable: true,
       render: (item: ExecutionWithDetails) => {
-        const endTime = item.endTime || item.completedAt;
+        const endTime = item.completedAt;
         return endTime ? formatDate(endTime) : <span className="text-muted">Running...</span>;
+      },
+    },
+    {
+      key: 'duration',
+      label: 'Duration',
+      sortable: true,
+      render: (item: ExecutionWithDetails) => {
+        // If duration is provided in the API response, use it
+        if (item.duration) {
+          return formatDuration(item.duration);
+        }
+        // Otherwise calculate from startedAt and completedAt
+        if (item.startedAt && item.completedAt) {
+          const durationMs = dayjs(item.completedAt).diff(dayjs(item.startedAt));
+          return formatDuration(durationMs);
+        }
+        // If still running, calculate from startedAt to now
+        if (item.startedAt && !item.completedAt) {
+          const durationMs = dayjs().diff(dayjs(item.startedAt));
+          return <span className="text-muted">{formatDuration(durationMs)} (running)</span>;
+        }
+        return '-';
       },
     },
     {

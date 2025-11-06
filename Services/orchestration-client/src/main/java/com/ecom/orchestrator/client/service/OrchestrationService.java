@@ -42,13 +42,13 @@ public interface OrchestrationService {
      * @param message The execution message containing response data
      * @param topicName The topic name to send the response to
      */
-    void sendSuccessResponse(ExecutionMessage message,String topicName);
+    void doNext(ExecutionMessage message,String topicName);
 
     /**
      * Sends response message to default topic
      * @param message The execution message containing response data
      */
-    void sendSuccessResponse(ExecutionMessage message);
+    void doNext(ExecutionMessage message);
 
 
     /**
@@ -56,10 +56,24 @@ public interface OrchestrationService {
      * @param message The execution message containing failure data
      * @param topicName The topic name to send the failure response to
      */
-    void sendFailureResponse(ExecutionMessage message,String topicName);
+    void undoNext(ExecutionMessage message,String topicName);
     /**
      * Sends failure response message to default topic
      * @param message The execution message containing failure data
      */
-    void sendFailureResponse(ExecutionMessage message);
+    void undoNext(ExecutionMessage message);
+
+    /**
+     * Send failure response for the given orchestration step
+     * @param message The execution message containing failure data
+     */
+    void failStep(ExecutionMessage message);
+
+    /**
+     * Send failure response for the given orchestration step to specified topic
+     * @param message The execution message containing failure data
+     * @param topicName The topic name to send the failure response to
+     */
+    void failStep(ExecutionMessage message, String topicName);
+
 }

@@ -7,5 +7,10 @@ public enum ExecutionStatusEnum {
     FAILED,
     UNDOING,
     UNDONE,
-    NOT_REGISTERED;
+    NOT_REGISTERED,
+    DO_SUCCESS,
+    DO_FAIL,
+    UNDO_SUCCESS,
+    UNDO_FAIL,
+    RETRY_EXHAUSTED
 }

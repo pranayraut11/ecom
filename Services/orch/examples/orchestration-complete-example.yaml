@@ -1,0 +1,131 @@
+# Complete Orchestration Configuration Example
+# This file shows how to configure orchestrations with DO and UNDO methods
+
+orchestrations:
+  # Example 1: Sequential Orchestration for Tenant Creation
+  - orchestrationName: tenantCreation
+    as: initiator  # This service is the initiator
+    type: sequential  # Steps execute one after another
+    steps:
+      - seq: 1
+        name: createRealm
+        objectType: String
+        doMethod: createRealm      # Method name for DO operation
+        undoMethod: deleteRealm    # Method name for UNDO operation
+
+      - seq: 2
+        name: createClient
+        objectType: String
+        doMethod: createClient     # Method name for DO operation
+        undoMethod: deleteClient   # Method name for UNDO operation
+
+  # Example 2: Parallel Orchestration for User Setup
+  - orchestrationName: userSetup
+    as: initiator
+    type: parallel  # All steps execute simultaneously
+    steps:
+      - seq: 1
+        name: createUserProfile
+        objectType: UserDto
+        doMethod: createProfile
+        undoMethod: deleteProfile
+
+      - seq: 2
+        name: assignRoles
+        objectType: RoleDto
+        doMethod: assignUserRoles
+        undoMethod: removeUserRoles
+
+      - seq: 3
+        name: sendWelcomeEmail
+        objectType: EmailDto
+        doMethod: sendEmail
+        undoMethod: logEmailCancellation
+
+---
+
+# Worker Service Configuration Example
+orchestrations:
+  # Worker registration for tenant creation - Realm Service
+  - orchestrationName: tenantCreation
+    as: worker  # This service is a worker
+    steps:
+      - name: createRealm
+        objectType: String
+        handlerClass: realmService
+        handlerMethod: createRealmByEvent      # Handler for DO operation
+        undoHandlerMethod: deleteRealmByEvent  # Handler for UNDO operation
+
+  # Worker registration for tenant creation - Client Service
+  - orchestrationName: tenantCreation
+    as: worker
+    steps:
+      - name: createClient
+        objectType: String
+        handlerClass: clientService
+        handlerMethod: createClientByEvent     # Handler for DO operation
+        undoHandlerMethod: deleteClientByEvent # Handler for UNDO operation
+
+  # Worker registration for user setup - User Profile Service
+  - orchestrationName: userSetup
+    as: worker
+    steps:
+      - name: createUserProfile
+        objectType: UserDto
+        handlerClass: userProfileService
+        handlerMethod: createProfileHandler
+        undoHandlerMethod: deleteProfileHandler
+
+      - name: assignRoles
+        objectType: RoleDto
+        handlerClass: roleService
+        handlerMethod: assignRolesHandler
+        undoHandlerMethod: removeRolesHandler
+
+  # Worker registration for user setup - Notification Service
+  - orchestrationName: userSetup
+    as: worker
+    steps:
+      - name: sendWelcomeEmail
+        objectType: EmailDto
+        handlerClass: emailService
+        handlerMethod: sendEmailHandler
+        undoHandlerMethod: logCancellationHandler
+
+---
+
+# Multiple Orchestrations in One Service (Advanced Example)
+orchestrations:
+  # Service can be initiator for one orchestration
+  - orchestrationName: orderProcessing
+    as: initiator
+    type: sequential
+    steps:
+      - seq: 1
+        name: validateInventory
+        objectType: OrderDto
+        doMethod: validateStock
+        undoMethod: releaseStock
+
+      - seq: 2
+        name: processPayment
+        objectType: PaymentDto
+        doMethod: chargePayment
+        undoMethod: refundPayment
+
+      - seq: 3
+        name: createShipment
+        objectType: ShipmentDto
+        doMethod: scheduleShipment
+        undoMethod: cancelShipment
+
+  # And worker for another orchestration
+  - orchestrationName: tenantCreation
+    as: worker
+    steps:
+      - name: createRealm
+        objectType: String
+        handlerClass: realmService
+        handlerMethod: createRealmByEvent
+        undoHandlerMethod: deleteRealmByEvent
+

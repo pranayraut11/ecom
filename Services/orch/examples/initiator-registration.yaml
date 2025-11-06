@@ -1,15 +1,69 @@
-# Example Initiator Registration YAML
-orchName: tenantCreation
+# ============================================================================
+# Initiator Registration Example for DO/UNDO Orchestration System
+# ============================================================================
+# This registration is sent by the service that OWNS the orchestration flow
+# The orchestrator will automatically create DO and UNDO topics for each step
+# ============================================================================
+
+# Orchestration identifier (must be unique)
+orchestrationName: tenantCreation
+
+# Role: "initiator" indicates this service owns the orchestration
 as: initiator
+
+# Execution type: "sequential" | "parallel"
+# - sequential: Steps execute one after another (1 -> 2 -> 3)
+# - parallel: All steps execute simultaneously
 type: sequential
+
+# Steps definition
+# For each step, the system automatically creates:
+#   1. DO topic: orchestrator.{orchName}.{stepName}.do
+#   2. UNDO topic: orchestrator.{orchName}.{stepName}.undo
+#   3. Legacy topic: orchestrator.{orchName}.{stepName} (backward compatibility)
 steps:
   - seq: 1
     name: createRealm
     objectType: String
+    # maxRetries: 3  # Optional: Override default retry count (default is 3)
+
   - seq: 2
     name: createClient
     objectType: String
+    # maxRetries: 5  # Optional: Can set different retry count per step
+
   - seq: 3
     name: assignRoles
     objectType: UserRoleAssignment
+    # maxRetries: 3
+
+# ============================================================================
+# Behavior Notes:
+# ============================================================================
+# SEQUENTIAL MODE:
+# - Step 2 starts only after Step 1 succeeds (DO_SUCCESS)
+# - Step 3 starts only after Step 2 succeeds
+# - On failure: Retries current step (up to maxRetries)
+# - After retry exhaustion: UNDO in reverse order (3 -> 2 -> 1)
+#
+# PARALLEL MODE:
+# - All steps execute simultaneously
+# - On any failure after retry exhaustion: UNDO all successful steps in parallel
+#
+# UNDO BEHAVIOR:
+# - UNDO is triggered when a step exhausts all retries
+# - Only steps with status DO_SUCCESS are undone
+# - UNDO operations also have retry mechanism (same maxRetries)
+# ============================================================================
+
+# ============================================================================
+# Topics Created (for this example):
+# ============================================================================
+# orchestrator.tenantCreation.createRealm.do
+# orchestrator.tenantCreation.createRealm.undo
+# orchestrator.tenantCreation.createClient.do
+# orchestrator.tenantCreation.createClient.undo
+# orchestrator.tenantCreation.assignRoles.do
+# orchestrator.tenantCreation.assignRoles.undo
+# ============================================================================
 

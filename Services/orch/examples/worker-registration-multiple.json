@@ -1,0 +1,53 @@
+{
+  "payload": {
+    "orchestrations": [
+      {
+        "orchestrationName": "tenantCreation",
+        "as": "worker",
+        "steps": [
+          {
+            "name": "createRealm",
+            "objectType": "String",
+            "handlerClass": "realmService",
+            "doMethod": "createRealmByEvent",
+            "undoMethod": "undoCreateRealmByEvent"
+          },
+          {
+            "name": "createClient",
+            "objectType": "String",
+            "handlerClass": "clientService",
+            "doMethod": "createClientByEvent",
+            "undoMethod": "undoCreateClientByEvent"
+          }
+        ]
+      },
+      {
+        "orchestrationName": "userOnboarding",
+        "as": "worker",
+        "steps": [
+          {
+            "name": "createUserProfile",
+            "objectType": "UserProfile",
+            "handlerClass": "userService",
+            "doMethod": "createUserProfileByEvent",
+            "undoMethod": "undoCreateUserProfileByEvent"
+          },
+          {
+            "name": "assignDefaultRole",
+            "objectType": "RoleAssignment",
+            "handlerClass": "roleService",
+            "doMethod": "assignDefaultRoleByEvent",
+            "undoMethod": "undoAssignDefaultRoleByEvent"
+          }
+        ]
+      }
+    ]
+  },
+  "headers": {
+    "eventType": "ORCHESTRATION_REGISTRATION",
+    "serviceName": "identity-service",
+    "eventId": "multi-worker-reg-001",
+    "source": "identity-service"
+  }
+}
+

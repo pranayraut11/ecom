@@ -18,4 +18,8 @@ public class StepDefinitionDto {
     private String handlerClass;
 
     private String handlerMethod;
+
+    private String doMethod;
+
+    private String undoMethod;
 }

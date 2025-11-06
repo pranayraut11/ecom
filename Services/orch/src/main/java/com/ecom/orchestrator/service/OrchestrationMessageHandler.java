@@ -19,17 +19,20 @@ public class OrchestrationMessageHandler implements MessageHandler {
 
     private final OrchestrationRegistryService registryService;
     private final OrchestrationExecutorService executorService;
-    private final UndoService undoService;
+    private final DoOperationHandler doOperationHandler;
+    private final UndoOperationHandler undoOperationHandler;
     private final ObjectMapper objectMapper;
 
     public OrchestrationMessageHandler(
             OrchestrationRegistryService registryService,
             OrchestrationExecutorService executorService,
-            UndoService undoService,
+            DoOperationHandler doOperationHandler,
+            UndoOperationHandler undoOperationHandler,
             ObjectMapper objectMapper) {
         this.registryService = registryService;
         this.executorService = executorService;
-        this.undoService = undoService;
+        this.doOperationHandler = doOperationHandler;
+        this.undoOperationHandler = undoOperationHandler;
         this.objectMapper = objectMapper;
     }
 
@@ -238,10 +241,19 @@ public class OrchestrationMessageHandler implements MessageHandler {
                 String errorMessage = extractErrorMessage(message);
                 String action = MessageHeaderUtils.getString(headers, "action");
 
-                if ("UNDO".equalsIgnoreCase(action)) {
-                    undoService.handleUndoResponse(flowId, stepName, success, errorMessage, message);
-                } else {
-                    executorService.handleStepResponse(flowId, stepName, success, errorMessage, message);
+                log.info("Received step response: flowId={}, stepName={}, action={}, success={}",
+                        flowId, stepName, action, success);
+
+                if ("FAIL_STEP".equalsIgnoreCase(action)) {
+                    log.info("Handling FAIL_STEP action for flowId={}, stepName={}", flowId, stepName);
+                    // For FAIL_STEP, we treat it as an undo operation
+                    undoOperationHandler.handleFailResponse(flowId, stepName, success, errorMessage, message);
+                } else if ("UNDO".equalsIgnoreCase(action)) {
+                    undoOperationHandler.handleUndoResponse(flowId, stepName, success, errorMessage, message);
+                }else {
+                    // Backward compatibility - treat as DO operation
+                    log.warn("No action specified, treating as DO operation");
+                    doOperationHandler.handleDoResponse(flowId, stepName, success, errorMessage, message);
                 }
             }
         } catch (Exception e) {

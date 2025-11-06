@@ -8,7 +8,6 @@ import com.ecom.orchestrator.dto.StepDefinitionDto;
 import com.ecom.orchestrator.entity.*;
 import org.mapstruct.*;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +53,9 @@ public interface OrchestrationMapper {
     @Mapping(target = "stepName", source = "stepDto.name")
     @Mapping(target = "objectType", source = "stepDto.objectType")
     @Mapping(target = "topicName", expression = "java(generateTopicName(orchName, stepDto.getName()))")
+    @Mapping(target = "doTopic", expression = "java(generateDoTopicName(orchName, stepDto.getName()))")
+    @Mapping(target = "undoTopic", expression = "java(generateUndoTopicName(orchName, stepDto.getName()))")
+    @Mapping(target = "maxRetries", constant = "3")
     @Mapping(target = "createdAt", ignore = true)
     OrchestrationStepTemplate toStepTemplate(StepDefinitionDto stepDto,
                                             OrchestrationTemplate template,
@@ -132,6 +134,14 @@ public interface OrchestrationMapper {
 
     default String generateTopicName(String orchName, String stepName) {
         return String.format("orchestrator.%s.%s", orchName, stepName);
+    }
+
+    default String generateDoTopicName(String orchName, String stepName) {
+        return String.format("orchestrator.%s.%s.do", orchName, stepName);
+    }
+
+    default String generateUndoTopicName(String orchName, String stepName) {
+        return String.format("orchestrator.%s.%s.undo", orchName, stepName);
     }
 
     default Map<String, Object> createRegisteredStepsMap(List<StepDefinitionDto> steps) {

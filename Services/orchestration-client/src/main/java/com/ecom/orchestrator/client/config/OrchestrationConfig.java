@@ -27,7 +27,9 @@ public class OrchestrationConfig {
         private String name;
         private String objectType;
         private String handlerClass;
-        private String handlerMethod;
+        private String handlerMethod;  // Deprecated, use doMethod instead
+        private String doMethod;
+        private String undoMethod;
 
     }
 }

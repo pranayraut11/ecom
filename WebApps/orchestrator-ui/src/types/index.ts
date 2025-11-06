@@ -4,9 +4,9 @@ export type OrchestrationStatus = 'ACTIVE' | 'INACTIVE' | 'PENDING' | 'FAILED';
 
 export type OrchestrationType = 'Sequential' | 'Simultaneous';
 
-export type ExecutionStatus = 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED';
+export type ExecutionStatus = 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'CANCELLED' | 'ROLLED_BACK';
 
-export type StepStatus = 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'SKIPPED';
+export type StepStatus = 'PENDING' | 'RUNNING' | 'SUCCESS' | 'FAILED' | 'SKIPPED' | 'ROLLED_BACK';
 
 export interface Orchestration {
   orchName: string;

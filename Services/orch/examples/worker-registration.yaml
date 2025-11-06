@@ -1,9 +1,123 @@
-# Example Worker Registration YAML
-orchName: tenantCreation
+# ============================================================================
+# Worker Registration Example for DO/UNDO Orchestration System
+# ============================================================================
+# This registration is sent by worker services that EXECUTE specific steps
+# Workers must implement both DO and UNDO operations for each step
+# ============================================================================
+
+# Orchestration identifier (must match initiator's orchestrationName)
+orchestrationName: tenantCreation
+
+# Role: "worker" indicates this service executes specific steps
 as: worker
+
+# Steps this worker can handle
+# Worker must implement listeners for both DO and UNDO topics
 steps:
   - name: createRealm
     objectType: String
+    handlerClass: realmService              # Spring bean name for the handler service
+    doMethod: createRealmByEvent            # Method to execute forward operation (DO)
+    undoMethod: undoCreateRealmByEvent      # Method to execute rollback operation (UNDO)
+
   - name: createClient
     objectType: String
+    handlerClass: clientService             # Spring bean name for the handler service
+    doMethod: createClientByEvent           # Method to execute forward operation (DO)
+    undoMethod: undoCreateClientByEvent     # Method to execute rollback operation (UNDO)
+
+# ============================================================================
+# Worker Implementation Requirements:
+# ============================================================================
+# For each step, worker must:
+# 1. Listen to DO topic: orchestrator.tenantCreation.{stepName}.do
+# 2. Listen to UNDO topic: orchestrator.tenantCreation.{stepName}.undo
+# 3. Implement forward operation (DO) in {handlerClass}.{doMethod}
+# 4. Implement rollback operation (UNDO) in {handlerClass}.{undoMethod}
+# 5. Send response to: orchestrator.response.result
+#
+# Example for "createRealm" step:
+#   - DO topic: orchestrator.tenantCreation.createRealm.do
+#   - UNDO topic: orchestrator.tenantCreation.createRealm.undo
+#   - DO handler: realmService.createRealmByEvent()
+#   - UNDO handler: realmService.undoCreateRealmByEvent()
+#
+# Java Implementation Example:
+# 
+# @Service("realmService")  // handlerClass name
+# public class RealmService {
+#
+#     // DO method - called when orchestrator sends to DO topic
+#     @KafkaListener(topics = "orchestrator.tenantCreation.createRealm.do")
+#     public void createRealmByEvent(ExecutionMessage message) {
+#         String flowId = message.getHeaders().get("flowId").toString();
+#         try {
+#             // Execute forward operation (create realm)
+#             String realmId = createRealm(message.getPayload());
+#
+#             // Store state for potential UNDO (using flowId as key)
+#             storeUndoState(flowId, "createRealm", realmId);
+#
+#             // Send success response
+#             sendResponse(message, "DO", true, null);
+#         } catch (Exception e) {
+#             // Send failure response
+#             sendResponse(message, "DO", false, e.getMessage());
+#         }
+#     }
+#
+#     // UNDO method - called when orchestrator sends to UNDO topic
+#     @KafkaListener(topics = "orchestrator.tenantCreation.createRealm.undo")
+#     public void undoCreateRealmByEvent(ExecutionMessage message) {
+#         String flowId = message.getHeaders().get("flowId").toString();
+#         try {
+#             // Retrieve stored state
+#             String realmId = getUndoState(flowId, "createRealm");
+#
+#             // Execute rollback operation (delete realm)
+#             if (realmId != null) {
+#                 deleteRealm(realmId);
+#             }
+#
+#             // Clear undo state
+#             clearUndoState(flowId, "createRealm");
+#
+#             // Send success response
+#             sendResponse(message, "UNDO", true, null);
+#         } catch (Exception e) {
+#             // Handle "already deleted" as success (idempotency)
+#             if (e.getMessage().contains("not found")) {
+#                 sendResponse(message, "UNDO", true, null);
+#             } else {
+#                 sendResponse(message, "UNDO", false, e.getMessage());
+#             }
+#         }
+#     }
+# }
+# ============================================================================
+
+# ============================================================================
+# Response Format:
+# ============================================================================
+# Workers must send response with these headers:
+# {
+#   "flowId": "uuid-from-request",
+#   "stepName": "createRealm",
+#   "action": "DO" or "UNDO",
+#   "status": true or false,
+#   "errorMessage": "optional error details"
+# }
+# ============================================================================
+
+# ============================================================================
+# Best Practices:
+# ============================================================================
+# 1. Make both DO and UNDO operations idempotent
+# 2. Store state needed for UNDO (use flowId as correlation ID)
+# 3. Handle "already exists" gracefully in DO operations
+# 4. Handle "already deleted" gracefully in UNDO operations
+# 5. Provide detailed error messages for debugging
+# 6. Set appropriate timeouts
+# 7. Log all operations with flowId for traceability
+# ============================================================================
 

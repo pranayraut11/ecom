@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Helper service to handle worker registration operations
@@ -37,7 +38,7 @@ public class WorkerRegistrationHelper {
             String orchName,
             String serviceName,
             List<StepDefinitionDto> steps,
-            java.util.function.Function<String, String> topicNameResolver) {
+            Function<String, String> topicNameResolver) {
 
         List<WorkerRegistration> registrationsToSave = new ArrayList<>();
 

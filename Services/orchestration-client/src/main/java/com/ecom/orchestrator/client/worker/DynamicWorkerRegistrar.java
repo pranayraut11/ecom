@@ -48,15 +48,39 @@ public class DynamicWorkerRegistrar {
             if ("worker".equalsIgnoreCase(orc.getAs())) {
                 orchestrationService.register(orc);
                log.info(" Detected Worker YAML");
-                orc.getSteps().forEach(step->createKafkaListener(orc.getOrchestrationName(),step));
+                orc.getSteps().forEach(step -> {
+                    // Create DO listener
+                    createKafkaListener(orc.getOrchestrationName(), step, false);
+                    // Create UNDO listener if undoMethod is present
+                    if (step.getUndoMethod() != null && !step.getUndoMethod().isEmpty()) {
+                        createKafkaListener(orc.getOrchestrationName(), step, true);
+                    }
+                });
             }
         });
     }
 
-    private void createKafkaListener(String orchestrationName, OrchestrationConfig.Step step) {
-        String topic = "orchestrator." + orchestrationName + "." + step.getName();
+    private void createKafkaListener(String orchestrationName, OrchestrationConfig.Step step, boolean isUndo) {
+        // Create topic name: for UNDO, append ".undo" to the topic
+        String baseTopic = "orchestrator." + orchestrationName + "." + step.getName();
+        String topic = isUndo ? baseTopic + ".undo" : baseTopic + ".do";
+
+        // Determine which method to use based on isUndo flag
+        String methodName;
+        if (isUndo) {
+            methodName = step.getUndoMethod();
+        } else {
+            // For DO operation, prefer doMethod over handlerMethod (backward compatibility)
+            methodName = step.getDoMethod() != null ? step.getDoMethod() : step.getHandlerMethod();
+        }
+
+        if (methodName == null || methodName.isEmpty()) {
+            log.warn("⚠️ No method name found for topic: {}, skipping listener registration", topic);
+            return;
+        }
+
         MethodKafkaListenerEndpoint<String, String> endpoint = new MethodKafkaListenerEndpoint<>();
-        endpoint.setId(String.join("-",orchestrationName,step.getName(),"listener"));
+        endpoint.setId(String.join("-", orchestrationName, step.getName(), isUndo ? "undo" : "do", "listener"));
         endpoint.setGroupId("dynamic-group");
         endpoint.setTopics(topic);
 
@@ -64,7 +88,7 @@ public class DynamicWorkerRegistrar {
             Object bean = context.getBean(step.getHandlerClass());
 
             // Store handler info in map
-            handlerMap.put(topic, new HandlerInfo(bean, step.getHandlerMethod()));
+            handlerMap.put(topic, new HandlerInfo(bean, methodName));
 
             // Set up wrapper method
             Method wrapperMethod = this.getClass().getMethod("handleMessage", String.class, String.class);
@@ -89,7 +113,7 @@ public class DynamicWorkerRegistrar {
         }
 
         registry.registerListenerContainer(endpoint, kafkaListenerContainerFactory, true);
-        log.info("Kafka listener registered for topic: {} {} {}",topic, step.getHandlerClass() ,step.getHandlerMethod());
+        log.info("✅ Kafka listener registered for topic: {} → {}.{}()", topic, step.getHandlerClass(), methodName);
     }
 
     public void handleMessage(@Payload String message, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {

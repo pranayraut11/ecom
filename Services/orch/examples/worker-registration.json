@@ -1,0 +1,30 @@
+{
+  "payload": {
+    "orchestrationName": "tenantCreation",
+    "as": "worker",
+    "steps": [
+      {
+        "name": "createRealm",
+        "objectType": "String",
+        "handlerClass": "realmService",
+        "doMethod": "createRealmByEvent",
+        "undoMethod": "undoCreateRealmByEvent"
+      },
+      {
+        "name": "createClient",
+        "objectType": "String",
+        "handlerClass": "clientService",
+        "doMethod": "createClientByEvent",
+        "undoMethod": "undoCreateClientByEvent"
+      }
+    ]
+  },
+  "headers": {
+    "eventType": "ORCHESTRATION_REGISTRATION",
+    "orchestrationName": "tenantCreation",
+    "serviceName": "keycloak-service",
+    "eventId": "worker-reg-001",
+    "source": "keycloak-service"
+  }
+}
+

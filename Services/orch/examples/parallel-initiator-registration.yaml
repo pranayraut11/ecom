@@ -1,0 +1,73 @@
+# ============================================================================
+# Parallel Orchestration Example - Initiator Registration
+# ============================================================================
+# Use parallel mode when steps are independent and can execute simultaneously
+# All steps start at the same time, completion waits for all to finish
+# ============================================================================
+
+orchestrationName: userOnboarding
+as: initiator
+type: parallel  # All steps execute in parallel
+
+steps:
+  - seq: 1
+    name: createUserProfile
+    objectType: UserProfile
+    # maxRetries: 3
+
+  - seq: 2
+    name: sendWelcomeEmail
+    objectType: EmailRequest
+    # maxRetries: 5  # Email might need more retries
+
+  - seq: 3
+    name: setupDefaultPreferences
+    objectType: UserPreferences
+    # maxRetries: 3
+
+  - seq: 4
+    name: assignDefaultRole
+    objectType: RoleAssignment
+    # maxRetries: 3
+
+# ============================================================================
+# Parallel Execution Flow:
+# ============================================================================
+# All steps execute simultaneously:
+#   createUserProfile (DO) ──┐
+#   sendWelcomeEmail (DO) ───┼──▶ All complete ──▶ COMPLETED
+#   setupDefaultPreferences ─┤
+#   assignDefaultRole (DO) ──┘
+#
+# If any step fails after retry exhaustion:
+#   All successful steps are undone in parallel
+#
+# UNDO Flow (parallel):
+#   createUserProfile (UNDO) ──┐
+#   sendWelcomeEmail (UNDO) ────┼──▶ All complete ──▶ UNDONE
+#   setupDefaultPreferences ────┤
+#   assignDefaultRole (UNDO) ───┘
+# ============================================================================
+
+# ============================================================================
+# Use Cases for Parallel Mode:
+# ============================================================================
+# - Independent operations that don't depend on each other
+# - Operations that can be done simultaneously for performance
+# - Batch operations on different systems
+# - Non-sequential workflows
+# ============================================================================
+
+# ============================================================================
+# Topics Created:
+# ============================================================================
+# orchestrator.userOnboarding.createUserProfile.do
+# orchestrator.userOnboarding.createUserProfile.undo
+# orchestrator.userOnboarding.sendWelcomeEmail.do
+# orchestrator.userOnboarding.sendWelcomeEmail.undo
+# orchestrator.userOnboarding.setupDefaultPreferences.do
+# orchestrator.userOnboarding.setupDefaultPreferences.undo
+# orchestrator.userOnboarding.assignDefaultRole.do
+# orchestrator.userOnboarding.assignDefaultRole.undo
+# ============================================================================
+

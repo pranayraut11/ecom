@@ -1,0 +1,32 @@
+{
+  "payload": {
+    "orchestrationName": "tenantCreation",
+    "as": "initiator",
+    "type": "sequential",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "createRealm",
+        "objectType": "String"
+      },
+      {
+        "seq": 2,
+        "name": "createClient",
+        "objectType": "String"
+      },
+      {
+        "seq": 3,
+        "name": "assignRoles",
+        "objectType": "UserRoleAssignment"
+      }
+    ]
+  },
+  "headers": {
+    "eventType": "ORCHESTRATION_REGISTRATION",
+    "orchestrationName": "tenantCreation",
+    "serviceName": "tenant-management-service",
+    "eventId": "reg-001",
+    "source": "tenant-management-service"
+  }
+}
+

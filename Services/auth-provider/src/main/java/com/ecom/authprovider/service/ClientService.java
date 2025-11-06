@@ -17,14 +17,15 @@ public class ClientService {
     private final ClientManager clientManager;
     private final OrchestrationService orchestrationService;
 
-    public void createClientByEvent(ExecutionMessage executionMessage){
-        if(executionMessage.getHeaders().get("action").equals("UNDO")){
+    public void createClientByEvent(ExecutionMessage executionMessage) {
             log.info("Received event to create client: {}", executionMessage);
-            orchestrationService.sendFailureResponse(executionMessage);
-        }else {
-             log.info("Received event to create client: {}", executionMessage);
-             orchestrationService.sendSuccessResponse(executionMessage);
-        }
+            orchestrationService.failStep(executionMessage);
+    }
+
+
+    public void undoCreateClientByEvent(ExecutionMessage executionMessage) {
+            log.info("Received event to undo create client: {}", executionMessage);
+            orchestrationService.undoNext(executionMessage);
     }
     /**
      * Creates a new client in the specified realm.

@@ -34,11 +34,29 @@ public class OrchestrationStepRun {
     @Column(name = "status", nullable = false, length = 50)
     private ExecutionStatusEnum status;
 
+    @Column(name = "operation_type", length = 20)
+    @Builder.Default
+    private String operationType = "DO";
+
     @Column(name = "worker_service", length = 255)
     private String workerService;
 
     @Column(name = "error_message", columnDefinition = "TEXT")
     private String errorMessage;
+
+    @Column(name = "failure_reason", columnDefinition = "TEXT")
+    private String failureReason;
+
+    @Column(name = "retry_count", nullable = false)
+    @Builder.Default
+    private Integer retryCount = 0;
+
+    @Column(name = "max_retries", nullable = false)
+    @Builder.Default
+    private Integer maxRetries = 3;
+
+    @Column(name = "last_retry_at")
+    private LocalDateTime lastRetryAt;
 
     @Column(name = "started_at")
     private LocalDateTime startedAt;
@@ -48,4 +66,8 @@ public class OrchestrationStepRun {
 
     @Column(name = "undone_at")
     private LocalDateTime undoneAt;
+
+    @Column(name = "rollback_triggered")
+    @Builder.Default
+    private Boolean rollbackTriggered = false;
 }

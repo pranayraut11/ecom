@@ -99,13 +99,13 @@ public class OrchestrationServiceImpl implements OrchestrationService {
     }
 
     @Override
-    public void sendSuccessResponse(ExecutionMessage message, String topicName) {
+    public void doNext(ExecutionMessage message, String topicName) {
         try {
             log.info("Sending success response to topic: {}", topicName);
 
             // Create success response message with additional headers
             ExecutionMessage successMessage = createResponseMessage(message, topicName, STATUS.SUCCESS);
-
+            successMessage.getHeaders().put("action","DO");
             // Send event to Kafka
             kafkaEventPublisher.publishEvent(successMessage);
 
@@ -117,21 +117,19 @@ public class OrchestrationServiceImpl implements OrchestrationService {
     }
 
     @Override
-    public void sendSuccessResponse(ExecutionMessage message) {
-        sendSuccessResponse(message, "orchestrator.response.result");
+    public void doNext(ExecutionMessage message) {
+        doNext(message, "orchestrator.response.result");
     }
 
     @Override
-    public void sendFailureResponse(ExecutionMessage message, String topicName) {
+    public void undoNext(ExecutionMessage message, String topicName) {
         try {
             log.info("Sending failure response to topic: {}", topicName);
-
             // Create failure response message with additional headers
-            ExecutionMessage failureMessage = createResponseMessage(message, topicName, STATUS.FAILURE);
-
+            ExecutionMessage failureMessage = createResponseMessage(message, topicName, STATUS.SUCCESS);
+            failureMessage.getHeaders().put("action","UNDO");
             // Send event to Kafka
             kafkaEventPublisher.publishEvent(failureMessage);
-
             log.info("Successfully sent failure response to topic: {}", topicName);
         } catch (Exception e) {
             log.error("Failed to send failure response to topic: {}", topicName, e);
@@ -140,8 +138,31 @@ public class OrchestrationServiceImpl implements OrchestrationService {
     }
 
     @Override
-    public void sendFailureResponse(ExecutionMessage message) {
-        sendFailureResponse(message, "orchestrator.response.result");
+    public void undoNext(ExecutionMessage message) {
+        undoNext(message, "orchestrator.response.result");
+    }
+
+    @Override
+    public void failStep(ExecutionMessage message) {
+        failStep(message, "orchestrator.response.result");
+    }
+
+    @Override
+    public void failStep(ExecutionMessage message, String topicName) {
+        try {
+            log.info("Sending success response to topic: {}", topicName);
+
+            // Create success response message with additional headers
+            ExecutionMessage successMessage = createResponseMessage(message, topicName, STATUS.SUCCESS);
+            successMessage.getHeaders().put("action","FAIL_STEP");
+            // Send event to Kafka
+            kafkaEventPublisher.publishEvent(successMessage);
+
+            log.info("Successfully sent success response to topic: {}", topicName);
+        } catch (Exception e) {
+            log.error("Failed to send success response to topic: {}", topicName, e);
+            throw new RuntimeException("Failed to send success response", e);
+        }
     }
 
 
@@ -242,14 +263,11 @@ public class OrchestrationServiceImpl implements OrchestrationService {
             headers.put("topic", topicName);
             headers.put("contentType", "application/json");
             headers.put("X-Service-Name", applicationName);
-            headers.put("action","UNDO");
 
             // Preserve original orchestration context if present
             if (originalMessage.getHeaders().containsKey("orchestrationName")) {
                 headers.put("orchestrationName", originalMessage.getHeaders().get("orchestrationName"));
             }
-
-
             return ExecutionMessage.builder()
                     .payload(originalMessage.getPayload())
                     .headers(headers)

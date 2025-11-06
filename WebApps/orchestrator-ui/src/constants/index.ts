@@ -18,6 +18,7 @@ export const STATUS_COLORS = {
   PENDING: 'warning',
   FAILED: 'danger',
   CANCELLED: 'secondary',
+  ROLLED_BACK: 'warning',
   ACTIVE: 'success',
   INACTIVE: 'secondary',
   SKIPPED: 'secondary',

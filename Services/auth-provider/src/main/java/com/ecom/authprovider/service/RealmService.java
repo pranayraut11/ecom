@@ -49,13 +49,14 @@ public class RealmService implements AdminService {
     private String defaultAdminEmail;
 
     public boolean createRealmByEvent(ExecutionMessage executionMessage) {
-        if(executionMessage.getHeaders().get("action").equals("UNDO")) {
             log.info("Creating realm with execution message: {}", executionMessage);
-            orchestrationService.sendSuccessResponse(executionMessage);
-        }else {
-                log.info("Received event to create realm: {}", executionMessage);
-                orchestrationService.sendFailureResponse(executionMessage);
-        }
+            orchestrationService.doNext(executionMessage);
+        return true;
+    }
+
+    public boolean undoCreateRealmByEvent(ExecutionMessage executionMessage) {
+        log.info("Undo realm with execution message: {}", executionMessage);
+        orchestrationService.undoNext(executionMessage);
         return true;
     }
     /**

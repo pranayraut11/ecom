@@ -33,8 +33,18 @@ import java.time.LocalDateTime;
     @Column(name = "object_type", nullable = false, length = 255)
     private String objectType;
 
-    @Column(name = "topic_name", nullable = false, unique = true, length = 255)
+    @Column(name = "topic_name", nullable = false, length = 255)
     private String topicName;
+
+    @Column(name = "do_topic", nullable = false, length = 255)
+    private String doTopic;
+
+    @Column(name = "undo_topic", nullable = false, length = 255)
+    private String undoTopic;
+
+    @Column(name = "max_retries", nullable = false)
+    @Builder.Default
+    private Integer maxRetries = 3;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

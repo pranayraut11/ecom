@@ -1,24 +1,144 @@
+# ============================================================================
+# Multiple Orchestrations Worker Registration Example
+# ============================================================================
+# This shows how a worker can register for multiple orchestrations
+# in a single registration message
+# ============================================================================
+
+# Multiple orchestrations can be registered at once
 orchestrations:
+
+  # First orchestration - Tenant Creation
   - orchestrationName: tenantCreation
     as: worker
     steps:
       - name: createRealm
         objectType: String
-        handlerClass: realmService
-        handlerMethod: createRealmByEvent
+        handlerClass: realmService          # Spring bean name
+        doMethod: createRealmByEvent        # DO operation method
+        undoMethod: undoCreateRealmByEvent  # UNDO operation method
+
       - name: createClient
         objectType: String
         handlerClass: clientService
-        handlerMethod: createClientByEvent
-  - orchestrationName: tenantCreation1
+        doMethod: createClientByEvent
+        undoMethod: undoCreateClientByEvent
+
+  # Second orchestration - User Onboarding
+  - orchestrationName: userOnboarding
     as: worker
     steps:
-      - name: createRealm
-        objectType: String
-        handlerClass: realmService
-        handlerMethod: createRealmByEvent
-      - name: createClient
-        objectType: String
-        handlerClass: clientService
-        handlerMethod: createClientByEvent
+      - name: createUserProfile
+        objectType: UserProfile
+        handlerClass: userService
+        doMethod: createUserProfileByEvent
+        undoMethod: undoCreateUserProfileByEvent
+
+      - name: assignDefaultRole
+        objectType: RoleAssignment
+        handlerClass: roleService
+        doMethod: assignDefaultRoleByEvent
+        undoMethod: undoAssignDefaultRoleByEvent
+
+  # Third orchestration - Order Processing
+#  - orchestrationName: orderProcessing
+#    as: worker
+#    steps:
+#      - name: reserveInventory
+#        objectType: InventoryReservation
+#        handlerClass: inventoryService
+#        doMethod: reserveInventoryByEvent
+#        undoMethod: undoReserveInventoryByEvent
+
+# ============================================================================
+# Topics Created for Each Orchestration:
+# ============================================================================
+#
+# For tenantCreation:
+#   - orchestrator.tenantCreation.createRealm.do
+#   - orchestrator.tenantCreation.createRealm.undo
+#   - orchestrator.tenantCreation.createClient.do
+#   - orchestrator.tenantCreation.createClient.undo
+#
+# For userOnboarding:
+#   - orchestrator.userOnboarding.createUserProfile.do
+#   - orchestrator.userOnboarding.createUserProfile.undo
+#   - orchestrator.userOnboarding.assignDefaultRole.do
+#   - orchestrator.userOnboarding.assignDefaultRole.undo
+#
+# For orderProcessing:
+#   - orchestrator.orderProcessing.reserveInventory.do
+#   - orchestrator.orderProcessing.reserveInventory.undo
+# ============================================================================
+
+# ============================================================================
+# Worker Implementation Structure:
+# ============================================================================
+#
+# @Service("realmService")
+# public class RealmService {
+#     @KafkaListener(topics = "orchestrator.tenantCreation.createRealm.do")
+#     public void createRealmByEvent(ExecutionMessage message) { ... }
+#
+#     @KafkaListener(topics = "orchestrator.tenantCreation.createRealm.undo")
+#     public void undoCreateRealmByEvent(ExecutionMessage message) { ... }
+# }
+#
+# @Service("clientService")
+# public class ClientService {
+#     @KafkaListener(topics = "orchestrator.tenantCreation.createClient.do")
+#     public void createClientByEvent(ExecutionMessage message) { ... }
+#
+#     @KafkaListener(topics = "orchestrator.tenantCreation.createClient.undo")
+#     public void undoCreateClientByEvent(ExecutionMessage message) { ... }
+# }
+#
+# @Service("userService")
+# public class UserService {
+#     @KafkaListener(topics = "orchestrator.userOnboarding.createUserProfile.do")
+#     public void createUserProfileByEvent(ExecutionMessage message) { ... }
+#
+#     @KafkaListener(topics = "orchestrator.userOnboarding.createUserProfile.undo")
+#     public void undoCreateUserProfileByEvent(ExecutionMessage message) { ... }
+# }
+#
+# ... and so on for other services
+# ============================================================================
+
+# ============================================================================
+# Benefits of Multiple Orchestration Registration:
+# ============================================================================
+# 1. ✅ Single registration message for all orchestrations
+# 2. ✅ Easier to manage worker capabilities
+# 3. ✅ Clear overview of all handled steps
+# 4. ✅ Atomic registration of all capabilities
+# ============================================================================
+
+# ============================================================================
+# JSON Format for Kafka:
+# ============================================================================
+# {
+#   "payload": {
+#     "orchestrations": [
+#       {
+#         "orchestrationName": "tenantCreation",
+#         "as": "worker",
+#         "steps": [
+#           {
+#             "name": "createRealm",
+#             "objectType": "String",
+#             "handlerClass": "realmService",
+#             "doMethod": "createRealmByEvent",
+#             "undoMethod": "undoCreateRealmByEvent"
+#           }
+#         ]
+#       }
+#     ]
+#   },
+#   "headers": {
+#     "eventType": "ORCHESTRATION_REGISTRATION",
+#     "serviceName": "keycloak-service"
+#   }
+# }
+# ============================================================================
 

@@ -24,12 +24,12 @@ public class ExecutionSummaryDto {
     @Schema(description = "Execution status", example = "SUCCESS", allowableValues = {"SUCCESS", "FAILED", "IN_PROGRESS", "ROLLED_BACK"})
     private String status;
 
-    @Schema(description = "Execution start time", example = "2025-10-23T08:22:45Z")
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @Schema(description = "Execution start time", example = "2025-10-23T08:22:45.123Z")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime startTime;
 
-    @Schema(description = "Execution end time", example = "2025-10-23T08:23:10Z")
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @Schema(description = "Execution end time", example = "2025-10-23T08:23:10.456Z")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private LocalDateTime endTime;
 
     @Schema(description = "Service that initiated this execution", example = "initiator-service")
