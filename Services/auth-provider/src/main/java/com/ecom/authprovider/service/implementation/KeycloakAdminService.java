@@ -95,7 +95,7 @@ public class KeycloakAdminService implements AdminService {
             log.info("Realm '{}' created successfully", realmName);
 
             // Setup realm asynchronously to improve response time
-            setupRealmAsync(realmName);
+            setupRealm(realmName);
 
             return true;
         } catch (KeycloakServiceException e) {
@@ -114,8 +114,7 @@ public class KeycloakAdminService implements AdminService {
      *
      * @param realmName the name of the realm to set up
      */
-    private void setupRealmAsync(String realmName) {
-        CompletableFuture.runAsync(() -> {
+    private void setupRealm(String realmName) {
             try {
                 // Create default admin role
                 createDefaultAdminRole(realmName);
@@ -129,7 +128,6 @@ public class KeycloakAdminService implements AdminService {
                 // We don't throw the exception since this is an async operation
                 // and we don't want to block the main thread
             }
-        });
     }
 
     /**

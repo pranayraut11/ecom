@@ -10,6 +10,8 @@ import com.ecom.authprovider.manager.api.UserManager;
 import com.ecom.authprovider.service.specification.AdminService;
 import com.ecom.orchestrator.client.dto.ExecutionMessage;
 import com.ecom.orchestrator.client.service.OrchestrationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -32,6 +35,7 @@ public class RealmService implements AdminService {
     private final RoleManager roleManager;
     private final UserManager userManager;
     private final OrchestrationService orchestrationService;
+    private final ObjectMapper objectMapper;
 
     @Value("${keycloak.default-admin-username:admin}")
     private String defaultAdminUsername;
@@ -50,12 +54,18 @@ public class RealmService implements AdminService {
 
     public boolean createRealmByEvent(ExecutionMessage executionMessage) {
             log.info("Creating realm with execution message: {}", executionMessage);
-            orchestrationService.doNext(executionMessage);
+        Map<String,Object> payload =  objectMapper.convertValue(executionMessage.getPayload(), Map.class);
+        RealmRequest request = RealmRequest.builder().displayName(payload.get("tenantName").toString()).name(payload.get("tenantName").toString()).build();
+        createRealm(request);
+        orchestrationService.doNext(executionMessage);
         return true;
     }
 
     public boolean undoCreateRealmByEvent(ExecutionMessage executionMessage) {
         log.info("Undo realm with execution message: {}", executionMessage);
+        Map<String,Object> payload =  objectMapper.convertValue(executionMessage.getPayload(), Map.class);
+        String realmName = payload.get("tenantName").toString();
+        deleteRealm(realmName);
         orchestrationService.undoNext(executionMessage);
         return true;
     }
@@ -84,7 +94,7 @@ public class RealmService implements AdminService {
             log.info("Realm '{}' created successfully", realmName);
 
             // Setup realm asynchronously to improve response time
-            setupRealmAsync(realmName);
+            setupRealm(realmName);
 
             return true;
         } catch (KeycloakServiceException e) {
@@ -162,9 +172,7 @@ public class RealmService implements AdminService {
      *
      * @param realmName the name of the realm to set up
      */
-    private void setupRealmAsync(String realmName) {
-        CompletableFuture.runAsync(() -> {
-            try {
+    private void setupRealm(String realmName) {
                 // Create default admin role
                 createDefaultAdminRole(realmName);
 
@@ -172,12 +180,6 @@ public class RealmService implements AdminService {
                 createDefaultAdminUser(realmName);
 
                 log.info("Completed realm '{}' setup successfully", realmName);
-            } catch (Exception e) {
-                log.error("Error during realm '{}' setup: {}", realmName, e.getMessage(), e);
-                // We don't throw the exception since this is an async operation
-                // and we don't want to block the main thread
-            }
-        });
     }
 
     /**

@@ -13,6 +13,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -255,10 +256,10 @@ public class OrchestrationServiceImpl implements OrchestrationService {
         try {
             // Create new headers based on original message headers
             HashMap<String, Object> headers = new HashMap<>(originalMessage.getHeaders());
-
+            Object statusObj = originalMessage.getHeaders().get("status");
             // Add response-specific headers
             headers.put("eventType", "ORCHESTRATION_" + status);
-            headers.put("status", status.isValue());
+            headers.put("status", Objects.nonNull(statusObj) ? originalMessage.getHeaders().get("status"): status.isValue());
             headers.put("source", applicationName);
             headers.put("topic", topicName);
             headers.put("contentType", "application/json");

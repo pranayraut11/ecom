@@ -2,16 +2,17 @@ package com.ecom.authprovider.service;
 
 import com.ecom.authprovider.dto.request.UserRequest;
 import com.ecom.authprovider.exception.KeycloakServiceException;
-import com.ecom.authprovider.manager.api.RoleManager;
-import com.ecom.authprovider.manager.api.UserManager;
 import com.ecom.authprovider.manager.keycloak.KeycloakUserManager;
+import com.ecom.orchestrator.client.dto.ExecutionMessage;
+import com.ecom.orchestrator.client.service.OrchestrationService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -20,6 +21,48 @@ public class UserService {
 
 
     private final KeycloakUserManager userManager;
+    private final ObjectMapper objectMapper;
+    private final OrchestrationService orchestrationService;
+
+    public boolean createDefaultUserByEvent(ExecutionMessage executionMessage) {
+        log.info("Creating default user for tenant '{}'", executionMessage.getPayload());
+        try {
+            Map<String,Object> payload =  objectMapper.convertValue(executionMessage.getPayload(), Map.class);
+            String realmName = payload.get("tenantName").toString();
+            String email = payload.get("contactEmail").toString();
+            UserRequest userRequest = UserRequest.builder()
+                    .username(realmName).realmName(realmName)
+                    .password(realmName).email(email)
+                    .build();
+            createUser(userRequest);
+            log.info("Default user created successfully for tenant '{}'", executionMessage.getPayload());
+        } catch (Exception e) {
+            String errorMessage = String.format("Failed to create default user for tenant : %s",
+                   e.getMessage());
+            log.error(errorMessage, e);
+            throw new KeycloakServiceException(errorMessage, e);
+        }
+        orchestrationService.doNext(executionMessage);
+        return true;
+    }
+
+    public boolean undoCreateDefaultUserByEvent(ExecutionMessage executionMessage) {
+        log.info("Undoing default user creation for tenant '{}'", executionMessage.getPayload());
+        try {
+            String username = "defaultUser";
+            Map payload = objectMapper.convertValue(executionMessage.getPayload(),Map.class);
+            userManager.deleteUserByUsername(username, payload.get("tenantName").toString());
+            log.info("Default user deletion successful for tenant '{}'", executionMessage.getPayload());
+        } catch (Exception e) {
+            String errorMessage = String.format("Failed to delete default user for tenant : %s",
+                    e.getMessage());
+            log.error(errorMessage, e);
+            throw new KeycloakServiceException(errorMessage, e);
+        }
+        orchestrationService.undoNext(executionMessage);
+        return true;
+    }
+
 
     /**
      * Creates a new user in the specified realm.
@@ -30,20 +73,7 @@ public class UserService {
      */
     public String createUser(UserRequest request) {
         try {
-            // Validate request
-            if (request == null) {
-                throw new IllegalArgumentException("User request cannot be null");
-            }
-
-            if (request.getUsername() == null || request.getUsername().trim().isEmpty()) {
-                throw new IllegalArgumentException("Username cannot be empty");
-            }
-
-            if (request.getPassword() == null || request.getPassword().trim().isEmpty()) {
-                throw new IllegalArgumentException("Password cannot be empty");
-            }
-
-            // Prepare roles - if no roles provided, assign default USER role
+             // Prepare roles - if no roles provided, assign default USER role
             List<String> roles = request.getRoles();
             if (roles == null || roles.isEmpty()) {
                 roles = new ArrayList<>();

@@ -5,7 +5,9 @@ import com.ecom.authprovider.exception.KeycloakServiceException;
 import com.ecom.authprovider.manager.api.UserManager;
 import com.ecom.authprovider.util.KeycloakUtil;
 import com.ecom.shared.common.config.common.TenantContext;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
+
 
 /**
  * Implementation of UserManager for handling Keycloak user operations.
@@ -55,9 +58,6 @@ public class KeycloakUserManager implements UserManager {
             log.info("No roles specified for user '{}', assigning default role '{}'",
                     request.getUsername(), DEFAULT_ROLE);
         }
-
-        // Get and validate current tenant ID (realm name) from context
-        request.setRealmName(getTenantRealm());
 
         // Use admin client for more reliable user creation
         return createUserInternal(request, false);
@@ -123,6 +123,33 @@ public class KeycloakUserManager implements UserManager {
         }
     }
 
+    @Override
+    public void deleteUserByUsername(@NotEmpty String username,@NotEmpty String realmName) {
+
+        log.info("Deleting user '{}' from realm '{}'", username, realmName);
+
+        try (Keycloak keycloak = keycloakUtil.createAdminClient()) {
+            RealmResource realmResource = keycloak.realm(realmName);
+            UsersResource usersResource = realmResource.users();
+
+            List<UserRepresentation> users = usersResource.search(username, true);
+            if (users.isEmpty()) {
+                log.warn("User '{}' not found in realm '{}', nothing to delete", username, realmName);
+                return;
+            }
+
+            String userId = users.getFirst().getId();
+            Response delete = usersResource.delete(userId);
+            log.info("User '{}' with ID '{}' deleted successfully status {}", username, userId, delete.getStatus());
+        } catch (Exception e) {
+            String errorMsg = String.format("Error deleting user '%s' from realm '%s': %s",
+                    username, realmName, e.getMessage());
+            log.error(errorMsg, e);
+            throw new KeycloakServiceException(errorMsg, e);
+        }
+
+    }
+
     /**
      * Core method to create users in Keycloak with proper error handling.
      *
@@ -138,7 +165,7 @@ public class KeycloakUserManager implements UserManager {
                 isAdmin ? "admin" : "regular", username, realm, request.getRoles());
 
         try (Keycloak keycloak = keycloakUtil.createAdminClient()) {
-            RealmResource realmResource = keycloak.realm(TenantContext.getTenantId());
+            RealmResource realmResource = keycloak.realm(realm);
             UsersResource usersResource = realmResource.users();
 
             // Check if user already exists by username (more reliable than email)
@@ -151,7 +178,7 @@ public class KeycloakUserManager implements UserManager {
             }
 
             // Create new user representation
-            UserRepresentation user = createUserRepresentation(request);
+            UserRepresentation user = createUserRepresentation(request,realm);
 
             // Attempt to create the user
             try (Response response = usersResource.create(user)) {
@@ -181,18 +208,19 @@ public class KeycloakUserManager implements UserManager {
 
                 // Set password and assign roles
                 return completeUserCreation(usersResource, userId, request.getPassword(),
-                        request.getRoles(), realmResource, isAdmin, username);
+                        request.getRoles(), realmResource, isAdmin, username,realm);
             }
         } catch (Exception e) {
             log.error("Unexpected error creating user '{}': {}", username, e.getMessage(), e);
-            return null;
+            throw new KeycloakServiceException(
+                    String.format("Error creating user '%s': %s", username, e.getMessage()), e);
         }
     }
 
     /**
      * Creates a UserRepresentation from the request data.
      */
-    private UserRepresentation createUserRepresentation(UserRequest request) {
+    private UserRepresentation createUserRepresentation(UserRequest request,String realm) {
         UserRepresentation user = new UserRepresentation();
         user.setUsername(request.getUsername());
         user.setEnabled(true);
@@ -201,7 +229,7 @@ public class KeycloakUserManager implements UserManager {
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
         Map<String, List<String>> attributes = new HashMap<>();
-        attributes.put("tenantid", Collections.singletonList(TenantContext.getTenantId()));
+        attributes.put("tenantid", Collections.singletonList(realm));
         user.setAttributes(attributes);
         return user;
     }
@@ -221,13 +249,15 @@ public class KeycloakUserManager implements UserManager {
         log.debug("User created with ID: {}", userId);
         return userId;
     }
+    private static final int BAD_REQUEST_STATUS = 400;
+    private static final String ALREADY_EXISTS_ERROR = "already exists";
 
     /**
      * Completes the user creation process by setting password and assigning roles.
      */
     private String completeUserCreation(UsersResource usersResource, String userId, String password,
                                         List<String> roles, RealmResource realmResource,
-                                        boolean isAdmin, String username) {
+                                        boolean isAdmin, String username,String realm) {
         // Set password
         boolean passwordSet = setUserPassword(usersResource, userId, password);
         if (!passwordSet) {
@@ -241,17 +271,38 @@ public class KeycloakUserManager implements UserManager {
             log.error("Failed to assign roles to user '{}'", username);
             return null;
         }
-        UserResource userResource = usersResource.get(userId);
-        UserRepresentation existingUser = userResource.toRepresentation();
+        UserResource userResource = realmResource.users().get(userId);
+        UserRepresentation existingUser = userResource.toRepresentation(true);
         Map<String, List<String>> attributes = existingUser.getAttributes();
         if (attributes == null) {
             attributes = new HashMap<>();
         }
-        attributes.put("tenantid", Collections.singletonList(TenantContext.getTenantId()));
+        attributes.put("tenantid", Collections.singletonList(realm));
         existingUser.setAttributes(attributes);
+        try {
+            log.info(existingUser.toString());
+            // 7. Update user with attributes
+            userResource.update(existingUser);
+        } catch (WebApplicationException e) {
+            try (Response response = e.getResponse()) {
+                String errorBody = response.readEntity(String.class);
+                log.error("Failed to create realm: Status {}, Details: {}",
+                        response.getStatus(), errorBody);
 
-        // 7. Update user with attributes
-        userResource.update(existingUser);
+                // If realm already exists (race condition), consider it a success
+                if (response.getStatus() == BAD_REQUEST_STATUS &&
+                        errorBody.contains(ALREADY_EXISTS_ERROR)) {
+                    log.info("Realm '{}' already exists (concurrent creation)", realm);
+
+                } else {
+                    log.error("Failed to create realm '{}'", realm, e);
+
+                }
+            }
+        }catch (Exception e){
+            log.error("Failed to set attributes for user '{}'", username);
+            return null;
+        }
         log.info("Successfully created user '{}' with password and roles", username);
         return userId;
     }

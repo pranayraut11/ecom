@@ -2,6 +2,7 @@
 -- This script will be executed when the PostgreSQL container starts
 CREATE DATABASE tenant_management;
 CREATE DATABASE orchestrator_db;
+CREATE DATABASE keycloak;
 -- Ensure the database exists
 \c tenant_management;
 \c orchestrator_db;

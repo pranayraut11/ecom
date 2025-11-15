@@ -33,12 +33,12 @@ public class ExecutionDetailsController {
     public ResponseEntity<ExecutionDetailsResponseDto> getExecutionDetails(
             @Parameter(description = "Orchestration name", example = "tenantCreation", required = true)
             @PathVariable String orchName,
-
+            
             @Parameter(description = "Execution identifier", example = "f14a9c8b-1234", required = true)
             @PathVariable String executionId) {
 
         try {
-            log.info("Received request to get execution details for orchestration: {} and executionId: {}",
+            log.info("Received request to get execution details for orchestration: {} and executionId: {}", 
                     orchName, executionId);
 
             ExecutionDetailsResponseDto details = executionDetailsService.getExecutionDetails(orchName, executionId);
@@ -48,13 +48,13 @@ public class ExecutionDetailsController {
                 return ResponseEntity.notFound().build();
             }
 
-            log.info("Successfully retrieved execution details for: {} with {} steps",
+            log.info("Successfully retrieved execution details for: {} with {} steps", 
                     executionId, details.getSteps().size());
 
             return ResponseEntity.ok(details);
 
         } catch (Exception e) {
-            log.error("Error retrieving execution details for orchestration: {} and executionId: {}",
+            log.error("Error retrieving execution details for orchestration: {} and executionId: {}", 
                     orchName, executionId, e);
             return ResponseEntity.internalServerError().build();
         }

@@ -12,7 +12,7 @@ orchestrations:
         objectType: String
         doMethod: createRealm      # Method name for DO operation
         undoMethod: deleteRealm    # Method name for UNDO operation
-
+        
       - seq: 2
         name: createClient
         objectType: String
@@ -29,13 +29,13 @@ orchestrations:
         objectType: UserDto
         doMethod: createProfile
         undoMethod: deleteProfile
-
+        
       - seq: 2
         name: assignRoles
         objectType: RoleDto
         doMethod: assignUserRoles
         undoMethod: removeUserRoles
-
+        
       - seq: 3
         name: sendWelcomeEmail
         objectType: EmailDto
@@ -55,7 +55,7 @@ orchestrations:
         handlerClass: realmService
         handlerMethod: createRealmByEvent      # Handler for DO operation
         undoHandlerMethod: deleteRealmByEvent  # Handler for UNDO operation
-
+        
   # Worker registration for tenant creation - Client Service
   - orchestrationName: tenantCreation
     as: worker
@@ -75,7 +75,7 @@ orchestrations:
         handlerClass: userProfileService
         handlerMethod: createProfileHandler
         undoHandlerMethod: deleteProfileHandler
-
+        
       - name: assignRoles
         objectType: RoleDto
         handlerClass: roleService
@@ -106,13 +106,13 @@ orchestrations:
         objectType: OrderDto
         doMethod: validateStock
         undoMethod: releaseStock
-
+        
       - seq: 2
         name: processPayment
         objectType: PaymentDto
         doMethod: chargePayment
         undoMethod: refundPayment
-
+        
       - seq: 3
         name: createShipment
         objectType: ShipmentDto

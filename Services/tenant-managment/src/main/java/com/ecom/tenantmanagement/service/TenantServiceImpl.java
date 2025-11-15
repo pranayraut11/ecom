@@ -60,7 +60,7 @@ public class TenantServiceImpl implements TenantService {
         tenant.setSchemaName(schemaName);
         tenant.setDomain(request.getDomain());
         tenant.setContactEmail(request.getContactEmail());
-        tenant.setStatus(TenantEntity.TenantStatus.ACTIVE);
+        tenant.setStatus(TenantEntity.TenantStatus.CREATION_IN_PROGRESS);
         tenant.setIsDeleted(false);
 
         try {

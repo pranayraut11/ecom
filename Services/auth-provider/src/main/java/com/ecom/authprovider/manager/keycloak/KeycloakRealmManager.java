@@ -10,6 +10,7 @@ import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.RealmRepresentation;
 import org.keycloak.representations.userprofile.config.UPAttribute;
+import org.keycloak.representations.userprofile.config.UPAttributePermissions;
 import org.keycloak.representations.userprofile.config.UPConfig;
 import org.springframework.stereotype.Component;
 
@@ -71,6 +72,11 @@ public class KeycloakRealmManager implements RealmManager {
                 tenantIdAttribute.setAnnotations(Collections.emptyMap());
                 tenantIdAttribute.setGroup("user-metadata");
                 tenantIdAttribute.setDisplayName("Tenant ID");
+                tenantIdAttribute.setValidations(Collections.emptyMap());
+                UPAttributePermissions permissions = new UPAttributePermissions();
+                permissions.setEdit(Collections.singleton("admin")); // Allow admins to edit
+                permissions.setView(Collections.singleton("admin")); // Allow admins to view
+                tenantIdAttribute.setPermissions(permissions);
                 List<UPAttribute> upAttributes =  upConfig.getAttributes();
                 upAttributes.add(tenantIdAttribute);
                 upConfig.setAttributes(upAttributes);

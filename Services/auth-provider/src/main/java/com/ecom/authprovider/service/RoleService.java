@@ -3,10 +3,15 @@ package com.ecom.authprovider.service;
 import com.ecom.authprovider.dto.request.RoleRequest;
 import com.ecom.authprovider.exception.KeycloakServiceException;
 import com.ecom.authprovider.manager.api.RoleManager;
+import com.ecom.orchestrator.client.dto.ExecutionMessage;
+import com.ecom.orchestrator.client.service.OrchestrationService;
 import com.ecom.shared.common.config.common.TenantContext;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -15,6 +20,52 @@ public class RoleService {
 
 
     private final RoleManager roleManager;
+    private final OrchestrationService orchestrationService;
+    private final ObjectMapper objectMapper;
+
+    public boolean setupDefaultRolesByEvent(ExecutionMessage executionMessage) {
+        Map<String,Object> payload =  objectMapper.convertValue(executionMessage.getPayload(), Map.class);
+        String realmName = payload.get("tenantName").toString();
+
+        log.info("Setting up default roles for tenant '{}'", realmName);
+        try {
+            String[] defaultRoles = {"user", "admin", "manager"};
+            for (String roleName : defaultRoles) {
+                RoleRequest roleRequest = RoleRequest.builder()
+                        .name(roleName).realmName(realmName)
+                        .build();
+                createRole(roleRequest);
+            }
+            log.info("Default roles set up successfully for tenant '{}'", realmName);
+
+        } catch (Exception e) {
+            String errorMessage = String.format("Failed to set up default roles for tenant '%s': %s",
+                    realmName, e.getMessage());
+            log.error(errorMessage, e);
+            throw new KeycloakServiceException(errorMessage, e);
+        }
+        orchestrationService.doNext(executionMessage);
+        return true;
+    }
+
+    public boolean undoSetupDefaultRolesByEvent(ExecutionMessage executionMessage){
+        log.info("Undoing default roles setup for tenant '{}'", TenantContext.getTenantId());
+        try {
+            String[] defaultRoles = {"user", "admin", "manager"};
+            for (String roleName : defaultRoles) {
+                roleManager.deleteRealmRole(roleName, TenantContext.getTenantId());
+            }
+            log.info("Default roles deletion successful for tenant '{}'", TenantContext.getTenantId());
+
+        } catch (Exception e) {
+            String errorMessage = String.format("Failed to delete default roles for tenant '%s': %s",
+                    TenantContext.getTenantId(), e.getMessage());
+            log.error(errorMessage, e);
+            throw new KeycloakServiceException(errorMessage, e);
+        }
+        orchestrationService.undoNext(executionMessage);
+        return true;
+    }
 
     /**
      * Creates a new role in the specified realm.
@@ -26,19 +77,11 @@ public class RoleService {
      */
     public boolean createRole(RoleRequest request) {
         try {
-            // Validate request
-            if (request == null) {
-                throw new IllegalArgumentException("Role request cannot be null");
-            }
-
-            if (request.getName() == null || request.getName().trim().isEmpty()) {
-                throw new IllegalArgumentException("Role name cannot be empty");
-            }
 
             // Get a role manager specifically for the requested realm
 
             log.info("Creating role '{}'", request.getName());
-            boolean created = roleManager.createRealmRole(request.getName(), TenantContext.getTenantId());
+            boolean created = roleManager.createRealmRole(request.getName(), request.getRealmName());
 
             if (created) {
                 log.info("Role '{}' created successfully", request.getName());

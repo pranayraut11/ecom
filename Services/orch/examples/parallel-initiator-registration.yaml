@@ -14,17 +14,17 @@ steps:
     name: createUserProfile
     objectType: UserProfile
     # maxRetries: 3
-
+    
   - seq: 2
     name: sendWelcomeEmail
     objectType: EmailRequest
     # maxRetries: 5  # Email might need more retries
-
+    
   - seq: 3
     name: setupDefaultPreferences
     objectType: UserPreferences
     # maxRetries: 3
-
+    
   - seq: 4
     name: assignDefaultRole
     objectType: RoleAssignment

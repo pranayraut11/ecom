@@ -20,7 +20,7 @@ public class InitiatorRegistrationValidator {
 
     /**
      * Validate step definitions for initiator registration
-     *
+     * 
      * @return Map of step names to validation error messages (empty if all valid)
      */
     public Map<String, String> validateSteps(List<StepDefinitionDto> steps, String orchName) {
@@ -32,14 +32,14 @@ public class InitiatorRegistrationValidator {
             // Check for duplicate step names
             if (processedStepNames.contains(step.getName())) {
                 validationErrors.put(step.getName(), "Duplicate step name in request: " + step.getName());
-                log.warn("Duplicate step name found in registration request: {} for orchestration: {}",
+                log.warn("Duplicate step name found in registration request: {} for orchestration: {}", 
                         step.getName(), orchName);
                 continue;
             }
 
             // Check for duplicate sequence numbers
             if (processedSequences.contains(step.getSeq())) {
-                validationErrors.put(step.getName(),
+                validationErrors.put(step.getName(), 
                         "Duplicate sequence number " + step.getSeq() + " for step: " + step.getName());
                 log.warn("Duplicate sequence number found in registration request: {} for step: {} in orchestration: {}",
                         step.getSeq(), step.getName(), orchName);

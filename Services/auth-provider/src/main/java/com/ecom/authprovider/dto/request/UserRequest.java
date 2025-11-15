@@ -1,6 +1,7 @@
 package com.ecom.authprovider.dto.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserRequest {
 
     @NotBlank(message = "Username is required")

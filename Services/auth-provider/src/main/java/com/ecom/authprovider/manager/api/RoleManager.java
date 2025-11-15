@@ -22,4 +22,12 @@ public interface RoleManager {
      * @return RoleRepresentation if found, null otherwise
      */
     RoleRepresentation getRealmRole(String roleName);
+
+    /**
+     * Deletes a realm role by name.
+     *
+     * @param roleName Name of the role to delete
+     * @return true if role was deleted, false otherwise
+     */
+    boolean deleteRealmRole(String roleName,String realmName);
 }

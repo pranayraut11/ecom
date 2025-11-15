@@ -234,7 +234,6 @@ public class OrchestrationMessageHandler implements MessageHandler {
         try {
             if (Objects.nonNull(message.getHeaders())) {
                 Map<String, Object> headers = message.getHeaders();
-
                 String flowId = MessageHeaderUtils.getString(headers, "flowId");
                 String stepName = MessageHeaderUtils.getString(headers, "stepName");
                 boolean success = determineSuccessFromEvent(message);

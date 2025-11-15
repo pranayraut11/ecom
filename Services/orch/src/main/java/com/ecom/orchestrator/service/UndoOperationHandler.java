@@ -78,8 +78,8 @@ public class UndoOperationHandler {
      * Handle FAIL_STEP action from worker
      * When a worker explicitly sends FAIL_STEP action, it means:
      * 1. The current step has failed
-     * 2. We need to mark it as FAILED
-     * 3. Trigger UNDO for all previously completed steps
+     * 2. Check if we can retry the failed step
+     * 3. If retries exhausted, trigger UNDO for all previously completed steps
      */
     @Transactional
     public void handleFailResponse(String flowId, String stepName, boolean success, String errorMessage, ExecutionMessage message) {
@@ -105,17 +105,94 @@ public class UndoOperationHandler {
         log.warn("Step failed explicitly (FAIL_STEP action): flowId={}, stepName={}, error={}",
                 orchestrationRun.getFlowId(), stepRun.getStepName(), errorMessage);
 
+        // Update step error message
+        stepRun.setErrorMessage(errorMessage);
+
+        // Record audit event for step failure
+        auditService.recordStepFailure(
+            orchestrationRun.getFlowId(),
+            orchestrationRun.getOrchName(),
+            stepRun.getStepName(),
+            stepRun.getWorkerService(),
+            errorMessage,
+            stepRun.getRetryCount(),
+            "DO"
+        );
+
+        // Check if we can retry
+        if (stepRun.getRetryCount() < stepRun.getMaxRetries()) {
+            retryFailedStep(orchestrationRun, stepRun, message);
+        } else {
+            handleFailRetryExhausted(orchestrationRun, stepRun, message);
+        }
+    }
+
+    /**
+     * Retry failed step (DO operation)
+     */
+    private void retryFailedStep(OrchestrationRun orchestrationRun, OrchestrationStepRun stepRun, ExecutionMessage message) {
+        stepRun.setRetryCount(stepRun.getRetryCount() + 1);
+        stepRun.setStatus(ExecutionStatusEnum.IN_PROGRESS);
+        stepRun.setLastRetryAt(LocalDateTime.now());
+        stepRunRepository.save(stepRun);
+
+        log.info("Retrying failed step (DO operation): flowId={}, stepName={}, attempt={}/{}",
+                orchestrationRun.getFlowId(), stepRun.getStepName(),
+                stepRun.getRetryCount(), stepRun.getMaxRetries());
+
+        // Record audit event for retry attempt
+        auditService.recordRetryAttempt(
+            orchestrationRun.getFlowId(),
+            orchestrationRun.getOrchName(),
+            stepRun.getStepName(),
+            stepRun.getRetryCount(),
+            stepRun.getMaxRetries(),
+            "DO",
+            5000L  // Default backoff time in ms
+        );
+
+        // Get step template to find DO topic
+        Optional<OrchestrationTemplate> templateOpt = orchestrationTemplateRepository
+                .findByOrchNameWithSteps(orchestrationRun.getOrchName());
+
+        if (templateOpt.isEmpty()) {
+            log.error("Orchestration template not found: {}", orchestrationRun.getOrchName());
+            return;
+        }
+
+        OrchestrationTemplate template = templateOpt.get();
+        Optional<OrchestrationStepTemplate> stepTemplateOpt = template.getSteps().stream()
+                .filter(st -> st.getStepName().equals(stepRun.getStepName()))
+                .findFirst();
+
+        if (stepTemplateOpt.isEmpty()) {
+            log.error("Step template not found: {}", stepRun.getStepName());
+            return;
+        }
+
+        OrchestrationStepTemplate stepTemplate = stepTemplateOpt.get();
+
+        // Send message to DO topic for retry
+        sendDoMessageForRetry(orchestrationRun.getFlowId(), stepTemplate, message);
+    }
+
+    /**
+     * Handle retry exhausted scenario - trigger UNDO
+     */
+    private void handleFailRetryExhausted(OrchestrationRun orchestrationRun, OrchestrationStepRun stepRun, ExecutionMessage message) {
+        log.error("Step retry exhausted: flowId={}, stepName={}, triggering UNDO",
+                orchestrationRun.getFlowId(), stepRun.getStepName());
+
         // Update step status to FAILED
         stepRun.setStatus(ExecutionStatusEnum.FAILED);
-        stepRun.setErrorMessage(errorMessage);
         stepRun.setCompletedAt(LocalDateTime.now());
         stepRunRepository.save(stepRun);
-        log.info("Step marked as FAILED: flowId={}, stepName={}", flowId, stepName);
+        log.info("Step marked as FAILED: flowId={}, stepName={}", orchestrationRun.getFlowId(), stepRun.getStepName());
 
         // Update orchestration run status to FAILED
         orchestrationRun.setStatus(ExecutionStatusEnum.FAILED);
         orchestrationRunRepository.save(orchestrationRun);
-        log.info("Orchestration run marked as FAILED: flowId={}", flowId);
+        log.info("Orchestration run marked as FAILED: flowId={}", orchestrationRun.getFlowId());
 
         // Trigger UNDO for all successfully completed steps (DO_SUCCESS)
         List<OrchestrationStepRun> completedSteps = orchestrationRun.getStepRuns().stream()
@@ -124,13 +201,44 @@ public class UndoOperationHandler {
 
         if (!completedSteps.isEmpty()) {
             log.info("Triggering UNDO for {} successfully completed steps due to step failure", completedSteps.size());
-            undoOrchestration(flowId, message);
+            undoOrchestration(orchestrationRun.getFlowId(), message);
         } else {
-            log.info("No completed steps to undo for flowId: {}", flowId);
+            log.info("No completed steps to undo for flowId: {}", orchestrationRun.getFlowId());
             // Complete the orchestration as failed
             orchestrationRun.setCompletedAt(LocalDateTime.now());
             orchestrationRunRepository.save(orchestrationRun);
-            log.error("Orchestration failed with no steps to undo: flowId={}", flowId);
+            log.error("Orchestration failed with no steps to undo: flowId={}", orchestrationRun.getFlowId());
+        }
+    }
+
+    /**
+     * Send DO message for retry
+     */
+    private void sendDoMessageForRetry(String flowId, OrchestrationStepTemplate stepTemplate, ExecutionMessage message) {
+        log.info("Sending DO message for retry: flowId={}, stepName={}, topic={}",
+                flowId, stepTemplate.getStepName(), stepTemplate.getDoTopic());
+
+        // Add step information to message headers
+        Map<String, Object> headers = message.getHeaders();
+        headers.put("flowId", flowId);
+        headers.put("stepName", stepTemplate.getStepName());
+        headers.put("action", "DO");
+        headers.put("seq", stepTemplate.getSeq());
+
+        try {
+            messagePublisher.send(stepTemplate.getDoTopic(), message);
+            log.info("DO message sent successfully for retry: flowId={}, stepName={}", flowId, stepTemplate.getStepName());
+        } catch (Exception e) {
+            log.error("Failed to send DO message for retry: flowId={}, stepName={}", flowId, stepTemplate.getStepName(), e);
+
+            // If sending retry message fails, trigger UNDO directly
+            Optional<OrchestrationRun> runOpt = orchestrationRunRepository.findByFlowIdWithSteps(flowId);
+            Optional<OrchestrationStepRun> stepRunOpt = stepRunRepository
+                    .findByOrchestrationRunFlowIdAndStepName(flowId, stepTemplate.getStepName());
+
+            if (runOpt.isPresent() && stepRunOpt.isPresent()) {
+                handleFailRetryExhausted(runOpt.get(), stepRunOpt.get(), message);
+            }
         }
     }
     /**

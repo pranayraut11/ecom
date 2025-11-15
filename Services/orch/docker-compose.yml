@@ -53,14 +53,37 @@ services:
   #      retries: 3
 
   # PgAdmin for Database Management (Optional)
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: tenant-management-pgadmin
+#  pgadmin:
+#    image: dpage/pgadmin4:latest
+#    container_name: tenant-management-pgadmin
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: admin@example.com
+#      PGADMIN_DEFAULT_PASSWORD: admin
+#    ports:
+#      - "8081:80"
+#    depends_on:
+#      - postgres
+#    networks:
+#      - tenant-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.3
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://tenant-management-db:5432/keycloak
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: password
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_LOG_LEVEL: info
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    command: start-dev
     ports:
-      - "8081:80"
+      - 8088:8080
     depends_on:
       - postgres
     networks:

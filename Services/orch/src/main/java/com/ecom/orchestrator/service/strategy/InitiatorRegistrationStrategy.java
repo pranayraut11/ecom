@@ -128,20 +128,20 @@ public class InitiatorRegistrationStrategy implements RegistrationStrategy {
 
             for (OrchestrationStepTemplate savedTemplate : savedTemplates) {
                 log.info("Created step template: {} with DO topic: {}, UNDO topic: {} and ID: {} for orchestration: {}",
-                        savedTemplate.getStepName(),
-                        savedTemplate.getDoTopic(),
+                        savedTemplate.getStepName(), 
+                        savedTemplate.getDoTopic(), 
                         savedTemplate.getUndoTopic(),
                         savedTemplate.getId(),
                         registrationDto.getOrchestrationName());
-
+                
                 // Create DO topic
                 topicManager.createTopic(savedTemplate.getDoTopic());
                 log.info("Created DO topic: {}", savedTemplate.getDoTopic());
-
+                
                 // Create UNDO topic
                 topicManager.createTopic(savedTemplate.getUndoTopic());
                 log.info("Created UNDO topic: {}", savedTemplate.getUndoTopic());
-
+                
                 // Create legacy topic for backward compatibility
                 topicManager.createTopic(savedTemplate.getTopicName());
                 log.info("Created legacy topic: {} for backward compatibility", savedTemplate.getTopicName());

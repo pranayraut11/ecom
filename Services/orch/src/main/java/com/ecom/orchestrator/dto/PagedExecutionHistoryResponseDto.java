@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PagedExecutionHistoryResponseDto {
-
+    
     private List<ExecutionSummaryDto> content;
     private int page;
     private int size;

@@ -68,6 +68,7 @@ public class TenantEntity {
     public enum TenantStatus {
         ACTIVE,
         INACTIVE,
-        SUSPENDED
+        SUSPENDED,
+        CREATION_IN_PROGRESS
     }
 }

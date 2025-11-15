@@ -5,9 +5,12 @@ import com.ecom.authprovider.exception.KeycloakServiceException;
 import com.ecom.authprovider.manager.api.ClientManager;
 import com.ecom.orchestrator.client.dto.ExecutionMessage;
 import com.ecom.orchestrator.client.service.OrchestrationService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -15,17 +18,39 @@ import org.springframework.stereotype.Service;
 public class ClientService {
 
     private final ClientManager clientManager;
+    private final ObjectMapper objectMapper;
     private final OrchestrationService orchestrationService;
 
     public void createClientByEvent(ExecutionMessage executionMessage) {
             log.info("Received event to create client: {}", executionMessage);
-            orchestrationService.failStep(executionMessage);
+            Map payloadMap = objectMapper.convertValue(executionMessage.getPayload(), Map.class);
+            // Extract required fields for ClientRequest and realm
+            String clientId = (String) payloadMap.get("tenantName");
+            String redirectUri = (String) payloadMap.get("domain");
+            ClientRequest clientRequest = ClientRequest.builder()
+                    .clientId(clientId)
+                    .redirectUri(redirectUri)
+                    .clientSecret(UUID.randomUUID().toString())
+                    .publicClient(false)
+                    .build();
+            boolean created = createClient(clientRequest, clientId);
+            log.info("Client creation by event result: {}", created);
+            orchestrationService.doNext(executionMessage);
     }
 
 
     public void undoCreateClientByEvent(ExecutionMessage executionMessage) {
             log.info("Received event to undo create client: {}", executionMessage);
-            orchestrationService.undoNext(executionMessage);
+            try {
+                Map payloadMap = objectMapper.convertValue(executionMessage.getPayload(), Map.class);
+                String clientId = (String) payloadMap.get("tenantName");
+                boolean deleted = clientManager.deleteClient(clientId);
+                log.info("Client deletion by event result: {}", deleted);
+            } catch (Exception e) {
+                log.error("Failed to delete client from event: {}", e.getMessage(), e);
+                throw new KeycloakServiceException("Failed to delete client from event", e);
+            }
+           orchestrationService.undoNext(executionMessage);
     }
     /**
      * Creates a new client in the specified realm.
@@ -47,8 +72,7 @@ public class ClientService {
             }
 
             // For confidential clients, secret is required
-            if (!request.isPublicClient() &&
-                (request.getClientSecret() == null || request.getClientSecret().trim().isEmpty())) {
+            if (!request.isPublicClient() && (request.getClientSecret() == null || request.getClientSecret().trim().isEmpty())) {
                 throw new IllegalArgumentException("Client secret is required for confidential clients");
             }
 

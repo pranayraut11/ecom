@@ -22,7 +22,7 @@ public class RegistrationStrategyFactory {
 
     /**
      * Get the strategy for the given role
-     *
+     * 
      * @param role The registration role (initiator/worker)
      * @return The appropriate strategy
      * @throws IllegalArgumentException if no strategy found for role

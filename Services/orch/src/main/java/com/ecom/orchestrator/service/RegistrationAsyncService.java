@@ -40,11 +40,11 @@ public class RegistrationAsyncService {
                                        List<String> failedSteps) {
         try {
             log.info("Async auditing registration for: {} as: {} with status: {}", orchName, role, status);
-
+            
             RegistrationAudit audit = orchestrationMapper.toRegistrationAudit(
                     orchName, role, serviceName, status, steps, failedSteps);
             registrationAuditRepository.save(audit);
-
+            
             log.info("Successfully audited registration for: {}", orchName);
         } catch (Exception e) {
             log.error("Error auditing registration asynchronously for: {}", orchName, e);
@@ -60,7 +60,7 @@ public class RegistrationAsyncService {
                                                RegistrationStatusEnum status, List<String> failedSteps) {
         try {
             log.info("Async publishing registration status for: {} as: {} with status: {}", orchName, asRole, status);
-
+            
             RegistrationStatusEventDto event = orchestrationMapper.toRegistrationStatusEvent(
                     orchName, asRole, serviceName, status, failedSteps);
 

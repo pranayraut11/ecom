@@ -26,11 +26,11 @@ server.use((req, res, next) => {
   }
 
 
-  
+
   next();
 });
 
-// Add routing url 
+// Add routing url
 server.use(jsonServer.rewriter({
   '/product-service/products*': '/products$1',
   '/product-service/search/:id': '/data/?category_like=:id',
@@ -56,20 +56,20 @@ server.use((req, res, next) => {
     const page = parseInt(req.query.page) || 0;
     const size = parseInt(req.query.size) || 10;
     const category = req.query.category;
-    
+
     const db = router.db.getState();
     const products = db.products.data;
-    
+
     // Filter by category if provided
-    const filteredProducts = category 
+    const filteredProducts = category
       ? products.filter(p => p.category === category)
       : products;
-    
+
     // Apply pagination
     const start = page * size;
     const end = start + size;
     const paginatedProducts = filteredProducts.slice(start, end);
-    
+
     // Create response with pagination info
     const response = {
       totalElements: filteredProducts.length,
@@ -80,17 +80,17 @@ server.use((req, res, next) => {
       number: page,
       data: paginatedProducts
     };
-    
+
     res.jsonp(response);
     return;
   }
 
-  
+
   next();
 });
 
 // Start server
-const port = 3000;
+const port = 8088;
 server.listen(port, () => {
   console.log(`JSON Server is running on port ${port}`);
 });

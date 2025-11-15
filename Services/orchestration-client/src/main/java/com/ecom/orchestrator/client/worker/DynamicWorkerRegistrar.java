@@ -16,6 +16,7 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
@@ -117,6 +118,8 @@ public class DynamicWorkerRegistrar {
     }
 
     public void handleMessage(@Payload String message, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+
+        ExecutionMessage executionMessage = null;
         try {
             HandlerInfo handlerInfo = handlerMap.get(topic);
             if (handlerInfo == null) {
@@ -126,14 +129,28 @@ public class DynamicWorkerRegistrar {
 
             // Deserialize JSON to ExecutionMessage
             com.fasterxml.jackson.databind.ObjectMapper objectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
-            ExecutionMessage executionMessage = objectMapper.readValue(message, ExecutionMessage.class);
+            executionMessage = objectMapper.readValue(message, ExecutionMessage.class);
 
             // Invoke the actual handler method
             Method method = handlerInfo.bean.getClass().getMethod(handlerInfo.methodName, ExecutionMessage.class);
             method.invoke(handlerInfo.bean, executionMessage);
 
+        }
+        catch (InvocationTargetException ite) {
+            String originalMessage = ite.getTargetException().getMessage();
+            log.error("❌ Error in invoked method: {}", originalMessage);
+            if (executionMessage != null) {
+                executionMessage.getHeaders().put("errorMessage", originalMessage);
+                executionMessage.getHeaders().put("status", false);
+                orchestrationService.failStep(executionMessage);
+            }
         } catch (Exception e) {
            log.error("❌ Error processing message: {}" , e.getMessage());
+            if (executionMessage != null) {
+                executionMessage.getHeaders().put("errorMessage", e.getMessage());
+                executionMessage.getHeaders().put("status", false);
+                orchestrationService.undoNext(executionMessage);
+            }
         }
     }
 

@@ -45,18 +45,18 @@ public class AuditController {
             @RequestParam(required = false) String status,
 
             @Parameter(description = "Filter events from this timestamp", example = "2025-11-03T20:00:00")
-            @RequestParam(required = false)
+            @RequestParam(required = false) 
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime from,
 
             @Parameter(description = "Filter events until this timestamp", example = "2025-11-03T21:00:00")
-            @RequestParam(required = false)
+            @RequestParam(required = false) 
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime to) {
 
         try {
             log.info("Received request to get audit timeline for executionId: {}", executionId);
 
             AuditTimelineResponseDto timeline;
-
+            
             if (eventType != null || status != null || from != null || to != null) {
                 // Apply filters
                 timeline = auditService.getTimelineWithFilters(executionId, eventType, status, from, to);
@@ -70,7 +70,7 @@ public class AuditController {
                 return ResponseEntity.notFound().build();
             }
 
-            log.info("Successfully retrieved {} audit events for executionId: {}",
+            log.info("Successfully retrieved {} audit events for executionId: {}", 
                 timeline.getTotalEvents(), executionId);
 
             return ResponseEntity.ok(timeline);

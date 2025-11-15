@@ -9,13 +9,10 @@ orchestrations:
       - seq: 2
         name: createClient
         objectType: String
-  - orchestrationName: tenantCreation1
-    as: initiator
-    type: sequential
-    steps:
-      - seq: 1
-        name: createRealm
+      - seq: 3
+        name: setupDefaultRoles
         objectType: String
-      - seq: 2
-        name: createClient
+      - seq: 4
+        name: createDefaultUser
         objectType: String
+  

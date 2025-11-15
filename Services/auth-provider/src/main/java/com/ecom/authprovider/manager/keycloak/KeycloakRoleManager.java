@@ -103,4 +103,44 @@ public class KeycloakRoleManager implements RoleManager {
         }
         return null;
     }
+
+    @Override
+    public boolean deleteRealmRole(String roleName, String realmName) {
+        log.info("Deleting realm role '{}'", roleName);
+
+        try (Keycloak keycloak = config.createAdminClient()) {
+
+            RolesResource rolesResource = keycloak.realm(realmName).roles();
+
+            // Check if role exists
+            try {
+                RoleRepresentation existingRole = rolesResource.get(roleName).toRepresentation();
+                if (existingRole == null) {
+                    log.info("Role '{}' does not exist, nothing to delete", roleName);
+                    return true;
+                }
+            } catch (Exception e) {
+                // Role doesn't exist
+                log.info("Role '{}' does not exist, nothing to delete", roleName);
+                return true;
+            }
+
+            // Delete role
+            try {
+                rolesResource.deleteRole(roleName);
+                log.info("Successfully deleted role '{}'", roleName);
+                return true;
+            } catch (WebApplicationException e) {
+                try (Response response = e.getResponse()) {
+                    String errorBody = response.readEntity(String.class);
+                    log.error("Failed to delete role: Status {}, Details: {}",
+                            response.getStatus(), errorBody);
+                }
+                return false;
+            } catch (Exception e) {
+                log.error("Unexpected error deleting role '{}'", roleName, e);
+                return false;
+            }
+        }
+    }
 }

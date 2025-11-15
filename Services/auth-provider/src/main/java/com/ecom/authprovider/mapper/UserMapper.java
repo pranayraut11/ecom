@@ -43,6 +43,7 @@ public interface UserMapper {
     UserRepresentation toUserRepresentation(UserCreateRequestDto requestDto);
 
     /**
+    /**
      * Maps a UserCreateRequestDto to a UserRequest
      *
      * @param requestDto the user creation request DTO
@@ -53,17 +54,18 @@ public interface UserMapper {
     /**
      * Maps a Keycloak UserRepresentation to a UserResponseDto
      *
-     * @param userRepresentation the Keycloak UserRepresentation
-     * @return the user response DTO
+     * @param userRepresentation the Keycloak user representation
+     * @return the UserResponseDto
      */
+    @Mapping(target = "message", constant = "User retrieved successfully")
     UserResponseDto toUserResponseDto(UserRepresentation userRepresentation);
 
     /**
-     * Creates a success response with a user ID and message
+     * Creates a UserResponseDto for successful operations
      *
-     * @param userId the user ID
-     * @param message the success message
-     * @return the user response DTO
+     * @param userId  the ID of the user
+     * @param message success message
+     * @return UserResponseDto with success message
      */
     @Named("createSuccessResponse")
     default UserResponseDto createSuccessResponse(String userId, String message) {

@@ -77,7 +77,6 @@ public class KeycloakClientManager implements ClientManager {
      */
     @Override
     public boolean createConfidentialClient(String clientId, String redirectUri, String clientSecret, String realmName) {
-        validateClientId(clientId);
         if (!StringUtils.hasText(clientSecret)) {
             throw new IllegalArgumentException("Client secret is required for confidential clients");
         }
@@ -194,6 +193,8 @@ public class KeycloakClientManager implements ClientManager {
                         log.info("Mapper added");
                         return scopeId;
                     }
+                }catch (Exception e) {
+                    log.error("Error adding mapper to client scope: {}", e.getMessage(), e);
                 }
 
             }
@@ -244,8 +245,6 @@ public class KeycloakClientManager implements ClientManager {
     @Override
     public boolean deleteClient(String clientId) {
         validateClientId(clientId);
-        validateTenant();
-
         String realmName = TenantContext.getTenantId();
         log.info("Deleting client '{}' from realm '{}'", clientId, realmName);
 

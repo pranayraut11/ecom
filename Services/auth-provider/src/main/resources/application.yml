@@ -1,7 +1,7 @@
 server:
   port: 8082
 keycloak:
-  server-url: http://localhost:8080
+  server-url: http://localhost:8088
   master-realm: master
   realm: ecom
   client-id: demo22

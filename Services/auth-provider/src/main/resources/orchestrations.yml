@@ -24,6 +24,18 @@ orchestrations:
         doMethod: createClientByEvent
         undoMethod: undoCreateClientByEvent
 
+      - name: setupDefaultRoles
+        objectType: RoleSetup
+        handlerClass: roleService
+        doMethod: setupDefaultRolesByEvent
+        undoMethod: undoSetupDefaultRolesByEvent
+
+      - name: createDefaultUser
+        objectType: UserAccount
+        handlerClass: userService
+        doMethod: createDefaultUserByEvent
+        undoMethod: undoCreateDefaultUserByEvent
+
   # Second orchestration - User Onboarding
   - orchestrationName: userOnboarding
     as: worker
