@@ -56,7 +56,6 @@ public class PlanServiceImpl implements PlanService {
         entity.setMaxProducts(request.getMaxProducts());
         entity.setMaxOrders(request.getMaxOrders());
         entity.setMaxStorage(request.getMaxStorage());
-        entity.setDefaultFeatures(request.getDefaultFeatures());
         return toDTO(planRepository.save(entity));
     }
 

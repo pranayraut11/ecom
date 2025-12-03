@@ -64,6 +64,8 @@ logging:
     org.hibernate.SQL: DEBUG
     org.springframework.web: DEBUG
 
+shared:
+  topic: true
 
 
 ####### Enable/Disable API security

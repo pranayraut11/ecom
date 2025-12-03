@@ -18,4 +18,5 @@ public class PlanUpdateRequest {
     private Integer maxProducts;
     private Integer maxOrders;
     private Integer maxStorage;
+}
 

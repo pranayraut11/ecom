@@ -12,6 +12,8 @@ keycloak:
     client-id: admin-cli
 
 spring:
+  application:
+    name: auth-provider
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   cloud.discovery:
@@ -20,6 +22,5 @@ spring:
     virtual:
       enabled: true
 
-orchestrator:
-  enabled: true
-
+shared:
+  topic: true

@@ -35,7 +35,6 @@ public class SingleEventServiceImpl implements OrchestrationService {
     private String applicationName;
 
     private static final String DEFAULT_EVENT_TOPIC = "orchestrator.event";
-    private static final String DEFAULT_RESPONSE_TOPIC = "orchestrator.event.response";
     private static final String HEADER_EVENT_TYPE = "eventType";
     private static final String HEADER_FLOW_ID = "flowId";
     private static final String HEADER_SOURCE = "source";
@@ -171,12 +170,12 @@ public class SingleEventServiceImpl implements OrchestrationService {
 
     @Override
     public void undoNext(ExecutionMessage message) {
-        undoNext(message, DEFAULT_RESPONSE_TOPIC);
+        undoNext(message, DEFAULT_EVENT_TOPIC);
     }
 
     @Override
     public void failStep(ExecutionMessage message) {
-        failStep(message, DEFAULT_RESPONSE_TOPIC);
+        failStep(message, DEFAULT_EVENT_TOPIC);
     }
 
     @Override
@@ -187,11 +186,10 @@ public class SingleEventServiceImpl implements OrchestrationService {
             // Create failure response message
             ExecutionMessage failureMessage = createResponseMessage(message, topicName, STATUS.FAILURE, false);
             failureMessage.getHeaders().put(HEADER_EVENT_TYPE, ORCHESTRATOR_RESPONSE_RESULT);
-
-            // Send event to Kafka
+            failureMessage.getHeaders().put("action","FAIL_STEP");
             kafkaEventPublisher.publishEvent(failureMessage);
 
-            log.info("Successfully sent failStep event to topic: {}", topicName);
+            log.info("Successfully sent failStep event to topic: {}", ORCHESTRATOR_RESPONSE_RESULT);
 
         } catch (Exception e) {
             log.error("Failed to send failStep event to topic: {}", topicName, e);
