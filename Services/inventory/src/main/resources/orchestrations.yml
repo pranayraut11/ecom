@@ -1,0 +1,23 @@
+# ============================================================================
+# Multiple Orchestrations Worker Registration Example
+# ============================================================================
+# This shows how a worker can register for multiple orchestrations
+# in a single registration message
+# ============================================================================
+
+# Multiple orchestrations can be registered at once
+orchestrations:
+  # First orchestration - Tenant Creation
+  - orchestrationName: orderProcessing
+    as: worker
+    steps:
+      - name: updateInventory
+        objectType: String
+        handlerClass: inventoryServiceImpl          # Spring bean name
+        doMethod: deductStockByEvent       # DO operation method
+        undoMethod: restoreStockByEvent  # UNDO operation method
+      - name: validateInventory
+        objectType: String
+        handlerClass: inventoryServiceImpl          # Spring bean name
+        doMethod: validateStockByEvent        # DO operation method
+        undoMethod: undoValidateStockByEvent  # UNDO operation method

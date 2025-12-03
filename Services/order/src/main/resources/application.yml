@@ -13,7 +13,11 @@ spring:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
 
-######################### In-house services details ############
+
+  cloud:
+    compatibility-verifier:
+      enabled: false
+      ######################### In-house services details ############
 app:
   service:
     cart:
@@ -25,10 +29,11 @@ app:
 
 eureka:
   client:
+    enabled: false
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/
-  fetch-registry: true
-  register-with-eureka: true
+  fetch-registry: false
+  register-with-eureka: false
   instance:
     preferIpAddress: true
 
@@ -58,3 +63,9 @@ management:
 logging:
   pattern:
     level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+####### Enable/Disable API security
+security:
+  enabled: false
+
+shared:
+  topic: true

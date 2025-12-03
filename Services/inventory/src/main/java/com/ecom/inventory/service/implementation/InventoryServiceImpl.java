@@ -6,6 +6,8 @@ import com.ecom.inventory.entity.ProductInventory;
 import com.ecom.inventory.enums.InventoryStatus;
 import com.ecom.inventory.repository.InventoryRepository;
 import com.ecom.inventory.service.specification.InventoryService;
+import com.ecom.orchestrator.client.dto.ExecutionMessage;
+import com.ecom.orchestrator.client.service.OrchestrationService;
 import com.ecom.shared.common.exception.EcomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Autowired
     private InventoryRepository inventoryRepository;
+
+    @Autowired
+    private OrchestrationService orchestrationService;
 
     @Override
     public List<ProductInventory> getAll() {
@@ -102,6 +107,48 @@ public class InventoryServiceImpl implements InventoryService {
             }
         }
         return stockUnavailableProductIds;
+    }
+
+    @Override
+    public void deductStock(List<InventoryDTO> inventoryDTO) throws EcomException {
+        log.info("Deducting stock for products ...");
+        for (InventoryDTO dto : inventoryDTO) {
+            adjustQuantity(dto.getUserId(), dto.getProductId(), dto.getQuantity(), Operation.SUB);
+        }
+        log.info("Stock deduction completed.");
+    }
+
+    @Override
+    public void restoreStock(List<InventoryDTO> inventoryDTO) throws EcomException {
+        log.info("Restoring stock for products ...");
+        for (InventoryDTO dto : inventoryDTO) {
+            adjustQuantity(dto.getUserId(), dto.getProductId(), dto.getQuantity(), Operation.ADD);
+        }
+        log.info("Stock restoration completed.");
+    }
+
+    @Override
+    public void deductStockByEvent(ExecutionMessage executionMessage) throws EcomException {
+        log.info("Deducting stock by event ...");
+        orchestrationService.doNext(executionMessage);
+    }
+
+    @Override
+    public void restoreStockByEvent(ExecutionMessage executionMessage) throws EcomException {
+        log.info("Restoring stock by event ...");
+        orchestrationService.undoNext(executionMessage);
+    }
+
+    @Override
+    public void validateStockByEvent(ExecutionMessage executionMessage) throws EcomException {
+        log.info("Validating stock by event ...");
+        orchestrationService.doNext(executionMessage);
+    }
+
+    @Override
+    public void undoValidateStockByEvent(ExecutionMessage executionMessage) throws EcomException {
+        log.info("Undoing stock validation by event ...");
+        orchestrationService.undoNext(executionMessage);
     }
 
 

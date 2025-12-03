@@ -18,30 +18,9 @@ spring:
         jwt:
           issuer-uri: http://localhost:6080/realms/master
           jwk-set-uri: http://localhost:6080/realms/master/protocol/openid-connect/certs
-  cloud:
-    function:
-      definition: createPayment;revertPayment
-    stream:
-      kafka:
-        binder:
-          brokers:
-            - localhost:9092
-      bindings:
-        createPayment-in-0:
-          destination: order.payment.create
-          group: ${spring.application.name}
-        createPayment-out-0:
-          destination: order.payment.create.status
-          group: ${spring.application.name}
-        revertPayment-in-0:
-          destination: order.payment.revert
-          group: ${spring.application.name}
-        revertPayment-out-0:
-          destination: order.payment.revert.status
-          group: ${spring.application.name}
 ####### Enable/Disable API security
 security:
-  enabled: true
+  enabled: false
 ########################### security details ##################
 
 ########################## Spring ##########################
@@ -57,3 +36,5 @@ eureka:
 logging:
   pattern:
     level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+shared:
+  topic: true

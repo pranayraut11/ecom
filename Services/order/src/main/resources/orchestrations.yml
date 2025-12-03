@@ -1,0 +1,37 @@
+orchestrations:
+  - orchestrationName: orderProcessing
+    as: initiator
+    type: sequential
+    steps:
+      - seq: 1
+        name: validateOrder
+        objectType: String
+      - seq: 2
+        name: createOrder
+        objectType: String
+      - seq: 3
+        name: validateInventory
+        objectType: String
+      - seq: 4
+        name: processPayment
+        objectType: String
+      - seq: 5
+        name: updateInventory
+        objectType: String
+
+  - orchestrationName: orderProcessing
+    as: worker
+    steps:
+      - name: validateOrder
+        objectType: String
+        handlerClass: orderServiceImpl          # Spring bean name
+        doMethod: validateOrderByEvent        # DO operation method
+        undoMethod: undoValidateOrderByEvent  # UNDO operation method
+
+      - name: createOrder
+        objectType: String
+        handlerClass: orderServiceImpl
+        doMethod: createOrderByEvent
+        undoMethod: undoCreateOrderByEvent
+
+  

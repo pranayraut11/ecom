@@ -1,6 +1,7 @@
 package com.ecom.order.util;
 
-import javax.servlet.http.HttpServletRequest;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 public class UserContextUtil {
     public static String extractToken(HttpServletRequest request) {

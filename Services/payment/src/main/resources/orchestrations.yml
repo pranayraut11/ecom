@@ -1,0 +1,19 @@
+# ============================================================================
+# Multiple Orchestrations Worker Registration Example
+# ============================================================================
+# This shows how a worker can register for multiple orchestrations
+# in a single registration message
+# ============================================================================
+
+# Multiple orchestrations can be registered at once
+orchestrations:
+
+  # First orchestration - Tenant Creation
+  - orchestrationName: orderProcessing
+    as: worker
+    steps:
+      - name: processPayment
+        objectType: String
+        handlerClass: paymentServiceImpl          # Spring bean name
+        doMethod: payByEvent        # DO operation method
+        undoMethod: refundByEvent  # UNDO operation method

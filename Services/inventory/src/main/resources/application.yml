@@ -12,31 +12,12 @@ spring:
       database: inventory
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-  cloud:
-    function:
-      definition: blockInventory;unBlockInventory
-    stream:
-      kafka:
-        binder:
-          brokers:
-            - localhost:9092
-      bindings:
-        blockInventory-in-0:
-          destination: order.inventory.block
-          group: ${spring.application.name}
-        blockInventory-out-0:
-          destination: order.inventory.block.response
-          group: ${spring.application.name}
-        unBlockInventory-in-0:
-          destination: order.inventory.unblock
-          group: ${spring.application.name}
-        unBlockInventory-out-0:
-          destination: order.inventory.unblock.response
-          group: ${spring.application.name}
 
 
 ########################### security details ##################
-
+####### Enable/Disable API security
+security:
+  enabled: false
 ########################### Spring ######################
 #spring.jackson.serialization.fail-on-empty-beans=false
 eureka:
@@ -51,3 +32,5 @@ eureka:
 logging:
   pattern:
     level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+shared:
+  topic: true
