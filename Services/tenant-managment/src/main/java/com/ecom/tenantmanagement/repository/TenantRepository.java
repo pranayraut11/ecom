@@ -55,7 +55,7 @@ public interface TenantRepository extends JpaRepository<TenantEntity, UUID> {
      */
     @Query("SELECT t FROM TenantEntity t WHERE (:status IS NULL OR t.status = :status)")
     Page<TenantEntity> findAllByStatus(@Param("status") TenantEntity.TenantStatus status, Pageable pageable);
-
+   
     /**
      * Find all active tenants
      */

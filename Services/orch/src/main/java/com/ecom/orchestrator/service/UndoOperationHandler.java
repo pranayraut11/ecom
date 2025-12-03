@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.ecom.orchestrator.constant.RegistrationConstants.ORCHESTRATOR_EVENT;
+
 /**
  * Service to handle UNDO operations for orchestration steps
  */
@@ -224,9 +226,9 @@ public class UndoOperationHandler {
         headers.put("stepName", stepTemplate.getStepName());
         headers.put("action", "DO");
         headers.put("seq", stepTemplate.getSeq());
-
+        headers.put("eventType", "do"+stepTemplate.getStepName());
         try {
-            messagePublisher.send(stepTemplate.getDoTopic(), message);
+            messagePublisher.send(Boolean.TRUE.equals(stepTemplate.getSharedTopic())?ORCHESTRATOR_EVENT:stepTemplate.getDoTopic(), message);
             log.info("DO message sent successfully for retry: flowId={}, stepName={}", flowId, stepTemplate.getStepName());
         } catch (Exception e) {
             log.error("Failed to send DO message for retry: flowId={}, stepName={}", flowId, stepTemplate.getStepName(), e);
@@ -457,9 +459,9 @@ public class UndoOperationHandler {
         headers.put("stepName", stepTemplate.getStepName());
         headers.put("action", "UNDO");
         headers.put("seq", stepTemplate.getSeq());
-
+        headers.put("eventType", "undo"+stepTemplate.getStepName());
         try {
-            messagePublisher.send(stepTemplate.getUndoTopic(), message);
+            messagePublisher.send(Boolean.TRUE.equals(stepTemplate.getSharedTopic())?ORCHESTRATOR_EVENT:stepTemplate.getUndoTopic(), message);
             log.info("UNDO message sent successfully: flowId={}, stepName={}", flowId, stepTemplate.getStepName());
         } catch (Exception e) {
             log.error("Failed to send UNDO message: flowId={}, stepName={}", flowId, stepTemplate.getStepName(), e);

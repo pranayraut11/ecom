@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.ecom.orchestrator.constant.RegistrationConstants.ORCHESTRATOR_EVENT;
+
 /**
  * Service to handle DO operations for orchestration steps
  */
@@ -297,8 +299,8 @@ public class DoOperationHandler {
      * Send DO message to worker
      */
     public void sendDoMessage(String flowId, OrchestrationStepTemplate stepTemplate, ExecutionMessage message) {
-        log.info("Sending DO message: flowId={}, stepName={}, topic={}",
-                flowId, stepTemplate.getStepName(), stepTemplate.getDoTopic());
+        log.info("Sending DO message: flowId={}, stepName={}, sharedtopic={}",
+                flowId, stepTemplate.getStepName(), stepTemplate.getSharedTopic());
 
         // Get orchestration name and worker service for audit
         Optional<OrchestrationRun> runOpt = orchestrationRunRepository.findByFlowId(flowId);
@@ -317,7 +319,8 @@ public class DoOperationHandler {
 
         try {
             message.getHeaders().put("stepName", stepTemplate.getStepName());
-            messagePublisher.send(stepTemplate.getDoTopic(), message);
+            message.getHeaders().put("eventType", "do"+stepTemplate.getStepName());
+            messagePublisher.send(Boolean.TRUE.equals(stepTemplate.getSharedTopic())?ORCHESTRATOR_EVENT:stepTemplate.getDoTopic(), message);
             log.info("DO message sent successfully: flowId={}, stepName={}", flowId, stepTemplate.getStepName());
         } catch (Exception e) {
             log.error("Failed to send DO message: flowId={}, stepName={}", flowId, stepTemplate.getStepName(), e);

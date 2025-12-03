@@ -9,13 +9,13 @@ import java.util.List;
 @Getter
 public class OrchestrationConfig {
     private List<Orchestration> orchestrations;
-
     @Setter
     @Getter
     public static class Orchestration {
         private String orchestrationName;
         private String as;
         private String type;
+        private boolean sharedTopic = false;
         private List<Step> steps;
 
     }
@@ -30,6 +30,5 @@ public class OrchestrationConfig {
         private String handlerMethod;  // Deprecated, use doMethod instead
         private String doMethod;
         private String undoMethod;
-
     }
 }

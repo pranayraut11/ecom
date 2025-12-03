@@ -57,9 +57,10 @@ public interface OrchestrationMapper {
     @Mapping(target = "undoTopic", expression = "java(generateUndoTopicName(orchName, stepDto.getName()))")
     @Mapping(target = "maxRetries", constant = "3")
     @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "sharedTopic", source = "sharedTopic")
     OrchestrationStepTemplate toStepTemplate(StepDefinitionDto stepDto,
                                             OrchestrationTemplate template,
-                                            String orchName);
+                                            String orchName,boolean sharedTopic);
 
     /**
      * Map worker registration data to WorkerRegistration entity

@@ -52,6 +52,7 @@ public class OrchestrationExecutorService {
         // Generate flow ID
         String flowId = message.getHeaders().get("flowId") != null ?
                 message.getHeaders().get("flowId").toString() : UUID.randomUUID().toString();
+        log.info("Generated flowId: {} for orchestration: {}", flowId, orchName);
         // Create orchestration run
         OrchestrationRun orchestrationRun = OrchestrationRun.builder()
                 .flowId(flowId)

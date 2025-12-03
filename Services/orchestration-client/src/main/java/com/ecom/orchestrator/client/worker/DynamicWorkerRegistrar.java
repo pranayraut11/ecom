@@ -5,6 +5,7 @@ import com.ecom.orchestrator.client.config.OrchestrationLoader;
 import com.ecom.orchestrator.client.dto.ExecutionMessage;
 import com.ecom.orchestrator.client.service.OrchestrationService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.EventListener;
@@ -23,6 +24,7 @@ import java.util.Map;
 
 @Component
 @Slf4j
+@ConditionalOnProperty(name = "shared.topic", havingValue = "false", matchIfMissing = true)
 public class DynamicWorkerRegistrar {
 
     private final OrchestrationLoader loader;

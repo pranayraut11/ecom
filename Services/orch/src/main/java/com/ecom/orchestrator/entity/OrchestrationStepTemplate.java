@@ -49,6 +49,9 @@ import java.time.LocalDateTime;
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "shared_topic", nullable = false)
+    private Boolean sharedTopic = false;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

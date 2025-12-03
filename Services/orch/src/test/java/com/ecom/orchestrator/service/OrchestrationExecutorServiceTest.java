@@ -1,5 +1,6 @@
 package com.ecom.orchestrator.service;
 
+import com.ecom.orchestrator.dto.ExecutionMessage;
 import com.ecom.orchestrator.entity.*;
 import com.ecom.orchestrator.repository.*;
 import com.ecom.orchestrator.messaging.interfaces.MessagePublisher;
@@ -71,13 +72,13 @@ class OrchestrationExecutorServiceTest {
         when(serializer.serialize(any())).thenReturn(new byte[0]);
 
         // When
-        String flowId = executorService.startOrchestration("tenantCreation", new byte[0]);
+        String flowId = executorService.startOrchestration("tenantCreation", ExecutionMessage.builder().build());
 
         // Then
         assertNotNull(flowId);
         verify(orchestrationRunRepository).save(any(OrchestrationRun.class));
         verify(stepRunRepository).saveAll(any());
-        verify(messagePublisher).send(anyString(), any(byte[].class));
+        verify(messagePublisher).send(anyString(), any(ExecutionMessage.class));
     }
 
     @Test
@@ -93,11 +94,11 @@ class OrchestrationExecutorServiceTest {
         when(serializer.serialize(any())).thenReturn(new byte[0]);
 
         // When
-        String flowId = executorService.startOrchestration("tenantCreation", new byte[0]);
+        String flowId = executorService.startOrchestration("tenantCreation", ExecutionMessage.builder().build());
 
         // Then
         assertNotNull(flowId);
-        verify(messagePublisher, times(2)).send(anyString(), any(byte[].class));
+        verify(messagePublisher, times(2)).send(anyString(), any(ExecutionMessage.class));
     }
 
     @Test
@@ -108,7 +109,7 @@ class OrchestrationExecutorServiceTest {
 
         // When & Then
         assertThrows(IllegalArgumentException.class, () ->
-                executorService.startOrchestration("nonExistent", new byte[0]));
+                executorService.startOrchestration("nonExistent", ExecutionMessage.builder().build()));
     }
 
     @Test

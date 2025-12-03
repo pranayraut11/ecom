@@ -23,4 +23,6 @@ public class OrchestrationRegistrationDto {
     @NotEmpty
     @Valid
     private List<StepDefinitionDto> steps;
+    private boolean sharedTopic = false;
+
 }

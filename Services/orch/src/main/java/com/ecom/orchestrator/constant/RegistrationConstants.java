@@ -21,5 +21,7 @@ public final class RegistrationConstants {
 
     // Topic Format
     public static final String TOPIC_NAME_FORMAT = "orchestrator.%s.%s";
+
+    public static  final  String ORCHESTRATOR_EVENT = "orchestrator.event";
 }
 

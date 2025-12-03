@@ -22,4 +22,6 @@ public class StepDefinitionDto {
     private String doMethod;
 
     private String undoMethod;
+
+    private Boolean sharedTopic = false;
 }
