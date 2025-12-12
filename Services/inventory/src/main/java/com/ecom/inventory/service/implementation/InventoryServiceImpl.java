@@ -130,25 +130,25 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public void deductStockByEvent(ExecutionMessage executionMessage) throws EcomException {
         log.info("Deducting stock by event ...");
-        orchestrationService.doNext(executionMessage);
+      //  orchestrationService.doNext(executionMessage);
     }
 
     @Override
     public void restoreStockByEvent(ExecutionMessage executionMessage) throws EcomException {
         log.info("Restoring stock by event ...");
-        orchestrationService.undoNext(executionMessage);
+       // orchestrationService.undoNext(executionMessage);
     }
 
     @Override
     public void validateStockByEvent(ExecutionMessage executionMessage) throws EcomException {
         log.info("Validating stock by event ...");
-        orchestrationService.doNext(executionMessage);
+       // orchestrationService.doNext(executionMessage);
     }
 
     @Override
     public void undoValidateStockByEvent(ExecutionMessage executionMessage) throws EcomException {
         log.info("Undoing stock validation by event ...");
-        orchestrationService.undoNext(executionMessage);
+       // orchestrationService.undoNext(executionMessage);
     }
 
 

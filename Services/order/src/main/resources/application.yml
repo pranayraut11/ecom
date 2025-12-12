@@ -68,4 +68,8 @@ security:
   enabled: false
 
 shared:
-  topic: true
+  topic: false
+
+orchestrator:
+  advanced:
+    mode: true

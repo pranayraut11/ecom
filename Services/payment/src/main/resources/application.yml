@@ -37,4 +37,8 @@ logging:
   pattern:
     level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
 shared:
-  topic: true
+  topic: false
+
+orchestrator:
+  advanced:
+    mode: true

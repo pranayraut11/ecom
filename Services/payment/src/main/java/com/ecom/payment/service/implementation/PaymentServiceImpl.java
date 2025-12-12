@@ -59,13 +59,12 @@ public class PaymentServiceImpl  extends BaseService<TransactionEntity> implemen
     @Override
     public void payByEvent(ExecutionMessage executionMessage) {
         log.info("Processing payment event: {}", executionMessage);
-        orchestrationService.doNext(executionMessage);
-    }
+       }
 
     @Override
     public void refundByEvent(ExecutionMessage executionMessage) {
         log.info("Processing refund event: {}", executionMessage);
-        orchestrationService.undoNext(executionMessage);
+        //orchestrationService.undoNext(executionMessage);
     }
 
     @Override

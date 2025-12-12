@@ -1,0 +1,166 @@
+# ============================================
+# Advanced Orchestration Configuration
+# ============================================
+#
+# This YAML defines orchestrations for Advanced Mode
+# Each step will get separate DO and UNDO topics
+#
+# Topics created:
+# - orchestrator.{orchestrationName}.{stepName}.do
+# - orchestrator.{orchestrationName}.{stepName}.undo
+#
+# Features:
+# - Automatic step progression by sequence number
+# - Automatic retry on failure
+# - Dead Letter Queue for failed messages
+# - Automatic compensating transactions (undo)
+
+orchestrations:
+  # ==========================================
+  # Tenant Creation Orchestration
+  # ==========================================
+  - orchestrationName: tenantCreation
+    as: worker  # This service acts as a worker
+    type: saga  # Optional: saga pattern with compensation
+    steps:
+      # Step 1: Create Realm
+      - seq: 1
+        name: createRealm
+        objectType: String
+        handlerClass: exampleRealmService  # Spring bean name
+        doMethod: createRealmByEvent        # Method to execute
+        undoMethod: undoCreateRealmByEvent  # Compensation method
+
+      # Step 2: Create Client
+      - seq: 2
+        name: createClient
+        objectType: String
+        handlerClass: exampleRealmService
+        doMethod: createClientByEvent
+        undoMethod: undoCreateClientByEvent
+
+      # Step 3: Configure Permissions (optional)
+      - seq: 3
+        name: configurePermissions
+        objectType: String
+        handlerClass: exampleRealmService
+        doMethod: configurePermissionsByEvent
+        undoMethod: undoConfigurePermissionsByEvent
+
+  # ==========================================
+  # Order Processing Orchestration
+  # ==========================================
+  - orchestrationName: orderProcessing
+    as: worker
+    type: saga
+    steps:
+      # Step 1: Reserve Inventory
+      - seq: 1
+        name: reserveInventory
+        objectType: String
+        handlerClass: inventoryService
+        doMethod: reserveInventoryByEvent
+        undoMethod: releaseInventoryByEvent
+
+      # Step 2: Process Payment
+      - seq: 2
+        name: processPayment
+        objectType: String
+        handlerClass: paymentService
+        doMethod: processPaymentByEvent
+        undoMethod: refundPaymentByEvent
+
+      # Step 3: Create Shipment
+      - seq: 3
+        name: createShipment
+        objectType: String
+        handlerClass: shipmentService
+        doMethod: createShipmentByEvent
+        undoMethod: cancelShipmentByEvent
+
+      # Step 4: Send Confirmation
+      - seq: 4
+        name: sendConfirmation
+        objectType: String
+        handlerClass: notificationService
+        doMethod: sendConfirmationByEvent
+        # No undo for notifications - they can't be unsent
+
+  # ==========================================
+  # User Onboarding Orchestration
+  # ==========================================
+  - orchestrationName: userOnboarding
+    as: worker
+    type: saga
+    steps:
+      # Step 1: Create User Account
+      - seq: 1
+        name: createUserAccount
+        objectType: String
+        handlerClass: userService
+        doMethod: createUserAccountByEvent
+        undoMethod: deleteUserAccountByEvent
+
+      # Step 2: Assign Default Roles
+      - seq: 2
+        name: assignRoles
+        objectType: String
+        handlerClass: roleService
+        doMethod: assignDefaultRolesByEvent
+        undoMethod: removeRolesByEvent
+
+      # Step 3: Send Welcome Email
+      - seq: 3
+        name: sendWelcomeEmail
+        objectType: String
+        handlerClass: emailService
+        doMethod: sendWelcomeEmailByEvent
+        # No undo for emails
+
+      # Step 4: Create User Preferences
+      - seq: 4
+        name: createPreferences
+        objectType: String
+        handlerClass: preferenceService
+        doMethod: createPreferencesByEvent
+        undoMethod: deletePreferencesByEvent
+
+# ============================================
+# Configuration Notes
+# ============================================
+#
+# seq: Sequence number determines execution order
+#      Lower numbers execute first
+#      Must be unique within an orchestration
+#
+# handlerClass: Spring bean name (not fully qualified class name)
+#               Use @Service("beanName") to define bean name
+#
+# doMethod: Method name for normal execution
+#           Must accept ExecutionMessage parameter
+#           On success, system calls doNext() automatically
+#
+# undoMethod: Method name for compensation
+#             Must accept ExecutionMessage parameter
+#             Called when later steps fail
+#             On success, system calls undoNext() automatically
+#
+# Execution Flow Example:
+# 1. Start orchestration → Step 1 DO
+# 2. Step 1 succeeds → Step 2 DO
+# 3. Step 2 succeeds → Step 3 DO
+# 4. Step 3 fails (after retries) → Step 2 UNDO
+# 5. Step 2 UNDO succeeds → Step 1 UNDO
+# 6. Step 1 UNDO succeeds → Orchestration failed (compensated)
+#
+# Topics Created (for tenantCreation):
+# - orchestrator.tenantCreation.createRealm.do
+# - orchestrator.tenantCreation.createRealm.undo
+# - orchestrator.tenantCreation.createClient.do
+# - orchestrator.tenantCreation.createClient.undo
+# - orchestrator.tenantCreation.configurePermissions.do
+# - orchestrator.tenantCreation.configurePermissions.undo
+#
+# Dead Letter Queue:
+# - orchestrator.dlq (for all failed messages after max retries)
+
